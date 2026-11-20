@@ -9,12 +9,11 @@ import {
   Sparkles,
   AlertCircle,
   Check,
-  ChevronDown,
-  Info,
-  Clock,
   Layers,
 } from 'lucide-react';
 import { useCart } from '@/context/cart-context';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 
 interface Variant {
   id: string;
@@ -67,7 +66,10 @@ export function ActiveDropView({ drop }: { drop: DropData }) {
     ((drop.totalEditionQty - totalStockRemaining) / drop.totalEditionQty) * 100
   );
 
-  const gallery = drop.galleryUrls && drop.galleryUrls.length > 0 ? drop.galleryUrls : [drop.primaryImageUrl];
+  const gallery =
+    drop.galleryUrls && drop.galleryUrls.length > 0
+      ? drop.galleryUrls
+      : [drop.primaryImageUrl || '/images/drops/drop-001-front.jpg'];
 
   const handleAddToCart = () => {
     if (!currentVariant || isOutOfStock) return;
@@ -113,17 +115,17 @@ export function ActiveDropView({ drop }: { drop: DropData }) {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-16">
       
-      {/* Velocity / Scarcity Badge */}
-      <div className="mb-8 flex flex-wrap items-center justify-between gap-4 p-4 bg-outside-surface border border-outside-border">
+      {/* Velocity / Scarcity Badge (Light Luxury) */}
+      <div className="mb-8 flex flex-wrap items-center justify-between gap-4 p-4 bg-white border border-outside-border shadow-sm">
         <div className="flex items-center gap-3">
           <span className="w-2.5 h-2.5 rounded-full bg-outside-crimson animate-ping" />
-          <span className="text-xs font-mono font-bold text-white tracking-widest uppercase">
+          <span className="text-xs font-mono font-bold text-outside-text tracking-widest uppercase">
             DROP 00{drop.dropNumber} // SERIALIZED EDITION OF {drop.totalEditionQty}
           </span>
         </div>
         <div className="flex items-center gap-4 text-xs font-mono">
           <span className="text-outside-muted">
-            CLAIMED: <strong className="text-white">{percentClaimed}%</strong>
+            CLAIMED: <strong className="text-outside-text">{percentClaimed}%</strong>
           </span>
           <span className="text-outside-border">|</span>
           <span className="text-outside-crimson font-bold">
@@ -132,62 +134,65 @@ export function ActiveDropView({ drop }: { drop: DropData }) {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
         
-        {/* Left: Lookbook & Image Gallery Showcase */}
+        {/* Left: Product Showcase Gallery with User Uploaded Real Photos */}
         <div className="lg:col-span-7 space-y-4">
-          <div className="relative aspect-[4/5] w-full bg-outside-card border border-outside-border overflow-hidden group">
+          <div className="relative aspect-[4/5] w-full bg-white border border-outside-border overflow-hidden group shadow-luxury">
             <Image
               src={gallery[activeImageIndex] || gallery[0]}
               alt={`${drop.title} angle ${activeImageIndex + 1}`}
               fill
               priority
-              className="object-cover transition-transform duration-700 group-hover:scale-105"
+              className="object-contain p-2 transition-transform duration-700 group-hover:scale-105"
             />
             
-            {/* Serial Number Stamp Watermark */}
-            <div className="absolute top-4 left-4 bg-outside-black/80 backdrop-blur-md px-3 py-1.5 border border-outside-border font-mono text-[10px] text-outside-chalk tracking-widest uppercase">
-              SPEC: 280 GSM · GUJARAT WEAVE
+            {/* View angle badge */}
+            <div className="absolute top-4 left-4 bg-white/95 backdrop-blur-md px-3 py-1.5 border border-outside-border font-mono text-[10px] text-outside-text font-bold tracking-widest uppercase shadow-sm">
+              {activeImageIndex === 0 ? 'FRONT // EMBROIDERY SPEC' : 'BACK // SAME GIRL MANIFESTO'}
             </div>
 
-            <div className="absolute bottom-4 right-4 bg-outside-black/90 backdrop-blur-md px-3 py-1.5 border border-outside-border font-mono text-[11px] text-outside-crimson tracking-widest">
-              TAG: #OUT-00{drop.dropNumber}
+            <div className="absolute bottom-4 right-4 bg-white/95 backdrop-blur-md px-3 py-1.5 border border-outside-border font-mono text-[11px] text-outside-crimson font-bold tracking-widest shadow-sm">
+              EDITION: #OUT-00{drop.dropNumber}
             </div>
           </div>
 
-          {/* Thumbnail Strip */}
+          {/* Thumbnail Selector Strip */}
           <div className="grid grid-cols-4 gap-3">
             {gallery.map((url, idx) => (
               <button
                 key={url + idx}
                 onClick={() => setActiveImageIndex(idx)}
-                className={`relative aspect-square bg-outside-card border transition-all ${
+                className={`relative aspect-square bg-white border transition-all overflow-hidden p-1 ${
                   activeImageIndex === idx
-                    ? 'border-outside-crimson ring-1 ring-outside-crimson'
-                    : 'border-outside-border hover:border-outside-muted/60 opacity-70 hover:opacity-100'
+                    ? 'border-outside-crimson ring-2 ring-outside-crimson/20 shadow-sm'
+                    : 'border-outside-border hover:border-outside-muted opacity-80 hover:opacity-100'
                 }`}
               >
                 <Image
                   src={url}
                   alt={`Thumbnail ${idx + 1}`}
                   fill
-                  className="object-cover"
+                  className="object-contain"
                 />
+                <span className="absolute bottom-1 left-1 text-[8px] font-mono font-bold px-1 bg-white/90 text-outside-text">
+                  {idx === 0 ? 'FRONT' : 'BACK'}
+                </span>
               </button>
             ))}
           </div>
         </div>
 
-        {/* Right: Product Architectural Details & Buy Engine */}
+        {/* Right: Garment Specifications & Purchasing Console */}
         <div className="lg:col-span-5 space-y-8">
           
           {/* Header & Pricing */}
           <div className="space-y-3">
-            <div className="flex items-center gap-2 text-[11px] font-mono text-outside-crimson uppercase tracking-[0.25em]">
+            <div className="flex items-center gap-2 text-[11px] font-mono text-outside-crimson uppercase tracking-[0.25em] font-bold">
               <Sparkles className="w-3.5 h-3.5" />
               <span>OFFICIAL SINGLE-DROP RELEASE</span>
             </div>
-            <h1 className="text-3xl sm:text-4xl font-display font-black tracking-tight text-white uppercase">
+            <h1 className="text-3xl sm:text-4xl font-display font-black tracking-tight text-outside-text uppercase">
               {drop.title}
             </h1>
             <p className="text-sm font-sans text-outside-muted leading-relaxed">
@@ -195,13 +200,13 @@ export function ActiveDropView({ drop }: { drop: DropData }) {
             </p>
 
             {/* Price & GST Transparency */}
-            <div className="pt-4 border-t border-outside-border/80 flex items-baseline gap-4">
-              <span className="text-3xl font-mono font-bold text-white tracking-tight">
+            <div className="pt-4 border-t border-outside-border flex items-baseline gap-4">
+              <span className="text-3xl font-mono font-black text-outside-text tracking-tight">
                 ₹{(drop.pricePaise / 100).toLocaleString('en-IN')}
               </span>
               <div className="text-left font-mono text-[11px] text-outside-muted">
-                <p className="text-outside-chalkDim">INCLUSIVE OF ALL TAXES (5% GST)</p>
-                <p className="text-[10px] text-outside-muted">HSN: 61091000 · NO HIDDEN FEES</p>
+                <p className="text-outside-text font-semibold">INCLUSIVE OF ALL TAXES (5% GST)</p>
+                <p className="text-[10px] text-outside-muted">HSN: 61091000 · ZERO HIDDEN FEES</p>
               </div>
             </div>
           </div>
@@ -209,13 +214,13 @@ export function ActiveDropView({ drop }: { drop: DropData }) {
           {/* Fit Selector (Women-First Philosophy) */}
           <div className="space-y-3">
             <div className="flex justify-between items-center">
-              <label className="text-xs font-mono uppercase tracking-[0.2em] text-white flex items-center gap-2">
+              <label className="text-xs font-mono uppercase tracking-[0.2em] text-outside-text font-bold flex items-center gap-2">
                 <span>SELECT SILHOUETTE FIT</span>
-                <span className="text-[10px] text-outside-crimson font-bold">// WOMEN-FIRST PATTERN</span>
+                <span className="text-[10px] text-outside-crimson font-bold">// WOMEN-FIRST</span>
               </label>
               <a
                 href="#fit-philosophy"
-                className="text-[11px] font-mono text-outside-muted hover:text-white underline decoration-outside-border underline-offset-4"
+                className="text-[11px] font-mono text-outside-muted hover:text-outside-text underline decoration-outside-border underline-offset-4"
               >
                 FIT PHILOSOPHY
               </a>
@@ -228,12 +233,12 @@ export function ActiveDropView({ drop }: { drop: DropData }) {
                   onClick={() => setSelectedFit(fit)}
                   className={`py-3.5 px-4 font-mono text-xs uppercase tracking-widest border transition-all flex flex-col items-center justify-center gap-1 ${
                     selectedFit === fit
-                      ? 'bg-outside-surface border-outside-crimson text-white font-bold ring-1 ring-outside-crimson'
-                      : 'bg-outside-card border-outside-border text-outside-muted hover:text-white hover:border-outside-muted'
+                      ? 'bg-outside-text text-white border-outside-text font-bold shadow-md'
+                      : 'bg-white border-outside-border text-outside-muted hover:text-outside-text hover:border-outside-text'
                   }`}
                 >
                   <span>{fit === 'WOMEN' ? 'WOMEN SILHOUETTE' : 'MEN SILHOUETTE'}</span>
-                  <span className="text-[10px] text-outside-muted">
+                  <span className={`text-[10px] ${selectedFit === fit ? 'text-white/70' : 'text-outside-muted'}`}>
                     {fit === 'WOMEN' ? 'Ergonomic Boxy Cut' : 'Relaxed Structured Cut'}
                   </span>
                 </button>
@@ -241,11 +246,11 @@ export function ActiveDropView({ drop }: { drop: DropData }) {
             </div>
           </div>
 
-          {/* Size Matrix & Atomic Stock Indicators */}
+          {/* Size Matrix & Stock Availability */}
           <div className="space-y-3">
             <div className="flex justify-between items-center text-xs font-mono">
-              <span className="uppercase tracking-wider text-white">CHOOSE SIZE</span>
-              <span className="text-outside-muted">
+              <span className="uppercase tracking-wider text-outside-text font-bold">CHOOSE SIZE</span>
+              <span>
                 {currentStock > 0 ? (
                   <span className="text-outside-crimson font-bold">
                     {currentStock <= 5 ? `ONLY ${currentStock} LEFT IN STOCK` : `${currentStock} AVAILABLE`}
@@ -268,10 +273,10 @@ export function ActiveDropView({ drop }: { drop: DropData }) {
                     onClick={() => setSelectedSize(v.size)}
                     className={`py-3 font-mono text-xs uppercase tracking-wider border relative transition-all ${
                       isSelected
-                        ? 'bg-white text-black font-bold border-white shadow-lg'
+                        ? 'bg-outside-crimson text-white font-bold border-outside-crimson shadow-md'
                         : isSoldOut
-                        ? 'bg-outside-card/40 border-outside-border/40 text-outside-muted/40 cursor-not-allowed line-through'
-                        : 'bg-outside-card border-outside-border text-outside-chalk hover:border-white'
+                        ? 'bg-outside-cardSubtle border-outside-border text-outside-muted/40 cursor-not-allowed line-through'
+                        : 'bg-white border-outside-border text-outside-text hover:border-outside-text'
                     }`}
                   >
                     <span>{v.size}</span>
@@ -287,17 +292,21 @@ export function ActiveDropView({ drop }: { drop: DropData }) {
           {/* Purchase Actions */}
           <div className="space-y-3 pt-2">
             {isOutOfStock ? (
-              <button
+              <Button
+                variant="outline"
+                size="lg"
                 onClick={() => setWaitlistModalOpen(true)}
-                className="w-full py-4 px-6 bg-outside-card border border-outside-crimson text-outside-crimson hover:bg-outside-crimson hover:text-white font-mono text-xs uppercase tracking-[0.2em] font-bold transition-all flex items-center justify-center gap-2"
+                className="w-full border-outside-crimson text-outside-crimson hover:bg-outside-crimson hover:text-white"
               >
                 <AlertCircle className="w-4 h-4" />
                 <span>SIZE SOLD OUT — JOIN WAITLIST</span>
-              </button>
+              </Button>
             ) : (
-              <button
+              <Button
+                variant="primary"
+                size="lg"
                 onClick={handleAddToCart}
-                className="w-full py-4 px-6 bg-outside-crimson hover:bg-outside-crimsonBright text-white font-mono text-xs uppercase tracking-[0.25em] font-bold transition-all shadow-xl flex items-center justify-center gap-3 group"
+                className="w-full text-xs tracking-[0.25em]"
               >
                 {addedAnimation ? (
                   <>
@@ -307,33 +316,33 @@ export function ActiveDropView({ drop }: { drop: DropData }) {
                 ) : (
                   <>
                     <span>CLAIM PIECE NOW &rarr;</span>
-                    <span className="text-[10px] opacity-80 font-normal">
+                    <span className="text-[10px] opacity-90 font-normal ml-2">
                       (₹{(drop.pricePaise / 100).toLocaleString('en-IN')})
                     </span>
                   </>
                 )}
-              </button>
+              </Button>
             )}
 
             <div className="grid grid-cols-3 gap-3 pt-4 text-center font-mono text-[10px] text-outside-muted">
-              <div className="p-2.5 bg-outside-surface border border-outside-border/60">
-                <Truck className="w-4 h-4 mx-auto mb-1 text-white" />
-                <span>EXPRESS 2-4 DAYS</span>
+              <div className="p-3 bg-white border border-outside-border shadow-sm">
+                <Truck className="w-4 h-4 mx-auto mb-1 text-outside-text" />
+                <span>BLUEDART 2-4 DAYS</span>
               </div>
-              <div className="p-2.5 bg-outside-surface border border-outside-border/60">
-                <ShieldCheck className="w-4 h-4 mx-auto mb-1 text-white" />
+              <div className="p-3 bg-white border border-outside-border shadow-sm">
+                <ShieldCheck className="w-4 h-4 mx-auto mb-1 text-outside-text" />
                 <span>100% GST INVOICE</span>
               </div>
-              <div className="p-2.5 bg-outside-surface border border-outside-border/60">
-                <RotateCcw className="w-4 h-4 mx-auto mb-1 text-white" />
+              <div className="p-3 bg-white border border-outside-border shadow-sm">
+                <RotateCcw className="w-4 h-4 mx-auto mb-1 text-outside-text" />
                 <span>7-DAY EXCHANGE</span>
               </div>
             </div>
           </div>
 
-          {/* Fabric Specifications Micro-Bento */}
-          <div className="p-5 bg-outside-surface border border-outside-border space-y-3 font-mono text-xs">
-            <div className="flex items-center gap-2 text-white font-bold uppercase tracking-wider">
+          {/* Garment Technical Specs */}
+          <div className="p-5 bg-white border border-outside-border space-y-3 font-mono text-xs shadow-sm">
+            <div className="flex items-center gap-2 text-outside-text font-bold uppercase tracking-wider">
               <Layers className="w-4 h-4 text-outside-crimson" />
               <span>GARMENT TECHNICAL SPECIFICATIONS</span>
             </div>
@@ -346,17 +355,17 @@ export function ActiveDropView({ drop }: { drop: DropData }) {
 
       {/* Waitlist Modal */}
       {waitlistModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-sm">
-          <div className="bg-outside-charcoal border border-outside-border max-w-md w-full p-8 relative">
-            <h3 className="text-lg font-mono uppercase tracking-wider text-white mb-2">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+          <div className="bg-white border border-outside-border max-w-md w-full p-8 relative shadow-2xl">
+            <h3 className="text-lg font-mono uppercase tracking-wider text-outside-text font-bold mb-2">
               JOIN {selectedFit} · SIZE {selectedSize} WAITLIST
             </h3>
             <p className="text-xs text-outside-muted leading-relaxed mb-6">
-              If another collector cancels their order or extra allocation opens up, you will be alerted immediately.
+              If an allocation opens up or another collector updates their order, you will receive an instant priority reservation notification.
             </p>
 
             {waitlistSuccess ? (
-              <div className="p-4 bg-outside-surface border border-outside-crimson text-white text-xs font-mono flex items-center gap-3">
+              <div className="p-4 bg-outside-cardSubtle border border-outside-crimson text-outside-text text-xs font-mono flex items-center gap-3">
                 <Check className="w-5 h-5 text-outside-crimson" />
                 <span>YOU HAVE BEEN REGISTERED ON THE PRIORITY QUEUE.</span>
               </div>
@@ -368,22 +377,19 @@ export function ActiveDropView({ drop }: { drop: DropData }) {
                   placeholder="ENTER YOUR EMAIL ADDRESS"
                   value={waitlistEmail}
                   onChange={(e) => setWaitlistEmail(e.target.value)}
-                  className="w-full bg-outside-surface border border-outside-border px-4 py-3 text-xs font-mono text-white focus:border-outside-crimson focus:outline-none"
+                  className="w-full bg-white border border-outside-border px-4 py-3 text-xs font-mono text-outside-text focus:border-outside-crimson focus:outline-none"
                 />
                 <div className="flex gap-3">
-                  <button
-                    type="submit"
-                    className="flex-1 py-3 bg-outside-crimson text-white text-xs font-mono uppercase tracking-widest font-bold hover:bg-outside-crimsonBright"
-                  >
+                  <Button type="submit" variant="primary" className="flex-1">
                     CONFIRM WAITLIST SPOT
-                  </button>
-                  <button
+                  </Button>
+                  <Button
                     type="button"
+                    variant="outline"
                     onClick={() => setWaitlistModalOpen(false)}
-                    className="px-4 py-3 bg-outside-card border border-outside-border text-white text-xs font-mono"
                   >
                     CLOSE
-                  </button>
+                  </Button>
                 </div>
               </form>
             )}

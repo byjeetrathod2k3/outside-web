@@ -2,7 +2,8 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import type { Metadata } from 'next';
-import { ShieldCheck, Award, HeartHandshake, Scissors } from 'lucide-react';
+import { ShieldCheck, Award } from 'lucide-react';
+import { SectionHeading } from '@/components/ui/section-heading';
 
 export const metadata: Metadata = {
   title: 'About the Studio // Wear Your Story',
@@ -12,20 +13,16 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <div className="bg-outside-black text-outside-chalk min-h-screen">
+    <div className="bg-outside-bg text-outside-text min-h-screen">
       
       {/* Hero */}
       <section className="py-20 border-b border-outside-border bg-subtle-grid">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 text-center">
-          <span className="text-[11px] font-mono uppercase tracking-[0.3em] text-outside-crimson font-bold">
-            STUDIO MANIFESTO // AHMEDABAD, GUJARAT
-          </span>
-          <h1 className="text-4xl sm:text-6xl font-display font-black tracking-tight text-white uppercase">
-            Wear Your Story.
-          </h1>
-          <p className="text-base text-outside-muted max-w-2xl mx-auto leading-relaxed font-sans">
-            OUTSIDE is an architectural apparel studio operating at the intersection of structural minimalism, tactile luxury, and strict serial scarcity.
-          </p>
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <SectionHeading
+            eyebrow="STUDIO MANIFESTO // AHMEDABAD, GUJARAT"
+            title="Wear Your Story."
+            description="OUTSIDE is an architectural apparel studio operating at the intersection of structural minimalism, tactile luxury, and strict serial scarcity."
+          />
         </div>
       </section>
 
@@ -35,10 +32,10 @@ export default function AboutPage() {
           
           <div className="grid grid-cols-1 md:grid-cols-12 gap-10 items-center">
             <div className="md:col-span-6 space-y-4">
-              <span className="text-xs font-mono text-outside-crimson uppercase tracking-wider">
+              <span className="text-xs font-mono text-outside-crimson font-bold uppercase tracking-wider">
                 01 // THE ARCHITECTURAL SILHOUETTE
               </span>
-              <h2 className="text-2xl sm:text-3xl font-display font-black text-white uppercase">
+              <h2 className="text-2xl sm:text-3xl font-display font-black text-outside-text uppercase">
                 The Women-First Sizing Calibration
               </h2>
               <p className="text-xs text-outside-muted leading-relaxed font-sans">
@@ -48,14 +45,14 @@ export default function AboutPage() {
                 We inverted the industry convention. Every silhouette at OUTSIDE is developed first on female fit models. We engineered ergonomic armhole curves, softened shoulder slopes, and added side-split hems so the heavyweight fabric moves gracefully without bunching.
               </p>
             </div>
-            <div className="md:col-span-6 p-6 bg-outside-surface border border-outside-border space-y-3 font-mono text-xs">
-              <div className="p-4 bg-outside-card border border-outside-border">
+            <div className="md:col-span-6 p-6 bg-white border border-outside-border space-y-3 font-mono text-xs shadow-luxury">
+              <div className="p-4 bg-outside-cardSubtle border border-outside-border">
                 <span className="text-outside-crimson font-bold">CALIBRATED DRAPE</span>
                 <p className="text-[11px] text-outside-muted mt-1 font-sans">
                   Holds architectural structure without feeling heavy or restricting natural movement.
                 </p>
               </div>
-              <div className="p-4 bg-outside-card border border-outside-border">
+              <div className="p-4 bg-outside-cardSubtle border border-outside-border">
                 <span className="text-outside-crimson font-bold">SPLIT-SEAM FREEDOM</span>
                 <p className="text-[11px] text-outside-muted mt-1 font-sans">
                   Reinforced side-slits allow effortless French tucking or fluid drape over high-waisted tailoring.
@@ -65,8 +62,8 @@ export default function AboutPage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-12 gap-10 items-center">
-            <div className="md:col-span-6 order-2 md:order-1 p-6 bg-outside-surface border border-outside-border font-mono text-xs space-y-3">
-              <div className="flex items-center gap-2 text-white font-bold">
+            <div className="md:col-span-6 order-2 md:order-1 p-6 bg-white border border-outside-border font-mono text-xs space-y-3 shadow-luxury">
+              <div className="flex items-center gap-2 text-outside-text font-bold">
                 <Award className="w-4 h-4 text-outside-crimson" />
                 <span>GUJARAT TEXTILE SPECIFICATIONS</span>
               </div>
@@ -78,10 +75,10 @@ export default function AboutPage() {
               </ul>
             </div>
             <div className="md:col-span-6 order-1 md:order-2 space-y-4">
-              <span className="text-xs font-mono text-outside-crimson uppercase tracking-wider">
+              <span className="text-xs font-mono text-outside-crimson font-bold uppercase tracking-wider">
                 02 // PROVENANCE &amp; FABRIC HONESTY
               </span>
-              <h2 className="text-2xl sm:text-3xl font-display font-black text-white uppercase">
+              <h2 className="text-2xl sm:text-3xl font-display font-black text-outside-text uppercase">
                 280 GSM Heavyweight Terry
               </h2>
               <p className="text-xs text-outside-muted leading-relaxed font-sans">
@@ -94,31 +91,31 @@ export default function AboutPage() {
       </section>
 
       {/* Corporate & Tax Transparency (E-E-A-T) */}
-      <section className="py-16 bg-outside-charcoal/40">
+      <section className="py-16 bg-outside-cardSubtle/40">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="p-8 bg-outside-surface border border-outside-border space-y-6">
+          <div className="p-8 bg-white border border-outside-border space-y-6 shadow-luxury">
             <div className="flex items-center gap-3">
               <ShieldCheck className="w-5 h-5 text-outside-crimson" />
-              <h3 className="text-sm font-mono uppercase tracking-[0.2em] text-white">
-                LEGAL ENTITY &amp; TAX COMPLIANCE
+              <h3 className="text-xs font-mono uppercase tracking-[0.2em] text-outside-text font-bold">
+                LEGAL ENTITY &amp; STATUTORY COMPLIANCE
               </h3>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 font-mono text-xs text-outside-muted">
               <div>
-                <span className="block text-outside-chalkDim">LEGAL NAME:</span>
-                <span className="text-white">OUTSIDE APPAREL STUDIO PVT LTD</span>
+                <span className="block text-outside-text font-bold">LEGAL NAME:</span>
+                <span>OUTSIDE APPAREL STUDIO PVT LTD</span>
               </div>
               <div>
-                <span className="block text-outside-chalkDim">GUJARAT GSTIN:</span>
-                <span className="text-white">24AABCO1234F1Z5 (State Code 24)</span>
+                <span className="block text-outside-text font-bold">GUJARAT GSTIN:</span>
+                <span>24AABCO1234F1Z5 (State Code 24)</span>
               </div>
               <div>
-                <span className="block text-outside-chalkDim">STUDIO ADDRESS:</span>
-                <span className="text-white">Plot 104, Design District, SG Highway, Ahmedabad 380015</span>
+                <span className="block text-outside-text font-bold">STUDIO ADDRESS:</span>
+                <span>Plot 104, Design District, SG Highway, Ahmedabad 380015</span>
               </div>
               <div>
-                <span className="block text-outside-chalkDim">HSN CLASSIFICATION:</span>
-                <span className="text-white">61091000 (Cotton Knitted T-Shirts)</span>
+                <span className="block text-outside-text font-bold">HSN CLASSIFICATION:</span>
+                <span>61091000 (Cotton Knitted T-Shirts)</span>
               </div>
             </div>
           </div>

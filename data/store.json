@@ -3,29 +3,27 @@
     {
       "id": "drop_001",
       "dropNumber": 1,
-      "slug": "drop-001-midnight-monolith",
-      "title": "DROP 001 // MIDNIGHT MONOLITH",
-      "subtitle": "280 GSM Heavyweight French Terry Cotton. Serialized Edition of 250.",
-      "story": "Conceived at 3 AM in the brutalist corridors of Ahmedabad. DROP 001 explores the tension between architectural rigidity and tactile intimacy. Engineered from custom-milled 280 GSM organic long-staple combed cotton, double-bio-washed for a crisp yet lived-in drape. Each piece features reinforced split-side seams, distressed screen-printed typography on the nape, and a hand-numbered serial hem tag. Once the 250 units are claimed, this edition will be permanently sealed into The Vault.",
-      "fabricSpecs": "280 GSM 100% Combed Organic Cotton · French Terry Weave · Pre-Shrunk & Bio-Washed · Ribbed Collar with Lycra Recovery · Made in Gujarat, India",
+      "slug": "drop-001-better-days-ahead",
+      "title": "DROP 001 // BETTER DAYS AHEAD",
+      "subtitle": "280 GSM Heavyweight Organic Cotton · Hand-Stitched Floral Embroidery · Serialized Edition of 250",
+      "story": "Engineered in our Ahmedabad atelier, DROP 001 explores the juxtaposition between brutalist architectural boxy tailoring and tactile human warmth. Crafted from custom-milled 280 GSM organic combed cotton in a warm unbleached ivory hue, featuring intricate multi-layered floral embroidery (\"Better Days Ahead\"), an elongated knotted stem tethered to a stitched canvas tag reading \"for a kinder you\", the signature OUTSIDE logo embroidered on the left sleeve, and the back typographic manifesto: \"SAME GIRL BRIGHTER DAYS\". Strictly limited to 250 serialized pieces worldwide.",
+      "fabricSpecs": "280 GSM 100% Combed Organic Cotton · French Terry Weave · Pre-Shrunk & Double Bio-Washed · Hand-Finished Floral Embroidery · Lycra-Ribbed Collar · Made in Gujarat, India",
       "pricePaise": 240000,
       "currency": "INR",
       "totalEditionQty": 250,
       "status": "LIVE",
-      "launchAt": "2026-11-18T06:35:04.105Z",
+      "launchAt": "2026-11-18T07:01:55.096Z",
       "soldOutAt": null,
-      "primaryImageUrl": "/images/drops/drop-001-main.jpg",
+      "primaryImageUrl": "/images/drops/drop-001-front.jpg",
       "galleryUrls": [
-        "/images/drops/drop-001-main.jpg",
-        "/images/drops/drop-001-back.jpg",
-        "/images/drops/drop-001-detail1.jpg",
-        "/images/drops/drop-001-detail2.jpg"
+        "/images/drops/drop-001-front.jpg",
+        "/images/drops/drop-001-back.jpg"
       ],
       "isFeatured": true,
-      "seoTitle": "DROP 001: Midnight Monolith T-Shirt — OUTSIDE India",
-      "seoDescription": "Limited to 250 serialized pieces. 280 GSM heavyweight combed cotton oversized t-shirt designed and crafted in Gujarat, India. Wear your story.",
+      "seoTitle": "DROP 001: Better Days Ahead T-Shirt — OUTSIDE India",
+      "seoDescription": "Limited to 250 serialized pieces. 280 GSM heavyweight combed cotton oversized t-shirt with tactile floral embroidery. Wear your story.",
       "canonicalUrl": "https://www.outside.in",
-      "ogImageUrl": "/images/drops/drop-001-og.jpg",
+      "ogImageUrl": "/images/drops/drop-001-front.jpg",
       "noIndex": false,
       "variants": [
         {
@@ -45,7 +43,7 @@
           "fit": "WOMEN",
           "size": "S",
           "initialStock": 35,
-          "currentStock": 11,
+          "currentStock": 12,
           "reservedStock": 0
         },
         {
@@ -111,70 +109,108 @@
       ]
     },
     {
+      "id": "drop_002",
+      "dropNumber": 2,
+      "slug": "drop-002-botanical-architecture",
+      "title": "DROP 002 // BOTANICAL ARCHITECTURE",
+      "subtitle": "Sage Green 280 GSM Heavy Terry. Raw Seedling Edition.",
+      "story": "Organic botanical sage pigment dye. Drop shoulder architecture inspired by raw foliage and urban concrete.",
+      "fabricSpecs": "280 GSM 100% Organic Cotton · Mineral Wash Sage · Double Needle Seams",
+      "pricePaise": 240000,
+      "totalEditionQty": 200,
+      "status": "UPCOMING",
+      "launchAt": "2026-11-27T07:01:55.097Z",
+      "primaryImageUrl": "/images/drops/drop-002-front.jpg",
+      "galleryUrls": [
+        "/images/drops/drop-002-front.jpg",
+        "/images/drops/drop-002-back.jpg"
+      ],
+      "isFeatured": false,
+      "variants": [
+        {
+          "id": "v2_w_s",
+          "dropId": "drop_002",
+          "sku": "OUT-002-W-S",
+          "fit": "WOMEN",
+          "size": "S",
+          "initialStock": 30,
+          "currentStock": 30,
+          "reservedStock": 0
+        },
+        {
+          "id": "v2_w_m",
+          "dropId": "drop_002",
+          "sku": "OUT-002-W-M",
+          "fit": "WOMEN",
+          "size": "M",
+          "initialStock": 40,
+          "currentStock": 40,
+          "reservedStock": 0
+        },
+        {
+          "id": "v2_m_m",
+          "dropId": "drop_002",
+          "sku": "OUT-002-M-M",
+          "fit": "MEN",
+          "size": "M",
+          "initialStock": 50,
+          "currentStock": 50,
+          "reservedStock": 0
+        },
+        {
+          "id": "v2_m_l",
+          "dropId": "drop_002",
+          "sku": "OUT-002-M-L",
+          "fit": "MEN",
+          "size": "L",
+          "initialStock": 40,
+          "currentStock": 40,
+          "reservedStock": 0
+        }
+      ]
+    },
+    {
+      "id": "drop_003",
+      "dropNumber": 3,
+      "slug": "drop-003-monolith-obsidian",
+      "title": "DROP 003 // MONOLITH OBSIDIAN",
+      "subtitle": "Washed Charcoal Black 300 GSM Ultra-Heavy Cotton.",
+      "story": "Extreme tactile density. Carbon black wash with tonal sleeve embroidery and split-hem detailing.",
+      "fabricSpecs": "300 GSM Combed Cotton · Carbon Bio-Wash · Heavy Rib Collar",
+      "pricePaise": 260000,
+      "totalEditionQty": 250,
+      "status": "ARCHIVED",
+      "soldOutAt": "2026-10-15T18:00:00.000Z",
+      "primaryImageUrl": "/images/drops/drop-003-front.jpg",
+      "galleryUrls": [
+        "/images/drops/drop-003-front.jpg",
+        "/images/drops/drop-003-back.jpg"
+      ],
+      "isFeatured": false,
+      "variants": []
+    },
+    {
       "id": "drop_000",
       "dropNumber": 0,
-      "slug": "drop-000-genesis-raw",
+      "slug": "drop-000-genesis-prototype",
       "title": "DROP 000 // GENESIS PROTOTYPE",
       "subtitle": "Unbleached Organic Raw Cotton. Limited Prototype Run of 100.",
       "story": "The initial design manifesto. Hand-stitched label, raw edge cuffs, zero dye treatment.",
+      "fabricSpecs": "260 GSM Raw Unbleached Cotton · Hand-Numbered Hem Label",
       "pricePaise": 220000,
       "totalEditionQty": 100,
       "status": "ARCHIVED",
-      "launchAt": "2026-08-15T00:00:00.000Z",
       "soldOutAt": "2026-08-15T04:22:18.000Z",
-      "primaryImageUrl": "/images/drops/drop-000-main.jpg",
-      "isFeatured": false
-    }
-  ],
-  "orders": [
-    {
-      "id": "ord_1795156614483",
-      "orderNumber": "ORD-614483",
-      "invoiceNumber": "OUT/26-27/0003",
-      "customerName": "Diya Sharma",
-      "customerEmail": "diya@outside.in",
-      "customerPhone": "9876543210",
-      "shippingAddress": "Design Boulevard",
-      "shippingCity": "Ahmedabad",
-      "shippingState": "Gujarat",
-      "shippingPincode": "380015",
-      "stateCode": "24",
-      "placeOfSupplyState": "24-Gujarat",
-      "pricingMode": "TAX_INCLUSIVE",
-      "subtotalPaise": 240000,
-      "taxableAmountPaise": 228571,
-      "cgstPaise": 5714,
-      "sgstPaise": 5715,
-      "igstPaise": 0,
-      "totalTaxPaise": 11429,
-      "totalAmountPaise": 240000,
-      "paymentStatus": "PAID",
-      "paymentGateway": "mock_sandbox",
-      "fulfillmentStatus": "PROCESSING",
-      "items": [
-        {
-          "title": "DROP 001 // MIDNIGHT MONOLITH (WOMEN)",
-          "fit": "WOMEN",
-          "size": "S",
-          "quantity": 1,
-          "unitPricePaise": 240000,
-          "grossAmountPaise": 240000,
-          "taxableAmountPaise": 228571,
-          "hsnCode": "61091000",
-          "gstRate": 5,
-          "isInterState": false,
-          "cgstRate": 2.5,
-          "sgstRate": 2.5,
-          "igstRate": 0,
-          "cgstAmountPaise": 5714,
-          "sgstAmountPaise": 5715,
-          "igstAmountPaise": 0,
-          "totalTaxPaise": 11429
-        }
+      "primaryImageUrl": "/images/drops/drop-000-front.jpg",
+      "galleryUrls": [
+        "/images/drops/drop-000-front.jpg",
+        "/images/drops/drop-000-back.jpg"
       ],
-      "createdAt": "2026-11-20T06:36:54.483Z"
+      "isFeatured": false,
+      "variants": []
     }
   ],
+  "orders": [],
   "leads": [
     {
       "id": "lead_demo_1",
@@ -186,7 +222,7 @@
       "preferredFit": "MEN",
       "preferredSize": "L",
       "source": "homepage-countdown",
-      "createdAt": "2026-11-20T06:35:04.199Z"
+      "createdAt": "2026-11-20T07:01:55.235Z"
     }
   ],
   "faqs": [
@@ -271,23 +307,5 @@
     "replyTo": "support@outside.in"
   },
   "emailLogs": [],
-  "auditLogs": [
-    {
-      "id": "audit_1795156614483",
-      "action": "ORDER_PLACED_INVOICE_GENERATED",
-      "entityType": "Order",
-      "entityId": "ord_1795156614483",
-      "metadata": {
-        "invoiceNumber": "OUT/26-27/0003",
-        "totalAmount": 2400
-      },
-      "createdAt": "2026-11-20T06:36:54.483Z"
-    },
-    {
-      "id": "audit_init",
-      "action": "SYSTEM_INITIALIZED",
-      "entityType": "System",
-      "createdAt": "2026-11-20T06:35:04.199Z"
-    }
-  ]
+  "auditLogs": []
 }

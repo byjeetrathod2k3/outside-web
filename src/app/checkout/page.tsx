@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation';
 import { useCart } from '@/context/cart-context';
 import { INDIAN_STATES } from '@/lib/gst';
 import { ShieldCheck, ArrowRight, Lock, AlertCircle } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 export default function CheckoutPage() {
   const router = useRouter();
@@ -32,14 +33,14 @@ export default function CheckoutPage() {
 
   if (items.length === 0) {
     return (
-      <div className="bg-outside-black text-outside-chalk min-h-screen py-24 flex items-center justify-center">
+      <div className="bg-outside-bg text-outside-text min-h-screen py-24 flex items-center justify-center">
         <div className="text-center space-y-4 max-w-md px-4">
-          <p className="font-mono text-sm uppercase tracking-wider text-outside-muted">
+          <p className="font-mono text-xs uppercase tracking-wider text-outside-muted">
             YOUR BAG IS CURRENTLY EMPTY
           </p>
           <Link
             href="/"
-            className="inline-block px-8 py-3.5 bg-outside-crimson text-white font-mono text-xs uppercase tracking-widest font-bold hover:bg-outside-crimsonBright"
+            className="inline-block px-8 py-3.5 bg-outside-crimson text-white font-mono text-xs uppercase tracking-widest font-bold hover:bg-outside-crimsonHover shadow-sm"
           >
             DISCOVER ACTIVE DROP 001
           </Link>
@@ -99,7 +100,7 @@ export default function CheckoutPage() {
   };
 
   return (
-    <div className="bg-outside-black text-outside-chalk min-h-screen py-12">
+    <div className="bg-outside-bg text-outside-text min-h-screen py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
         
         {/* Header */}
@@ -108,7 +109,7 @@ export default function CheckoutPage() {
             <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-outside-crimson font-bold">
               CHECKOUT // PLACE OF SUPPLY GST CALIBRATION
             </span>
-            <h1 className="text-2xl sm:text-3xl font-display font-black tracking-tight text-white uppercase mt-1">
+            <h1 className="text-2xl sm:text-3xl font-display font-black tracking-tight text-outside-text uppercase mt-1">
               Secure Order Verification
             </h1>
           </div>
@@ -119,25 +120,25 @@ export default function CheckoutPage() {
         </div>
 
         {error && (
-          <div className="p-4 bg-outside-surface border border-outside-crimson text-white text-xs font-mono flex items-center gap-3">
+          <div className="p-4 bg-outside-crimsonSoft border border-outside-crimson text-outside-crimson text-xs font-mono flex items-center gap-3">
             <AlertCircle className="w-4 h-4 text-outside-crimson flex-shrink-0" />
             <span>{error}</span>
           </div>
         )}
 
-        <form onSubmit={handleCheckout} className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+        <form onSubmit={handleCheckout} className="grid grid-cols-1 lg:grid-cols-12 gap-10">
           
           {/* Left: Customer & Delivery Address Form */}
           <div className="lg:col-span-7 space-y-6">
             
             {/* Customer Details */}
-            <div className="p-6 bg-outside-surface border border-outside-border space-y-4">
-              <h3 className="text-xs font-mono uppercase tracking-[0.2em] text-white">
+            <div className="p-6 bg-white border border-outside-border space-y-4 shadow-sm">
+              <h3 className="text-xs font-mono uppercase tracking-[0.2em] text-outside-text font-bold">
                 1. COLLECTOR CONTACT
               </h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-[11px] font-mono uppercase text-outside-muted mb-1.5">
+                  <label className="block text-[11px] font-mono uppercase text-outside-muted mb-1.5 font-semibold">
                     FULL NAME *
                   </label>
                   <input
@@ -146,11 +147,11 @@ export default function CheckoutPage() {
                     placeholder="e.g. Diya Sharma"
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="w-full bg-outside-card border border-outside-border px-3.5 py-2.5 text-xs font-mono text-white focus:border-outside-crimson focus:outline-none"
+                    className="w-full bg-white border border-outside-border px-3.5 py-2.5 text-xs font-mono text-outside-text focus:border-outside-crimson focus:outline-none"
                   />
                 </div>
                 <div>
-                  <label className="block text-[11px] font-mono uppercase text-outside-muted mb-1.5">
+                  <label className="block text-[11px] font-mono uppercase text-outside-muted mb-1.5 font-semibold">
                     EMAIL (FOR TAX INVOICE) *
                   </label>
                   <input
@@ -159,12 +160,12 @@ export default function CheckoutPage() {
                     placeholder="diya@example.com"
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    className="w-full bg-outside-card border border-outside-border px-3.5 py-2.5 text-xs font-mono text-white focus:border-outside-crimson focus:outline-none"
+                    className="w-full bg-white border border-outside-border px-3.5 py-2.5 text-xs font-mono text-outside-text focus:border-outside-crimson focus:outline-none"
                   />
                 </div>
               </div>
               <div>
-                <label className="block text-[11px] font-mono uppercase text-outside-muted mb-1.5">
+                <label className="block text-[11px] font-mono uppercase text-outside-muted mb-1.5 font-semibold">
                   PHONE NUMBER (FOR BLUEDART OTP / DISPATCH) *
                 </label>
                 <input
@@ -173,15 +174,15 @@ export default function CheckoutPage() {
                   placeholder="+91 98765 43210"
                   value={formData.phone}
                   onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                  className="w-full bg-outside-card border border-outside-border px-3.5 py-2.5 text-xs font-mono text-white focus:border-outside-crimson focus:outline-none"
+                  className="w-full bg-white border border-outside-border px-3.5 py-2.5 text-xs font-mono text-outside-text focus:border-outside-crimson focus:outline-none"
                 />
               </div>
             </div>
 
             {/* Shipping Address & GST State */}
-            <div className="p-6 bg-outside-surface border border-outside-border space-y-4">
+            <div className="p-6 bg-white border border-outside-border space-y-4 shadow-sm">
               <div className="flex justify-between items-center">
-                <h3 className="text-xs font-mono uppercase tracking-[0.2em] text-white">
+                <h3 className="text-xs font-mono uppercase tracking-[0.2em] text-outside-text font-bold">
                   2. DELIVERY ADDRESS &amp; TAX JURISDICTION
                 </h3>
                 <span className="text-[10px] font-mono text-outside-crimson font-bold">
@@ -190,7 +191,7 @@ export default function CheckoutPage() {
               </div>
 
               <div>
-                <label className="block text-[11px] font-mono uppercase text-outside-muted mb-1.5">
+                <label className="block text-[11px] font-mono uppercase text-outside-muted mb-1.5 font-semibold">
                   STREET ADDRESS &amp; BUILDING *
                 </label>
                 <input
@@ -199,13 +200,13 @@ export default function CheckoutPage() {
                   placeholder="Apartment, Studio, Suite or House No."
                   value={formData.address}
                   onChange={(e) => setFormData({ ...formData, address: e.target.value })}
-                  className="w-full bg-outside-card border border-outside-border px-3.5 py-2.5 text-xs font-mono text-white focus:border-outside-crimson focus:outline-none"
+                  className="w-full bg-white border border-outside-border px-3.5 py-2.5 text-xs font-mono text-outside-text focus:border-outside-crimson focus:outline-none"
                 />
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div>
-                  <label className="block text-[11px] font-mono uppercase text-outside-muted mb-1.5">
+                  <label className="block text-[11px] font-mono uppercase text-outside-muted mb-1.5 font-semibold">
                     CITY *
                   </label>
                   <input
@@ -214,27 +215,27 @@ export default function CheckoutPage() {
                     placeholder="e.g. Mumbai / Ahmedabad"
                     value={formData.city}
                     onChange={(e) => setFormData({ ...formData, city: e.target.value })}
-                    className="w-full bg-outside-card border border-outside-border px-3.5 py-2.5 text-xs font-mono text-white focus:border-outside-crimson focus:outline-none"
+                    className="w-full bg-white border border-outside-border px-3.5 py-2.5 text-xs font-mono text-outside-text focus:border-outside-crimson focus:outline-none"
                   />
                 </div>
                 <div>
-                  <label className="block text-[11px] font-mono uppercase text-outside-muted mb-1.5">
+                  <label className="block text-[11px] font-mono uppercase text-outside-muted mb-1.5 font-semibold">
                     STATE / UNION TERRITORY *
                   </label>
                   <select
                     value={buyerStateCode}
                     onChange={(e) => setBuyerStateCode(e.target.value)}
-                    className="w-full bg-outside-card border border-outside-border px-3.5 py-2.5 text-xs font-mono text-white focus:border-outside-crimson focus:outline-none"
+                    className="w-full bg-white border border-outside-border px-3.5 py-2.5 text-xs font-mono text-outside-text focus:border-outside-crimson focus:outline-none"
                   >
                     {INDIAN_STATES.map((s) => (
-                      <option key={s.code} value={s.code} className="bg-outside-card text-white">
+                      <option key={s.code} value={s.code} className="bg-white text-outside-text">
                         {s.code} - {s.name}
                       </option>
                     ))}
                   </select>
                 </div>
                 <div>
-                  <label className="block text-[11px] font-mono uppercase text-outside-muted mb-1.5">
+                  <label className="block text-[11px] font-mono uppercase text-outside-muted mb-1.5 font-semibold">
                     PINCODE *
                   </label>
                   <input
@@ -244,31 +245,31 @@ export default function CheckoutPage() {
                     placeholder="e.g. 400001"
                     value={formData.pincode}
                     onChange={(e) => setFormData({ ...formData, pincode: e.target.value })}
-                    className="w-full bg-outside-card border border-outside-border px-3.5 py-2.5 text-xs font-mono text-white focus:border-outside-crimson focus:outline-none"
+                    className="w-full bg-white border border-outside-border px-3.5 py-2.5 text-xs font-mono text-outside-text focus:border-outside-crimson focus:outline-none"
                   />
                 </div>
               </div>
             </div>
 
-            {/* Payment Method Badge */}
-            <div className="p-6 bg-outside-surface border border-outside-border space-y-3">
-              <h3 className="text-xs font-mono uppercase tracking-[0.2em] text-white">
+            {/* Payment Settlement */}
+            <div className="p-6 bg-white border border-outside-border space-y-3 shadow-sm">
+              <h3 className="text-xs font-mono uppercase tracking-[0.2em] text-outside-text font-bold">
                 3. PAYMENT SETTLEMENT
               </h3>
-              <div className="p-4 bg-outside-card border border-outside-crimson/60 flex items-center justify-between font-mono text-xs">
-                <span className="text-white font-bold">UPI / CARDS / NETBANKING (SANDBOX / LIVE READY)</span>
-                <span className="text-outside-crimson">VERIFIED</span>
+              <div className="p-4 bg-outside-cardSubtle border border-outside-crimson/40 flex items-center justify-between font-mono text-xs">
+                <span className="text-outside-text font-bold">UPI / CARDS / NETBANKING (LIVE READY)</span>
+                <span className="text-outside-crimson font-bold">AUTHENTICATED</span>
               </div>
               <p className="text-[11px] text-outside-muted font-sans">
-                Payment session will initialize automatically. An official sequential GST Tax Invoice will be generated upon confirmation.
+                An official sequential GST Tax Invoice will be generated upon confirmation and dispatched via email.
               </p>
             </div>
           </div>
 
           {/* Right: Order Summary & Detailed GST Breakdown */}
           <div className="lg:col-span-5 space-y-6">
-            <div className="p-6 bg-outside-surface border border-outside-border space-y-6 sticky top-28">
-              <h3 className="text-xs font-mono uppercase tracking-[0.2em] text-white">
+            <div className="p-6 bg-white border border-outside-border space-y-6 sticky top-28 shadow-luxury">
+              <h3 className="text-xs font-mono uppercase tracking-[0.2em] text-outside-text font-bold">
                 ORDER SPECIFICATION
               </h3>
 
@@ -276,24 +277,24 @@ export default function CheckoutPage() {
               <div className="space-y-4 max-h-60 overflow-y-auto pr-2">
                 {items.map((item) => (
                   <div key={item.id} className="flex gap-3 text-xs font-mono">
-                    <div className="relative w-14 h-16 bg-outside-card border border-outside-border flex-shrink-0">
+                    <div className="relative w-14 h-16 bg-outside-bg border border-outside-border flex-shrink-0 overflow-hidden">
                       <Image
-                        src={item.image || '/images/drops/drop-001-main.jpg'}
+                        src={item.image || '/images/drops/drop-001-front.jpg'}
                         alt={item.title}
                         fill
-                        className="object-cover"
+                        className="object-contain"
                       />
                     </div>
                     <div className="flex-1 flex flex-col justify-between">
                       <div>
-                        <h4 className="text-white font-bold">{item.title}</h4>
+                        <h4 className="text-outside-text font-bold">{item.title}</h4>
                         <p className="text-outside-muted text-[11px]">
                           {item.fit} · SIZE {item.size} × {item.quantity}
                         </p>
                       </div>
                       <div className="flex justify-between items-center text-[11px]">
                         <span className="text-outside-muted">HSN: 61091000</span>
-                        <span className="text-white font-bold">
+                        <span className="text-outside-text font-bold">
                           ₹{((item.unitPricePaise * item.quantity) / 100).toLocaleString('en-IN')}
                         </span>
                       </div>
@@ -303,22 +304,22 @@ export default function CheckoutPage() {
               </div>
 
               {/* GST Calculation Table */}
-              <div className="p-4 bg-outside-card border border-outside-border space-y-2.5 font-mono text-xs">
+              <div className="p-4 bg-outside-cardSubtle border border-outside-border space-y-2.5 font-mono text-xs">
                 <div className="flex justify-between text-outside-muted">
                   <span>Gross Subtotal (MRP):</span>
-                  <span className="text-white">
+                  <span className="text-outside-text font-bold">
                     ₹{(taxBreakdown.subtotalGrossPaise / 100).toLocaleString('en-IN')}
                   </span>
                 </div>
                 <div className="flex justify-between text-outside-muted">
                   <span>Net Taxable Base Value:</span>
-                  <span className="text-white">
+                  <span className="text-outside-text font-bold">
                     ₹{(taxBreakdown.totalTaxableAmountPaise / 100).toLocaleString('en-IN')}
                   </span>
                 </div>
                 <div className="flex justify-between text-outside-muted">
                   <span>Place of Supply (Buyer State):</span>
-                  <span className="text-white">{taxBreakdown.buyerStateName} ({taxBreakdown.buyerStateCode})</span>
+                  <span className="text-outside-text font-bold">{taxBreakdown.buyerStateName} ({taxBreakdown.buyerStateCode})</span>
                 </div>
 
                 {taxBreakdown.isInterState ? (
@@ -341,10 +342,10 @@ export default function CheckoutPage() {
 
                 <div className="flex justify-between text-outside-muted">
                   <span>Express Domestic Shipping:</span>
-                  <span className="text-white">FREE (COMPLIMENTARY)</span>
+                  <span className="text-outside-text font-bold">FREE (COMPLIMENTARY)</span>
                 </div>
 
-                <div className="pt-3 border-t border-outside-border flex justify-between font-bold text-sm text-white">
+                <div className="pt-3 border-t border-outside-border flex justify-between font-bold text-sm text-outside-text">
                   <span>FINAL PAYABLE AMOUNT:</span>
                   <span className="text-outside-crimson">
                     ₹{(taxBreakdown.finalPayablePaise / 100).toLocaleString('en-IN')}
@@ -353,14 +354,16 @@ export default function CheckoutPage() {
               </div>
 
               {/* Complete Order Button */}
-              <button
+              <Button
                 type="submit"
-                disabled={loading}
-                className="w-full py-4 bg-outside-crimson hover:bg-outside-crimsonBright text-white font-mono text-xs uppercase tracking-[0.2em] font-bold transition-all flex items-center justify-center gap-3 shadow-2xl disabled:opacity-50"
+                variant="primary"
+                size="lg"
+                loading={loading}
+                className="w-full text-xs"
               >
-                <span>{loading ? 'SECURING ALLOCATION...' : 'AUTHORIZE PAYMENT & ISSUE INVOICE'}</span>
+                <span>AUTHORIZE PAYMENT &amp; ISSUE INVOICE</span>
                 <ArrowRight className="w-4 h-4" />
-              </button>
+              </Button>
 
               <div className="text-center font-mono text-[10px] text-outside-muted flex items-center justify-center gap-2">
                 <ShieldCheck className="w-3.5 h-3.5 text-outside-crimson" />

@@ -1,6 +1,7 @@
 import React from 'react';
 import { notFound } from 'next/navigation';
 import { getLocalStore } from '@/lib/db';
+import { SectionHeading } from '@/components/ui/section-heading';
 import type { Metadata } from 'next';
 
 const STATIC_CMS_PAGES: Record<
@@ -14,42 +15,42 @@ const STATIC_CMS_PAGES: Record<
       <h2>The Silhouette Architecture</h2>
       <p>All OUTSIDE garments feature an intentional architectural drape. We recommend selecting your true size for an authentic dropped-shoulder relaxed fit, or sizing down one step for a more classic structured fit.</p>
       
-      <table style="width:100%; text-align:left; border-collapse:collapse; margin:24px 0;">
+      <table style="width:100%; text-align:left; border-collapse:collapse; margin:24px 0; font-family: monospace; font-size: 13px;">
         <thead>
-          <tr style="border-bottom: 1px solid #333; color: #D91E2A;">
-            <th style="padding:10px;">SIZE</th>
-            <th style="padding:10px;">CHEST (INCHES)</th>
-            <th style="padding:10px;">LENGTH (INCHES)</th>
-            <th style="padding:10px;">SHOULDER (INCHES)</th>
+          <tr style="border-bottom: 2px solid #E7E2DA; color: #D91E2A;">
+            <th style="padding:12px 10px;">SIZE</th>
+            <th style="padding:12px 10px;">CHEST (INCHES)</th>
+            <th style="padding:12px 10px;">LENGTH (INCHES)</th>
+            <th style="padding:12px 10px;">SHOULDER (INCHES)</th>
           </tr>
         </thead>
         <tbody>
-          <tr style="border-bottom: 1px solid #222;">
-            <td style="padding:10px;">XS (Women)</td>
+          <tr style="border-bottom: 1px solid #E7E2DA;">
+            <td style="padding:10px; font-weight:bold;">XS (Women)</td>
             <td style="padding:10px;">38 - 40"</td>
             <td style="padding:10px;">25.5"</td>
             <td style="padding:10px;">19.5"</td>
           </tr>
-          <tr style="border-bottom: 1px solid #222;">
-            <td style="padding:10px;">S (Women / Men)</td>
+          <tr style="border-bottom: 1px solid #E7E2DA;">
+            <td style="padding:10px; font-weight:bold;">S (Women / Men)</td>
             <td style="padding:10px;">41 - 43"</td>
             <td style="padding:10px;">26.5"</td>
             <td style="padding:10px;">20.5"</td>
           </tr>
-          <tr style="border-bottom: 1px solid #222;">
-            <td style="padding:10px;">M (Women / Men)</td>
+          <tr style="border-bottom: 1px solid #E7E2DA;">
+            <td style="padding:10px; font-weight:bold;">M (Women / Men)</td>
             <td style="padding:10px;">44 - 46"</td>
             <td style="padding:10px;">27.5"</td>
             <td style="padding:10px;">21.5"</td>
           </tr>
-          <tr style="border-bottom: 1px solid #222;">
-            <td style="padding:10px;">L (Men)</td>
+          <tr style="border-bottom: 1px solid #E7E2DA;">
+            <td style="padding:10px; font-weight:bold;">L (Men)</td>
             <td style="padding:10px;">47 - 49"</td>
             <td style="padding:10px;">28.5"</td>
             <td style="padding:10px;">22.5"</td>
           </tr>
-          <tr style="border-bottom: 1px solid #222;">
-            <td style="padding:10px;">XL (Men)</td>
+          <tr style="border-bottom: 1px solid #E7E2DA;">
+            <td style="padding:10px; font-weight:bold;">XL (Men)</td>
             <td style="padding:10px;">50 - 52"</td>
             <td style="padding:10px;">29.5"</td>
             <td style="padding:10px;">23.5"</td>
@@ -58,7 +59,7 @@ const STATIC_CMS_PAGES: Record<
       </table>
 
       <h3>Care Instructions</h3>
-      <p>Machine wash cold with like colors inside out. Do not tumble dry. Steam or low-heat iron on reverse side. Avoid ironing directly on screen-printed nape graphics.</p>
+      <p>Machine wash cold with like colors inside out. Do not tumble dry. Steam or low-heat iron on reverse side. Avoid ironing directly on embroidery or screen-printed sleeve graphics.</p>
     `,
   },
   'shipping-returns': {
@@ -141,25 +142,24 @@ export default async function CmsPage({
   }
 
   return (
-    <div className="bg-outside-black text-outside-chalk min-h-screen py-16">
+    <div className="bg-outside-bg text-outside-text min-h-screen py-16">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
         
-        <div className="border-b border-outside-border pb-8 space-y-3">
-          <span className="text-xs font-mono text-outside-crimson uppercase tracking-widest">
-            STUDIO POLICY &amp; DOCUMENTATION
-          </span>
-          <h1 className="text-3xl sm:text-4xl font-display font-black tracking-tight text-white uppercase">
-            {page.title}
-          </h1>
-          <p className="text-sm text-outside-muted font-sans leading-relaxed">
-            {page.subtitle}
-          </p>
+        <div className="border-b border-outside-border pb-8">
+          <SectionHeading
+            align="left"
+            eyebrow="STUDIO POLICY &amp; DOCUMENTATION"
+            title={page.title}
+            description={page.subtitle}
+          />
         </div>
 
-        <div
-          className="prose prose-invert max-w-none text-outside-chalkDim text-sm sm:text-base leading-relaxed font-sans space-y-6"
-          dangerouslySetInnerHTML={{ __html: page.contentHtml }}
-        />
+        <div className="bg-white border border-outside-border p-8 sm:p-12 shadow-luxury">
+          <div
+            className="prose prose-stone max-w-none text-outside-textSecondary text-sm sm:text-base leading-relaxed font-sans space-y-6"
+            dangerouslySetInnerHTML={{ __html: page.contentHtml }}
+          />
+        </div>
 
       </div>
     </div>

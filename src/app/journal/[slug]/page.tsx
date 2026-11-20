@@ -3,7 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { getLocalStore } from '@/lib/db';
-import { ArrowLeft, BookOpen, Clock } from 'lucide-react';
+import { ArrowLeft, Clock } from 'lucide-react';
 import type { Metadata } from 'next';
 
 export async function generateMetadata({
@@ -60,7 +60,7 @@ export default async function JournalDetailPage({
       name: 'OUTSIDE',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://www.outside.in/images/OUTSIDE_logo_transparent.png',
+        url: 'https://www.outside.in/images/OUTSIDE_logo.jpg',
       },
     },
     mainEntityOfPage: {
@@ -70,7 +70,7 @@ export default async function JournalDetailPage({
   };
 
   return (
-    <article className="bg-outside-black text-outside-chalk min-h-screen py-16">
+    <article className="bg-outside-bg text-outside-text min-h-screen py-16">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
@@ -81,7 +81,7 @@ export default async function JournalDetailPage({
         {/* Back navigation */}
         <Link
           href="/journal"
-          className="inline-flex items-center gap-2 text-xs font-mono text-outside-muted hover:text-white uppercase tracking-wider transition-colors"
+          className="inline-flex items-center gap-2 text-xs font-mono text-outside-muted hover:text-outside-text uppercase tracking-wider transition-colors"
         >
           <ArrowLeft className="w-3.5 h-3.5" />
           <span>BACK TO THE JOURNAL</span>
@@ -89,25 +89,25 @@ export default async function JournalDetailPage({
 
         {/* Editorial Header */}
         <div className="space-y-4 border-b border-outside-border pb-8">
-          <div className="flex items-center gap-4 text-xs font-mono text-outside-crimson uppercase tracking-widest">
+          <div className="flex items-center gap-4 text-xs font-mono text-outside-crimson uppercase tracking-widest font-bold">
             <span>BY {post.authorName}</span>
             <span className="text-outside-border">/</span>
-            <span className="flex items-center gap-1 text-outside-muted">
+            <span className="flex items-center gap-1 text-outside-muted font-normal">
               <Clock className="w-3.5 h-3.5" /> 4 MIN READ
             </span>
           </div>
 
-          <h1 className="text-3xl sm:text-5xl font-display font-black tracking-tight text-white uppercase">
+          <h1 className="text-3xl sm:text-5xl font-display font-black tracking-tight text-outside-text uppercase">
             {post.title}
           </h1>
 
-          <p className="text-base font-sans text-outside-chalkDim leading-relaxed italic border-l-2 border-outside-crimson pl-4">
+          <p className="text-base font-sans text-outside-textSecondary leading-relaxed italic border-l-2 border-outside-crimson pl-4">
             {post.excerpt}
           </p>
         </div>
 
         {/* Lead Image */}
-        <div className="relative aspect-[16/9] w-full bg-outside-card border border-outside-border overflow-hidden">
+        <div className="relative aspect-[16/9] w-full bg-white border border-outside-border overflow-hidden shadow-luxury">
           <Image
             src={post.coverImageUrl || '/images/journal/journal-01.jpg'}
             alt={post.title}
@@ -117,9 +117,9 @@ export default async function JournalDetailPage({
         </div>
 
         {/* Essay Body */}
-        <div className="prose prose-invert max-w-none text-outside-chalk text-sm sm:text-base leading-relaxed space-y-6 font-sans">
+        <div className="prose prose-stone max-w-none text-outside-text text-sm sm:text-base leading-relaxed space-y-6 font-sans">
           {post.body.split('\n\n').map((paragraph: string, i: number) => (
-            <p key={i} className="text-outside-chalkDim">
+            <p key={i} className="text-outside-textSecondary">
               {paragraph}
             </p>
           ))}
@@ -127,13 +127,13 @@ export default async function JournalDetailPage({
 
         {/* Author Bio Box (E-E-A-T) */}
         <div className="pt-10 border-t border-outside-border">
-          <div className="p-6 bg-outside-surface border border-outside-border flex items-start gap-4">
+          <div className="p-6 bg-white border border-outside-border flex items-start gap-4 shadow-sm">
             <div className="w-10 h-10 rounded-full bg-outside-crimson flex items-center justify-center font-bold text-white font-mono flex-shrink-0">
               OS
             </div>
             <div className="space-y-1">
-              <h4 className="text-xs font-mono uppercase tracking-wider text-white">
-                STUDIO OUTSIDE EDITORIAL TEAM
+              <h4 className="text-xs font-mono uppercase tracking-wider text-outside-text font-bold">
+                STUDIO OUTSIDE EDITORIAL ATELIER
               </h4>
               <p className="text-xs text-outside-muted font-sans leading-relaxed">
                 Written by the patternmakers, textile engineers, and founders at OUTSIDE Apparel Studio in Ahmedabad, Gujarat. Published under the open Anti-Inventory Manifesto.

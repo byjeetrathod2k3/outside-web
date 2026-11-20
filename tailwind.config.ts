@@ -11,32 +11,38 @@ const config: Config = {
     extend: {
       colors: {
         outside: {
-          black: '#080808',
-          charcoal: '#121212',
-          surface: '#181818',
-          card: '#1F1F1F',
-          border: '#2A2A2A',
-          muted: '#8E8E93',
-          chalk: '#F5F5F7',
-          chalkDim: '#E5E5EA',
-          crimson: '#D91E2A',
-          crimsonBright: '#FF2A38',
-          crimsonDark: '#990E17',
+          bg: '#FAF9F6', // Luxury Ivory / Alabaster
+          surface: '#FFFFFF', // Pure Crisp White
+          card: '#FFFFFF',
+          cardSubtle: '#F5F3EF',
+          border: '#E7E2DA',
+          borderLight: '#F0ECE4',
+          text: '#111111', // Deep Luxury Ink
+          textSecondary: '#44403C',
+          muted: '#78716C',
+          mutedLight: '#A8A29E',
+          crimson: '#D91E2A', // Signature Brand Red
+          crimsonHover: '#B7121D',
+          crimsonSoft: '#FDF2F2',
+          black: '#121212',
+          charcoal: '#1C1917',
+          chalk: '#FAF9F6',
+          chalkDim: '#E7E5E4',
         },
       },
       fontFamily: {
-        sans: ['var(--font-inter)', 'system-ui', 'sans-serif'],
-        display: ['var(--font-clash)', 'var(--font-inter)', 'sans-serif'],
-        mono: ['JetBrains Mono', 'monospace'],
+        sans: ['-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', 'sans-serif'],
+        display: ['var(--font-clash)', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+        mono: ['JetBrains Mono', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace'],
+      },
+      boxShadow: {
+        'luxury': '0 4px 20px -2px rgba(0, 0, 0, 0.05)',
+        'luxury-hover': '0 12px 30px -4px rgba(0, 0, 0, 0.08)',
       },
       keyframes: {
         'fade-in': {
-          '0%': { opacity: '0', transform: 'translateY(10px)' },
+          '0%': { opacity: '0', transform: 'translateY(8px)' },
           '100%': { opacity: '1', transform: 'translateY(0)' },
-        },
-        'pulse-subtle': {
-          '0%, 100%': { opacity: '1' },
-          '50%': { opacity: '0.6' },
         },
         'slide-down': {
           '0%': { transform: 'translateY(-100%)' },
@@ -44,9 +50,8 @@ const config: Config = {
         },
       },
       animation: {
-        'fade-in': 'fade-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards',
-        'pulse-subtle': 'pulse-subtle 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-        'slide-down': 'slide-down 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+        'fade-in': 'fade-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+        'slide-down': 'slide-down 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards',
       },
     },
   },

@@ -15,11 +15,13 @@ export const metadata: Metadata = {
     'Luxury streetwear engineered with 280 GSM combed organic cotton in Gujarat, India. Single-drop serialized editions capped at 250 pieces. Women-first fit philosophy.',
   keywords: [
     'OUTSIDE',
+    'Wear Your Story',
     'Streetwear India',
     'Limited Edition T-Shirt',
     '280 GSM Cotton T-shirt',
     'Luxury Streetwear Ahmedabad',
     'Single Drop Apparel',
+    'Better Days Ahead T-Shirt',
     'Heavyweight French Terry',
     'Women Oversized T-Shirt',
   ],
@@ -36,10 +38,10 @@ export const metadata: Metadata = {
     siteName: 'OUTSIDE',
     images: [
       {
-        url: '/images/drops/drop-001-main.jpg',
+        url: '/images/drops/drop-001-front.jpg',
         width: 1200,
         height: 1500,
-        alt: 'OUTSIDE DROP 001 - Midnight Monolith',
+        alt: 'OUTSIDE DROP 001 - Better Days Ahead',
       },
     ],
   },
@@ -48,7 +50,7 @@ export const metadata: Metadata = {
     title: 'OUTSIDE // Wear Your Story',
     description:
       'Limited serialized drops. 280 GSM French Terry cotton t-shirts crafted in Gujarat.',
-    images: ['/images/drops/drop-001-main.jpg'],
+    images: ['/images/drops/drop-001-front.jpg'],
   },
   robots: {
     index: true,
@@ -64,7 +66,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: '#080808',
+  themeColor: '#FAF9F6',
   width: 'device-width',
   initialScale: 1,
 };
@@ -80,7 +82,7 @@ export default function RootLayout({
     name: 'OUTSIDE APPAREL STUDIO PVT LTD',
     alternateName: 'OUTSIDE',
     url: 'https://www.outside.in',
-    logo: 'https://www.outside.in/images/OUTSIDE_logo_transparent.png',
+    logo: 'https://www.outside.in/images/OUTSIDE_logo.jpg',
     description:
       'Limited-edition single-drop luxury streetwear brand based in Ahmedabad, Gujarat, India.',
     address: {
@@ -101,14 +103,14 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="en" className="dark">
+    <html lang="en" className="light">
       <head>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdOrg) }}
         />
       </head>
-      <body className="min-h-screen bg-outside-black text-outside-chalk flex flex-col antialiased selection:bg-outside-crimson selection:text-white">
+      <body className="min-h-screen bg-outside-bg text-outside-text flex flex-col antialiased selection:bg-outside-crimson selection:text-white">
         <CartProvider>
           <GlobalHeader />
           <main className="flex-1">{children}</main>

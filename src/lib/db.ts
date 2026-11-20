@@ -18,34 +18,32 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 // ==========================================
-// SEED DATA & RESILIENT REPOSITORY
+// SEED DATA & RESILIENT REPOSITORY (LIGHT THEME)
 // ==========================================
 export const INITIAL_DROP = {
   id: 'drop_001',
   dropNumber: 1,
-  slug: 'drop-001-midnight-monolith',
-  title: 'DROP 001 // MIDNIGHT MONOLITH',
-  subtitle: '280 GSM Heavyweight French Terry Cotton. Serialized Edition of 250.',
-  story: `Conceived at 3 AM in the brutalist corridors of Ahmedabad. DROP 001 explores the tension between architectural rigidity and tactile intimacy. Engineered from custom-milled 280 GSM organic long-staple combed cotton, double-bio-washed for a crisp yet lived-in drape. Each piece features reinforced split-side seams, distressed screen-printed typography on the nape, and a hand-numbered serial hem tag. Once the 250 units are claimed, this edition will be permanently sealed into The Vault.`,
-  fabricSpecs: '280 GSM 100% Combed Organic Cotton · French Terry Weave · Pre-Shrunk & Bio-Washed · Ribbed Collar with Lycra Recovery · Made in Gujarat, India',
+  slug: 'drop-001-better-days-ahead',
+  title: 'DROP 001 // BETTER DAYS AHEAD',
+  subtitle: '280 GSM Heavyweight Organic Cotton · Hand-Stitched Floral Embroidery · Serialized Edition of 250',
+  story: `Engineered in our Ahmedabad atelier, DROP 001 explores the juxtaposition between brutalist architectural boxy tailoring and tactile human warmth. Crafted from custom-milled 280 GSM organic combed cotton in a warm unbleached ivory hue, featuring intricate multi-layered floral embroidery ("Better Days Ahead"), an elongated knotted stem tethered to a stitched canvas tag reading "for a kinder you", the signature OUTSIDE logo embroidered on the left sleeve, and the back typographic manifesto: "SAME GIRL BRIGHTER DAYS". Strictly limited to 250 serialized pieces worldwide.`,
+  fabricSpecs: '280 GSM 100% Combed Organic Cotton · French Terry Weave · Pre-Shrunk & Double Bio-Washed · Hand-Finished Floral Embroidery · Lycra-Ribbed Collar · Made in Gujarat, India',
   pricePaise: 240000, // ₹2,400 (falls under 5% GST slab)
   currency: 'INR',
   totalEditionQty: 250,
   status: 'LIVE' as const,
   launchAt: new Date(Date.now() - 3600000 * 24 * 2).toISOString(),
   soldOutAt: null as string | null,
-  primaryImageUrl: '/images/drops/drop-001-main.jpg',
+  primaryImageUrl: '/images/drops/drop-001-front.jpg',
   galleryUrls: [
-    '/images/drops/drop-001-main.jpg',
+    '/images/drops/drop-001-front.jpg',
     '/images/drops/drop-001-back.jpg',
-    '/images/drops/drop-001-detail1.jpg',
-    '/images/drops/drop-001-detail2.jpg',
   ],
   isFeatured: true,
-  seoTitle: 'DROP 001: Midnight Monolith T-Shirt — OUTSIDE India',
-  seoDescription: 'Limited to 250 serialized pieces. 280 GSM heavyweight combed cotton oversized t-shirt designed and crafted in Gujarat, India. Wear your story.',
+  seoTitle: 'DROP 001: Better Days Ahead T-Shirt — OUTSIDE India',
+  seoDescription: 'Limited to 250 serialized pieces. 280 GSM heavyweight combed cotton oversized t-shirt with tactile floral embroidery. Wear your story.',
   canonicalUrl: 'https://www.outside.in',
-  ogImageUrl: '/images/drops/drop-001-og.jpg',
+  ogImageUrl: '/images/drops/drop-001-front.jpg',
   noIndex: false,
   variants: [
     { id: 'v_w_xs', dropId: 'drop_001', sku: 'OUT-001-W-XS', fit: 'WOMEN', size: 'XS', initialStock: 25, currentStock: 18, reservedStock: 0 },
@@ -61,19 +59,60 @@ export const INITIAL_DROP = {
 
 export const VAULT_DROPS = [
   {
+    id: 'drop_002',
+    dropNumber: 2,
+    slug: 'drop-002-botanical-architecture',
+    title: 'DROP 002 // BOTANICAL ARCHITECTURE',
+    subtitle: 'Sage Green 280 GSM Heavy Terry. Raw Seedling Edition.',
+    story: 'Organic botanical sage pigment dye. Drop shoulder architecture inspired by raw foliage and urban concrete.',
+    fabricSpecs: '280 GSM 100% Organic Cotton · Mineral Wash Sage · Double Needle Seams',
+    pricePaise: 240000,
+    totalEditionQty: 200,
+    status: 'UPCOMING' as const,
+    launchAt: new Date(Date.now() + 3600000 * 24 * 7).toISOString(),
+    primaryImageUrl: '/images/drops/drop-002-front.jpg',
+    galleryUrls: ['/images/drops/drop-002-front.jpg', '/images/drops/drop-002-back.jpg'],
+    isFeatured: false,
+    variants: [
+      { id: 'v2_w_s', dropId: 'drop_002', sku: 'OUT-002-W-S', fit: 'WOMEN', size: 'S', initialStock: 30, currentStock: 30, reservedStock: 0 },
+      { id: 'v2_w_m', dropId: 'drop_002', sku: 'OUT-002-W-M', fit: 'WOMEN', size: 'M', initialStock: 40, currentStock: 40, reservedStock: 0 },
+      { id: 'v2_m_m', dropId: 'drop_002', sku: 'OUT-002-M-M', fit: 'MEN', size: 'M', initialStock: 50, currentStock: 50, reservedStock: 0 },
+      { id: 'v2_m_l', dropId: 'drop_002', sku: 'OUT-002-M-L', fit: 'MEN', size: 'L', initialStock: 40, currentStock: 40, reservedStock: 0 },
+    ],
+  },
+  {
+    id: 'drop_003',
+    dropNumber: 3,
+    slug: 'drop-003-monolith-obsidian',
+    title: 'DROP 003 // MONOLITH OBSIDIAN',
+    subtitle: 'Washed Charcoal Black 300 GSM Ultra-Heavy Cotton.',
+    story: 'Extreme tactile density. Carbon black wash with tonal sleeve embroidery and split-hem detailing.',
+    fabricSpecs: '300 GSM Combed Cotton · Carbon Bio-Wash · Heavy Rib Collar',
+    pricePaise: 260000, // ₹2,600 (qualifies for 18% slab)
+    totalEditionQty: 250,
+    status: 'ARCHIVED' as const,
+    soldOutAt: '2026-10-15T18:00:00.000Z',
+    primaryImageUrl: '/images/drops/drop-003-front.jpg',
+    galleryUrls: ['/images/drops/drop-003-front.jpg', '/images/drops/drop-003-back.jpg'],
+    isFeatured: false,
+    variants: [],
+  },
+  {
     id: 'drop_000',
     dropNumber: 0,
-    slug: 'drop-000-genesis-raw',
+    slug: 'drop-000-genesis-prototype',
     title: 'DROP 000 // GENESIS PROTOTYPE',
     subtitle: 'Unbleached Organic Raw Cotton. Limited Prototype Run of 100.',
     story: 'The initial design manifesto. Hand-stitched label, raw edge cuffs, zero dye treatment.',
+    fabricSpecs: '260 GSM Raw Unbleached Cotton · Hand-Numbered Hem Label',
     pricePaise: 220000,
     totalEditionQty: 100,
     status: 'ARCHIVED' as const,
-    launchAt: '2026-08-15T00:00:00.000Z',
     soldOutAt: '2026-08-15T04:22:18.000Z',
-    primaryImageUrl: '/images/drops/drop-000-main.jpg',
+    primaryImageUrl: '/images/drops/drop-000-front.jpg',
+    galleryUrls: ['/images/drops/drop-000-front.jpg', '/images/drops/drop-000-back.jpg'],
     isFeatured: false,
+    variants: [],
   },
 ];
 
@@ -141,7 +180,6 @@ The weight creates an architectural drape—the t-shirt holds its boxy structure
   },
 ];
 
-// Persistent File Store for Local Development without DB Server
 const DATA_DIR = path.join(process.cwd(), 'data');
 const STORE_PATH = path.join(DATA_DIR, 'store.json');
 
@@ -150,82 +188,80 @@ export function getLocalStore() {
     fs.mkdirSync(DATA_DIR, { recursive: true });
   }
 
+  // Always sync with current drops and assets in development
+  const initialData = {
+    drops: [INITIAL_DROP, ...VAULT_DROPS],
+    orders: [],
+    leads: [
+      {
+        id: 'lead_demo_1',
+        type: 'DROP_WAITLIST',
+        status: 'NEW',
+        name: 'Aarav Mehta',
+        email: 'aarav@example.com',
+        phone: '+919876543210',
+        preferredFit: 'MEN',
+        preferredSize: 'L',
+        source: 'homepage-countdown',
+        createdAt: new Date().toISOString(),
+      },
+    ],
+    faqs: INITIAL_FAQS,
+    journal: INITIAL_JOURNAL,
+    gstConfig: {
+      isEnabled: true,
+      sellerLegalName: 'OUTSIDE APPAREL STUDIO PVT LTD',
+      gstin: '24AABCO1234F1Z5',
+      originStateCode: '24',
+      originStateName: 'Gujarat',
+      registeredAddress: 'Plot 104, Design District, SG Highway, Ahmedabad, Gujarat 380015',
+      pricingMode: 'TAX_INCLUSIVE',
+      thresholdInr: 2500,
+      lowSlabRate: 5.0,
+      highSlabRate: 18.0,
+      defaultHsn: '61091000',
+      invoicePrefix: 'OUT/26-27/',
+      invoiceCounter: 4,
+      financialYear: '2026-2027',
+    },
+    emailConfig: {
+      isEnabled: true,
+      provider: 'SMTP',
+      host: 'smtp.gmail.com',
+      port: 587,
+      secure: false,
+      username: 'drops@outside.in',
+      fromName: 'OUTSIDE',
+      fromEmail: 'drops@outside.in',
+      replyTo: 'support@outside.in',
+    },
+    emailLogs: [],
+    auditLogs: [],
+  };
+
   if (!fs.existsSync(STORE_PATH)) {
-    const initialData = {
-      drops: [INITIAL_DROP, ...VAULT_DROPS],
-      orders: [],
-      leads: [
-        {
-          id: 'lead_demo_1',
-          type: 'DROP_WAITLIST',
-          status: 'NEW',
-          name: 'Aarav Mehta',
-          email: 'aarav@example.com',
-          phone: '+919876543210',
-          preferredFit: 'MEN',
-          preferredSize: 'L',
-          source: 'homepage-countdown',
-          createdAt: new Date().toISOString(),
-        },
-      ],
-      faqs: INITIAL_FAQS,
-      journal: INITIAL_JOURNAL,
-      gstConfig: {
-        isEnabled: true,
-        sellerLegalName: 'OUTSIDE APPAREL STUDIO PVT LTD',
-        gstin: '24AABCO1234F1Z5',
-        originStateCode: '24',
-        originStateName: 'Gujarat',
-        registeredAddress: 'Plot 104, Design District, SG Highway, Ahmedabad, Gujarat 380015',
-        pricingMode: 'TAX_INCLUSIVE',
-        thresholdInr: 2500,
-        lowSlabRate: 5.0,
-        highSlabRate: 18.0,
-        defaultHsn: '61091000',
-        invoicePrefix: 'OUT/26-27/',
-        invoiceCounter: 3,
-        financialYear: '2026-2027',
-      },
-      emailConfig: {
-        isEnabled: true,
-        provider: 'SMTP',
-        host: 'smtp.gmail.com',
-        port: 587,
-        secure: false,
-        username: 'drops@outside.in',
-        fromName: 'OUTSIDE',
-        fromEmail: 'drops@outside.in',
-        replyTo: 'support@outside.in',
-      },
-      emailLogs: [],
-      auditLogs: [
-        {
-          id: 'audit_init',
-          action: 'SYSTEM_INITIALIZED',
-          entityType: 'System',
-          createdAt: new Date().toISOString(),
-        },
-      ],
-    };
     fs.writeFileSync(STORE_PATH, JSON.stringify(initialData, null, 2));
     return initialData;
   }
 
   try {
     const content = fs.readFileSync(STORE_PATH, 'utf-8');
-    return JSON.parse(content);
+    const parsed = JSON.parse(content);
+    // Ensure active drop has updated real imagery
+    if (parsed.drops && parsed.drops[0]) {
+      parsed.drops[0].title = INITIAL_DROP.title;
+      parsed.drops[0].subtitle = INITIAL_DROP.subtitle;
+      parsed.drops[0].primaryImageUrl = INITIAL_DROP.primaryImageUrl;
+      parsed.drops[0].galleryUrls = INITIAL_DROP.galleryUrls;
+      parsed.drops[0].story = INITIAL_DROP.story;
+    }
+    // Ensure all 4 drops exist
+    if (!parsed.drops || parsed.drops.length < 4) {
+      parsed.drops = [INITIAL_DROP, ...VAULT_DROPS];
+    }
+    return parsed;
   } catch {
-    return {
-      drops: [INITIAL_DROP],
-      orders: [],
-      leads: [],
-      faqs: INITIAL_FAQS,
-      journal: INITIAL_JOURNAL,
-      gstConfig: {},
-      emailConfig: {},
-      emailLogs: [],
-      auditLogs: [],
-    };
+    return initialData;
   }
 }
 
