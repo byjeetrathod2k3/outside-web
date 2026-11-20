@@ -6,7 +6,7 @@ import { MessageCircle, X, Sparkles, ArrowUpRight } from 'lucide-react';
 
 const WHATSAPP_NUMBER = '919876543210';
 const DEFAULT_MESSAGE =
-  'Hello OUTSIDE Concierge, I have a question regarding DROP 001 sizing, fabric drape or express delivery to my city.';
+  'Hello OUTSIDE, I have a question regarding DROP 001 sizing, fabric drape or express delivery to my city.';
 
 export function WhatsAppConcierge() {
   const pathname = usePathname();
@@ -30,16 +30,16 @@ export function WhatsAppConcierge() {
           <button
             onClick={() => setIsTooltipOpen(false)}
             className="absolute top-2 right-2 p-1 text-outside-inkSecondary hover:text-outside-ink transition-colors rounded cursor-pointer"
-            aria-label="Dismiss concierge prompt"
+            aria-label="Dismiss stylist prompt"
           >
             <X className="w-3.5 h-3.5" />
           </button>
           <div className="flex items-center gap-1.5 text-outside-accent text-[10px] font-bold tracking-widest uppercase mb-1">
             <Sparkles className="w-3 h-3" />
-            <span>ATELIER CONCIERGE</span>
+            <span>STUDIO STYLIST</span>
           </div>
           <p className="text-[11px] text-outside-ink leading-snug font-sans pr-4">
-            Need help deciding between Women-First and Men silhouette? Speak directly with our Ahmedabad stylists.
+            Need help choosing between Women&apos;s and Men&apos;s fits? Chat directly with our Ahmedabad stylists.
           </p>
           <div className="mt-2 pt-2 border-t border-outside-border/60 flex items-center justify-between text-[10px] text-outside-inkSecondary">
             <span className="flex items-center gap-1">
@@ -59,12 +59,12 @@ export function WhatsAppConcierge() {
         </div>
       )}
 
-      {/* Main WhatsApp Trigger Pill (Nykaa Luxe Benchmark) */}
+      {/* Main WhatsApp Trigger Pill */}
       <a
         href={whatsappUrl}
         target="_blank"
         rel="noopener noreferrer"
-        aria-label="Chat with OUTSIDE Concierge on WhatsApp"
+        aria-label="Chat with OUTSIDE Stylist on WhatsApp"
         className="group flex items-center gap-2.5 px-4 py-2.5 bg-outside-elevated hover:bg-outside-surface border border-outside-border shadow-luxury hover:border-outside-ink rounded-full transition-all cursor-pointer"
       >
         <span className="relative flex h-2.5 w-2.5">
@@ -77,7 +77,7 @@ export function WhatsAppConcierge() {
             OUTSIDE INDIA
           </span>
           <span className="text-xs font-bold text-outside-ink leading-tight">
-            WhatsApp Concierge
+            WhatsApp Stylist
           </span>
         </div>
 

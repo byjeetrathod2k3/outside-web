@@ -25,7 +25,7 @@ const REVIEWS: Review[] = [
     location: 'Bandra West, Mumbai (400050)',
     rating: 5,
     date: '18 Nov 2026',
-    variantPurchased: 'Women Silhouette · Size M',
+    variantPurchased: "Women's Fit · Size M",
     title: 'The 280 GSM drape is extraordinary — structured yet airy.',
     content:
       'I was hesitant about oversized streetwear fits as a woman, but OUTSIDE truly nailed the Women-First ergonomic boxy cut. The dropped shoulders don’t bunch up under outerwear, and the chain-stitched rose embroidery on the chest has a luxurious hand-crafted weight. Dispatched from Ahmedabad and arrived in Mumbai within 36 hours via Bluedart.',
@@ -39,7 +39,7 @@ const REVIEWS: Review[] = [
     location: 'Indiranagar, Bengaluru (560038)',
     rating: 5,
     date: '17 Nov 2026',
-    variantPurchased: 'Men Silhouette · Size L',
+    variantPurchased: "Men's Fit · Size L",
     title: 'Zero neck sag, genuine luxury collar ribbing.',
     content:
       'Most oversized Indian streetwear tees lose collar shape after two washes. OUTSIDE’s high-density 1x1 ribbed neck with twin-needle stitching holds its exact circular stance all day. The serialized inner tag and satin wash label make it feel like a numbered gallery edition. Highly recommended.',
@@ -53,7 +53,7 @@ const REVIEWS: Review[] = [
     location: 'Vasant Vihar, New Delhi (110057)',
     rating: 5,
     date: '15 Nov 2026',
-    variantPurchased: 'Women Silhouette · Size S',
+    variantPurchased: "Women's Fit · Size S",
     title: 'The embroidery texture and tethered canvas tag are pure art.',
     content:
       'The "Better Days Ahead" multi-tone thread embroidery has actual 3D relief you can run your fingers over, and the dangling canvas tag at the hem gives it such a high-fashion, conceptual edge. Packaged in a matte sandstone box with acid-free tissue and a serialized certificate. Instant collector item.',
@@ -78,7 +78,7 @@ const REVIEWS: Review[] = [
 ];
 
 const METRICS = [
-  { label: 'True to Silhouette Cut', score: '98%' },
+  { label: 'True to Size & Fit', score: '98%' },
   { label: '280 GSM Heavyweight Handfeel', score: '100%' },
   { label: 'Colorfast & Zero Shrinkage', score: '99%' },
   { label: 'On-Time Express Dispatch', score: '99.4%' },

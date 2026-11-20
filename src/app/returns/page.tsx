@@ -35,7 +35,7 @@ export default function ReturnsPage() {
             7-DAY DOORSTEP EXCHANGES
           </h1>
           <p className="max-w-2xl mx-auto text-sm sm:text-base text-outside-inkSecondary font-sans leading-relaxed">
-            We want every OUTSIDE piece to fit your frame with absolute confidence. If your silhouette or size requires calibration, initiate a zero-cost doorstep reverse pickup within 7 days of delivery.
+            We want every OUTSIDE piece to fit your frame with absolute confidence. If you need a different size or fit, initiate a zero-cost doorstep reverse pickup within 7 days of delivery.
           </p>
         </div>
 
@@ -59,7 +59,7 @@ export default function ReturnsPage() {
 
           <div className="p-5 bg-outside-elevated border border-outside-border shadow-xs space-y-2">
             <span className="text-xs font-mono font-bold text-outside-accent">03 // EXPRESS SWAP</span>
-            <h3 className="text-sm font-bold uppercase text-outside-ink">Direct Atelier Dispatch</h3>
+            <h3 className="text-sm font-bold uppercase text-outside-ink">Direct Studio Dispatch</h3>
             <p className="text-xs text-outside-inkSecondary leading-relaxed">
               Your new size is reserved and dispatched from Ahmedabad immediately upon courier pickup scan.
             </p>
@@ -91,7 +91,7 @@ export default function ReturnsPage() {
             </div>
             <div className="flex items-start gap-2">
               <CheckCircle2 className="w-3.5 h-3.5 text-outside-moss shrink-0 mt-0.5" />
-              <span>Complimentary sizing advice available via WhatsApp Concierge anytime.</span>
+              <span>Complimentary sizing advice available via WhatsApp Stylist anytime.</span>
             </div>
           </div>
         </div>

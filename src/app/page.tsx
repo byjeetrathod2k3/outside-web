@@ -94,7 +94,7 @@ export default async function HomePage() {
               <SectionHeading
                 eyebrow="THE ANTI-INVENTORY PHILOSOPHY"
                 title="Mass Production Is A Crime Against Craft."
-                description="We do not produce seasonal collections or excess inventory. We release one singular, uncompromising silhouette at a time in capped serialized runs."
+                description="We do not produce seasonal collections or excess inventory. We release one singular, uncompromising style at a time in capped serialized runs."
                 className="mb-16"
               />
 
@@ -168,7 +168,7 @@ export default async function HomePage() {
                     Most streetwear brands treat unisex as &quot;men&apos;s cuts scaled down.&quot; The shoulders sag awkwardly, the sleeve holes pinch, and the drape is unflattering.
                   </p>
                   <p className="text-sm text-outside-inkSecondary leading-relaxed">
-                    At OUTSIDE, every silhouette begins with the female form. We recalibrated neck opening tension, altered dropped shoulder angles, and engineered side split vents so the heavyweight fabric moves gracefully without bunching at the hips.
+                    At OUTSIDE, every design begins with the female form. We recalibrated neck opening tension, altered dropped shoulder angles, and engineered side split vents so the heavyweight fabric moves gracefully without bunching at the hips.
                   </p>
 
                   <div className="space-y-3 pt-2 font-mono text-xs text-outside-ink font-medium">

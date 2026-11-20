@@ -98,7 +98,7 @@ export default function TrackOrderPage() {
           )}
 
           <p className="text-[11px] text-outside-muted font-sans">
-            Need help? Contact concierge at <a href="mailto:support@outside.in" className="text-outside-crimson underline">support@outside.in</a> with your purchase details.
+            Need help? Contact support at <a href="mailto:support@outside.in" className="text-outside-crimson underline">support@outside.in</a> with your order details.
           </p>
         </div>
 

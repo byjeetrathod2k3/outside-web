@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import {
   ShieldCheck,
@@ -56,7 +57,7 @@ interface DropData {
 
 const FIT_SPECS = {
   WOMEN: {
-    label: 'WOMEN SILHOUETTE',
+    label: "WOMEN'S FIT",
     tagline: 'Ergonomic Boxy Cut · Calibrated Dropped Shoulder · Split-Hem Fluidity',
     measurements: {
       XS: { chest: '38-40"', length: '25.5"', shoulder: '19.5"' },
@@ -66,7 +67,7 @@ const FIT_SPECS = {
     },
   },
   MEN: {
-    label: 'MEN SILHOUETTE',
+    label: "MEN'S FIT",
     tagline: 'Structured Relaxed Cut · Broadened Shoulder Yoke · Architectural Torso',
     measurements: {
       S: { chest: '42-44"', length: '27.5"', shoulder: '21.0"' },
@@ -415,10 +416,10 @@ export function ActiveDropView({ drop, featureFlags }: { drop: DropData; feature
                   <Sparkles className="w-3.5 h-3.5" />
                   <span>OFFICIAL SINGLE-DROP RELEASE</span>
                 </div>
-                {/* Live Viewers Indicator (Louis Philippe / Cahoot Benchmark) */}
-                <div className="flex items-center gap-1.5 px-2.5 py-1 bg-outside-accent/10 border border-outside-accent/20 rounded-full text-[11px] font-mono text-outside-accent font-bold">
-                  <Flame className="w-3.5 h-3.5 text-outside-accent" />
-                  <span>318 VIEWING NOW</span>
+                {/* Verified Drop Badge (Zero Dark Patterns CCPA Standard) */}
+                <div className="flex items-center gap-1.5 px-2.5 py-1 bg-outside-moss/10 border border-outside-moss/20 rounded-full text-[11px] font-mono text-outside-moss font-bold">
+                  <ShieldCheck className="w-3.5 h-3.5 text-outside-moss" />
+                  <span>AUTHENTICATED DROP</span>
                 </div>
               </div>
 
@@ -692,6 +693,15 @@ export function ActiveDropView({ drop, featureFlags }: { drop: DropData; feature
               <p className="text-outside-inkSecondary leading-relaxed font-sans text-xs">
                 {drop.fabricSpecs}
               </p>
+              {/* Statutory Consumer Protection (E-Commerce) Rules 2020 Compliance */}
+              <div className="pt-2.5 border-t border-outside-border/70 text-[10px] text-outside-inkSecondary space-y-1">
+                <div className="flex justify-between">
+                  <span>Country of Origin: <strong className="text-outside-ink font-semibold">India</strong></span>
+                  <span>HSN: <strong className="text-outside-ink font-semibold">61091000</strong></span>
+                </div>
+                <p>Mfr: <strong className="text-outside-ink font-semibold">OUTSIDE APPAREL STUDIO PVT LTD</strong>, Ahmedabad, Gujarat</p>
+                <p>Consumer Grievances: <strong className="text-outside-ink font-semibold">grievance@outside.in</strong> · +91 79 4000 8920</p>
+              </div>
             </div>
           </div>
         </div>
@@ -738,6 +748,13 @@ export function ActiveDropView({ drop, featureFlags }: { drop: DropData; feature
                     onChange={(e) => setWaitlistEmail(e.target.value)}
                     className="w-full bg-outside-canvas border border-outside-border px-4 py-3 text-xs font-mono text-outside-ink focus:border-outside-accent focus:outline-none"
                   />
+                  <p className="text-[10px] text-outside-inkSecondary font-sans leading-tight">
+                    By confirming, you consent to receive priority drop alerts under our{' '}
+                    <Link href="/privacy-policy" className="underline hover:text-outside-ink" target="_blank">
+                      Privacy Policy
+                    </Link>{' '}
+                    (DPDP Act, 2023).
+                  </p>
                   <div className="flex gap-3">
                     <Button type="submit" variant="primary" className="flex-1">
                       CONFIRM SPOT

@@ -21,7 +21,7 @@ We operate on a single-drop limited-edition release model: strictly ONE garment 
 - Total Serialized Allocation: ${activeDrop?.totalEditionQty || 250} pieces
 - Price: ₹ ${activeDrop ? activeDrop.pricePaise / 100 : 2400} (Inclusive of 5% Indian Apparel GST · HSN 61091000)
 - Fabric: 280 GSM 100% Combed Organic Cotton · French Terry Weave · Double Bio-Washed · Lycra-Ribbed Collar
-- Fit Philosophy: Women-First Oversized Boxy Silhouette (primary) & Men's Structured Relaxed Silhouette (secondary)
+- Fit Philosophy: Women-First Oversized Boxy Cut (primary) & Men's Structured Relaxed Cut (secondary)
 
 ## Key URLs
 - Homepage (Active Drop): https://www.outside.in/

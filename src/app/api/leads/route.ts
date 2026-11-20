@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { getLocalStore, saveLocalStore } from '@/lib/db';
 import { sendTransactionalEmail } from '@/lib/email';
 import { getCurrentSession } from '@/lib/auth';
+import { checkRateLimit } from '@/lib/rate-limit';
 
 export async function GET(request: Request) {
   // Viewing leads requires admin authentication
@@ -24,6 +25,18 @@ export async function GET(request: Request) {
 
 export async function POST(request: Request) {
   try {
+    const forwardedFor = request.headers.get('x-forwarded-for');
+    const ip = forwardedFor ? forwardedFor.split(',')[0].trim() : '127.0.0.1';
+
+    // Anti-spam lead rate limiting (max 10 submissions per 15 min per IP)
+    const rateCheck = checkRateLimit(`lead_${ip}`, { windowMs: 900000, maxRequests: 10 });
+    if (!rateCheck.allowed) {
+      return NextResponse.json(
+        { error: 'Too many submissions. Please retry in a few minutes.' },
+        { status: 429 }
+      );
+    }
+
     const body = await request.json();
     const {
       type = 'DROP_WAITLIST',
@@ -106,5 +119,56 @@ export async function POST(request: Request) {
       { error: error.message || 'Failed to capture lead' },
       { status: 500 }
     );
+  }
+}
+
+/**
+ * DPDP Act 2023 — Lead Erasure / Anonymization
+ * Allows authorized administrators to erase customer waitlist/inquiry data.
+ */
+export async function DELETE(request: Request) {
+  const session = await getCurrentSession();
+  if (!session || (session.role !== 'SUPER_ADMIN' && session.role !== 'ADMIN')) {
+    return NextResponse.json(
+      { error: 'Unauthorized: Admin privileges required for DPDP operations' },
+      { status: 401 }
+    );
+  }
+
+  try {
+    const { searchParams } = new URL(request.url);
+    const leadId = searchParams.get('id');
+
+    if (!leadId) {
+      return NextResponse.json({ error: 'Missing lead id parameter' }, { status: 400 });
+    }
+
+    const store = getLocalStore();
+    const leadIndex = (store.leads || []).findIndex((l: any) => l.id === leadId);
+
+    if (leadIndex === -1) {
+      return NextResponse.json({ error: 'Lead not found' }, { status: 404 });
+    }
+
+    const removedLead = store.leads[leadIndex];
+    store.leads.splice(leadIndex, 1);
+
+    store.auditLogs.unshift({
+      id: `audit_${Date.now()}`,
+      action: 'LEAD_ERASED_DPDP',
+      entityType: 'Lead',
+      entityId: leadId,
+      metadata: {
+        type: removedLead.type,
+        maskedEmail: removedLead.email ? `${removedLead.email.slice(0, 2)}***@***` : 'unknown',
+        performedBy: session.email,
+      },
+      createdAt: new Date().toISOString(),
+    });
+
+    saveLocalStore(store);
+    return NextResponse.json({ success: true, message: 'Lead erased pursuant to DPDP request' });
+  } catch (err: any) {
+    return NextResponse.json({ error: err.message || 'Failed to erase lead' }, { status: 500 });
   }
 }

@@ -25,6 +25,42 @@ export default function AdminOrdersPage() {
     fetchOrders();
   }, []);
 
+  const handleAnonymizePii = async (orderId: string, invoiceNumber: string) => {
+    if (
+      !confirm(
+        `DPDP ACT 2023 DATA ERASURE: Are you sure you want to anonymize customer identifying data for invoice ${invoiceNumber}?\n\nFinancial tax amounts and HSN records will be preserved for statutory GST compliance.`
+      )
+    ) {
+      return;
+    }
+
+    try {
+      const res = await fetch('/api/orders', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ orderId, action: 'ANONYMIZE_PII' }),
+      });
+      if (res.ok) {
+        setOrders((prev) =>
+          prev.map((o) =>
+            o.id === orderId
+              ? {
+                  ...o,
+                  customerName: 'REDACTED (DPDP ERASURE)',
+                  customerEmail: 'erased@dpdp.outside.in',
+                  isAnonymized: true,
+                }
+              : o
+          )
+        );
+      } else {
+        alert('Failed to anonymize order data.');
+      }
+    } catch {
+      alert('Error during DPDP erasure operation.');
+    }
+  };
+
   return (
     <div className="space-y-8 font-mono">
       
@@ -118,7 +154,7 @@ export default function AdminOrdersPage() {
                       <td className="p-4 text-right font-bold text-[#111110] font-mono">
                         ₹{(order.totalAmountPaise / 100).toFixed(2)}
                       </td>
-                      <td className="p-4 text-center">
+                      <td className="p-4 text-center space-y-1">
                         <Link
                           href={`/checkout/success?orderNumber=${order.orderNumber}`}
                           target="_blank"
@@ -127,6 +163,19 @@ export default function AdminOrdersPage() {
                           <Printer className="w-3 h-3 text-[#B82328]" />
                           <span>INVOICE</span>
                         </Link>
+                        {order.isAnonymized ? (
+                          <span className="block text-[8px] text-[#3F4E44] bg-[#3F4E44]/10 border border-[#3F4E44]/20 px-1 py-0.5 font-bold uppercase">
+                            PII ERASED (DPDP)
+                          </span>
+                        ) : (
+                          <button
+                            onClick={() => handleAnonymizePii(order.id, order.invoiceNumber)}
+                            className="block w-full text-[9px] text-[#B82328] hover:bg-[#B82328] hover:text-white border border-[#B82328]/30 px-1 py-0.5 font-bold uppercase transition-colors cursor-pointer"
+                            title="Anonymize customer PII under DPDP Act 2023"
+                          >
+                            ERASE PII
+                          </button>
+                        )}
                       </td>
                     </tr>
                   );

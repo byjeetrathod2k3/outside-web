@@ -80,13 +80,20 @@ export function GlobalFooter() {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="px-6 py-3.5 bg-outside-crimson hover:bg-outside-crimsonHover text-white text-xs font-mono uppercase tracking-widest font-bold flex items-center justify-center gap-2 transition-all disabled:opacity-50 shadow-sm"
+                  className="px-6 py-3.5 bg-outside-crimson hover:bg-outside-crimsonHover text-white text-xs font-mono uppercase tracking-widest font-bold flex items-center justify-center gap-2 transition-all disabled:opacity-50 shadow-sm cursor-pointer"
                 >
                   <span>{loading ? 'JOINING...' : 'JOIN WAITLIST'}</span>
                   <ArrowRight className="w-3.5 h-3.5" />
                 </button>
               </form>
             )}
+            <p className="text-[10px] text-outside-muted font-sans mt-2">
+              By joining, you consent to receive drop alerts under our{' '}
+              <Link href="/privacy-policy" className="underline hover:text-outside-text">
+                Privacy Policy
+              </Link>{' '}
+              (DPDP Act, 2023). Unsubscribe anytime.
+            </p>
           </div>
         </div>
       </div>
@@ -108,9 +115,11 @@ export function GlobalFooter() {
             Premium streetwear, 280 GSM heavyweight organic cotton, and limited editions. Crafted in India with meticulous tailoring and transparent single-drop releases.
           </p>
           <div className="pt-2 font-mono text-[11px] text-outside-muted space-y-1">
-            <p><strong className="text-outside-text">LEGAL:</strong> OUTSIDE APPAREL STUDIO PVT LTD</p>
+            <p><strong className="text-outside-text">LEGAL ENTITY:</strong> OUTSIDE APPAREL STUDIO PVT LTD</p>
+            <p><strong className="text-outside-text">REGISTERED OFFICE:</strong> Plot 104, Design District, SG Highway, Ahmedabad, Gujarat 380015</p>
             <p><strong className="text-outside-text">GSTIN:</strong> 24AABCO1234F1Z5 · GST REGISTERED (INDIA)</p>
             <p><strong className="text-outside-text">HSN CLASSIFICATION:</strong> 61091000 (KNITTED COTTON)</p>
+            <p><strong className="text-outside-text">GRIEVANCE OFFICER:</strong> Mr. Rohan Mehta · grievance@outside.in (SLA: 48h Ack / 30d Resolve)</p>
           </div>
         </div>
 
@@ -147,7 +156,7 @@ export function GlobalFooter() {
           <ul className="space-y-2.5 text-xs font-mono">
             <li>
               <Link href="/craft" className="text-outside-muted hover:text-outside-crimson transition-colors">
-                THE CRAFT &amp; ATELIER (280 GSM)
+                THE CRAFT &amp; FABRIC (280 GSM)
               </Link>
             </li>
             <li>
@@ -162,7 +171,7 @@ export function GlobalFooter() {
             </li>
             <li>
               <Link href="/contact" className="text-outside-muted hover:text-outside-crimson transition-colors">
-                CONCIERGE &amp; PRESS
+                SUPPORT &amp; PRESS
               </Link>
             </li>
           </ul>
@@ -173,13 +182,18 @@ export function GlobalFooter() {
           <h4 className="text-xs font-mono uppercase tracking-[0.2em] text-outside-text font-bold">GOVERNANCE &amp; CARE</h4>
           <ul className="space-y-2.5 text-xs font-mono">
             <li>
+              <Link href="/grievance" className="text-outside-crimson hover:underline transition-colors font-bold">
+                GRIEVANCE REDRESSAL OFFICER
+              </Link>
+            </li>
+            <li>
               <Link href="/returns" className="text-outside-muted hover:text-outside-crimson transition-colors font-bold text-outside-text">
                 7-DAY DOORSTEP EXCHANGES
               </Link>
             </li>
             <li>
               <Link href="/privacy-policy" className="text-outside-muted hover:text-outside-crimson transition-colors">
-                PRIVACY POLICY
+                PRIVACY POLICY (DPDP 2023)
               </Link>
             </li>
             <li>
@@ -194,7 +208,7 @@ export function GlobalFooter() {
             </li>
             <li>
               <Link href="/about" className="text-outside-muted hover:text-outside-crimson transition-colors">
-                ATELIER STANDARDS (AHMEDABAD)
+                STUDIO STANDARDS (AHMEDABAD)
               </Link>
             </li>
           </ul>

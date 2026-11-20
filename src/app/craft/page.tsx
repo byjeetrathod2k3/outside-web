@@ -29,7 +29,7 @@ const CRAFT_PILLARS = [
     subtitle: 'TEXTILE DENSITY & STRUCTURAL DRAPE',
     icon: Scale,
     description:
-      'Standard fast-fashion t-shirts weigh 140 to 180 GSM. OUTSIDE engineered a heavyweight 280 GSM French Terry knit using 100% long-staple organic cotton. The outer face is flat-combed to a silk-like touch, while the inner loopback delivers thermal breathability and tactile substance that hangs in an intentional architectural boxy silhouette.',
+      'Standard fast-fashion t-shirts weigh 140 to 180 GSM. OUTSIDE engineered a heavyweight 280 GSM French Terry knit using 100% long-staple organic cotton. The outer face is flat-combed to a silk-like touch, while the inner loopback delivers thermal breathability and tactile substance that hangs in an intentional, structured boxy fit.',
     badge: '280 GSM KNIT',
   },
   {

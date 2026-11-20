@@ -133,7 +133,7 @@ export default async function JournalDetailPage({
             </div>
             <div className="space-y-1">
               <h4 className="text-xs font-mono uppercase tracking-wider text-outside-text font-bold">
-                STUDIO OUTSIDE EDITORIAL ATELIER
+                STUDIO OUTSIDE EDITORIAL TEAM
               </h4>
               <p className="text-xs text-outside-muted font-sans leading-relaxed">
                 Written by the patternmakers, textile engineers, and founders at OUTSIDE Apparel Studio in Ahmedabad, Gujarat. Published under the open Anti-Inventory Manifesto.

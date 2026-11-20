@@ -33,7 +33,7 @@ export default function AboutPage() {
           <div className="grid grid-cols-1 md:grid-cols-12 gap-10 items-center">
             <div className="md:col-span-6 space-y-4">
               <span className="text-xs font-mono text-outside-crimson font-bold uppercase tracking-wider">
-                01 // THE ARCHITECTURAL SILHOUETTE
+                01 // THE ARCHITECTURAL FIT
               </span>
               <h2 className="text-2xl sm:text-3xl font-display font-black text-outside-text uppercase">
                 The Women-First Sizing Calibration
@@ -42,7 +42,7 @@ export default function AboutPage() {
                 For decades, streetwear has forced women into shrunken men’s t-shirts. The result is always the same: drooping shoulders that swallow the neck, pinched armholes, and rigid boxiness that fights against natural curvature.
               </p>
               <p className="text-xs text-outside-muted leading-relaxed font-sans">
-                We inverted the industry convention. Every silhouette at OUTSIDE is developed first on female fit models. We engineered ergonomic armhole curves, softened shoulder slopes, and added side-split hems so the heavyweight fabric moves gracefully without bunching.
+                We inverted the industry convention. Every fit at OUTSIDE is developed first on female fit models. We engineered ergonomic armhole curves, softened shoulder slopes, and added side-split hems so the heavyweight fabric moves gracefully without bunching.
               </p>
             </div>
             <div className="md:col-span-6 p-6 bg-white border border-outside-border space-y-3 font-mono text-xs shadow-luxury">

@@ -9,10 +9,10 @@ const STATIC_CMS_PAGES: Record<
   { title: string; subtitle: string; contentHtml: string }
 > = {
   'size-guide': {
-    title: 'SIZE & FIT MATRIX // 280 GSM SILHOUETTES',
+    title: 'SIZE & FIT GUIDE // 280 GSM APPAREL',
     subtitle: 'Calibrated specifically for our Women-first and Men architectural oversized cuts.',
     contentHtml: `
-      <h2>The Silhouette Architecture</h2>
+      <h2>The Fit &amp; Cut Guide</h2>
       <p>All OUTSIDE garments feature an intentional architectural drape. We recommend selecting your true size for an authentic dropped-shoulder relaxed fit, or sizing down one step for a more classic structured fit.</p>
       
       <table style="width:100%; text-align:left; border-collapse:collapse; margin:24px 0; font-family: monospace; font-size: 13px;">
@@ -77,14 +77,76 @@ const STATIC_CMS_PAGES: Record<
     `,
   },
   'privacy-policy': {
-    title: 'PRIVACY POLICY & DATA PROTECTION',
-    subtitle: 'Transparent privacy standards adhering to Indian IT Act & DPDP Act guidelines.',
+    title: 'PRIVACY POLICY & DATA PROTECTION (DPDP ACT 2023)',
+    subtitle: 'Transparent personal data governance adhering to the Digital Personal Data Protection Act, 2023 and IT Act, 2000.',
     contentHtml: `
-      <h2>Data Collection & Purpose</h2>
-      <p>OUTSIDE APPAREL STUDIO PVT LTD collects personal identification details (name, shipping address, telephone number, email) strictly to fulfill drop orders, calculate accurate Place of Supply GST, and transmit transactional order updates.</p>
+      <h2>1. Digital Personal Data Protection (DPDP Act, 2023)</h2>
+      <p>OUTSIDE APPAREL STUDIO PVT LTD ("OUTSIDE", "we", "us") values your privacy. We process personal data strictly on the basis of your explicit consent and for lawful purposes necessary to fulfill your limited-edition apparel orders.</p>
 
-      <h2>Payment Information Security</h2>
-      <p>We do not store complete debit/credit card numbers or UPI PINs on our servers. All financial transactions are tokenized and processed through RBI-authorized payment aggregators.</p>
+      <h2>2. Data Minimization & Collection Scope</h2>
+      <p>We collect only strictly necessary information: Full Name, Delivery Address, Pincode, Email Address, and Phone Number. We do not collect excessive profiling data or invasive location coordinates.</p>
+
+      <h2>3. Payment Data Tokenization</h2>
+      <p>We do not store complete debit/credit card numbers, CVVs, or UPI PINs on our servers. All transactions are securely routed through RBI-authorized payment gateways utilizing end-to-end encryption.</p>
+
+      <h2>4. Rights of Data Principals</h2>
+      <p>Under the DPDP Act 2023, you hold the following rights:
+      <br />• <strong>Right to Access:</strong> Request a summary of personal data held about you.
+      <br />• <strong>Right to Correction & Erasure:</strong> Request correction of inaccurate data or legal erasure of your contact details once the order fulfillment and statutory return period concludes.
+      <br />• <strong>Right to Grievance Redressal:</strong> Submit privacy concerns directly to our designated Grievance Officer.</p>
+
+      <h2>5. Statutory Retention & Erasure Requests</h2>
+      <p>Transactional invoice records (invoice number, value, HSN, tax split) are retained for 72 months to comply with Indian GST laws (Rule 56, CGST Rules 2017). Personal identifying information can be anonymized upon request by writing to <strong>grievance@outside.in</strong>.</p>
+    `,
+  },
+  grievance: {
+    title: 'GRIEVANCE REDRESSAL MECHANISM & OFFICER',
+    subtitle: 'Statutory compliance under Rule 5(3)(b) of Consumer Protection (E-Commerce) Rules, 2020.',
+    contentHtml: `
+      <h2>Grievance Redressal Officer</h2>
+      <p>In accordance with the <strong>Consumer Protection (E-Commerce) Rules, 2020</strong> and the <strong>Information Technology (Intermediary Guidelines and Digital Media Ethics Code) Rules, 2021</strong>, the details of our Grievance Officer are set out below:</p>
+
+      <table style="width:100%; text-align:left; border-collapse:collapse; margin:24px 0; font-family: monospace; font-size: 13px;">
+        <tbody>
+          <tr style="border-bottom: 1px solid #E7E2DA;">
+            <td style="padding:10px; font-weight:bold; width:35%;">Name</td>
+            <td style="padding:10px;">Mr. Rohan Mehta</td>
+          </tr>
+          <tr style="border-bottom: 1px solid #E7E2DA;">
+            <td style="padding:10px; font-weight:bold;">Designation</td>
+            <td style="padding:10px;">Grievance Redressal Officer & Head of Operations</td>
+          </tr>
+          <tr style="border-bottom: 1px solid #E7E2DA;">
+            <td style="padding:10px; font-weight:bold;">Legal Entity</td>
+            <td style="padding:10px;">OUTSIDE APPAREL STUDIO PVT LTD</td>
+          </tr>
+          <tr style="border-bottom: 1px solid #E7E2DA;">
+            <td style="padding:10px; font-weight:bold;">Registered Office</td>
+            <td style="padding:10px;">Plot 104, Design District, SG Highway, Ahmedabad, Gujarat 380015, India</td>
+          </tr>
+          <tr style="border-bottom: 1px solid #E7E2DA;">
+            <td style="padding:10px; font-weight:bold;">Email Address</td>
+            <td style="padding:10px;"><a href="mailto:grievance@outside.in" style="color:#D91E2A;">grievance@outside.in</a></td>
+          </tr>
+          <tr style="border-bottom: 1px solid #E7E2DA;">
+            <td style="padding:10px; font-weight:bold;">Direct Phone</td>
+            <td style="padding:10px;">+91 79 4000 8920 (Mon–Fri, 10:00 AM – 6:00 PM IST)</td>
+          </tr>
+          <tr style="border-bottom: 1px solid #E7E2DA;">
+            <td style="padding:10px; font-weight:bold;">Acknowledgment SLA</td>
+            <td style="padding:10px;">Within 48 business hours</td>
+          </tr>
+          <tr style="border-bottom: 1px solid #E7E2DA;">
+            <td style="padding:10px; font-weight:bold;">Resolution SLA</td>
+            <td style="padding:10px;">Within 30 calendar days from receipt of grievance</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2>How to File a Grievance</h2>
+      <p>1. Send an email to <strong>grievance@outside.in</strong> detailing your Order Number (e.g., ORD-2026-0001), Registered Email, and the nature of your concern.<br />
+      2. Our team will issue a unique Ticket Reference Number within 48 hours.<br />
+      3. A full investigation will be conducted and resolution communicated in writing within 30 days.</p>
     `,
   },
   terms: {

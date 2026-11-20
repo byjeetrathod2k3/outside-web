@@ -17,8 +17,8 @@ const SIZE_CHARTS = {
   WOMEN: [
     { size: 'XS', chest: '38-40"', length: '25.5"', shoulder: '19.5"', sleeve: '8.5"', recommendedFor: 'Petite / Fitted Oversized' },
     { size: 'S', chest: '41-43"', length: '26.5"', shoulder: '20.5"', sleeve: '9.0"', recommendedFor: 'Standard Women-First Oversized (Model Size)' },
-    { size: 'M', chest: '44-46"', length: '27.5"', shoulder: '21.5"', sleeve: '9.5"', recommendedFor: 'Relaxed Streetwear Silhouette' },
-    { size: 'L', chest: '47-49"', length: '28.5"', shoulder: '22.5"', sleeve: '10.0"', recommendedFor: 'Hyper-Dropped Architectural Silhouette' },
+    { size: 'M', chest: '44-46"', length: '27.5"', shoulder: '21.5"', sleeve: '9.5"', recommendedFor: 'Relaxed Streetwear Fit' },
+    { size: 'L', chest: '47-49"', length: '28.5"', shoulder: '22.5"', sleeve: '10.0"', recommendedFor: 'Drop-Shoulder Oversized Fit' },
   ],
   MEN: [
     { size: 'S', chest: '42-44"', length: '27.5"', shoulder: '21.0"', sleeve: '9.5"', recommendedFor: 'Lean Athletic Frame' },
@@ -47,14 +47,14 @@ export default function SizeGuidePage() {
             <span>INTERACTIVE FIT &amp; SIZING ROOM</span>
           </div>
           <h1 className="text-3xl sm:text-5xl font-display font-black tracking-tight text-outside-text uppercase">
-            The Silhouette Matrix.
+            The Fit &amp; Sizing Matrix.
           </h1>
           <p className="text-sm font-sans text-outside-muted max-w-2xl leading-relaxed">
-            All OUTSIDE garments are patterned with an intentional architectural boxy cut. Select your preferred silhouette below to review exact dimensions and fit guidance.
+            All OUTSIDE garments are patterned with an intentional architectural boxy cut. Select your preferred fit below to review exact dimensions and sizing guidance.
           </p>
         </div>
 
-        {/* Silhouette Switcher & Unit Toggle */}
+        {/* Fit Switcher & Unit Toggle */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 bg-white border border-outside-border shadow-sm">
           <div className="flex items-center gap-2">
             <span className="text-xs text-outside-muted font-bold uppercase mr-2">CUT:</span>
@@ -102,7 +102,7 @@ export default function SizeGuidePage() {
           <div className="flex items-center justify-between border-b border-outside-border pb-4">
             <div>
               <span className="text-[10px] text-outside-crimson font-bold uppercase tracking-wider block">
-                {activeGender === 'WOMEN' ? 'PRIMARY WOMEN-FIRST SILHOUETTE' : 'MEN ARCHITECTURAL SILHOUETTE'}
+                {activeGender === 'WOMEN' ? 'PRIMARY WOMEN-FIRST FIT' : 'MEN RELAXED BOXY FIT'}
               </span>
               <h3 className="text-xl font-display font-bold uppercase text-outside-text">
                 SIZE {activeRow.size} PROFILE // {activeRow.recommendedFor}
@@ -154,7 +154,7 @@ export default function SizeGuidePage() {
                   <th className="p-4">LENGTH</th>
                   <th className="p-4">SHOULDER</th>
                   <th className="p-4">SLEEVE</th>
-                  <th className="p-4">INTENDED SILHOUETTE</th>
+                  <th className="p-4">RECOMMENDED FIT / LOOK</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-outside-border">

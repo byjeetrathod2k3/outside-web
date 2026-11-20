@@ -6,7 +6,7 @@ import { ArrowRight, CheckCircle2, PackageCheck, AlertCircle, RefreshCw } from '
 const REASON_OPTIONS = [
   'Size Too Fitted — Exchange for one size up',
   'Size Too Oversized — Exchange for one size down',
-  'Switch Silhouette (Change between Women Ergo-Boxy and Men Structured)',
+  'Switch Fit (Change between Women\'s Boxy and Men\'s Structured)',
   'Fabric trial / Color tone inspection',
   'Damaged in Transit / Courier Box Defect',
 ];
@@ -38,7 +38,7 @@ export function ReturnsPortalClient() {
         reverseRma: `RMA-${orderNumber.replace(/[^A-Za-z0-9]/g, '').slice(-6) || 'OUT001'}-${randomSuffix}`,
         courier: 'Bluedart Air Express Reverse Logistics',
         pickupWindow: 'Within 24 to 48 Hours',
-        targetItem: `DROP 001 (${targetFit} SILHOUETTE · SIZE ${targetSize})`,
+        targetItem: `DROP 001 (${targetFit === 'WOMEN' ? "WOMEN'S FIT" : "MEN'S FIT"} · SIZE ${targetSize})`,
       });
       setIsSubmitting(false);
     }, 800);
@@ -174,7 +174,7 @@ export function ReturnsPortalClient() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <span className="block text-[10px] text-outside-inkSecondary uppercase mb-1">
-                Target Silhouette Cut:
+                Target Fit Style:
               </span>
               <div className="flex gap-2">
                 {(['WOMEN', 'MEN'] as const).map((fit) => (
@@ -188,7 +188,7 @@ export function ReturnsPortalClient() {
                         : 'border-outside-border bg-outside-elevated text-outside-inkSecondary hover:text-outside-ink'
                     }`}
                   >
-                    {fit === 'WOMEN' ? 'Women Ergo' : 'Men Relaxed'}
+                    {fit === 'WOMEN' ? "Women's Fit" : "Men's Fit"}
                   </button>
                 ))}
               </div>

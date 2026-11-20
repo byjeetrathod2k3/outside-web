@@ -201,7 +201,7 @@ export async function GET(request: NextRequest) {
                 color: '#52504B',
               }}
             >
-              AHMEDABAD ATELIER · WWW.OUTSIDE.IN
+              AHMEDABAD STUDIO · WWW.OUTSIDE.IN
             </div>
           </div>
         </div>

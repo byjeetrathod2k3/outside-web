@@ -135,7 +135,7 @@ export function EditorialHero({
               </div>
               <div className="flex items-center justify-between text-[10px] font-mono text-outside-inkSecondary pt-0.5">
                 <span>SERIAL #OUT-001-001</span>
-                <span className="font-bold text-outside-ink">318 SHOPPERS VIEWING NOW</span>
+                <span className="font-bold text-outside-moss">LIMITED EDITION RUN · ZERO RESTOCKS</span>
                 <span>SERIAL #OUT-001-250</span>
               </div>
             </div>
@@ -280,13 +280,13 @@ export function EditorialHero({
 
             <div className="space-y-1">
               <div className="text-[10px] uppercase tracking-widest text-outside-accent font-bold">
-                03 // SILHOUETTE FIT
+                03 // FIT &amp; CUT
               </div>
               <div className="text-sm font-bold text-outside-ink">
                 Oversized Drop-Shoulder
               </div>
               <div className="text-xs text-outside-inkSecondary">
-                Calibrated Boxy Silhouette
+                Structured Boxy Cut
               </div>
             </div>
 

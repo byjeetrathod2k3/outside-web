@@ -48,8 +48,24 @@ export default function AdminLeadsPage() {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `OUTSIDE_Leads_CRM_${new Date().toISOString().slice(0, 10)}.csv`;
+    a.download = `outside-leads-${Date.now()}.csv`;
     a.click();
+  };
+
+  const handleEraseLead = async (id: string, email: string) => {
+    if (!confirm(`DPDP ACT 2023 ERASURE: Are you sure you want to permanently erase all personal data for ${email}? This action is logged immutably.`)) {
+      return;
+    }
+    try {
+      const res = await fetch(`/api/leads?id=${id}`, { method: 'DELETE' });
+      if (res.ok) {
+        setLeads((prev) => prev.filter((l) => l.id !== id));
+      } else {
+        alert('Failed to erase lead personal data.');
+      }
+    } catch (e) {
+      alert('Error during DPDP erasure operation.');
+    }
   };
 
   return (
@@ -113,6 +129,7 @@ export default function AdminLeadsPage() {
                   <th className="p-4">Origin Channel</th>
                   <th className="p-4">Status</th>
                   <th className="p-4 text-right">Captured</th>
+                  <th className="p-4 text-right">DPDP Action</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-[#DCD7CC]">
@@ -154,6 +171,15 @@ export default function AdminLeadsPage() {
                     </td>
                     <td className="p-4 text-right text-[10px] text-[#52504B] font-mono">
                       {new Date(lead.createdAt).toLocaleDateString('en-IN')}
+                    </td>
+                    <td className="p-4 text-right">
+                      <button
+                        onClick={() => handleEraseLead(lead.id, lead.email)}
+                        className="px-2.5 py-1 bg-[#B82328]/10 hover:bg-[#B82328] text-[#B82328] hover:text-white border border-[#B82328]/30 text-[10px] font-mono font-bold uppercase transition-colors cursor-pointer"
+                        title="Permanently erase personal identifying data under DPDP Act 2023"
+                      >
+                        ERASE (DPDP)
+                      </button>
                     </td>
                   </tr>
                 ))}

@@ -32,7 +32,7 @@ export function generateOrganizationSchema() {
     },
     contactPoint: {
       '@type': 'ContactPoint',
-      email: 'concierge@outside.in',
+      email: 'support@outside.in',
       contactType: 'customer service',
       availableLanguage: ['English', 'Hindi', 'Gujarati'],
     },

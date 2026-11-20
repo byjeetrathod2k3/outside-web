@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Link from 'next/link';
 import { Mail, MapPin, CheckCircle, ArrowRight } from 'lucide-react';
 import { SectionHeading } from '@/components/ui/section-heading';
 import { Button } from '@/components/ui/button';
@@ -48,7 +49,7 @@ export default function ContactPage() {
         <div className="border-b border-outside-border pb-8">
           <SectionHeading
             align="left"
-            eyebrow="STUDIO LIAISON // CONCIERGE &amp; PRESS"
+            eyebrow="STUDIO CONTACT // SUPPORT &amp; PRESS"
             title="Direct Studio Communication."
             description="For collector sizing assistance, press inquiries, or studio appointment requests."
           />
@@ -86,6 +87,19 @@ export default function ContactPage() {
               <p className="text-outside-muted">GSTIN: 24AABCO1234F1Z5</p>
               <p className="text-outside-muted">100% GST Compliant (Registered in India)</p>
               <p className="text-outside-muted">Response Time: &lt; 24 Business Hours</p>
+            </div>
+
+            <div className="p-6 bg-white border border-outside-border font-mono text-xs space-y-2 shadow-sm">
+              <span className="text-outside-crimson font-bold">GRIEVANCE REDRESSAL OFFICER</span>
+              <p className="text-outside-text font-bold">Mr. Rohan Mehta</p>
+              <p className="text-outside-muted">Designation: Grievance Officer &amp; Customer Ops</p>
+              <p className="text-outside-muted">Email: grievance@outside.in</p>
+              <p className="text-outside-muted">Direct: +91 79 4000 8920</p>
+              <p className="text-[10px] text-outside-muted pt-1">
+                Statutory Timelines (Consumer Protection Rules, 2020):<br />
+                · Acknowledgment within 48 hours<br />
+                · Complete resolution within 30 days
+              </p>
             </div>
           </div>
 
@@ -172,6 +186,22 @@ export default function ContactPage() {
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                     className="w-full bg-white border border-outside-border px-4 py-3 text-xs font-mono text-outside-text focus:border-outside-crimson focus:outline-none"
                   />
+                </div>
+
+                <div className="flex items-start gap-2.5">
+                  <input
+                    type="checkbox"
+                    id="contact-consent"
+                    required
+                    className="mt-0.5 w-4 h-4 accent-outside-crimson cursor-pointer shrink-0"
+                  />
+                  <label htmlFor="contact-consent" className="text-[11px] text-outside-muted font-sans leading-tight cursor-pointer">
+                    I consent to OUTSIDE storing and processing my contact details solely to respond to this inquiry in accordance with the{' '}
+                    <Link href="/privacy-policy" className="underline hover:text-outside-text" target="_blank">
+                      Privacy Policy
+                    </Link>{' '}
+                    (DPDP Act, 2023).
+                  </label>
                 </div>
 
                 <Button

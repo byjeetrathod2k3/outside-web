@@ -161,7 +161,7 @@ export default function AdminDropsPage() {
         yPercent: clampedY,
         zoomLevel: 2.5,
         title: 'New Craft Hotspot',
-        tag: 'ATELIER DETAIL',
+        tag: 'STUDIO DETAIL',
         description: 'Detail specification description of the garment craft and construction.',
         spec: 'Hand-Finished Craftsmanship',
       };
@@ -198,7 +198,7 @@ export default function AdminDropsPage() {
       yPercent: 50,
       zoomLevel: 2.5,
       title: 'New Craft Hotspot',
-      tag: 'ATELIER DETAIL',
+      tag: 'STUDIO DETAIL',
       description: 'Hand-crafted garment spec and artisan finish.',
       spec: 'Custom-Milled Detail',
     };
@@ -650,7 +650,7 @@ export default function AdminDropsPage() {
                             type="text"
                             value={activeHotspot.tag}
                             onChange={(e) => handleUpdateActiveHotspot({ tag: e.target.value })}
-                            placeholder="e.g. HAND-CRAFTED ATELIER EMBROIDERY"
+                            placeholder="e.g. HAND-CRAFTED STUDIO EMBROIDERY"
                             className="w-full bg-[#FCFBF8] border border-[#DCD7CC] px-3 py-1.5 text-xs text-[#111110] focus:border-[#B82328] focus:outline-none"
                           />
                         </div>
@@ -791,7 +791,7 @@ export default function AdminDropsPage() {
                 {/* Atomic Variant Stock Adjuster */}
                 <div className="space-y-3 pt-2">
                   <h4 className="text-xs uppercase text-[#111110] font-bold tracking-wider">
-                    ATOMIC STOCK MANAGEMENT PER SILHOUETTE &amp; SIZE
+                    STOCK MANAGEMENT PER FIT &amp; SIZE
                   </h4>
 
                   <div className="border border-[#DCD7CC] overflow-hidden">

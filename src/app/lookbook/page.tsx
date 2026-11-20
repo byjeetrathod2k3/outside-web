@@ -8,14 +8,14 @@ import { SectionHeading } from '@/components/ui/section-heading';
 export const metadata: Metadata = {
   title: 'Editorial Lookbook // DROP 001: Better Days Ahead | OUTSIDE',
   description:
-    'Visual editorial gallery documenting OUTSIDE DROP 001 in motion. 280 GSM organic combed cotton, ergonomic women-first boxy silhouette, and raised chain-stitch embroidery.',
+    'Visual editorial gallery documenting OUTSIDE DROP 001 in motion. 280 GSM organic combed cotton, ergonomic women-first boxy fit, and raised chain-stitch embroidery.',
 };
 
 const LOOKBOOK_FRAMES = [
   {
     id: 'frame-01',
     title: 'FRAME 01 // TEXTILE GRAVITY',
-    subtitle: 'Ahmedabad Atelier Daylight · 280 GSM Heavyweight Fall',
+    subtitle: 'Ahmedabad Studio Daylight · 280 GSM Heavyweight Fall',
     image: '/images/drops/drop-001-front.jpg',
     aspect: 'aspect-[4/5]',
     caption: 'Natural Raw Unbleached Ivory cotton holding architectural boxy structure without synthetic stiffeners.',
@@ -46,7 +46,7 @@ const LOOKBOOK_FRAMES = [
     image: '/images/drops/drop-001-back.jpg',
     aspect: 'aspect-square',
     caption: 'Calibrated armhole depth and side-slit vents eliminate waist bunching when tucked or draped free.',
-    tag: 'FIT SILHOUETTE',
+    tag: 'FIT & CUT',
   },
 ];
 
@@ -66,7 +66,7 @@ export default function LookbookPage() {
               Better Days Ahead.
             </h1>
             <p className="text-sm font-sans text-outside-muted max-w-xl leading-relaxed">
-              Photographed in our Ahmedabad atelier. An intimate exploration of raw unbleached cotton, botanical threadwork, and the quiet power of intentional rarity.
+              Photographed in our Ahmedabad studio. An intimate exploration of raw unbleached cotton, botanical threadwork, and the quiet power of intentional rarity.
             </p>
           </div>
 

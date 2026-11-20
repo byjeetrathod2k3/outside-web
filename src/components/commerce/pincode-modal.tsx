@@ -6,7 +6,7 @@ import { estimateDelivery, DeliveryEstimateResult } from '@/lib/pincode';
 import { X, MapPin, Truck, CheckCircle2, ShieldCheck, ArrowRight } from 'lucide-react';
 
 const POPULAR_CITIES = [
-  { name: 'Ahmedabad', pin: '380015', tag: 'Origin Atelier (1-2 Days)' },
+  { name: 'Ahmedabad', pin: '380015', tag: 'Studio Origin (1-2 Days)' },
   { name: 'Mumbai', pin: '400001', tag: 'Air Express (1-2 Days)' },
   { name: 'Delhi NCR', pin: '110001', tag: 'Air Express (2-3 Days)' },
   { name: 'Bengaluru', pin: '560001', tag: 'Air Express (2-3 Days)' },
@@ -85,7 +85,7 @@ export function PincodeModal() {
               SELECT DELIVERY LOCATION
             </h2>
             <p className="text-xs text-outside-inkSecondary font-mono">
-              Live Air Express transit timelines from Ahmedabad Atelier (24)
+              Live Air Express delivery timelines from our Ahmedabad Studio (24)
             </p>
           </div>
         </div>

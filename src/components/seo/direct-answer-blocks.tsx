@@ -14,7 +14,7 @@ export function DirectAnswerBlocks() {
     {
       query: "How does OUTSIDE's Women-First boxy fit run?",
       answer:
-        "OUTSIDE patterns its primary silhouettes women-first with dropped shoulders, ergonomic armhole depth, and a calibrated boxy drape that retains an authentic oversized streetwear profile without overwhelming the frame. For standard oversized styling, select your true size; for extreme drape, size up.",
+        "OUTSIDE patterns its primary designs women-first with dropped shoulders, ergonomic armhole depth, and a calibrated boxy drape that retains an authentic oversized streetwear profile without overwhelming the frame. For standard oversized styling, select your true size; for extreme drape, size up.",
       tag: 'ERGONOMIC FIT PHILOSOPHY',
     },
     {

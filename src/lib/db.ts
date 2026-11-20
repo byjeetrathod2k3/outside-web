@@ -95,7 +95,7 @@ export const INITIAL_DROP = {
   slug: 'drop-001-better-days-ahead',
   title: 'DROP 001 // BETTER DAYS AHEAD',
   subtitle: '280 GSM Heavyweight Organic Cotton · Hand-Stitched Floral Embroidery · Serialized Edition of 250',
-  story: `Engineered in our Ahmedabad atelier, DROP 001 explores the juxtaposition between brutalist architectural boxy tailoring and tactile human warmth. Crafted from custom-milled 280 GSM organic combed cotton in a warm unbleached ivory hue, featuring intricate multi-layered floral embroidery ("Better Days Ahead"), an elongated knotted stem tethered to a stitched canvas tag reading "for a kinder you", the signature OUTSIDE logo embroidered on the left sleeve, and the back typographic manifesto: "SAME GIRL BRIGHTER DAYS". Strictly limited to 250 serialized pieces worldwide.`,
+  story: `Engineered in our Ahmedabad studio, DROP 001 explores the juxtaposition between brutalist architectural boxy tailoring and tactile human warmth. Crafted from custom-milled 280 GSM organic combed cotton in a warm unbleached ivory hue, featuring intricate multi-layered floral embroidery ("Better Days Ahead"), an elongated knotted stem tethered to a stitched canvas tag reading "for a kinder you", the signature OUTSIDE logo embroidered on the left sleeve, and the back typographic manifesto: "SAME GIRL BRIGHTER DAYS". Strictly limited to 250 serialized pieces worldwide.`,
   fabricSpecs: '280 GSM 100% Combed Organic Cotton · French Terry Weave · Pre-Shrunk & Double Bio-Washed · Hand-Finished Floral Embroidery · Lycra-Ribbed Collar · Made in Gujarat, India',
   pricePaise: 240000, // ₹2,400 (falls under 5% GST slab)
   currency: 'INR',
@@ -193,7 +193,7 @@ export const INITIAL_FAQS = [
     id: 'faq_1',
     category: 'Drops & Editions',
     question: 'How do OUTSIDE drops work?',
-    answer: 'We operate on a single-drop schedule. Each drop features exactly one silhouette, produced in a strictly capped, serialized edition (usually 100 to 250 pieces). Once an edition sells out, it will never be restocked or reissued; it moves permanently into The Vault.',
+    answer: 'We operate on a single-drop schedule. Each drop features exactly one signature design, produced in a strictly capped, serialized edition (usually 100 to 250 pieces). Once an edition sells out, it will never be restocked or reissued; it moves permanently into The Vault.',
     sortOrder: 1,
   },
   {
@@ -207,7 +207,7 @@ export const INITIAL_FAQS = [
     id: 'faq_3',
     category: 'Fit & Sizing',
     question: 'What is the Women-First fit philosophy?',
-    answer: 'Rather than shrinking down a standard boxy men’s cut, our Women-first silhouettes are custom-patterned with proportioned shoulders, ergonomic armhole depth, and calibrated drape to achieve an authentic oversized aesthetic without overwhelming the frame.',
+    answer: 'Rather than shrinking down a standard boxy men’s cut, our Women-first fits are custom-patterned with proportioned shoulders, ergonomic armhole depth, and calibrated drape to achieve an authentic oversized aesthetic without overwhelming the frame.',
     sortOrder: 3,
   },
   {
@@ -244,7 +244,7 @@ This is not artificial scarcity—it is respect for the fabric, respect for the 
 
 For DROP 001, we developed a proprietary 280 GSM French Terry. The outer face is ultra-smooth combed yarn, while the reverse side features a micro-loop construction that absorbs moisture and breathes effortlessly in tropical Indian climates. 
 
-The weight creates an architectural drape—the t-shirt holds its boxy structure without sagging, creating clean, intentional silhouettes on both men and women.`,
+The weight creates an architectural drape—the t-shirt holds its boxy structure without sagging, creating a clean, flattering fit on both men and women.`,
     coverImageUrl: '/images/journal/journal-02.jpg',
     authorName: 'Studio Outside',
     publishedAt: '2026-11-15T12:00:00.000Z',
@@ -382,7 +382,7 @@ export const DEFAULT_FEATURE_FLAGS = [
     label: 'Women-First / Men Fit Toggle',
     category: 'COMMERCE',
     isEnabled: true,
-    description: 'Interactive silhouette switcher recalculating measurements and model previews.',
+    description: 'Interactive fit switcher recalculating measurements and model previews.',
     configJson: { defaultFit: 'WOMEN' },
   },
   {
@@ -452,7 +452,7 @@ export const DEFAULT_FEATURE_FLAGS = [
     isEnabled: false,
     description: 'Renders an avant-garde "Next Drop Preparing" screen on public storefront while keeping /admin open.',
     configJson: {
-      headline: 'ATELIER IS CALIBRATING THE NEXT DROP',
+      headline: 'STUDIO IS PREPARING THE NEXT DROP',
       subline: 'DROP 002 PREPARATION UNDERWAY // AHMEDABAD STUDIO',
     },
   },
@@ -528,7 +528,7 @@ export const DEFAULT_SEO_CONFIG: SeoConfigData = {
   ogImageUrl: '/api/og?drop=001',
   llmsManifesto: `OUTSIDE is an architectural luxury D2C apparel brand based in Ahmedabad, Gujarat, India (State Code 24).
 We operate on a strict single-drop limited-edition release model: strictly ONE design is available at any given time, produced in a serialized batch of 250 pieces, and never restocked.
-Garments are cut from custom-milled 280 GSM combed organic cotton with a French terry knit, featuring double bio-washing and an ergonomic Women-First boxy silhouette.
+Garments are cut from custom-milled 280 GSM combed organic cotton with a French terry knit, featuring double bio-washing and an ergonomic Women-First boxy fit.
 All orders are billed under Indian GST (HSN 61091000) with sequential invoicing.`,
   crawlerPolicies: {
     googlebot: true,

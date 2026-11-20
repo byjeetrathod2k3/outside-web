@@ -121,7 +121,7 @@ export function estimateDelivery(pincode: string): DeliveryEstimateResult {
     transitDaysMin: zone.daysMin,
     transitDaysMax: zone.daysMax,
     courierPartner: 'Bluedart Air Express (Dispatched in 24h)',
-    dispatchNote: `Dispatches directly from Ahmedabad Atelier (24) within 24 hours.`,
+    dispatchNote: `Dispatches directly from our Ahmedabad Studio within 24 hours.`,
     isExpressFree: true,
   };
 }

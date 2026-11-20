@@ -335,6 +335,27 @@ export default function CheckoutPage() {
                 </div>
               </div>
 
+              {/* DPDP Act & Statutory Terms Explicit Consent (Unchecked by Default) */}
+              <div className="flex items-start gap-2.5 pt-1 text-left">
+                <input
+                  type="checkbox"
+                  id="checkout-consent"
+                  required
+                  className="mt-0.5 w-4 h-4 accent-outside-crimson cursor-pointer shrink-0"
+                />
+                <label htmlFor="checkout-consent" className="text-[11px] text-outside-muted font-sans leading-tight cursor-pointer">
+                  I agree to the{' '}
+                  <Link href="/terms" className="underline hover:text-outside-text" target="_blank">
+                    Terms of Service
+                  </Link>
+                  , 7-day exchange policy, and consent to processing of my delivery details under the{' '}
+                  <Link href="/privacy-policy" className="underline hover:text-outside-text" target="_blank">
+                    Privacy Policy
+                  </Link>{' '}
+                  (DPDP Act, 2023).
+                </label>
+              </div>
+
               {/* Complete Order Button */}
               <Button
                 type="submit"
