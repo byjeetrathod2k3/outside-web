@@ -66,9 +66,21 @@ const FIT_SPECS = {
   },
 };
 
-export function ActiveDropView({ drop }: { drop: DropData }) {
+export function ActiveDropView({ drop, featureFlags }: { drop: DropData; featureFlags?: any[] }) {
   const { addItem } = useCart();
-  const [selectedFit, setSelectedFit] = useState<'WOMEN' | 'MEN'>('WOMEN');
+
+  // Dynamic Feature Flag Resolvers
+  const flags = featureFlags || [];
+  const enableCountdown = flags.find((f: any) => f.key === 'enable_countdown_timer')?.isEnabled !== false;
+  const enableStockCounter = flags.find((f: any) => f.key === 'enable_live_stock_counter')?.isEnabled !== false;
+  const lowStockThreshold = flags.find((f: any) => f.key === 'low_stock_threshold')?.configJson?.threshold ?? 10;
+  const enableFitToggle = flags.find((f: any) => f.key === 'enable_fit_toggle')?.isEnabled !== false;
+  const defaultFit = (flags.find((f: any) => f.key === 'enable_fit_toggle')?.configJson?.defaultFit as 'WOMEN' | 'MEN') || 'WOMEN';
+  const enableStickyBar = flags.find((f: any) => f.key === 'enable_sticky_drop_bar')?.isEnabled !== false;
+  const enableCheckout = flags.find((f: any) => f.key === 'enable_checkout_flow')?.isEnabled !== false;
+  const enableWaitlist = flags.find((f: any) => f.key === 'enable_waitlist_capture')?.isEnabled !== false;
+
+  const [selectedFit, setSelectedFit] = useState<'WOMEN' | 'MEN'>(defaultFit);
   const [selectedSize, setSelectedSize] = useState<string>('M');
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [addedAnimation, setAddedAnimation] = useState(false);
@@ -119,6 +131,11 @@ export function ActiveDropView({ drop }: { drop: DropData }) {
   const handleAddToCart = () => {
     if (!currentVariant || isOutOfStock) return;
 
+    if (!enableCheckout) {
+      setWaitlistModalOpen(true);
+      return;
+    }
+
     addItem({
       dropId: drop.id,
       variantId: currentVariant.id,
@@ -162,48 +179,50 @@ export function ActiveDropView({ drop }: { drop: DropData }) {
       {/* ========================================== */}
       {/* 1. STICKY MINIMAL ACTIVE DROP BAR (ON SCROLL) */}
       {/* ========================================== */}
-      <div
-        className={`fixed top-20 left-0 right-0 z-30 frosted-alabaster border-b border-outside-border px-4 py-2.5 transition-all duration-300 transform ${
-          showStickyBar ? 'translate-y-0 opacity-100 shadow-editorial' : '-translate-y-full opacity-0 pointer-events-none'
-        }`}
-      >
-        <div className="max-w-7xl mx-auto flex items-center justify-between gap-4 font-mono">
-          <div className="flex items-center gap-3">
-            <span className="w-2 h-2 rounded-full bg-outside-accent animate-pulse" />
-            <span className="text-xs font-bold text-outside-ink uppercase">
-              DROP 00{drop.dropNumber} // {drop.title}
-            </span>
-            <span className="hidden sm:inline text-xs text-outside-inkSecondary">
-              ₹{(drop.pricePaise / 100).toLocaleString('en-IN')} (Inc. 5% GST)
-            </span>
-          </div>
+      {enableStickyBar && (
+        <div
+          className={`fixed top-20 left-0 right-0 z-30 frosted-alabaster border-b border-outside-border px-4 py-2.5 transition-all duration-300 transform ${
+            showStickyBar ? 'translate-y-0 opacity-100 shadow-editorial' : '-translate-y-full opacity-0 pointer-events-none'
+          }`}
+        >
+          <div className="max-w-7xl mx-auto flex items-center justify-between gap-4 font-mono">
+            <div className="flex items-center gap-3">
+              <span className="w-2 h-2 rounded-full bg-outside-accent animate-pulse" />
+              <span className="text-xs font-bold text-outside-ink uppercase">
+                DROP 00{drop.dropNumber} // {drop.title}
+              </span>
+              <span className="hidden sm:inline text-xs text-outside-inkSecondary">
+                ₹{(drop.pricePaise / 100).toLocaleString('en-IN')} (Inc. 5% GST)
+              </span>
+            </div>
 
-          <div className="flex items-center gap-3">
-            {/* Quick Size Dropdown */}
-            <select
-              value={selectedSize}
-              onChange={(e) => setSelectedSize(e.target.value)}
-              className="bg-outside-elevated border border-outside-border px-2.5 py-1 text-xs text-outside-ink font-mono focus:border-outside-accent focus:outline-none"
-            >
-              {availableVariants.map((v) => (
-                <option key={v.size} value={v.size} disabled={v.currentStock <= 0}>
-                  {selectedFit} · {v.size} {v.currentStock <= 0 ? '(SOLD OUT)' : `(${v.currentStock} left)`}
-                </option>
-              ))}
-            </select>
+            <div className="flex items-center gap-3">
+              {/* Quick Size Dropdown */}
+              <select
+                value={selectedSize}
+                onChange={(e) => setSelectedSize(e.target.value)}
+                className="bg-outside-elevated border border-outside-border px-2.5 py-1 text-xs text-outside-ink font-mono focus:border-outside-accent focus:outline-none"
+              >
+                {availableVariants.map((v) => (
+                  <option key={v.size} value={v.size} disabled={v.currentStock <= 0}>
+                    {selectedFit} · {v.size} {v.currentStock <= 0 ? '(SOLD OUT)' : `(${v.currentStock} left)`}
+                  </option>
+                ))}
+              </select>
 
-            <Button
-              variant="primary"
-              size="sm"
-              onClick={handleAddToCart}
-              disabled={isOutOfStock}
-              className="text-[10px]"
-            >
-              {isOutOfStock ? 'WAITLIST' : 'RESERVE PIECE'}
-            </Button>
+              <Button
+                variant="primary"
+                size="sm"
+                onClick={handleAddToCart}
+                disabled={isOutOfStock}
+                className="text-[10px]"
+              >
+                {isOutOfStock ? 'WAITLIST' : 'RESERVE PIECE'}
+              </Button>
+            </div>
           </div>
         </div>
-      </div>
+      )}
 
       {/* ========================================== */}
       {/* 2. MAIN ACTIVE DROP SHOWCASE & LOOKBOOK */}
@@ -317,25 +336,32 @@ export function ActiveDropView({ drop }: { drop: DropData }) {
                 </Badge>
               </div>
 
-              {/* Fit Toggle Buttons */}
-              <div className="grid grid-cols-2 gap-2.5">
-                {(['WOMEN', 'MEN'] as const).map((fit) => (
-                  <button
-                    key={fit}
-                    onClick={() => setSelectedFit(fit)}
-                    className={`py-3 px-3 font-mono text-xs uppercase tracking-wider border transition-all flex flex-col items-center justify-center gap-0.5 ${
-                      selectedFit === fit
-                        ? 'bg-outside-ink text-outside-elevated border-outside-ink font-bold shadow-editorial'
-                        : 'bg-outside-elevated border-outside-border text-outside-inkSecondary hover:text-outside-ink hover:border-outside-ink'
-                    }`}
-                  >
-                    <span>{fit === 'WOMEN' ? 'WOMEN SILHOUETTE' : 'MEN SILHOUETTE'}</span>
-                    <span className={`text-[9px] ${selectedFit === fit ? 'text-outside-elevated/70' : 'text-outside-inkSecondary'}`}>
-                      {fit === 'WOMEN' ? 'Ergonomic Boxy Cut' : 'Structured Relaxed Cut'}
-                    </span>
-                  </button>
-                ))}
-              </div>
+              {/* Fit Toggle Buttons (Governed by enable_fit_toggle Flag) */}
+              {enableFitToggle ? (
+                <div className="grid grid-cols-2 gap-2.5">
+                  {(['WOMEN', 'MEN'] as const).map((fit) => (
+                    <button
+                      key={fit}
+                      onClick={() => setSelectedFit(fit)}
+                      className={`py-3 px-3 font-mono text-xs uppercase tracking-wider border transition-all flex flex-col items-center justify-center gap-0.5 ${
+                        selectedFit === fit
+                          ? 'bg-outside-ink text-outside-elevated border-outside-ink font-bold shadow-editorial'
+                          : 'bg-outside-elevated border-outside-border text-outside-inkSecondary hover:text-outside-ink hover:border-outside-ink'
+                      }`}
+                    >
+                      <span>{fit === 'WOMEN' ? 'WOMEN SILHOUETTE' : 'MEN SILHOUETTE'}</span>
+                      <span className={`text-[9px] ${selectedFit === fit ? 'text-outside-elevated/70' : 'text-outside-inkSecondary'}`}>
+                        {fit === 'WOMEN' ? 'Ergonomic Boxy Cut' : 'Structured Relaxed Cut'}
+                      </span>
+                    </button>
+                  ))}
+                </div>
+              ) : (
+                <div className="p-2.5 bg-outside-elevated border border-outside-border text-xs text-outside-ink font-mono flex items-center justify-between">
+                  <span className="font-bold">{FIT_SPECS[selectedFit].label} (STANDARD)</span>
+                  <span className="text-[10px] text-outside-inkSecondary">EXCLUSIVE RELEASE FIT</span>
+                </div>
+              )}
 
               {/* Dynamic Measurement Spec Display */}
               <div className="pt-3 border-t border-outside-border/80 text-[11px] font-mono text-outside-inkSecondary space-y-1">
@@ -355,12 +381,20 @@ export function ActiveDropView({ drop }: { drop: DropData }) {
               <div className="flex justify-between items-center text-xs font-mono">
                 <span className="uppercase tracking-wider text-outside-ink font-bold">SELECT SIZE</span>
                 <span>
-                  {currentStock > 0 ? (
-                    <span className="text-outside-accent font-bold">
-                      {currentStock <= 5 ? `ONLY ${currentStock} LEFT IN STOCK` : `${currentStock} AVAILABLE`}
-                    </span>
+                  {enableStockCounter ? (
+                    currentStock > 0 ? (
+                      <span className="text-outside-accent font-bold">
+                        {currentStock <= lowStockThreshold
+                          ? `ONLY ${currentStock} LEFT IN ALLOCATION`
+                          : `${currentStock} AVAILABLE`}
+                      </span>
+                    ) : (
+                      <span className="text-outside-accent font-bold">SIZE SOLD OUT</span>
+                    )
                   ) : (
-                    <span className="text-outside-accent font-bold">SIZE SOLD OUT</span>
+                    <span className="text-outside-inkSecondary font-bold uppercase">
+                      SERIALIZED RUN (CAPPED)
+                    </span>
                   )}
                 </span>
               </div>
@@ -416,6 +450,10 @@ export function ActiveDropView({ drop }: { drop: DropData }) {
                     <>
                       <Check className="w-4 h-4 text-outside-elevated" />
                       <span>ADDED TO BAG</span>
+                    </>
+                  ) : !enableCheckout ? (
+                    <>
+                      <span>REQUEST ALLOCATION (WAITLIST ONLY) &rarr;</span>
                     </>
                   ) : (
                     <>

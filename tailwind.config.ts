@@ -11,27 +11,30 @@ const config: Config = {
     extend: {
       colors: {
         outside: {
-          // Mandatory Sun-Bleached Gallery Tokens
-          canvas: '#F7F5F0',       // Warm Alabaster (Primary Canvas)
-          surface: '#EDEAE2',      // Raw Limestone (Secondary Cards, Frames, Sidebar)
-          elevated: '#FCFBF8',     // Pure Chalk (Sticky Headers, Drawers, Inputs)
-          border: '#DCD7CC',       // Sandstone Hairline (1px structural grid)
-          ink: '#111110',          // Obsidian Carbon (Headings, Primary Buttons)
-          inkSecondary: '#52504B', // Warm Graphite (Body text, garment specs)
-          accent: '#B82328',       // Serpent Oxide (Live drop dot, low-stock warning)
-          accentSecondary: '#3F4E44', // Oxidized Moss (In-stock badge, Women-first indicator)
+          // Dynamic CSS Variable Tokens with Sun-Bleached Gallery Fallbacks
+          canvas: 'var(--bg-canvas, #F7F5F0)',
+          surface: 'var(--bg-surface, #EDEAE2)',
+          elevated: 'var(--bg-elevated, #FCFBF8)',
+          border: 'var(--border-hairline, #DCD7CC)',
+          ink: 'var(--ink-primary, #111110)',
+          inkSecondary: 'var(--ink-secondary, #52504B)',
+          accent: 'var(--accent-primary, #B82328)',
+          accentSecondary: 'var(--accent-secondary, #3F4E44)',
 
-          // Aliases for compatibility
-          bg: '#F7F5F0',
-          card: '#FCFBF8',
-          cardSubtle: '#EDEAE2',
-          text: '#111110',
-          muted: '#52504B',
-          crimson: '#B82328',
-          crimsonHover: '#96191E',
-          moss: '#3F4E44',
-          chalk: '#FCFBF8',
+          // Compatibility Aliases
+          bg: 'var(--bg-canvas, #F7F5F0)',
+          card: 'var(--bg-elevated, #FCFBF8)',
+          cardSubtle: 'var(--bg-surface, #EDEAE2)',
+          text: 'var(--ink-primary, #111110)',
+          muted: 'var(--ink-secondary, #52504B)',
+          crimson: 'var(--accent-primary, #B82328)',
+          crimsonHover: 'var(--accent-primary, #B82328)',
+          moss: 'var(--accent-secondary, #3F4E44)',
+          chalk: 'var(--bg-elevated, #FCFBF8)',
         },
+      },
+      borderRadius: {
+        dynamic: 'var(--border-radius, 0px)',
       },
       fontFamily: {
         sans: [

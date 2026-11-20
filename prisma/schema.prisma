@@ -415,3 +415,48 @@ model AuditLog {
 
   @@index([entityType, createdAt])
 }
+
+// ==========================================
+// 9. DYNAMIC THEME, FEATURE FLAGS & LAYOUT GOVERNANCE
+// ==========================================
+model ThemeConfig {
+  id                   String   @id @default("active_theme")
+  canvasColor          String   @default("#F7F5F0") // --bg-canvas (Warm Alabaster)
+  surfaceColor         String   @default("#EDEAE2") // --bg-surface (Raw Limestone)
+  elevatedColor        String   @default("#FCFBF8") // --bg-elevated (Pure Chalk)
+  borderColor          String   @default("#DCD7CC") // --border-hairline (Sandstone Hairline)
+  inkPrimaryColor      String   @default("#111110") // --ink-primary (Obsidian Carbon)
+  inkSecondaryColor    String   @default("#52504B") // --ink-secondary (Warm Graphite)
+  accentPrimaryColor   String   @default("#B82328") // --accent-primary (Serpent Oxide)
+  accentSecondaryColor String   @default("#3F4E44") // --accent-secondary (Oxidized Moss)
+  hairlineGrid         Boolean  @default(true)      // Architectural Swiss 1px Gridlines
+  borderRadius         String   @default("0px")     // 0px, 4px, 8px
+  glassmorphism        Boolean  @default(true)      // Frosted Alabaster Glassmorphism
+  logoUrl              String   @default("/images/OUTSIDE_icon.png")
+  logoDarkUrl          String?
+  faviconUrl           String?  @default("/favicon.ico")
+  ogImageUrl           String?  @default("/images/drops/drop-001-front.jpg")
+  presets              Json?    // Array of saved custom presets
+  updatedAt            DateTime @updatedAt
+}
+
+model FeatureFlag {
+  id          String   @id @default(cuid())
+  key         String   @unique // e.g., "enable_countdown_timer", "enable_live_stock_counter"
+  label       String
+  category    String   // COMMERCE, SITE_WIDE, DROP
+  isEnabled   Boolean  @default(true)
+  description String?
+  configJson  Json?    // Specific parameters (e.g. numeric threshold, text, links)
+  updatedAt   DateTime @updatedAt
+
+  @@index([category, isEnabled])
+}
+
+model LayoutConfig {
+  id                      String   @id @default("active_layout")
+  sections                Json     // Array of { id, name, sortOrder, visibleDesktop, visibleTablet, visibleMobile }
+  gridColumns             Json     // { vault: { mobile, tablet, desktop }, lookbook: { mobile, desktop } }
+  mobileStickyCtaPosition String   @default("bottom_fixed") // "bottom_fixed" | "inline"
+  updatedAt               DateTime @updatedAt
+}

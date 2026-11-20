@@ -3,19 +3,31 @@
 @tailwind utilities;
 
 :root {
-  --canvas: #F7F5F0;
-  --surface: #EDEAE2;
-  --elevated: #FCFBF8;
-  --border: #DCD7CC;
-  --ink: #111110;
+  /* Dynamic Palette CSS Variables */
+  --bg-canvas: #F7F5F0;
+  --bg-surface: #EDEAE2;
+  --bg-elevated: #FCFBF8;
+  --border-hairline: #DCD7CC;
+  --ink-primary: #111110;
   --ink-secondary: #52504B;
-  --accent: #B82328;
-  --moss: #3F4E44;
+  --accent-primary: #B82328;
+  --accent-secondary: #3F4E44;
+  --border-radius: 0px;
+  --hairline-width: 1px;
+
+  /* Aliases for Full Backward Compatibility */
+  --canvas: var(--bg-canvas);
+  --surface: var(--bg-surface);
+  --elevated: var(--bg-elevated);
+  --border: var(--border-hairline);
+  --ink: var(--ink-primary);
+  --accent: var(--accent-primary);
+  --moss: var(--accent-secondary);
 }
 
 body {
-  background-color: var(--canvas);
-  color: var(--ink);
+  background-color: var(--bg-canvas);
+  color: var(--ink-primary);
   font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
@@ -23,37 +35,38 @@ body {
 }
 
 ::selection {
-  background: #B82328;
-  color: #FCFBF8;
+  background: var(--accent-primary);
+  color: var(--bg-elevated);
 }
 
 /* Swiss Architectural Gridlines */
 .swiss-hairline-b {
-  border-bottom: 1px solid #DCD7CC;
+  border-bottom: var(--hairline-width) solid var(--border-hairline);
 }
 
 .swiss-hairline-t {
-  border-top: 1px solid #DCD7CC;
+  border-top: var(--hairline-width) solid var(--border-hairline);
 }
 
 .swiss-hairline-r {
-  border-right: 1px solid #DCD7CC;
+  border-right: var(--hairline-width) solid var(--border-hairline);
 }
 
 .swiss-hairline-l {
-  border-left: 1px solid #DCD7CC;
+  border-left: var(--hairline-width) solid var(--border-hairline);
 }
 
 .swiss-border {
-  border: 1px solid #DCD7CC;
+  border: var(--hairline-width) solid var(--border-hairline);
 }
 
 /* Frosted Alabaster Glassmorphism */
 .frosted-alabaster {
-  background-color: rgba(247, 245, 240, 0.88);
+  background-color: var(--bg-canvas);
+  opacity: 0.95;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid #DCD7CC;
+  border-bottom: var(--hairline-width) solid var(--border-hairline);
 }
 
 /* Minimalist Editorial Scrollbar */
@@ -63,27 +76,19 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #F7F5F0;
+  background: var(--bg-canvas);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #DCD7CC;
+  background: var(--border-hairline);
+  border-radius: var(--border-radius);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #B82328;
+  background: var(--ink-secondary);
 }
 
-/* Accessible focus ring */
-*:focus-visible {
-  outline: 2px solid #B82328;
-  outline-offset: 2px;
-}
-
-/* Micro-Text Typography Utility */
-.font-editorial-label {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 10px;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
+/* Dynamic Border Radius Utility */
+.rounded-dynamic {
+  border-radius: var(--border-radius);
 }

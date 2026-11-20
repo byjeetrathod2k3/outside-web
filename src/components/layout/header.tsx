@@ -4,12 +4,17 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { ShoppingBag, Menu, X, ArrowUpRight } from 'lucide-react';
 import { useCart } from '@/context/cart-context';
+import { ShoppingBag, Menu, X, ArrowRight } from 'lucide-react';
 
-export function GlobalHeader() {
+interface GlobalHeaderProps {
+  initialTheme?: any;
+  initialFlags?: any[];
+}
+
+export function GlobalHeader({ initialTheme, initialFlags }: GlobalHeaderProps) {
   const pathname = usePathname();
-  const { openCart, totalItemsCount } = useCart();
+  const { totalItemsCount, openCart } = useCart();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   // Suppress public header in admin dashboard
@@ -17,10 +22,24 @@ export function GlobalHeader() {
     return null;
   }
 
+  // Resolve dynamic feature flags & theme
+  const announcementFlag = initialFlags?.find((f: any) => f.key === 'enable_announcement_bar');
+  const showAnnouncement = announcementFlag ? announcementFlag.isEnabled : true;
+  const announcementText =
+    announcementFlag?.configJson?.text ||
+    'DROP 001 LIVE // BETTER DAYS AHEAD · 250 SERIALIZED PIECES · FREE DOMESTIC EXPRESS SHIPPING';
+  const announcementLink = announcementFlag?.configJson?.link || '/';
+
+  const showVault = initialFlags?.find((f: any) => f.key === 'enable_vault_archive')?.isEnabled !== false;
+  const showJournal = initialFlags?.find((f: any) => f.key === 'enable_journal')?.isEnabled !== false;
+
+  const logoUrl = initialTheme?.logoUrl || '/images/OUTSIDE_icon.png';
+  const isGlass = initialTheme?.glassmorphism !== false;
+
   const navLinks = [
     { label: 'ACTIVE DROP', href: '/' },
-    { label: 'THE VAULT', href: '/vault' },
-    { label: 'JOURNAL', href: '/journal' },
+    ...(showVault ? [{ label: 'THE VAULT', href: '/vault' }] : []),
+    ...(showJournal ? [{ label: 'JOURNAL', href: '/journal' }] : []),
     { label: 'ABOUT', href: '/about' },
     { label: 'CONTACT', href: '/contact' },
   ];
@@ -28,21 +47,29 @@ export function GlobalHeader() {
   return (
     <>
       {/* Top Velocity Ticker Bar (Swiss Architectural Hairline) */}
-      <div className="bg-outside-ink text-outside-elevated text-[11px] font-mono uppercase tracking-[0.2em] py-2 px-4 text-center flex items-center justify-center gap-3 select-none border-b border-outside-border">
-        <span className="inline-block w-2 h-2 rounded-full bg-outside-accent animate-pulse" />
-        <span className="font-bold">DROP 001 LIVE // BETTER DAYS AHEAD · 250 SERIALIZED PIECES</span>
-        <span className="hidden md:inline text-outside-elevated/40">|</span>
-        <span className="hidden md:inline text-outside-elevated/80 font-normal">GUJARAT ATELIER CRAFT · FREE DOMESTIC EXPRESS SHIPPING</span>
-      </div>
+      {showAnnouncement && (
+        <div className="bg-outside-ink text-outside-elevated text-[11px] font-mono uppercase tracking-[0.2em] py-2 px-4 text-center flex items-center justify-center gap-3 select-none border-b border-outside-border">
+          <span className="inline-block w-2 h-2 rounded-full bg-outside-accent animate-pulse" />
+          <Link href={announcementLink} className="hover:underline flex items-center gap-2">
+            <span className="font-bold">{announcementText}</span>
+          </Link>
+        </div>
+      )}
 
-      <header className="sticky top-0 z-40 w-full frosted-alabaster transition-all">
+      <header
+        className={`sticky top-0 z-40 w-full transition-all ${
+          isGlass
+            ? 'bg-outside-canvas/90 backdrop-blur-md border-b border-outside-border'
+            : 'bg-outside-canvas border-b border-outside-border'
+        }`}
+      >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
           
           {/* Standalone Brand Emblem (Pure Icon Mark) */}
           <Link href="/" className="relative flex items-center group focus:outline-none" aria-label="OUTSIDE Home">
             <div className="relative h-11 w-11 sm:h-12 sm:w-12 transition-transform duration-300 group-hover:scale-105">
               <Image
-                src="/images/OUTSIDE_icon.png"
+                src={logoUrl}
                 alt="OUTSIDE"
                 fill
                 priority
@@ -71,36 +98,28 @@ export function GlobalHeader() {
             })}
           </nav>
 
-          {/* Action CTAs: Studio Portal & Cart Bag */}
-          <div className="flex items-center gap-5">
-            <Link
-              href="/admin"
-              className="hidden lg:flex items-center gap-1 text-[11px] font-mono uppercase tracking-wider text-outside-inkSecondary hover:text-outside-ink transition-colors"
-              title="Studio Command Console"
-            >
-              <span>STUDIO</span>
-              <ArrowUpRight className="w-3 h-3 text-outside-accent" />
-            </Link>
-
+          {/* Action Utilities */}
+          <div className="flex items-center gap-4">
+            
             {/* Shopping Bag Trigger */}
             <button
               onClick={openCart}
               aria-label="Open Shopping Bag"
-              className="relative p-2.5 rounded-none bg-outside-surface hover:bg-outside-elevated text-outside-ink border border-outside-border transition-all hover:border-outside-ink flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-outside-accent"
+              className="relative min-w-[44px] min-h-[44px] flex items-center justify-center p-2 text-outside-ink hover:text-outside-accent transition-colors group focus:outline-none cursor-pointer"
             >
-              <ShoppingBag className="w-4 h-4" />
+              <ShoppingBag className="w-5 h-5 transition-transform group-hover:scale-105" />
               {totalItemsCount > 0 && (
-                <span className="absolute -top-1.5 -right-1.5 bg-outside-accent text-white text-[10px] font-bold font-mono h-5 w-5 flex items-center justify-center shadow-xs">
+                <span className="absolute top-1 right-1 bg-outside-accent text-white text-[9px] font-mono font-bold w-4 h-4 rounded-full flex items-center justify-center animate-fade-in shadow-sm">
                   {totalItemsCount}
                 </span>
               )}
             </button>
 
-            {/* Mobile Menu Toggle */}
+            {/* Mobile Hamburger Trigger */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               aria-label="Toggle Mobile Menu"
-              className="md:hidden p-2 text-outside-ink hover:text-outside-accent transition-colors"
+              className="md:hidden min-w-[44px] min-h-[44px] flex items-center justify-center p-2 text-outside-ink hover:text-outside-accent transition-colors cursor-pointer"
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>

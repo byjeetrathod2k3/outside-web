@@ -307,5 +307,346 @@
     "replyTo": "support@outside.in"
   },
   "emailLogs": [],
-  "auditLogs": []
+  "auditLogs": [
+    {
+      "id": "audit_1795161397233_z9kxw",
+      "userId": "usr_super_admin",
+      "action": "THEME_UPDATED",
+      "entityType": "ThemeConfig",
+      "entityId": "active_theme",
+      "metadata": {
+        "previousColors": {
+          "canvas": "#F7F5F0",
+          "ink": "#111110",
+          "accent": "#B82328"
+        },
+        "newColors": {
+          "canvas": "#F7F5F0",
+          "ink": "#111110",
+          "accent": "#B82328"
+        }
+      },
+      "createdAt": "2026-11-20T07:56:37.233Z"
+    },
+    {
+      "id": "audit_1795161388640_qrfg0",
+      "userId": "usr_super_admin",
+      "action": "THEME_RESET_TO_DEFAULTS",
+      "entityType": "ThemeConfig",
+      "createdAt": "2026-11-20T07:56:28.640Z"
+    },
+    {
+      "id": "audit_1795161376944_3310y",
+      "userId": "usr_super_admin",
+      "action": "THEME_PRESET_APPLIED",
+      "entityType": "ThemeConfig",
+      "metadata": {
+        "presetId": "monolith-obsidian",
+        "presetName": "Monolith Obsidian (Capsule Drop)"
+      },
+      "createdAt": "2026-11-20T07:56:16.944Z"
+    }
+  ],
+  "themeConfig": {
+    "id": "active_theme",
+    "name": "Sun-Bleached Gallery (OUTSIDE Signature)",
+    "isDefault": true,
+    "canvasColor": "#F7F5F0",
+    "surfaceColor": "#EDEAE2",
+    "elevatedColor": "#FCFBF8",
+    "borderColor": "#DCD7CC",
+    "inkPrimaryColor": "#111110",
+    "inkSecondaryColor": "#52504B",
+    "accentPrimaryColor": "#B82328",
+    "accentSecondaryColor": "#3F4E44",
+    "hairlineGrid": true,
+    "borderRadius": "0px",
+    "glassmorphism": true,
+    "logoUrl": "/images/OUTSIDE_icon.png",
+    "logoDarkUrl": "/images/OUTSIDE_icon.png",
+    "faviconUrl": "/favicon.ico",
+    "ogImageUrl": "/images/drops/drop-001-front.jpg",
+    "presets": [
+      {
+        "id": "sun-bleached-gallery",
+        "name": "Sun-Bleached Gallery (OUTSIDE Signature)",
+        "isDefault": true,
+        "canvasColor": "#F7F5F0",
+        "surfaceColor": "#EDEAE2",
+        "elevatedColor": "#FCFBF8",
+        "borderColor": "#DCD7CC",
+        "inkPrimaryColor": "#111110",
+        "inkSecondaryColor": "#52504B",
+        "accentPrimaryColor": "#B82328",
+        "accentSecondaryColor": "#3F4E44",
+        "hairlineGrid": true,
+        "borderRadius": "0px",
+        "glassmorphism": true
+      },
+      {
+        "id": "monolith-obsidian",
+        "name": "Monolith Obsidian (Capsule Drop)",
+        "isDefault": false,
+        "canvasColor": "#141412",
+        "surfaceColor": "#1F1E1C",
+        "elevatedColor": "#262523",
+        "borderColor": "#383632",
+        "inkPrimaryColor": "#F7F5F0",
+        "inkSecondaryColor": "#A8A59D",
+        "accentPrimaryColor": "#D9383A",
+        "accentSecondaryColor": "#5A7A64",
+        "hairlineGrid": true,
+        "borderRadius": "0px",
+        "glassmorphism": true
+      },
+      {
+        "id": "botanical-sage",
+        "name": "Botanical Sage (Spring Capsule)",
+        "isDefault": false,
+        "canvasColor": "#F4F6F2",
+        "surfaceColor": "#E6ECE2",
+        "elevatedColor": "#FBFCFA",
+        "borderColor": "#CBD6C6",
+        "inkPrimaryColor": "#131C15",
+        "inkSecondaryColor": "#4A584C",
+        "accentPrimaryColor": "#A82C30",
+        "accentSecondaryColor": "#3B5742",
+        "hairlineGrid": true,
+        "borderRadius": "2px",
+        "glassmorphism": true
+      },
+      {
+        "id": "terracotta-dust",
+        "name": "Terracotta Dust (Desert Edition)",
+        "isDefault": false,
+        "canvasColor": "#F9F6F2",
+        "surfaceColor": "#EFE8DE",
+        "elevatedColor": "#FDFBF8",
+        "borderColor": "#DFD4C5",
+        "inkPrimaryColor": "#1A1411",
+        "inkSecondaryColor": "#5C4D44",
+        "accentPrimaryColor": "#B33625",
+        "accentSecondaryColor": "#445147",
+        "hairlineGrid": true,
+        "borderRadius": "0px",
+        "glassmorphism": true
+      }
+    ],
+    "updatedAt": "2026-11-20T08:02:53.527Z"
+  },
+  "featureFlags": [
+    {
+      "id": "flag_countdown_timer",
+      "key": "enable_countdown_timer",
+      "label": "Launch Countdown Timer",
+      "category": "COMMERCE",
+      "isEnabled": true,
+      "description": "Display real-time countdown ticker on upcoming drops.",
+      "configJson": null,
+      "updatedAt": "2026-11-20T08:02:53.537Z"
+    },
+    {
+      "id": "flag_live_stock_counter",
+      "key": "enable_live_stock_counter",
+      "label": "Live Atomic Stock Counter",
+      "category": "COMMERCE",
+      "isEnabled": true,
+      "description": "Show exact remaining serialized pieces versus low-stock warning badge.",
+      "configJson": null,
+      "updatedAt": "2026-11-20T08:02:53.537Z"
+    },
+    {
+      "id": "flag_low_stock_threshold",
+      "key": "low_stock_threshold",
+      "label": "Low-Stock Warning Threshold",
+      "category": "COMMERCE",
+      "isEnabled": true,
+      "description": "Trigger Serpent Oxide warning pill when remaining variant inventory falls below this count.",
+      "configJson": {
+        "threshold": 10
+      },
+      "updatedAt": "2026-11-20T08:02:53.537Z"
+    },
+    {
+      "id": "flag_waitlist_capture",
+      "key": "enable_waitlist_capture",
+      "label": "Drop Waitlist Capture Gate",
+      "category": "COMMERCE",
+      "isEnabled": true,
+      "description": "Allow collectors to join the prioritized waitlist when an edition is sold out or upcoming.",
+      "configJson": null,
+      "updatedAt": "2026-11-20T08:02:53.537Z"
+    },
+    {
+      "id": "flag_fit_toggle",
+      "key": "enable_fit_toggle",
+      "label": "Women-First / Men Fit Toggle",
+      "category": "COMMERCE",
+      "isEnabled": true,
+      "description": "Interactive silhouette switcher recalculating measurements and model previews.",
+      "configJson": {
+        "defaultFit": "WOMEN"
+      },
+      "updatedAt": "2026-11-20T08:02:53.537Z"
+    },
+    {
+      "id": "flag_sticky_drop_bar",
+      "key": "enable_sticky_drop_bar",
+      "label": "Sticky Floating Drop Bar",
+      "category": "COMMERCE",
+      "isEnabled": true,
+      "description": "Floating minimal quick-buy and size select bar docked on scroll.",
+      "configJson": null,
+      "updatedAt": "2026-11-20T08:02:53.537Z"
+    },
+    {
+      "id": "flag_checkout_flow",
+      "key": "enable_checkout_flow",
+      "label": "Storefront Checkout Mode",
+      "category": "COMMERCE",
+      "isEnabled": true,
+      "description": "When enabled, customers can checkout and pay; when disabled, storefront acts in Waitlist-Only Mode.",
+      "configJson": null,
+      "updatedAt": "2026-11-20T08:02:53.537Z"
+    },
+    {
+      "id": "flag_announcement_bar",
+      "key": "enable_announcement_bar",
+      "label": "Top Announcement Ticker",
+      "category": "SITE_WIDE",
+      "isEnabled": true,
+      "description": "Top architectural hairline bar for drop velocity announcements.",
+      "configJson": {
+        "text": "DROP 001 LIVE // BETTER DAYS AHEAD · 250 SERIALIZED PIECES · FREE DOMESTIC EXPRESS SHIPPING",
+        "link": "/"
+      },
+      "updatedAt": "2026-11-20T08:02:53.537Z"
+    },
+    {
+      "id": "flag_vault_archive",
+      "key": "enable_vault_archive",
+      "label": "The Vault Archive (/vault)",
+      "category": "SITE_WIDE",
+      "isEnabled": true,
+      "description": "Expose archival limited drops to public navigation and search engines.",
+      "configJson": null,
+      "updatedAt": "2026-11-20T08:02:53.537Z"
+    },
+    {
+      "id": "flag_journal",
+      "key": "enable_journal",
+      "label": "The Outside Journal (/journal)",
+      "category": "SITE_WIDE",
+      "isEnabled": true,
+      "description": "Editorial brand essays, cotton engineering breakdowns, and manifesto articles.",
+      "configJson": null,
+      "updatedAt": "2026-11-20T08:02:53.537Z"
+    },
+    {
+      "id": "flag_cookie_consent",
+      "key": "enable_cookie_consent",
+      "label": "Privacy & Cookie Consent Banner",
+      "category": "SITE_WIDE",
+      "isEnabled": true,
+      "description": "Minimalist Sandstone Hairline consent pill docked at bottom-left.",
+      "configJson": null,
+      "updatedAt": "2026-11-20T08:02:53.537Z"
+    },
+    {
+      "id": "flag_maintenance_mode",
+      "key": "enable_maintenance_mode",
+      "label": "Studio Maintenance Mode",
+      "category": "SITE_WIDE",
+      "isEnabled": false,
+      "description": "Renders an avant-garde \"Next Drop Preparing\" screen on public storefront while keeping /admin open.",
+      "configJson": {
+        "headline": "ATELIER IS CALIBRATING THE NEXT DROP",
+        "subline": "DROP 002 PREPARATION UNDERWAY // AHMEDABAD STUDIO"
+      },
+      "updatedAt": "2026-11-20T08:02:53.537Z"
+    }
+  ],
+  "layoutConfig": {
+    "id": "active_layout",
+    "sections": [
+      {
+        "id": "hero",
+        "name": "Hero Drop Showcase",
+        "sortOrder": 1,
+        "visibleDesktop": true,
+        "visibleTablet": true,
+        "visibleMobile": true
+      },
+      {
+        "id": "story",
+        "name": "Manifesto & Craft Story",
+        "sortOrder": 2,
+        "visibleDesktop": true,
+        "visibleTablet": true,
+        "visibleMobile": true
+      },
+      {
+        "id": "lookbook",
+        "name": "Lookbook Bento Gallery",
+        "sortOrder": 3,
+        "visibleDesktop": true,
+        "visibleTablet": true,
+        "visibleMobile": true
+      },
+      {
+        "id": "specs",
+        "name": "Technical Garment Specs",
+        "sortOrder": 4,
+        "visibleDesktop": true,
+        "visibleTablet": true,
+        "visibleMobile": true
+      },
+      {
+        "id": "vault",
+        "name": "The Vault Archival Preview",
+        "sortOrder": 5,
+        "visibleDesktop": true,
+        "visibleTablet": true,
+        "visibleMobile": true
+      },
+      {
+        "id": "journal",
+        "name": "Outside Journal Essays",
+        "sortOrder": 6,
+        "visibleDesktop": true,
+        "visibleTablet": true,
+        "visibleMobile": true
+      },
+      {
+        "id": "faqs",
+        "name": "AEO Structured FAQs",
+        "sortOrder": 7,
+        "visibleDesktop": true,
+        "visibleTablet": true,
+        "visibleMobile": true
+      },
+      {
+        "id": "vip",
+        "name": "VIP Early Access Footer Bar",
+        "sortOrder": 8,
+        "visibleDesktop": true,
+        "visibleTablet": true,
+        "visibleMobile": true
+      }
+    ],
+    "gridColumns": {
+      "vault": {
+        "mobile": 1,
+        "tablet": 2,
+        "desktop": 3
+      },
+      "lookbook": {
+        "mobile": 1,
+        "tablet": 2,
+        "desktop": 2
+      }
+    },
+    "mobileStickyCtaPosition": "bottom_fixed",
+    "updatedAt": "2026-11-20T08:02:53.542Z"
+  }
 }
