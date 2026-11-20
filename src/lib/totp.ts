@@ -4,6 +4,7 @@
  */
 
 import crypto from 'crypto';
+import QRCode from 'qrcode';
 
 const BASE32_ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ234567';
 
@@ -136,38 +137,38 @@ export function verifyTotpToken(
 }
 
 /**
- * Generates an SVG representation of a QR Code for an otpauth URI
- * without requiring any external third-party CDN or network request.
- * Uses a lightweight matrix generator.
+ * Generates a valid scannable SVG representation of a QR Code for an otpauth URI.
  */
-export function generateSimpleQrSvg(data: string): string {
-  // A clean, self-contained SVG representation with visual verification pattern
-  // For production environments, can display the Base32 manual entry code prominently
-  return `
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="180" height="180" class="mx-auto bg-white p-2 border border-[#DCD7CC]">
-      <rect width="200" height="200" fill="#FCFBF8"/>
-      <!-- Corner Markers -->
-      <rect x="20" y="20" width="40" height="40" fill="#111110"/>
-      <rect x="28" y="28" width="24" height="24" fill="#FCFBF8"/>
-      <rect x="34" y="34" width="12" height="12" fill="#B82328"/>
-      
-      <rect x="140" y="20" width="40" height="40" fill="#111110"/>
-      <rect x="148" y="28" width="24" height="24" fill="#FCFBF8"/>
-      <rect x="154" y="34" width="12" height="12" fill="#B82328"/>
+export async function generateQrCodeSvg(data: string): Promise<string> {
+  return QRCode.toString(data, {
+    type: 'svg',
+    errorCorrectionLevel: 'M',
+    margin: 1,
+    color: {
+      dark: '#111110',
+      light: '#FFFFFF',
+    },
+  });
+}
 
-      <rect x="20" y="140" width="40" height="40" fill="#111110"/>
-      <rect x="28" y="148" width="24" height="24" fill="#FCFBF8"/>
-      <rect x="34" y="154" width="12" height="12" fill="#B82328"/>
+/**
+ * Generates a valid scannable PNG Data URL of a QR Code for an otpauth URI.
+ */
+export async function generateQrCodeDataUrl(data: string): Promise<string> {
+  return QRCode.toDataURL(data, {
+    errorCorrectionLevel: 'M',
+    margin: 1,
+    width: 240,
+    color: {
+      dark: '#111110',
+      light: '#FFFFFF',
+    },
+  });
+}
 
-      <!-- Center Data Matrix Simulation -->
-      <rect x="80" y="40" width="40" height="10" fill="#111110"/>
-      <rect x="40" y="80" width="10" height="40" fill="#111110"/>
-      <rect x="85" y="85" width="30" height="30" fill="#111110"/>
-      <rect x="92" y="92" width="16" height="16" fill="#B82328"/>
-      <rect x="130" y="80" width="10" height="40" fill="#111110"/>
-      <rect x="80" y="150" width="40" height="10" fill="#111110"/>
-
-      <circle cx="100" cy="100" r="4" fill="#FCFBF8"/>
-    </svg>
-  `.trim();
+/**
+ * Generates an SVG representation of a QR Code for an otpauth URI (RFC 6238).
+ */
+export async function generateSimpleQrSvg(data: string): Promise<string> {
+  return generateQrCodeSvg(data);
 }

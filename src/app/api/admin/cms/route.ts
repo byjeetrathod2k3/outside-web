@@ -1,7 +1,13 @@
 import { NextResponse } from 'next/server';
 import { getLocalStore, saveLocalStore } from '@/lib/db';
+import { getCurrentSession } from '@/lib/auth';
 
 export async function GET() {
+  const session = await getCurrentSession();
+  if (!session || session.role !== 'SUPER_ADMIN') {
+    return NextResponse.json({ error: 'Unauthorized Super Admin access' }, { status: 401 });
+  }
+
   const store = getLocalStore();
   return NextResponse.json({
     faqs: store.faqs || [],
@@ -11,6 +17,11 @@ export async function GET() {
 }
 
 export async function PUT(request: Request) {
+  const session = await getCurrentSession();
+  if (!session || session.role !== 'SUPER_ADMIN') {
+    return NextResponse.json({ error: 'Unauthorized Super Admin access' }, { status: 401 });
+  }
+
   try {
     const body = await request.json();
     const { faqs, journal, pages } = body;

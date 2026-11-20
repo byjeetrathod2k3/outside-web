@@ -97,7 +97,7 @@ const STATIC_CMS_PAGES: Record<
   },
   'gst-compliance': {
     title: 'INDIAN APPAREL GST COMPLIANCE DISCLOSURE',
-    subtitle: 'Comprehensive tax transparency under HSN 6109 and Gujarat State Code 24.',
+    subtitle: 'Comprehensive tax transparency under HSN 6109 and Indian GST statutory regulations.',
     contentHtml: `
       <h2>Statutory Information</h2>
       <p><strong>Seller Legal Entity:</strong> OUTSIDE APPAREL STUDIO PVT LTD<br />
@@ -109,8 +109,8 @@ const STATIC_CMS_PAGES: Record<
       <p>In accordance with Indian GST regulations for apparel:<br />
       - For pieces with taxable sale value &le; ₹2,500: 5% GST is charged.<br />
       - For pieces with taxable sale value &gt; ₹2,500: 18% GST is charged.<br />
-      - Deliveries inside Gujarat (24): Split 50% CGST + 50% SGST.<br />
-      - Deliveries outside Gujarat: Charged as Integrated GST (IGST).</p>
+      - All displayed storefront prices are 100% inclusive of GST.<br />
+      - Official sequential GST tax invoices are generated automatically for every order.</p>
     `,
   },
 };

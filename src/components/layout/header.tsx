@@ -166,8 +166,8 @@ export function GlobalHeader({ initialTheme, initialFlags }: GlobalHeaderProps) 
                 </Link>
               ))}
               <div className="pt-6 border-t border-outside-border flex items-center justify-between text-xs font-mono text-outside-inkSecondary">
-                <span className="font-bold tracking-wider text-outside-ink">WEAR YOUR STORY // GUJARAT</span>
-                <span>AHMEDABAD (24)</span>
+                <span className="font-bold tracking-wider text-outside-ink">WEAR YOUR STORY // INDIA</span>
+                <span>AHMEDABAD, INDIA</span>
               </div>
             </div>
           </div>

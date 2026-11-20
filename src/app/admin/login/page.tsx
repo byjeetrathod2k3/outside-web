@@ -15,8 +15,31 @@ function AdminLoginForm() {
   const [password, setPassword] = useState('Admin@Outside2026!');
   const [totpCode, setTotpCode] = useState('');
   const [require2fa, setRequire2fa] = useState(false);
+  const [preAuthToken, setPreAuthToken] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [checkingSession, setCheckingSession] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  // Check if session is already active
+  React.useEffect(() => {
+    async function checkExisting() {
+      try {
+        const res = await fetch('/api/admin/auth');
+        if (res.ok) {
+          const data = await res.json();
+          if (data.authenticated && data.user?.role === 'SUPER_ADMIN') {
+            router.push(fromPath || adminBasePath);
+            return;
+          }
+        }
+      } catch {
+        // Continue to login
+      } finally {
+        setCheckingSession(false);
+      }
+    }
+    checkExisting();
+  }, [adminBasePath, fromPath, router]);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -24,14 +47,22 @@ function AdminLoginForm() {
     setError(null);
 
     try {
+      const payload: any = {
+        email,
+        password,
+      };
+
+      if (require2fa) {
+        payload.totpCode = totpCode.trim();
+        if (preAuthToken) {
+          payload.preAuthToken = preAuthToken;
+        }
+      }
+
       const res = await fetch('/api/admin/auth', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          email,
-          password,
-          totpCode: require2fa ? totpCode : undefined,
-        }),
+        body: JSON.stringify(payload),
       });
 
       const data = await res.json();
@@ -42,6 +73,9 @@ function AdminLoginForm() {
 
       if (data.require2fa) {
         setRequire2fa(true);
+        if (data.preAuthToken) {
+          setPreAuthToken(data.preAuthToken);
+        }
         setLoading(false);
         return;
       }
@@ -56,6 +90,15 @@ function AdminLoginForm() {
       setLoading(false);
     }
   };
+
+  if (checkingSession) {
+    return (
+      <div className="w-full max-w-md bg-[#FCFBF8] border border-[#DCD7CC] p-8 flex items-center justify-center gap-2 text-xs text-[#52504B]">
+        <RefreshCw className="w-4 h-4 animate-spin text-[#B82328]" />
+        <span>AUTHENTICATING SECURE TERMINAL...</span>
+      </div>
+    );
+  }
 
   return (
     <div className="w-full max-w-md bg-[#FCFBF8] border border-[#DCD7CC] p-8 space-y-6 shadow-sm relative">

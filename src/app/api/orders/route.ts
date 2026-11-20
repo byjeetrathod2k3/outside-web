@@ -7,6 +7,7 @@ import {
 } from '@/lib/gst';
 import { getLocalStore, saveLocalStore } from '@/lib/db';
 import { sendTransactionalEmail } from '@/lib/email';
+import { getCurrentSession } from '@/lib/auth';
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
@@ -19,6 +20,12 @@ export async function GET(request: Request) {
       return NextResponse.json({ error: 'Order not found' }, { status: 404 });
     }
     return NextResponse.json(order);
+  }
+
+  // Listing all orders requires admin authentication
+  const session = await getCurrentSession();
+  if (!session || (session.role !== 'SUPER_ADMIN' && session.role !== 'ADMIN')) {
+    return NextResponse.json({ error: 'Unauthorized: Admin access required to list orders' }, { status: 401 });
   }
 
   return NextResponse.json(store.orders);

@@ -18,6 +18,11 @@ const FlagUpdateSchema = z.object({
 });
 
 export async function GET() {
+  const session = await getCurrentSession();
+  if (!session || (session.role !== 'SUPER_ADMIN' && session.role !== 'ADMIN')) {
+    return NextResponse.json({ error: 'Unauthorized: Admin role required' }, { status: 401 });
+  }
+
   const flags = getFeatureFlags();
   return NextResponse.json({ flags });
 }

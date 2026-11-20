@@ -88,7 +88,7 @@ export default function AdminGstSettingsPage() {
       <div className="border-b border-[#DCD7CC] pb-6 flex items-center justify-between">
         <div>
           <span className="text-[10px] uppercase text-[#B82328] font-bold tracking-[0.25em]">
-            STATUTORY TAX CONFIGURATION // STATE CODE 24
+            STATUTORY TAX CONFIGURATION // GST (INDIA)
           </span>
           <h1 className="text-2xl font-display font-black text-[#111110] uppercase tracking-tight mt-1">
             India Apparel GST Engine Controls
@@ -104,7 +104,7 @@ export default function AdminGstSettingsPage() {
           </a>
           <div className="flex items-center gap-2 text-xs text-[#3F4E44] bg-[#3F4E44]/10 border border-[#3F4E44]/30 px-3 py-1 font-bold">
             <ShieldCheck className="w-4 h-4 text-[#3F4E44]" />
-            <span>GUJARAT (24) ENFORCED</span>
+            <span>GST STATUTORY COMPLIANCE</span>
           </div>
         </div>
       </div>
@@ -146,7 +146,7 @@ export default function AdminGstSettingsPage() {
         {/* Section 1: Legal Entity & Origin Details */}
         <div className="space-y-4">
           <h3 className="text-xs uppercase text-[#B82328] font-bold tracking-wider">
-            1. SELLER STATUTORY REGISTRATION (ORIGIN: GUJARAT - 24)
+            1. SELLER STATUTORY REGISTRATION (INDIA)
           </h3>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -165,7 +165,7 @@ export default function AdminGstSettingsPage() {
 
             <div>
               <label className="block text-[11px] uppercase text-[#52504B] mb-1.5 font-bold">
-                GUJARAT GSTIN (STATE CODE 24) *
+                GSTIN (GST IDENTIFICATION NUMBER) *
               </label>
               <input
                 type="text"
@@ -175,7 +175,7 @@ export default function AdminGstSettingsPage() {
                 className="w-full bg-[#FCFBF8] border border-[#DCD7CC] px-3.5 py-2.5 text-xs text-[#111110] focus:border-[#B82328] focus:outline-none font-mono transition-colors"
               />
               <span className="text-[10px] text-[#52504B] mt-1 block">
-                Must be valid 15-character Gujarat GSTIN (e.g. 24AABCO1234F1Z5)
+                Must be valid 15-character GSTIN (e.g. 24AABCO1234F1Z5)
               </span>
             </div>
           </div>

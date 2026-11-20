@@ -55,4 +55,24 @@ describe('RFC 6238 TOTP Engine', () => {
       expect(verifyTotpToken(secret, tampered, 0, now)).toBe(false);
     }
   });
+
+  it('generates real scannable QR Code SVG and DataURL', async () => {
+    const { otpauthUri } = generateTotpSecret('admin@outside.in', 'OUTSIDE');
+    const { generateQrCodeSvg, generateQrCodeDataUrl, generateSimpleQrSvg } = await import('../src/lib/totp');
+
+    const svg = await generateQrCodeSvg(otpauthUri);
+    expect(svg).toBeDefined();
+    expect(svg).toContain('<svg');
+    expect(svg).toContain('</svg>');
+    expect(svg.length).toBeGreaterThan(500);
+
+    const dataUrl = await generateQrCodeDataUrl(otpauthUri);
+    expect(dataUrl).toBeDefined();
+    expect(dataUrl.startsWith('data:image/png;base64,')).toBe(true);
+    expect(dataUrl.length).toBeGreaterThan(500);
+
+    const simpleSvg = await generateSimpleQrSvg(otpauthUri);
+    expect(simpleSvg).toBeDefined();
+    expect(simpleSvg).toContain('<svg');
+  });
 });

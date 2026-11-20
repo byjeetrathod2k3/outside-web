@@ -7,7 +7,7 @@
       "title": "DROP 001 // BETTER DAYS AHEAD",
       "subtitle": "280 GSM Heavyweight Organic Cotton · Hand-Stitched Floral Embroidery · Serialized Edition of 250",
       "story": "Engineered in our Ahmedabad atelier, DROP 001 explores the juxtaposition between brutalist architectural boxy tailoring and tactile human warmth. Crafted from custom-milled 280 GSM organic combed cotton in a warm unbleached ivory hue, featuring intricate multi-layered floral embroidery (\"Better Days Ahead\"), an elongated knotted stem tethered to a stitched canvas tag reading \"for a kinder you\", the signature OUTSIDE logo embroidered on the left sleeve, and the back typographic manifesto: \"SAME GIRL BRIGHTER DAYS\". Strictly limited to 250 serialized pieces worldwide.",
-      "fabricSpecs": "280 GSM 100% Combed Organic Cotton · French Terry Weave · Pre-Shrunk & Double Bio-Washed · Hand-Finished Floral Embroidery · Lycra-Ribbed Collar · Made in Gujarat, India",
+      "fabricSpecs": "280 GSM 100% Combed Organic Cotton · French Terry Weave · Pre-Shrunk & Double Bio-Washed · Hand-Finished Floral Embroidery · Lycra-Ribbed Collar · Made in India",
       "pricePaise": 240000,
       "currency": "INR",
       "totalEditionQty": 250,
@@ -28,8 +28,8 @@
           "yPercent": 27,
           "zoomLevel": 2.8,
           "title": "Raised Chain-Stitch Floral Embroidery",
-          "tag": "HAND-CRAFTED ATELIER EMBROIDERY",
-          "description": "Multi-threaded chocolate umber and rose-pink botanical bloom with cursive \"Better Days Ahead\" calligraphy. Hand-finished in our Ahmedabad atelier to resist wash distortion.",
+          "tag": "HAND-CRAFTED EMBROIDERY (MADE IN INDIA)",
+          "description": "Multi-threaded chocolate umber and rose-pink botanical bloom with cursive \"Better Days Ahead\" calligraphy. Hand-finished in our Ahmedabad studio to resist wash distortion.",
           "spec": "High-Density Rayon Thread · 12,400 Stitches"
         },
         {
@@ -38,8 +38,8 @@
           "yPercent": 55,
           "zoomLevel": 2.5,
           "title": "280 GSM Combed Organic French Terry",
-          "tag": "CUSTOM-MILLED IN GUJARAT (24)",
-          "description": "Substantial architectural weight in Natural Raw Unbleached Ivory. Double bio-washed for zero shrinkage with a tactile soft-touch loopback interior.",
+          "tag": "100% PURE ORGANIC INDIAN COTTON",
+          "description": "Substantial heavyweight in Natural Raw Unbleached Ivory. Double bio-washed for zero shrinkage with a tactile soft-touch interior.",
           "spec": "280 GSM · 100% Organic Combed Cotton"
         },
         {
@@ -48,7 +48,7 @@
           "yPercent": 51,
           "zoomLevel": 3,
           "title": "Continuous Braided Stemwork & Cord",
-          "tag": "DIMENSIONAL BOTANICAL CRAFT",
+          "tag": "HAND-CRAFTED BOTANICAL DETAIL",
           "description": "Elongated vertical braided botanical stem anchoring downwards from the flower into the hem, creating architectural visual flow across the torso.",
           "spec": "Braided Rayon Cord · Double-Reinforced Anchor Stitches"
         },
@@ -58,7 +58,7 @@
           "yPercent": 76,
           "zoomLevel": 2.5,
           "title": "Tethered Canvas Tag Inscription",
-          "tag": "SERIALIZED SIGNATURE DETAIL",
+          "tag": "LIMITED EDITION SIGNATURE DETAIL",
           "description": "Elongated knotted dimensional cord anchored into a raw-edge canvas tag debossed with \"for a kinder you\" and subtle heart emblem.",
           "spec": "Raw Canvas · Double-Reinforced Knot Stitches"
         },
@@ -68,7 +68,7 @@
           "yPercent": 42,
           "zoomLevel": 2.6,
           "title": "Embroidered Sleeve Brand Emblem",
-          "tag": "OFFICIAL OUTSIDE MARK",
+          "tag": "GENUINE OUTSIDE INDIA EMBLEM",
           "description": "High-definition OUTSIDE obsidian carbon wordmark enclosing the crimson coiled serpent emblem on the left sleeve hem.",
           "spec": "Embroidered Patchwork · Precision Merrow Border"
         }
@@ -291,7 +291,7 @@
       "id": "faq_2",
       "category": "GST & Invoicing",
       "question": "How is GST calculated on apparel orders?",
-      "answer": "In compliance with Indian Tax Laws (HSN 6109 for cotton knitted t-shirts), items with a sale price up to ₹2,500 are charged 5% GST, while items above ₹2,500 are taxed at 18% GST. For deliveries within Gujarat (State Code 24), tax is split into CGST (2.5% / 9%) + SGST (2.5% / 9%). For all other states, IGST is applied.",
+      "answer": "All prices on OUTSIDE are 100% inclusive of statutory Indian Apparel GST (5% GST for items under ₹2,500). An official sequential GST Tax Invoice with our registered GSTIN (24AABCO1234F1Z5) is generated for every order and delivered instantly via email.",
       "sortOrder": 2
     },
     {
@@ -362,6 +362,357 @@
   },
   "emailLogs": [],
   "auditLogs": [
+    {
+      "id": "audit_1795178772990_zp5jr",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-20T12:46:12.990Z"
+    },
+    {
+      "id": "audit_1795178772984_d8oum",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-20T12:46:12.984Z"
+    },
+    {
+      "id": "audit_1795178772979_db2t5",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 5,
+        "isLocked": true
+      },
+      "createdAt": "2026-11-20T12:46:12.979Z"
+    },
+    {
+      "id": "audit_1795178772974_mrq8f",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 4,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-20T12:46:12.974Z"
+    },
+    {
+      "id": "audit_1795178772970_surkp",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 3,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-20T12:46:12.970Z"
+    },
+    {
+      "id": "audit_1795178772964_dt72k",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 2,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-20T12:46:12.964Z"
+    },
+    {
+      "id": "audit_1795178772958_7hznp",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 1,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-20T12:46:12.958Z"
+    },
+    {
+      "id": "audit_1795178772953_wpk77",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-20T12:46:12.953Z"
+    },
+    {
+      "id": "audit_1795178772948_e7jos",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-20T12:46:12.948Z"
+    },
+    {
+      "id": "audit_1795178771382_zjsqn",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-20T12:46:11.382Z"
+    },
+    {
+      "id": "audit_1795178771374_tjbqz",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-20T12:46:11.374Z"
+    },
+    {
+      "id": "audit_1795178771365_4zsl1",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 5,
+        "isLocked": true
+      },
+      "createdAt": "2026-11-20T12:46:11.365Z"
+    },
+    {
+      "id": "audit_1795178771358_scft0",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 4,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-20T12:46:11.358Z"
+    },
+    {
+      "id": "audit_1795178771352_olz3d",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 3,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-20T12:46:11.352Z"
+    },
+    {
+      "id": "audit_1795178771347_vg48t",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 2,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-20T12:46:11.347Z"
+    },
+    {
+      "id": "audit_1795178771341_icae5",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 1,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-20T12:46:11.341Z"
+    },
+    {
+      "id": "audit_1795178771337_ptgrk",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-20T12:46:11.337Z"
+    },
+    {
+      "id": "audit_1795178771330_rlspm",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-20T12:46:11.330Z"
+    },
+    {
+      "id": "audit_1795178506652_a8qe5",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-20T12:41:46.652Z"
+    },
+    {
+      "id": "audit_1795178506650_su7rs",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-20T12:41:46.650Z"
+    },
+    {
+      "id": "audit_1795178506646_aibpa",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 5,
+        "isLocked": true
+      },
+      "createdAt": "2026-11-20T12:41:46.646Z"
+    },
+    {
+      "id": "audit_1795178506643_h65z5",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 4,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-20T12:41:46.643Z"
+    },
+    {
+      "id": "audit_1795178506641_lwfqb",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 3,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-20T12:41:46.641Z"
+    },
+    {
+      "id": "audit_1795178506640_k3h55",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 2,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-20T12:41:46.640Z"
+    },
+    {
+      "id": "audit_1795178506637_p2kn6",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 1,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-20T12:41:46.637Z"
+    },
+    {
+      "id": "audit_1795178506635_bgt73",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-20T12:41:46.635Z"
+    },
+    {
+      "id": "audit_1795178506632_z8h28",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-20T12:41:46.632Z"
+    },
     {
       "id": "audit_1795177420023_spayr",
       "userId": "super_admin",
@@ -2138,7 +2489,7 @@
         "glassmorphism": true
       }
     ],
-    "updatedAt": "2026-11-20T12:23:40.581Z"
+    "updatedAt": "2026-11-20T12:46:14.737Z"
   },
   "featureFlags": [
     {
@@ -2149,7 +2500,7 @@
       "isEnabled": true,
       "description": "Display real-time countdown ticker on upcoming drops.",
       "configJson": null,
-      "updatedAt": "2026-11-20T12:23:40.589Z"
+      "updatedAt": "2026-11-20T12:46:14.753Z"
     },
     {
       "id": "flag_live_stock_counter",
@@ -2159,7 +2510,7 @@
       "isEnabled": true,
       "description": "Show exact remaining serialized pieces versus low-stock warning badge.",
       "configJson": null,
-      "updatedAt": "2026-11-20T12:23:40.589Z"
+      "updatedAt": "2026-11-20T12:46:14.753Z"
     },
     {
       "id": "flag_low_stock_threshold",
@@ -2171,7 +2522,7 @@
       "configJson": {
         "threshold": 10
       },
-      "updatedAt": "2026-11-20T12:23:40.589Z"
+      "updatedAt": "2026-11-20T12:46:14.753Z"
     },
     {
       "id": "flag_waitlist_capture",
@@ -2181,7 +2532,7 @@
       "isEnabled": true,
       "description": "Allow collectors to join the prioritized waitlist when an edition is sold out or upcoming.",
       "configJson": null,
-      "updatedAt": "2026-11-20T12:23:40.589Z"
+      "updatedAt": "2026-11-20T12:46:14.753Z"
     },
     {
       "id": "flag_fit_toggle",
@@ -2193,7 +2544,7 @@
       "configJson": {
         "defaultFit": "WOMEN"
       },
-      "updatedAt": "2026-11-20T12:23:40.589Z"
+      "updatedAt": "2026-11-20T12:46:14.753Z"
     },
     {
       "id": "flag_sticky_drop_bar",
@@ -2203,7 +2554,7 @@
       "isEnabled": true,
       "description": "Floating minimal quick-buy and size select bar docked on scroll.",
       "configJson": null,
-      "updatedAt": "2026-11-20T12:23:40.589Z"
+      "updatedAt": "2026-11-20T12:46:14.753Z"
     },
     {
       "id": "flag_checkout_flow",
@@ -2213,7 +2564,7 @@
       "isEnabled": true,
       "description": "When enabled, customers can checkout and pay; when disabled, storefront acts in Waitlist-Only Mode.",
       "configJson": null,
-      "updatedAt": "2026-11-20T12:23:40.589Z"
+      "updatedAt": "2026-11-20T12:46:14.753Z"
     },
     {
       "id": "flag_announcement_bar",
@@ -2226,7 +2577,7 @@
         "text": "DROP 001 LIVE // BETTER DAYS AHEAD · 250 SERIALIZED PIECES · FREE DOMESTIC EXPRESS SHIPPING",
         "link": "/"
       },
-      "updatedAt": "2026-11-20T12:23:40.589Z"
+      "updatedAt": "2026-11-20T12:46:14.753Z"
     },
     {
       "id": "flag_vault_archive",
@@ -2236,7 +2587,7 @@
       "isEnabled": true,
       "description": "Expose archival limited drops to public navigation and search engines.",
       "configJson": null,
-      "updatedAt": "2026-11-20T12:23:40.589Z"
+      "updatedAt": "2026-11-20T12:46:14.753Z"
     },
     {
       "id": "flag_journal",
@@ -2246,7 +2597,7 @@
       "isEnabled": true,
       "description": "Editorial brand essays, cotton engineering breakdowns, and manifesto articles.",
       "configJson": null,
-      "updatedAt": "2026-11-20T12:23:40.589Z"
+      "updatedAt": "2026-11-20T12:46:14.753Z"
     },
     {
       "id": "flag_cookie_consent",
@@ -2256,7 +2607,7 @@
       "isEnabled": true,
       "description": "Minimalist Sandstone Hairline consent pill docked at bottom-left.",
       "configJson": null,
-      "updatedAt": "2026-11-20T12:23:40.589Z"
+      "updatedAt": "2026-11-20T12:46:14.753Z"
     },
     {
       "id": "flag_maintenance_mode",
@@ -2269,7 +2620,7 @@
         "headline": "ATELIER IS CALIBRATING THE NEXT DROP",
         "subline": "DROP 002 PREPARATION UNDERWAY // AHMEDABAD STUDIO"
       },
-      "updatedAt": "2026-11-20T12:23:40.589Z"
+      "updatedAt": "2026-11-20T12:46:14.753Z"
     }
   ],
   "layoutConfig": {
@@ -2353,7 +2704,7 @@
       }
     },
     "mobileStickyCtaPosition": "bottom_fixed",
-    "updatedAt": "2026-11-20T12:23:40.594Z"
+    "updatedAt": "2026-11-20T12:46:14.764Z"
   },
   "seoConfig": {
     "titleTemplate": "%s | OUTSIDE India",
@@ -2381,7 +2732,7 @@
       }
     ],
     "enableWaitlistReferral": true,
-    "updatedAt": "2026-11-20T12:23:40.026Z"
+    "updatedAt": "2026-11-20T12:46:12.996Z"
   },
   "superAdminSecurity": {
     "totpSecret": null,

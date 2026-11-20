@@ -107,7 +107,7 @@ export default function CheckoutPage() {
         <div className="border-b border-outside-border pb-6 flex items-center justify-between">
           <div>
             <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-outside-crimson font-bold">
-              CHECKOUT // PLACE OF SUPPLY GST CALIBRATION
+              CHECKOUT // ORDER VERIFICATION
             </span>
             <h1 className="text-2xl sm:text-3xl font-display font-black tracking-tight text-outside-text uppercase mt-1">
               Secure Order Verification
@@ -134,7 +134,7 @@ export default function CheckoutPage() {
             {/* Customer Details */}
             <div className="p-6 bg-white border border-outside-border space-y-4 shadow-sm">
               <h3 className="text-xs font-mono uppercase tracking-[0.2em] text-outside-text font-bold">
-                1. COLLECTOR CONTACT
+                1. CONTACT DETAILS
               </h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
@@ -183,10 +183,10 @@ export default function CheckoutPage() {
             <div className="p-6 bg-white border border-outside-border space-y-4 shadow-sm">
               <div className="flex justify-between items-center">
                 <h3 className="text-xs font-mono uppercase tracking-[0.2em] text-outside-text font-bold">
-                  2. DELIVERY ADDRESS &amp; TAX JURISDICTION
+                  2. DELIVERY ADDRESS
                 </h3>
                 <span className="text-[10px] font-mono text-outside-crimson font-bold">
-                  ORIGIN: GUJARAT (24)
+                  FAST ALL-INDIA AIR EXPRESS DISPATCH
                 </span>
               </div>
 
@@ -317,28 +317,10 @@ export default function CheckoutPage() {
                     ₹{(taxBreakdown.totalTaxableAmountPaise / 100).toLocaleString('en-IN')}
                   </span>
                 </div>
-                <div className="flex justify-between text-outside-muted">
-                  <span>Place of Supply (Buyer State):</span>
-                  <span className="text-outside-text font-bold">{taxBreakdown.buyerStateName} ({taxBreakdown.buyerStateCode})</span>
+                <div className="flex justify-between text-outside-crimson font-bold">
+                  <span>GST (5% Included):</span>
+                  <span>₹{(taxBreakdown.totalTaxPaise / 100).toLocaleString('en-IN')}</span>
                 </div>
-
-                {taxBreakdown.isInterState ? (
-                  <div className="flex justify-between text-outside-crimson font-bold">
-                    <span>Integrated Tax (IGST @ 5%):</span>
-                    <span>₹{(taxBreakdown.totalIgstPaise / 100).toLocaleString('en-IN')}</span>
-                  </div>
-                ) : (
-                  <>
-                    <div className="flex justify-between text-outside-crimson font-bold">
-                      <span>Central Tax (CGST @ 2.5%):</span>
-                      <span>₹{(taxBreakdown.totalCgstPaise / 100).toLocaleString('en-IN')}</span>
-                    </div>
-                    <div className="flex justify-between text-outside-crimson font-bold">
-                      <span>State Tax (SGST @ 2.5%):</span>
-                      <span>₹{(taxBreakdown.totalSgstPaise / 100).toLocaleString('en-IN')}</span>
-                    </div>
-                  </>
-                )}
 
                 <div className="flex justify-between text-outside-muted">
                   <span>Express Domestic Shipping:</span>
@@ -361,13 +343,13 @@ export default function CheckoutPage() {
                 loading={loading}
                 className="w-full text-xs"
               >
-                <span>AUTHORIZE PAYMENT &amp; ISSUE INVOICE</span>
+                <span>PLACE ORDER &amp; PROCEED TO PAY</span>
                 <ArrowRight className="w-4 h-4" />
               </Button>
 
               <div className="text-center font-mono text-[10px] text-outside-muted flex items-center justify-center gap-2">
                 <ShieldCheck className="w-3.5 h-3.5 text-outside-crimson" />
-                <span>OFFICIAL TAX INVOICE WITH GUJARAT GSTIN WILL BE ISSUED</span>
+                <span>OFFICIAL GST TAX INVOICE WILL BE ISSUED</span>
               </div>
             </div>
           </div>

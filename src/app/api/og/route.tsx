@@ -82,7 +82,7 @@ export async function GET(request: NextRequest) {
                     color: '#52504B',
                   }}
                 >
-                  WEAR YOUR STORY // GUJARAT, INDIA (24)
+                  WEAR YOUR STORY // MADE IN INDIA
                 </span>
               </div>
             </div>

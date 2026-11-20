@@ -264,13 +264,13 @@ export function ActiveDropView({ drop, featureFlags }: { drop: DropData; feature
               <div className="flex items-center gap-3">
                 <span className="w-2 h-2 rounded-full bg-outside-accent animate-pulse" />
                 <span className="text-xs font-bold text-outside-ink uppercase">
-                  DROP 00{drop.dropNumber} // {drop.title}
+                  {drop.title}
                 </span>
                 <span className="text-xs text-outside-inkSecondary">
-                  ₹{(drop.pricePaise / 100).toLocaleString('en-IN')} (5% GST Inc.)
+                  ₹{(drop.pricePaise / 100).toLocaleString('en-IN')} (5% GST Included)
                 </span>
                 <span className="text-[10px] text-outside-moss font-bold bg-outside-moss/10 px-2 py-0.5 rounded">
-                  70% ALLOCATED
+                  {percentClaimed}% CLAIMED
                 </span>
               </div>
 
@@ -364,14 +364,14 @@ export function ActiveDropView({ drop, featureFlags }: { drop: DropData; feature
             <div className="flex items-center gap-3">
               <span className="w-2.5 h-2.5 rounded-full bg-[#B82328] animate-ping" />
               <span className="text-xs uppercase font-bold text-[#111110] tracking-wider">
-                DROP 00{drop.dropNumber} // SERIAL ALLOCATION PROTOCOL
+                DROP 00{drop.dropNumber} // LIMITED EDITION RUN (250 PIECES ONLY)
               </span>
               <span className="text-[10px] text-[#52504B] uppercase bg-[#EDEAE2] px-2 py-0.5 border border-[#DCD7CC]">
                 STRICT CAPPED RUN
               </span>
             </div>
             <div className="text-xs font-bold">
-              <span className="text-[#B82328]">{percentClaimed}% ALLOCATED</span>
+              <span className="text-[#B82328]">{percentClaimed}% CLAIMED</span>
               <span className="text-[#DCD7CC] mx-2">|</span>
               <span className="text-[#111110]">{totalStockRemaining} OF {drop.totalEditionQty} PIECES REMAINING</span>
             </div>
@@ -387,7 +387,7 @@ export function ActiveDropView({ drop, featureFlags }: { drop: DropData; feature
 
           <div className="flex justify-between text-[10px] text-[#52504B]">
             <span>SERIAL #OUT-001-001</span>
-            <span className="font-bold text-[#111110]">NO RE-ISSUES OR RESTOCKS ONCE CLAIMED</span>
+            <span className="font-bold text-[#111110]">NO RESTOCKS ONCE SOLD OUT</span>
             <span>SERIAL #OUT-001-250</span>
           </div>
         </div>
@@ -444,8 +444,8 @@ export function ActiveDropView({ drop, featureFlags }: { drop: DropData; feature
                 </div>
 
                 <div className="text-left font-mono text-[11px] text-outside-inkSecondary">
-                  <p className="text-outside-ink font-semibold">INCLUSIVE OF ALL TAXES (5% APPAREL GST · HSN 61091000)</p>
-                  <p className="text-[10px] text-outside-inkSecondary">Free Domestic Air Express Dispatch from Ahmedabad Atelier (24)</p>
+                  <p className="text-outside-ink font-semibold">ALL TAXES INCLUDED (5% GST INCLUDED)</p>
+                  <p className="text-[10px] text-outside-inkSecondary">Free All-India Air Express Delivery · Cash on Delivery & Instant UPI Available</p>
                 </div>
 
                 {/* 5% Extra UPI/Prepaid Discount Hook (Cahoot Benchmark) */}
@@ -473,7 +473,7 @@ export function ActiveDropView({ drop, featureFlags }: { drop: DropData; feature
             <div className="space-y-3 p-4 bg-outside-surface border border-outside-border">
               <div className="flex justify-between items-center">
                 <label className="text-xs font-mono uppercase tracking-[0.2em] text-outside-ink font-bold flex items-center gap-2">
-                  <span>SILHOUETTE SPECIFICATION</span>
+                  <span>FIT & SIZE SPECIFICATION</span>
                 </label>
                 <Badge variant="moss" className="text-[9px]">
                   {selectedFit === 'WOMEN' ? 'PRIMARY FIT' : 'RELAXED'}
@@ -493,9 +493,9 @@ export function ActiveDropView({ drop, featureFlags }: { drop: DropData; feature
                           : 'bg-outside-elevated border-outside-border text-outside-inkSecondary hover:text-outside-ink hover:border-outside-ink'
                       }`}
                     >
-                      <span>{fit === 'WOMEN' ? 'WOMEN SILHOUETTE' : 'MEN SILHOUETTE'}</span>
+                      <span>{fit === 'WOMEN' ? 'WOMEN OVERSIZED FIT' : 'MEN OVERSIZED FIT'}</span>
                       <span className={`text-[9px] ${selectedFit === fit ? 'text-outside-elevated/70' : 'text-outside-inkSecondary'}`}>
-                        {fit === 'WOMEN' ? 'Ergonomic Boxy Cut' : 'Structured Relaxed Cut'}
+                        {fit === 'WOMEN' ? 'Oversized Boxy Cut' : 'Structured Relaxed Cut'}
                       </span>
                     </button>
                   ))}
@@ -529,7 +529,7 @@ export function ActiveDropView({ drop, featureFlags }: { drop: DropData; feature
                     currentStock > 0 ? (
                       <span className="text-outside-accent font-bold">
                         {currentStock <= lowStockThreshold
-                          ? `ONLY ${currentStock} LEFT IN ALLOCATION`
+                          ? `ONLY ${currentStock} PIECES LEFT`
                           : `${currentStock} AVAILABLE`}
                       </span>
                     ) : (
@@ -537,7 +537,7 @@ export function ActiveDropView({ drop, featureFlags }: { drop: DropData; feature
                     )
                   ) : (
                     <span className="text-outside-inkSecondary font-bold uppercase">
-                      SERIALIZED RUN (CAPPED)
+                      LIMITED RUN (250 PIECES)
                     </span>
                   )}
                 </span>
@@ -687,7 +687,7 @@ export function ActiveDropView({ drop, featureFlags }: { drop: DropData; feature
             <div className="p-5 bg-outside-elevated border border-outside-border space-y-2.5 font-mono text-xs shadow-editorial">
               <div className="flex items-center gap-2 text-outside-ink font-bold uppercase tracking-wider">
                 <Layers className="w-4 h-4 text-outside-accent" />
-                <span>GARMENT TECHNICAL SPECIFICATIONS</span>
+                <span>FABRIC & CARE SPECIFICATIONS</span>
               </div>
               <p className="text-outside-inkSecondary leading-relaxed font-sans text-xs">
                 {drop.fabricSpecs}
@@ -704,7 +704,7 @@ export function ActiveDropView({ drop, featureFlags }: { drop: DropData; feature
                 JOIN {selectedFit} · SIZE {selectedSize} WAITLIST
               </h3>
               <p className="text-xs text-outside-inkSecondary leading-relaxed mb-6 font-sans">
-                If an allocation opens up or another collector cancels, you will receive an instant early access reservation code.
+                If a piece becomes available or an order is cancelled, you will receive an instant access notification.
               </p>
 
               {waitlistSuccess ? (
@@ -717,7 +717,7 @@ export function ActiveDropView({ drop, featureFlags }: { drop: DropData; feature
                     isReferral={true}
                     title={drop.title}
                     dropNumber={drop.dropNumber}
-                    customText={`I just queued for early access to OUTSIDE DROP ${drop.dropNumber}. Use my collector link before the 250 pieces sell out:`}
+                    customText={`I just joined the waitlist for OUTSIDE DROP ${drop.dropNumber}. Check it out before the 250 pieces sell out:`}
                   />
                   <Button
                     type="button"

@@ -37,8 +37,8 @@ A: ${f.answer}`
 - **Name:** OUTSIDE
 - **Tagline:** Wear Your Story
 - **Legal Entity:** OUTSIDE APPAREL STUDIO PVT LTD
-- **Origin Atelier:** Plot 104, Design District, SG Highway, Ahmedabad, Gujarat, India (PIN 380015)
-- **State Code:** 24 (Gujarat)
+- **Studio Address:** Plot 104, Design District, SG Highway, Ahmedabad, Gujarat, India (PIN 380015)
+- **Country:** India
 - **Model:** Single-Drop D2C Limited-Edition Apparel
 - **Philosophy:** Women-First Sizing & Cut, Heavyweight Organic Cotton, Zero Landfill Overproduction
 
@@ -50,13 +50,13 @@ A: ${f.answer}`
 - **Embroidery:** High-density raised multi-layered chain-stitch embroidery and cord-tied canvas tags.
 
 ## 3. Sizing & Fit Architecture (Women-First)
-### Women Silhouette (Ergonomic Boxy Cut — Primary)
+### Women Fit (Oversized Boxy Cut — Primary)
 - XS: Chest 40-42" | Length 26.0" | Shoulder 19.5"
 - S:  Chest 42-44" | Length 26.8" | Shoulder 20.5"
 - M:  Chest 44-46" | Length 27.5" | Shoulder 21.5"
 - L:  Chest 46-48" | Length 28.2" | Shoulder 22.5"
 
-### Men Silhouette (Structured Relaxed Cut — Secondary)
+### Men Fit (Structured Relaxed Cut — Secondary)
 - S:  Chest 42-44" | Length 28.0" | Shoulder 20.5"
 - M:  Chest 44-46" | Length 29.0" | Shoulder 21.5"
 - L:  Chest 46-48" | Length 30.0" | Shoulder 22.5"

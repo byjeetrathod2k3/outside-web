@@ -65,3 +65,34 @@ export async function getCurrentSession(): Promise<SessionPayload | null> {
   if (!token) return null;
   return verifySessionToken(token);
 }
+
+export interface PreAuthChallengePayload {
+  userId: string;
+  email: string;
+  role: Role;
+  type: '2fa_challenge';
+}
+
+export async function create2faChallengeToken(payload: {
+  userId: string;
+  email: string;
+  role: Role;
+}): Promise<string> {
+  return new SignJWT({ ...payload, type: '2fa_challenge' })
+    .setProtectedHeader({ alg: 'HS256' })
+    .setIssuedAt()
+    .setExpirationTime('5m') // 5 minutes challenge window
+    .sign(JWT_SECRET);
+}
+
+export async function verify2faChallengeToken(token: string): Promise<PreAuthChallengePayload | null> {
+  try {
+    const { payload } = await jwtVerify(token, JWT_SECRET, {
+      algorithms: ['HS256'],
+    });
+    if (payload.type !== '2fa_challenge') return null;
+    return payload as unknown as PreAuthChallengePayload;
+  } catch {
+    return null;
+  }
+}

@@ -6,8 +6,14 @@ import {
   sendTransactionalEmail,
   DEFAULT_EMAIL_TEMPLATES,
 } from '@/lib/email';
+import { getCurrentSession } from '@/lib/auth';
 
 export async function GET() {
+  const session = await getCurrentSession();
+  if (!session || session.role !== 'SUPER_ADMIN') {
+    return NextResponse.json({ error: 'Unauthorized Super Admin access' }, { status: 401 });
+  }
+
   const store = getLocalStore();
   const config = store.emailConfig || {};
 
@@ -28,6 +34,11 @@ export async function GET() {
 }
 
 export async function PUT(request: Request) {
+  const session = await getCurrentSession();
+  if (!session || session.role !== 'SUPER_ADMIN') {
+    return NextResponse.json({ error: 'Unauthorized Super Admin access' }, { status: 401 });
+  }
+
   try {
     const body = await request.json();
     const {
@@ -92,6 +103,11 @@ export async function PUT(request: Request) {
 
 // POST: Execute Live Test Email
 export async function POST(request: Request) {
+  const session = await getCurrentSession();
+  if (!session || session.role !== 'SUPER_ADMIN') {
+    return NextResponse.json({ error: 'Unauthorized Super Admin access' }, { status: 401 });
+  }
+
   try {
     const { testRecipient = 'admin@outside.in' } = await request.json();
     const store = getLocalStore();

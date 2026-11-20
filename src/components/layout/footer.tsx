@@ -105,11 +105,11 @@ export function GlobalFooter() {
             />
           </div>
           <p className="text-xs text-outside-muted leading-relaxed max-w-sm font-sans">
-            Architectural silhouettes, heavyweight organic cotton, and zero overproduction. Crafted in Gujarat, India with rigorous tailoring and transparent single-drop releases.
+            Premium streetwear, 280 GSM heavyweight organic cotton, and limited editions. Crafted in India with meticulous tailoring and transparent single-drop releases.
           </p>
           <div className="pt-2 font-mono text-[11px] text-outside-muted space-y-1">
             <p><strong className="text-outside-text">LEGAL:</strong> OUTSIDE APPAREL STUDIO PVT LTD</p>
-            <p><strong className="text-outside-text">GSTIN:</strong> 24AABCO1234F1Z5 · ORIGIN GUJARAT (24)</p>
+            <p><strong className="text-outside-text">GSTIN:</strong> 24AABCO1234F1Z5 · GST REGISTERED (INDIA)</p>
             <p><strong className="text-outside-text">HSN CLASSIFICATION:</strong> 61091000 (KNITTED COTTON)</p>
           </div>
         </div>
@@ -207,7 +207,7 @@ export function GlobalFooter() {
           <p>© {new Date().getFullYear()} OUTSIDE APPAREL STUDIO PVT LTD. ALL RIGHTS RESERVED.</p>
           <div className="flex items-center gap-6">
             <span>CRAWLERS: GOOGLEBOT · BINGBOT · OAI-SEARCH · PERPLEXITY</span>
-            <span className="text-outside-text font-bold">CRAFTED WITH INTENTION IN GUJARAT</span>
+            <span className="text-outside-text font-bold">CRAFTED WITH INTENTION IN INDIA</span>
           </div>
         </div>
       </div>

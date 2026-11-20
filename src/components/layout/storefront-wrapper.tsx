@@ -65,17 +65,17 @@ export function StorefrontWrapper({
         </div>
         <div className="flex items-center gap-2 text-xs font-bold text-outside-accent tracking-widest uppercase">
           <span className="w-2 h-2 rounded-full bg-outside-accent animate-pulse" />
-          <span>STUDIO ATELIER CALIBRATION</span>
+          <span>STUDIO PREPARATION</span>
         </div>
       </div>
 
       {/* Main Editorial Hero */}
       <div className="max-w-2xl my-auto py-12 space-y-6">
         <span className="text-[11px] font-mono uppercase tracking-[0.25em] text-outside-accent font-bold">
-          LIMITED-EDITION RELEASE ARCHITECTURE // GUJARAT 24
+          LIMITED-EDITION RELEASE // MADE IN INDIA
         </span>
         <h1 className="text-3xl sm:text-5xl font-display font-black text-outside-ink uppercase tracking-tight leading-tight">
-          {maintenanceConfig?.headline || 'ATELIER IS CALIBRATING THE NEXT DROP'}
+          {maintenanceConfig?.headline || 'STUDIO IS PREPARING THE NEXT DROP'}
         </h1>
         <p className="text-xs sm:text-sm text-outside-inkSecondary font-sans leading-relaxed">
           {maintenanceConfig?.subline || 'DROP 002 PREPARATION UNDERWAY // AHMEDABAD STUDIO'} — Single-drop luxury streetwear produced in strictly serialized runs. The storefront is temporarily gated while inventory and pattern cutters synchronize.
@@ -109,7 +109,7 @@ export function StorefrontWrapper({
 
       {/* Footer Details */}
       <div className="pt-6 border-t border-outside-border flex flex-col sm:flex-row items-center justify-between text-[10px] text-outside-inkSecondary gap-3">
-        <span>&copy; {new Date().getFullYear()} OUTSIDE APPAREL STUDIO PVT LTD · AHMEDABAD, GUJARAT</span>
+        <span>&copy; {new Date().getFullYear()} OUTSIDE APPAREL STUDIO PVT LTD · AHMEDABAD, INDIA</span>
         <Link href="/admin" className="hover:text-outside-ink font-bold uppercase tracking-widest flex items-center gap-1.5">
           <Lock className="w-3 h-3 text-outside-accent" />
           <span>ADMIN ACCESS &rarr;</span>

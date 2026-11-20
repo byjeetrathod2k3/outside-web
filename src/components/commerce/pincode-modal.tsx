@@ -173,7 +173,7 @@ export function PincodeModal() {
 
             <div className="mt-3 pt-3 border-t border-outside-border/60 flex items-center gap-2 text-[11px] font-mono text-outside-inkSecondary">
               <ShieldCheck className="w-3.5 h-3.5 text-outside-moss shrink-0" />
-              <span>Direct origin dispatch from Gujarat 24. No third-party drop-shipping.</span>
+              <span>Direct express air dispatch from our Ahmedabad studio. No third-party drop-shipping.</span>
             </div>
           </div>
         )}

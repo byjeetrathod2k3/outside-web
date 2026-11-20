@@ -31,6 +31,11 @@ const ThemeSchema = z.object({
 });
 
 export async function GET() {
+  const session = await getCurrentSession();
+  if (!session || (session.role !== 'SUPER_ADMIN' && session.role !== 'ADMIN')) {
+    return NextResponse.json({ error: 'Unauthorized: Admin role required' }, { status: 401 });
+  }
+
   const theme = getThemeConfig();
 
   // Evaluate real-time WCAG 2.2 AA Contrast Pairs

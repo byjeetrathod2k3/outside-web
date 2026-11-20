@@ -74,7 +74,7 @@ export function WhatsAppConcierge() {
 
         <div className="flex flex-col text-left">
           <span className="text-[10px] uppercase tracking-wider text-outside-inkSecondary font-medium leading-none">
-            VIP ATELIER
+            OUTSIDE INDIA
           </span>
           <span className="text-xs font-bold text-outside-ink leading-tight">
             WhatsApp Concierge

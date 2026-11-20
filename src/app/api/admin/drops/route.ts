@@ -1,13 +1,24 @@
 import { NextResponse } from 'next/server';
 import { getLocalStore, saveLocalStore } from '@/lib/db';
 import { sendTransactionalEmail } from '@/lib/email';
+import { getCurrentSession } from '@/lib/auth';
 
 export async function GET() {
+  const session = await getCurrentSession();
+  if (!session || session.role !== 'SUPER_ADMIN') {
+    return NextResponse.json({ error: 'Unauthorized Super Admin access' }, { status: 401 });
+  }
+
   const store = getLocalStore();
   return NextResponse.json(store.drops);
 }
 
 export async function POST(request: Request) {
+  const session = await getCurrentSession();
+  if (!session || session.role !== 'SUPER_ADMIN') {
+    return NextResponse.json({ error: 'Unauthorized Super Admin access' }, { status: 401 });
+  }
+
   try {
     const body = await request.json();
     const {
@@ -54,6 +65,11 @@ export async function POST(request: Request) {
 }
 
 export async function PUT(request: Request) {
+  const session = await getCurrentSession();
+  if (!session || session.role !== 'SUPER_ADMIN') {
+    return NextResponse.json({ error: 'Unauthorized Super Admin access' }, { status: 401 });
+  }
+
   try {
     const body = await request.json();
     const { id, status, isFeatured, variants, title, pricePaise, hotspots } = body;

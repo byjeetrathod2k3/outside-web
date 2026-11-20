@@ -38,9 +38,9 @@ export const DEFAULT_HOTSPOTS: GarmentHotspot[] = [
     yPercent: 27,
     zoomLevel: 2.8,
     title: 'Raised Chain-Stitch Floral Embroidery',
-    tag: 'HAND-CRAFTED ATELIER EMBROIDERY',
+    tag: 'HAND-CRAFTED EMBROIDERY (MADE IN INDIA)',
     description:
-      'Multi-threaded chocolate umber and rose-pink botanical bloom with cursive "Better Days Ahead" calligraphy. Hand-finished in our Ahmedabad atelier to resist wash distortion.',
+      'Multi-threaded chocolate umber and rose-pink botanical bloom with cursive "Better Days Ahead" calligraphy. Hand-finished in our Ahmedabad studio to resist wash distortion.',
     spec: 'High-Density Rayon Thread · 12,400 Stitches',
   },
   {
@@ -49,9 +49,9 @@ export const DEFAULT_HOTSPOTS: GarmentHotspot[] = [
     yPercent: 55,
     zoomLevel: 2.5,
     title: '280 GSM Combed Organic French Terry',
-    tag: 'CUSTOM-MILLED IN GUJARAT (24)',
+    tag: '100% PURE ORGANIC INDIAN COTTON',
     description:
-      'Substantial architectural weight in Natural Raw Unbleached Ivory. Double bio-washed for zero shrinkage with a tactile soft-touch loopback interior.',
+      'Substantial heavyweight in Natural Raw Unbleached Ivory. Double bio-washed for zero shrinkage with a tactile soft-touch interior.',
     spec: '280 GSM · 100% Organic Combed Cotton',
   },
   {
@@ -60,7 +60,7 @@ export const DEFAULT_HOTSPOTS: GarmentHotspot[] = [
     yPercent: 51,
     zoomLevel: 3.0,
     title: 'Continuous Braided Stemwork & Cord',
-    tag: 'DIMENSIONAL BOTANICAL CRAFT',
+    tag: 'HAND-CRAFTED BOTANICAL DETAIL',
     description:
       'Elongated vertical braided botanical stem anchoring downwards from the flower into the hem, creating architectural visual flow across the torso.',
     spec: 'Braided Rayon Cord · Double-Reinforced Anchor Stitches',
@@ -71,7 +71,7 @@ export const DEFAULT_HOTSPOTS: GarmentHotspot[] = [
     yPercent: 76,
     zoomLevel: 2.5,
     title: 'Tethered Canvas Tag Inscription',
-    tag: 'SERIALIZED SIGNATURE DETAIL',
+    tag: 'LIMITED EDITION SIGNATURE DETAIL',
     description:
       'Elongated knotted dimensional cord anchored into a raw-edge canvas tag debossed with "for a kinder you" and subtle heart emblem.',
     spec: 'Raw Canvas · Double-Reinforced Knot Stitches',
@@ -82,7 +82,7 @@ export const DEFAULT_HOTSPOTS: GarmentHotspot[] = [
     yPercent: 42,
     zoomLevel: 2.6,
     title: 'Embroidered Sleeve Brand Emblem',
-    tag: 'OFFICIAL OUTSIDE MARK',
+    tag: 'GENUINE OUTSIDE INDIA EMBLEM',
     description:
       'High-definition OUTSIDE obsidian carbon wordmark enclosing the crimson coiled serpent emblem on the left sleeve hem.',
     spec: 'Embroidered Patchwork · Precision Merrow Border',
@@ -200,7 +200,7 @@ export const INITIAL_FAQS = [
     id: 'faq_2',
     category: 'GST & Invoicing',
     question: 'How is GST calculated on apparel orders?',
-    answer: 'In compliance with Indian Tax Laws (HSN 6109 for cotton knitted t-shirts), items with a sale price up to ₹2,500 are charged 5% GST, while items above ₹2,500 are taxed at 18% GST. For deliveries within Gujarat (State Code 24), tax is split into CGST (2.5% / 9%) + SGST (2.5% / 9%). For all other states, IGST is applied.',
+    answer: 'All prices on OUTSIDE are 100% inclusive of statutory Indian Apparel GST (5% GST for items under ₹2,500). An official sequential GST Tax Invoice with our registered GSTIN (24AABCO1234F1Z5) is generated for every order and delivered instantly via email.',
     sortOrder: 2,
   },
   {

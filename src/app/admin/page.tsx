@@ -97,7 +97,7 @@ export default function AdminDashboardPage() {
         {/* Card 3: GST Tax Collected */}
         <div className="p-6 bg-[#FCFBF8] border border-[#DCD7CC] space-y-3 shadow-editorial">
           <div className="flex justify-between items-center text-[#52504B] text-xs">
-            <span className="font-semibold uppercase tracking-wider">GST ACCRUED (GUJARAT 24)</span>
+            <span className="font-semibold uppercase tracking-wider">TOTAL GST ACCRUED</span>
             <Receipt className="w-4 h-4 text-[#B82328]" />
           </div>
           <div className="text-2xl font-bold text-[#111110]">

@@ -120,7 +120,7 @@ function SuccessContent() {
               Plot 104, Design District, SG Highway, Ahmedabad, Gujarat 380015
             </p>
             <p className="text-[11px] text-outside-muted">
-              GSTIN: <strong className="text-outside-text">24AABCO1234F1Z5</strong> · Origin State: Gujarat (24)
+              GSTIN: <strong className="text-outside-text">24AABCO1234F1Z5</strong> · Registered in India
             </p>
             <p className="text-[11px] text-outside-muted">
               Email: support@outside.in · Website: www.outside.in
@@ -249,23 +249,10 @@ function SuccessContent() {
               </span>
             </div>
 
-            {isInterState ? (
-              <div className="flex justify-between text-outside-crimson font-bold">
-                <span>Total IGST (5%):</span>
-                <span>₹{(displayOrder.igstPaise / 100).toFixed(2)}</span>
-              </div>
-            ) : (
-              <>
-                <div className="flex justify-between text-outside-crimson font-bold">
-                  <span>Total CGST (2.5%):</span>
-                  <span>₹{(displayOrder.cgstPaise / 100).toFixed(2)}</span>
-                </div>
-                <div className="flex justify-between text-outside-crimson font-bold">
-                  <span>Total SGST (2.5%):</span>
-                  <span>₹{(displayOrder.sgstPaise / 100).toFixed(2)}</span>
-                </div>
-              </>
-            )}
+            <div className="flex justify-between text-outside-crimson font-bold">
+              <span>Total GST (5%):</span>
+              <span>₹{(((displayOrder.cgstPaise || 0) + (displayOrder.sgstPaise || 0) + (displayOrder.igstPaise || 0)) / 100).toFixed(2)}</span>
+            </div>
 
             <div className="pt-2 border-t border-outside-border flex justify-between font-bold text-sm text-outside-text">
               <span>TOTAL INVOICE VALUE:</span>
@@ -280,7 +267,7 @@ function SuccessContent() {
         <div className="pt-8 border-t border-outside-border flex justify-between items-end">
           <div className="flex items-center gap-2 text-[10px] text-outside-muted">
             <ShieldCheck className="w-4 h-4 text-outside-crimson" />
-            <span>AUTHENTICATED ELECTRONIC INVOICE (GST REG 24AABCO1234F1Z5)</span>
+            <span>AUTHENTICATED ELECTRONIC INVOICE (GSTIN: 24AABCO1234F1Z5)</span>
           </div>
           <div className="text-right">
             <p className="text-[10px] text-outside-muted">FOR OUTSIDE APPAREL STUDIO PVT LTD</p>

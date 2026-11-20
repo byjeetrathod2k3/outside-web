@@ -5,8 +5,14 @@ import {
   DEFAULT_GST_SETTINGS,
   generateGstr1Csv,
 } from '@/lib/gst';
+import { getCurrentSession } from '@/lib/auth';
 
 export async function GET(request: Request) {
+  const session = await getCurrentSession();
+  if (!session || session.role !== 'SUPER_ADMIN') {
+    return NextResponse.json({ error: 'Unauthorized Super Admin access' }, { status: 401 });
+  }
+
   const store = getLocalStore();
   const { searchParams } = new URL(request.url);
   const exportFormat = searchParams.get('export');
@@ -45,6 +51,11 @@ export async function GET(request: Request) {
 }
 
 export async function PUT(request: Request) {
+  const session = await getCurrentSession();
+  if (!session || session.role !== 'SUPER_ADMIN') {
+    return NextResponse.json({ error: 'Unauthorized Super Admin access' }, { status: 401 });
+  }
+
   try {
     const body = await request.json();
     const {

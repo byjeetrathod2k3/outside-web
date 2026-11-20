@@ -29,6 +29,11 @@ export function AdminSidebar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [loggingOut, setLoggingOut] = useState(false);
 
+  // Suppress sidebar on login screens
+  if (pathname.endsWith('/login') || pathname.includes('/login')) {
+    return null;
+  }
+
   const base = process.env.NEXT_PUBLIC_ADMIN_BASE_PATH || '/outside-studio-ops';
 
   const mainNav = [
@@ -47,7 +52,7 @@ export function AdminSidebar() {
   ];
 
   const settingsNav = [
-    { label: 'GST (GUJARAT 24)', href: `${base}/settings/gst`, icon: Settings },
+    { label: 'GST TAX & INVOICING', href: `${base}/settings/gst`, icon: Settings },
     { label: 'EMAIL ENGINE', href: `${base}/settings/email`, icon: Mail },
     { label: '2FA & SECURITY', href: `${base}/settings/security`, icon: ShieldCheck },
   ];

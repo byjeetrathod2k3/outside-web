@@ -1,8 +1,15 @@
 import { NextResponse } from 'next/server';
 import { getLocalStore, saveLocalStore } from '@/lib/db';
 import { sendTransactionalEmail } from '@/lib/email';
+import { getCurrentSession } from '@/lib/auth';
 
 export async function GET(request: Request) {
+  // Viewing leads requires admin authentication
+  const session = await getCurrentSession();
+  if (!session || (session.role !== 'SUPER_ADMIN' && session.role !== 'ADMIN')) {
+    return NextResponse.json({ error: 'Unauthorized: Admin access required to view waitlist leads' }, { status: 401 });
+  }
+
   const store = getLocalStore();
   const { searchParams } = new URL(request.url);
   const type = searchParams.get('type');

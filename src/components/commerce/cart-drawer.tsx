@@ -260,20 +260,17 @@ export function CartDrawer() {
                   </span>
                 </div>
 
-                {/* GST Split */}
-                {taxBreakdown.isInterState ? (
-                  <div className="flex justify-between text-outside-inkSecondary text-[10px]">
-                    <span>Inter-State IGST (5% HSN 61091000):</span>
-                    <span>₹{(taxBreakdown.totalIgstPaise / 100).toLocaleString('en-IN')}</span>
-                  </div>
-                ) : (
-                  <div className="flex justify-between text-outside-inkSecondary text-[10px]">
-                    <span>Gujarat GST (2.5% CGST + 2.5% SGST):</span>
-                    <span>
-                      ₹{((taxBreakdown.totalCgstPaise + taxBreakdown.totalSgstPaise) / 100).toLocaleString('en-IN')}
-                    </span>
-                  </div>
-                )}
+                {/* GST Tax Display */}
+                <div className="flex justify-between text-outside-inkSecondary text-[10px]">
+                  <span>GST (Included):</span>
+                  <span>
+                    ₹{(
+                      (taxBreakdown.isInterState
+                        ? taxBreakdown.totalIgstPaise
+                        : taxBreakdown.totalCgstPaise + taxBreakdown.totalSgstPaise) / 100
+                    ).toLocaleString('en-IN')}
+                  </span>
+                </div>
 
                 <div className="pt-2 border-t border-outside-border flex justify-between text-xs font-bold text-outside-ink">
                   <span>FINAL PAYABLE:</span>

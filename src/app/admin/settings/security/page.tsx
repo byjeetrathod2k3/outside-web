@@ -6,11 +6,19 @@ import { ShieldCheck, ShieldAlert, KeyRound, Smartphone, Lock, RefreshCw, CheckC
 export default function AdminSecurityPage() {
   const [loading, setLoading] = useState(true);
   const [is2faEnabled, setIs2faEnabled] = useState(false);
-  const [setupData, setSetupData] = useState<{ secret: string; otpauthUri: string; qrSvg: string } | null>(null);
+  const [setupData, setSetupData] = useState<{ secret: string; otpauthUri: string; qrSvg: string; qrDataUrl?: string } | null>(null);
   const [confirmCode, setConfirmCode] = useState('');
+  const [copiedSecret, setCopiedSecret] = useState(false);
   const [actionLoading, setActionLoading] = useState(false);
   const [statusMessage, setStatusMessage] = useState<{ text: string; type: 'success' | 'error' } | null>(null);
   const [auditLogs, setAuditLogs] = useState<any[]>([]);
+
+  const handleCopyKey = () => {
+    if (!setupData?.secret) return;
+    navigator.clipboard.writeText(setupData.secret);
+    setCopiedSecret(true);
+    setTimeout(() => setCopiedSecret(false), 2000);
+  };
 
   const fetchSecurityStatus = async () => {
     setLoading(true);
@@ -196,20 +204,45 @@ export default function AdminSecurityPage() {
                   <span className="text-[11px] font-bold text-[#111110] uppercase tracking-wider block">
                     STEP 1: SCAN QR CODE OR ENTER SECRET KEY
                   </span>
-                  <div className="flex flex-col sm:flex-row items-center gap-6 p-4 bg-[#EDEAE2]/50 border border-[#DCD7CC]">
-                    <div
-                      className="w-48 h-48 bg-white border border-[#DCD7CC] p-2 flex items-center justify-center flex-shrink-0"
-                      dangerouslySetInnerHTML={{ __html: setupData.qrSvg }}
-                    />
-                    <div className="space-y-3 overflow-hidden text-xs">
+                  <div className="flex flex-col sm:flex-row items-center gap-6 p-5 bg-white border border-[#DCD7CC] shadow-sm">
+                    <div className="w-52 h-52 bg-white border border-[#111110] p-2 flex items-center justify-center flex-shrink-0">
+                      {setupData.qrDataUrl ? (
+                        <img
+                          src={setupData.qrDataUrl}
+                          alt="Scan with Authenticator App"
+                          className="w-48 h-48 object-contain"
+                        />
+                      ) : (
+                        <div
+                          className="w-48 h-48 flex items-center justify-center"
+                          dangerouslySetInnerHTML={{ __html: setupData.qrSvg }}
+                        />
+                      )}
+                    </div>
+                    <div className="space-y-3.5 flex-1 overflow-hidden text-xs">
                       <p className="text-[#52504B] text-[11px] leading-relaxed">
-                        Scan this QR code in Google Authenticator, 1Password, or Apple Keychain. Alternatively, enter
-                        the manual setup key:
+                        Scan this QR code using <strong>Google Authenticator</strong>, <strong>Apple Passwords</strong>, <strong>1Password</strong>, or <strong>Microsoft Authenticator</strong>.
                       </p>
-                      <div className="p-3 bg-[#FCFBF8] border border-[#DCD7CC] select-all">
-                        <span className="font-mono text-xs font-bold text-[#111110] break-all">{setupData.secret}</span>
+                      <div>
+                        <span className="text-[10px] uppercase font-bold text-[#52504B] block mb-1">
+                          Manual Base32 Setup Secret:
+                        </span>
+                        <div className="flex items-center gap-2">
+                          <div className="p-2.5 bg-[#F7F5F0] border border-[#DCD7CC] font-mono text-xs font-bold text-[#111110] tracking-wider flex-1 overflow-x-auto select-all">
+                            {setupData.secret}
+                          </div>
+                          <button
+                            type="button"
+                            onClick={handleCopyKey}
+                            className="px-3.5 py-2.5 bg-[#111110] hover:bg-[#B82328] text-white text-[10px] uppercase tracking-wider font-bold transition-all cursor-pointer whitespace-nowrap shadow-sm"
+                          >
+                            {copiedSecret ? 'COPIED!' : 'COPY KEY'}
+                          </button>
+                        </div>
                       </div>
-                      <p className="text-[10px] text-[#52504B]">Account: admin@outside.in · Issuer: OUTSIDE</p>
+                      <p className="text-[10px] text-[#52504B]">
+                        Account: <strong className="text-[#111110]">admin@outside.in</strong> · Issuer: <strong className="text-[#111110]">OUTSIDE</strong> · RFC 6238 TOTP (SHA1, 30s)
+                      </p>
                     </div>
                   </div>
                 </div>

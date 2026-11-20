@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server';
 import {
   createSessionToken,
   getCurrentSession,
+  create2faChallengeToken,
+  verify2faChallengeToken,
 } from '@/lib/auth';
 import {
   checkLoginRateLimit,
@@ -43,7 +45,65 @@ export async function POST(request: Request) {
       );
     }
 
-    const { email, password, totpCode } = await request.json();
+    const { email, password, totpCode, preAuthToken } = await request.json();
+
+    // 2. Step 2 TOTP Challenge Verification via preAuthToken
+    if (preAuthToken && totpCode) {
+      const challenge = await verify2faChallengeToken(preAuthToken);
+      if (!challenge) {
+        return NextResponse.json(
+          { error: 'Two-factor session expired. Please re-enter your credentials.' },
+          { status: 401 }
+        );
+      }
+
+      const security = getSuperAdminSecurity();
+      if (!security.totpSecret || !security.totpEnabled) {
+        return NextResponse.json(
+          { error: 'Two-factor authentication is not active on this account.' },
+          { status: 400 }
+        );
+      }
+
+      const isTotpValid = verifyTotpToken(security.totpSecret, totpCode, 2);
+      if (!isTotpValid) {
+        recordLoginAttempt(ip, challenge.email, false);
+        return NextResponse.json(
+          { error: 'Invalid two-factor authentication passcode. Please verify your device clock and retry.' },
+          { status: 401 }
+        );
+      }
+
+      // Successful 2FA login
+      recordLoginAttempt(ip, challenge.email, true);
+
+      const token = await createSessionToken({
+        userId: challenge.userId,
+        email: challenge.email,
+        name: SUPER_ADMIN.name,
+        role: challenge.role,
+      });
+
+      const response = NextResponse.json({
+        success: true,
+        user: {
+          id: challenge.userId,
+          email: challenge.email,
+          name: SUPER_ADMIN.name,
+          role: challenge.role,
+        },
+      });
+
+      response.cookies.set('outside_session', token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'strict',
+        maxAge: 60 * 60 * 24 * 7,
+        path: '/',
+      });
+
+      return response;
+    }
 
     if (!email || !password) {
       return NextResponse.json(
@@ -52,7 +112,7 @@ export async function POST(request: Request) {
       );
     }
 
-    // 2. Validate Super Admin Credentials
+    // 3. Validate Super Admin Credentials
     const isEmailValid = email.toLowerCase() === SUPER_ADMIN.email.toLowerCase();
     const isPasswordValid = password === 'Admin@Outside2026!' || password === 'admin';
 
@@ -68,17 +128,24 @@ export async function POST(request: Request) {
       );
     }
 
-    // 3. Verify Two-Factor Authentication (TOTP) if enabled
+    // 4. Verify Two-Factor Authentication (TOTP) if enabled
     const security = getSuperAdminSecurity();
     if (security.totpEnabled && security.totpSecret) {
       if (!totpCode) {
+        const challengeToken = await create2faChallengeToken({
+          userId: SUPER_ADMIN.id,
+          email: SUPER_ADMIN.email,
+          role: SUPER_ADMIN.role,
+        });
+
         return NextResponse.json({
           require2fa: true,
+          preAuthToken: challengeToken,
           message: 'Two-Factor Authentication passcode required.',
         });
       }
 
-      const isTotpValid = verifyTotpToken(security.totpSecret, totpCode);
+      const isTotpValid = verifyTotpToken(security.totpSecret, totpCode, 2);
       if (!isTotpValid) {
         recordLoginAttempt(ip, email, false);
         return NextResponse.json(
@@ -88,7 +155,7 @@ export async function POST(request: Request) {
       }
     }
 
-    // 4. Successful Authentication
+    // 5. Successful Authentication
     recordLoginAttempt(ip, email, true);
 
     const token = await createSessionToken({

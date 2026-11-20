@@ -17,9 +17,9 @@ import {
 import { SectionHeading } from '@/components/ui/section-heading';
 
 export const metadata: Metadata = {
-  title: 'Atelier Craft & Material Engineering // 280 GSM Cotton | OUTSIDE',
+  title: 'Fabric & Craftsmanship // 280 GSM Cotton | OUTSIDE India',
   description:
-    'The technical textile anatomy of OUTSIDE: custom-knit 280 GSM combed organic cotton, double bio-washing, Lycra collar recovery, and ethical artisan production in Ahmedabad, Gujarat.',
+    'The technical textile anatomy of OUTSIDE: custom-knit 280 GSM combed organic cotton, double bio-washing, Lycra collar recovery, and ethical artisan production in Ahmedabad, India.',
 };
 
 const CRAFT_PILLARS = [
@@ -44,7 +44,7 @@ const CRAFT_PILLARS = [
   {
     step: '03',
     title: 'Hand-Finished Chain-Stitch Embroidery',
-    subtitle: 'TACTILE ARTISAN EMBROIDERY METALLURGY',
+    subtitle: 'TACTILE HAND-CRAFTED EMBROIDERY',
     icon: Scissors,
     description:
       'Rather than cheap heat transfers or plastic screen prints that crack over time, DROP 001 features multi-layered raised chain-stitch embroidery. Utilizing premium high-tenacity rayon threads, our Ahmedabad artisans hand-finish each "Better Days Ahead" floral stem with 12,400 precision stitches.',
@@ -70,13 +70,13 @@ export default function CraftPage() {
         <div className="border-b border-outside-border pb-8 max-w-4xl space-y-3">
           <div className="flex items-center gap-2 text-xs text-outside-crimson uppercase tracking-[0.25em] font-bold">
             <span className="w-2 h-2 rounded-full bg-outside-crimson animate-pulse" />
-            <span>MATERIAL ENGINEERING MANIFESTO</span>
+            <span>PREMIUM FABRIC &amp; CRAFT PHILOSOPHY</span>
           </div>
           <h1 className="text-4xl sm:text-6xl font-display font-black tracking-tight text-outside-text uppercase">
             Built From Heavyweight Truth.
           </h1>
           <p className="text-sm font-sans text-outside-muted leading-relaxed max-w-2xl">
-            We reject the disposable, micro-plastic fabric race. Every OUTSIDE piece is developed with obsessive material honesty in the historic textile capital of Ahmedabad, Gujarat.
+            We reject the disposable, micro-plastic fabric race. Every OUTSIDE piece is developed with obsessive material honesty in the textile hub of Ahmedabad, India.
           </p>
         </div>
 
@@ -92,7 +92,7 @@ export default function CraftPage() {
                 <div className="space-y-4">
                   <div className="flex items-center justify-between border-b border-outside-border pb-4">
                     <span className="text-xs font-mono text-outside-crimson font-bold tracking-widest">
-                      PILLAR {pillar.step} // ATELIER STANDARD
+                      PILLAR {pillar.step} // STUDIO STANDARD
                     </span>
                     <span className="text-[10px] font-bold text-outside-text bg-outside-surface px-2.5 py-1 border border-outside-border">
                       {pillar.badge}
@@ -119,7 +119,7 @@ export default function CraftPage() {
                 </div>
 
                 <div className="pt-4 border-t border-outside-border flex items-center justify-between text-[11px] text-outside-muted">
-                  <span>TESTED IN AHMEDABAD (STATE CODE 24)</span>
+                  <span>QUALITY TESTED IN AHMEDABAD, INDIA</span>
                   <CheckCircle2 className="w-4 h-4 text-outside-moss" />
                 </div>
               </div>
@@ -195,7 +195,7 @@ export default function CraftPage() {
               Experience The Weight For Yourself.
             </h3>
             <p className="text-xs text-outside-muted font-sans mt-1">
-              DROP 001 is available now in limited quantities. 280 GSM French Terry crafted in Gujarat.
+              DROP 001 is available now in limited quantities. 280 GSM French Terry crafted in India.
             </p>
           </div>
           <Link

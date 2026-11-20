@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { getCurrentSession } from '@/lib/auth';
 import { getSuperAdminSecurity, saveSuperAdminSecurity, recordAuditLog } from '@/lib/db';
-import { generateTotpSecret, generateSimpleQrSvg, verifyTotpToken } from '@/lib/totp';
+import { generateTotpSecret, generateQrCodeSvg, generateQrCodeDataUrl, verifyTotpToken } from '@/lib/totp';
 
 export async function GET() {
   const session = await getCurrentSession();
@@ -19,15 +19,17 @@ export async function GET() {
     });
   }
 
-  // Generate a new secret and QR SVG for setup
+  // Generate a new secret and QR SVG/DataURL for setup
   const { secret, otpauthUri } = generateTotpSecret(session.email, 'OUTSIDE');
-  const qrSvg = generateSimpleQrSvg(otpauthUri);
+  const qrSvg = await generateQrCodeSvg(otpauthUri);
+  const qrDataUrl = await generateQrCodeDataUrl(otpauthUri);
 
   return NextResponse.json({
     enabled: false,
     secret,
     otpauthUri,
     qrSvg,
+    qrDataUrl,
   });
 }
 
@@ -47,11 +49,11 @@ export async function POST(request: Request) {
       );
     }
 
-    // Verify token with drift window of 1
-    const isValid = verifyTotpToken(secret, token, 1);
+    // Verify token with drift window of 2 (±60 seconds)
+    const isValid = verifyTotpToken(secret, token, 2);
     if (!isValid) {
       return NextResponse.json(
-        { error: 'Invalid 6-digit confirmation code. Please verify time synchronization and retry.' },
+        { error: 'Invalid 6-digit confirmation code. Please ensure your device clock is synchronized and retry.' },
         { status: 400 }
       );
     }

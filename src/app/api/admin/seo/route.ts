@@ -1,8 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getSeoConfig, saveSeoConfig, resetSeoConfig, recordAuditLog, SeoConfigData } from '@/lib/db';
 import { revalidatePath } from 'next/cache';
+import { getCurrentSession } from '@/lib/auth';
 
 export async function GET() {
+  const session = await getCurrentSession();
+  if (!session || session.role !== 'SUPER_ADMIN') {
+    return NextResponse.json({ error: 'Unauthorized Super Admin access' }, { status: 401 });
+  }
+
   try {
     const config = getSeoConfig();
     return NextResponse.json({ success: true, config });
@@ -15,6 +21,11 @@ export async function GET() {
 }
 
 export async function POST(req: NextRequest) {
+  const session = await getCurrentSession();
+  if (!session || session.role !== 'SUPER_ADMIN') {
+    return NextResponse.json({ error: 'Unauthorized Super Admin access' }, { status: 401 });
+  }
+
   try {
     const body = await req.json();
     const action = body.action;

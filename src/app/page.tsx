@@ -107,7 +107,7 @@ export default async function HomePage() {
                       280 GSM French Terry Cotton
                     </h3>
                     <p className="text-xs text-outside-inkSecondary leading-relaxed font-sans">
-                      Custom-milled in Gujarat using long-staple combed organic cotton. Double-bio-washed to eliminate shrinkage while preserving structural architectural drape.
+                      Custom-milled in India using 100% long-staple combed organic cotton. Double-bio-washed to eliminate shrinkage while preserving soft, durable structure.
                     </p>
                   </div>
                   <div className="pt-8 border-t border-outside-border font-mono text-[11px] text-outside-ink font-bold">
@@ -134,12 +134,12 @@ export default async function HomePage() {
                 {/* Bento Card 3 */}
                 <div className="p-8 bg-outside-elevated border border-outside-border flex flex-col justify-between hover:border-outside-accent/60 transition-all shadow-editorial">
                   <div className="space-y-4">
-                    <span className="text-xs font-mono text-outside-accent font-bold">03 // PROVENANCE &amp; TAX</span>
+                    <span className="text-xs font-mono text-outside-accent font-bold">03 // MADE IN INDIA &amp; GST</span>
                     <h3 className="text-xl font-bold font-display text-outside-ink uppercase">
-                      Crafted In Ahmedabad (24)
+                      100% Made In India
                     </h3>
                     <p className="text-xs text-outside-inkSecondary leading-relaxed font-sans">
-                      100% domestic textile heritage with fair living wages. Complete Indian GST compliance with automated invoice generation and Place of Supply audit trails.
+                      100% domestic textile heritage with fair living wages. Complete GST compliance with automated invoice generation.
                     </p>
                   </div>
                   <div className="pt-8 border-t border-outside-border font-mono text-[11px] text-outside-ink font-bold">
@@ -162,7 +162,7 @@ export default async function HomePage() {
                     PROPORTION &amp; ERGONOMICS
                   </span>
                   <h2 className="text-3xl sm:text-4xl font-display font-black tracking-tight text-outside-ink uppercase">
-                    The Women-First Sizing Manifesto.
+                    The Women-First Sizing Philosophy.
                   </h2>
                   <p className="text-sm text-outside-inkSecondary leading-relaxed">
                     Most streetwear brands treat unisex as &quot;men&apos;s cuts scaled down.&quot; The shoulders sag awkwardly, the sleeve holes pinch, and the drape is unflattering.
@@ -189,14 +189,14 @@ export default async function HomePage() {
 
                 <div className="lg:col-span-6 bg-outside-elevated border border-outside-border p-8 space-y-6 shadow-editorial">
                   <h3 className="text-xs font-mono uppercase tracking-[0.2em] text-outside-ink font-bold">
-                    SILHOUETTE COMPARISON MATRIX
+                    FIT &amp; SIZE COMPARISON MATRIX
                   </h3>
                   
                   <div className="space-y-4 font-mono text-xs">
                     <div className="p-4 bg-outside-surface border border-outside-border space-y-1">
                       <div className="flex justify-between font-bold text-outside-ink">
-                        <span>WOMEN FIT SILHOUETTE</span>
-                        <span className="text-outside-accent">ERGO-BOXY</span>
+                        <span>WOMEN OVERSIZED FIT</span>
+                        <span className="text-outside-accent">OVERSIZED BOXY</span>
                       </div>
                       <p className="text-[11px] text-outside-inkSecondary font-sans pt-1">
                         Calibrated dropped shoulder, slightly trimmed torso length, relaxed body volume for an effortless oversized drape.
@@ -205,7 +205,7 @@ export default async function HomePage() {
 
                     <div className="p-4 bg-outside-surface border border-outside-border space-y-1">
                       <div className="flex justify-between font-bold text-outside-ink">
-                        <span>MEN FIT SILHOUETTE</span>
+                        <span>MEN OVERSIZED FIT</span>
                         <span className="text-outside-ink">STRUCTURED-RELAXED</span>
                       </div>
                       <p className="text-[11px] text-outside-inkSecondary font-sans pt-1">

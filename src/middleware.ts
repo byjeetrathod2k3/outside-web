@@ -18,13 +18,78 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL('/vault', request.url), 308);
   }
 
-  // 2. Direct /admin discovery block (stealth mode protection)
-  // When ADMIN_BASE_PATH is configured to a stealth route, /admin returns 404
-  if (pathname.startsWith('/admin') && adminBasePath !== '/admin') {
-    return NextResponse.rewrite(new URL('/_not-found', request.url), { status: 404 });
+  // 2. Strict API Security for Admin Endpoints
+  // Protect all /api/admin/* endpoints from unauthenticated public access
+  if (pathname.startsWith('/api/admin')) {
+    // Public authentication endpoints: login/logout/session check
+    if (pathname === '/api/admin/auth') {
+      return NextResponse.next();
+    }
+
+    const token = request.cookies.get('outside_session')?.value;
+    if (!token) {
+      return NextResponse.json(
+        { error: 'Unauthorized: Super Admin authentication required' },
+        { status: 401 }
+      );
+    }
+
+    try {
+      const { payload } = await jwtVerify(token, JWT_SECRET, { algorithms: ['HS256'] });
+      if (payload.role !== 'SUPER_ADMIN') {
+        return NextResponse.json(
+          { error: 'Forbidden: Super Admin access required' },
+          { status: 403 }
+        );
+      }
+      return NextResponse.next();
+    } catch {
+      return NextResponse.json(
+        { error: 'Unauthorized: Invalid or expired session' },
+        { status: 401 }
+      );
+    }
   }
 
-  // 3. Stealth Admin Route Handler (e.g., /outside-studio-ops/*)
+  // 3. Direct /admin route security:
+  // When accessed via /admin (standard admin URL):
+  // Securely redirect unauthenticated users to the login screen,
+  // or redirect authenticated admins to the configured base path
+  if (pathname === '/admin' || pathname.startsWith('/admin/')) {
+    if (pathname === '/admin/login') {
+      return NextResponse.redirect(new URL(`${adminBasePath}/login`, request.url));
+    }
+
+    const internalPath = pathname.slice('/admin'.length) || '';
+    const token = request.cookies.get('outside_session')?.value;
+
+    if (!token) {
+      const loginUrl = new URL(`${adminBasePath}/login`, request.url);
+      loginUrl.searchParams.set('from', `${adminBasePath}${internalPath}`);
+      return NextResponse.redirect(loginUrl);
+    }
+
+    try {
+      const { payload } = await jwtVerify(token, JWT_SECRET, { algorithms: ['HS256'] });
+      if (payload.role !== 'SUPER_ADMIN') {
+        const loginUrl = new URL(`${adminBasePath}/login`, request.url);
+        const redirectRes = NextResponse.redirect(loginUrl);
+        redirectRes.cookies.delete('outside_session');
+        return redirectRes;
+      }
+      // If configured base path is not /admin, redirect to the stealth mount
+      if (adminBasePath !== '/admin') {
+        return NextResponse.redirect(new URL(`${adminBasePath}${internalPath}`, request.url));
+      }
+    } catch {
+      const loginUrl = new URL(`${adminBasePath}/login`, request.url);
+      const redirectRes = NextResponse.redirect(loginUrl);
+      redirectRes.cookies.delete('outside_session');
+      return redirectRes;
+    }
+  }
+
+  // 4. Configured Admin Route Handler (e.g., /outside-studio-ops/*)
   if (pathname === adminBasePath || pathname.startsWith(`${adminBasePath}/`)) {
     const internalPath = pathname.slice(adminBasePath.length) || '/';
     const targetPath = `/admin${internalPath === '/' ? '' : internalPath}`;
@@ -34,7 +99,7 @@ export async function middleware(request: NextRequest) {
     const headers = new Headers(request.headers);
     headers.set('X-Robots-Tag', 'noindex, nofollow, noarchive, nosnippet');
 
-    // Allow public access to the stealth login screen
+    // Allow public access to the admin login screen
     if (pathname === `${adminBasePath}/login` || internalPath === '/login') {
       const res = NextResponse.rewrite(new URL('/admin/login', request.url), {
         request: { headers },

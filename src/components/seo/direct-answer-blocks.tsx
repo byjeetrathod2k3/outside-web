@@ -66,7 +66,7 @@ export function DirectAnswerBlocks() {
 
               <div className="pt-4 border-t border-outside-border flex items-center justify-between text-[10px] font-mono text-outside-inkSecondary">
                 <span>VERIFIED STUDIO SPEC</span>
-                <span>AHMEDABAD, GUJARAT</span>
+                <span>AHMEDABAD, INDIA</span>
               </div>
             </article>
           ))}

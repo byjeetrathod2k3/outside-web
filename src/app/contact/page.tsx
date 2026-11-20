@@ -60,7 +60,7 @@ export default function ContactPage() {
           <div className="md:col-span-5 space-y-8">
             <div className="p-6 bg-white border border-outside-border space-y-4 shadow-luxury">
               <h3 className="text-xs font-mono uppercase tracking-[0.2em] text-outside-text font-bold">
-                AHMEDABAD ATELIER
+                AHMEDABAD STUDIO
               </h3>
               <div className="space-y-3 text-xs font-mono text-outside-muted">
                 <div className="flex items-start gap-3">
@@ -82,10 +82,10 @@ export default function ContactPage() {
             </div>
 
             <div className="p-6 bg-white border border-outside-border font-mono text-xs space-y-2 shadow-sm">
-              <span className="text-outside-crimson font-bold">GST &amp; TAX IDENTIFICATION</span>
+              <span className="text-outside-crimson font-bold">GST IDENTIFICATION</span>
               <p className="text-outside-muted">GSTIN: 24AABCO1234F1Z5</p>
-              <p className="text-outside-muted">Origin State: Gujarat (Code 24)</p>
-              <p className="text-outside-muted">Response Velocity: &lt; 24 Business Hours</p>
+              <p className="text-outside-muted">100% GST Compliant (Registered in India)</p>
+              <p className="text-outside-muted">Response Time: &lt; 24 Business Hours</p>
             </div>
           </div>
 
@@ -95,10 +95,10 @@ export default function ContactPage() {
               <div className="py-12 text-center space-y-4">
                 <CheckCircle className="w-12 h-12 text-outside-crimson mx-auto" />
                 <h3 className="text-lg font-mono uppercase tracking-wider text-outside-text font-bold">
-                  MESSAGE DISPATCHED
+                  MESSAGE SENT
                 </h3>
                 <p className="text-xs text-outside-muted max-w-sm mx-auto leading-relaxed font-sans">
-                  Thank you. A studio liaison will review your transmission and reply within 24 hours.
+                  Thank you. Our customer support team will reply within 24 business hours.
                 </p>
               </div>
             ) : (

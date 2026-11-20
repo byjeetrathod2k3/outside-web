@@ -57,10 +57,10 @@ export default function TrackOrderPage() {
         <div className="border-b border-outside-border pb-8 space-y-3 text-center sm:text-left">
           <div className="flex items-center justify-center sm:justify-start gap-2 text-xs text-outside-crimson uppercase tracking-[0.25em] font-bold">
             <span className="w-2 h-2 rounded-full bg-outside-crimson animate-pulse" />
-            <span>COLLECTOR DISPATCH &amp; TRANSIT RADAR</span>
+            <span>ALL-INDIA EXPRESS ORDER TRACKING</span>
           </div>
           <h1 className="text-3xl sm:text-5xl font-display font-black tracking-tight text-outside-text uppercase">
-            Track Your Allocation.
+            Track Your Order.
           </h1>
           <p className="text-sm font-sans text-outside-muted max-w-xl leading-relaxed">
             Enter your order reference code (provided in your confirmation SMS/email) to review live fulfillment status from our Ahmedabad studio.
@@ -139,7 +139,7 @@ export default function TrackOrderPage() {
                 <div className="p-4 bg-outside-moss/10 border border-outside-moss/30 space-y-2">
                   <div className="flex items-center gap-2 text-outside-moss font-bold text-xs uppercase">
                     <CheckCircle2 className="w-4 h-4 flex-shrink-0" />
-                    <span>1. ALLOCATED</span>
+                    <span>1. ORDER CONFIRMED</span>
                   </div>
                   <p className="text-[11px] text-outside-muted font-sans">
                     Serial number secured from active drop edition.
@@ -150,7 +150,7 @@ export default function TrackOrderPage() {
                 <div className="p-4 bg-outside-moss/10 border border-outside-moss/30 space-y-2">
                   <div className="flex items-center gap-2 text-outside-moss font-bold text-xs uppercase">
                     <CheckCircle2 className="w-4 h-4 flex-shrink-0" />
-                    <span>2. ATELIER QC</span>
+                    <span>2. QUALITY CHECK</span>
                   </div>
                   <p className="text-[11px] text-outside-muted font-sans">
                     280 GSM fabric &amp; embroidery inspection verified.
@@ -184,14 +184,14 @@ export default function TrackOrderPage() {
             {/* Recipient & Garment Details */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-4 border-t border-outside-border text-xs">
               <div className="space-y-1">
-                <span className="text-[10px] text-outside-muted uppercase font-bold block">COLLECTOR RECIPIENT</span>
+                <span className="text-[10px] text-outside-muted uppercase font-bold block">CUSTOMER RECIPIENT</span>
                 <p className="font-bold text-outside-text">{order.customerName}</p>
                 <p className="text-outside-muted">{order.shippingAddress}, {order.shippingCity}</p>
                 <p className="text-outside-muted">{order.shippingState} - {order.shippingPincode}</p>
               </div>
 
               <div className="space-y-1">
-                <span className="text-[10px] text-outside-muted uppercase font-bold block">ALLOCATED ITEM</span>
+                <span className="text-[10px] text-outside-muted uppercase font-bold block">ORDERED ITEM</span>
                 {order.items?.map((item: any, i: number) => (
                   <div key={i} className="font-bold text-outside-text">
                     {item.title} — {item.fit} · SIZE {item.size}

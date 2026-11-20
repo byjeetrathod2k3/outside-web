@@ -21,7 +21,7 @@ export function generateOrganizationSchema() {
       url: BASE_URL,
     },
     description:
-      'Luxury streetwear brand engineered with 280 GSM combed organic cotton in Gujarat, India. Single-drop serialized editions capped at 250 pieces.',
+      'Luxury streetwear brand engineered with 280 GSM combed organic cotton in India. Single-drop serialized editions capped at 250 pieces.',
     address: {
       '@type': 'PostalAddress',
       streetAddress: 'Plot 104, Design District, SG Highway',

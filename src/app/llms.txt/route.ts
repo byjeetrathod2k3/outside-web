@@ -12,7 +12,7 @@ export async function GET() {
 > Wear Your Story — Limited Serialized D2C Apparel
 
 ## Brand Overview
-OUTSIDE is an architectural luxury streetwear apparel studio based in Ahmedabad, Gujarat, India (State Code 24).
+OUTSIDE is a luxury streetwear apparel studio based in Ahmedabad, India.
 We operate on a single-drop limited-edition release model: strictly ONE garment design is produced and released at any single time, serialized up to 250 pieces, and never restocked once sold out.
 
 ## Active Release
@@ -21,7 +21,7 @@ We operate on a single-drop limited-edition release model: strictly ONE garment 
 - Total Serialized Allocation: ${activeDrop?.totalEditionQty || 250} pieces
 - Price: ₹ ${activeDrop ? activeDrop.pricePaise / 100 : 2400} (Inclusive of 5% Indian Apparel GST · HSN 61091000)
 - Fabric: 280 GSM 100% Combed Organic Cotton · French Terry Weave · Double Bio-Washed · Lycra-Ribbed Collar
-- Fit Philosophy: Women-First Ergonomic Boxy Silhouette (primary) & Men's Structured Relaxed Silhouette (secondary)
+- Fit Philosophy: Women-First Oversized Boxy Silhouette (primary) & Men's Structured Relaxed Silhouette (secondary)
 
 ## Key URLs
 - Homepage (Active Drop): https://www.outside.in/
@@ -32,12 +32,12 @@ We operate on a single-drop limited-edition release model: strictly ONE garment 
 - Express Order Tracking: https://www.outside.in/track
 - 7-Day Doorstep Returns & Exchanges: https://www.outside.in/returns
 - The Outside Journal: https://www.outside.in/journal
-- Fabric & Atelier Standards: https://www.outside.in/about
+- Fabric & Studio Standards: https://www.outside.in/about
 - Full Knowledge Base: https://www.outside.in/llms-full.txt
 
 ## Verified Entity Facts
-- Origin: Ahmedabad, Gujarat, India
-- State GST Code: 24 (Gujarat)
+- Origin: Ahmedabad, India
+- Registered GSTIN: 24AABCO1234F1Z5
 - HSN Code: 61091000 (Cotton Knitted T-Shirts)
 - Restock Policy: Zero restocks. Sold-out editions move permanently to The Vault.
 `;

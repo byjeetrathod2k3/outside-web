@@ -19,9 +19,9 @@ export default function AboutPage() {
       <section className="py-20 border-b border-outside-border bg-subtle-grid">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <SectionHeading
-            eyebrow="STUDIO MANIFESTO // AHMEDABAD, GUJARAT"
+            eyebrow="DESIGN STUDIO // AHMEDABAD, INDIA"
             title="Wear Your Story."
-            description="OUTSIDE is an architectural apparel studio operating at the intersection of structural minimalism, tactile luxury, and strict serial scarcity."
+            description="OUTSIDE is a modern Indian apparel studio creating premium heavyweight streetwear, thoughtful sizing, and limited edition drops."
           />
         </div>
       </section>
@@ -65,13 +65,13 @@ export default function AboutPage() {
             <div className="md:col-span-6 order-2 md:order-1 p-6 bg-white border border-outside-border font-mono text-xs space-y-3 shadow-luxury">
               <div className="flex items-center gap-2 text-outside-text font-bold">
                 <Award className="w-4 h-4 text-outside-crimson" />
-                <span>GUJARAT TEXTILE SPECIFICATIONS</span>
+                <span>PREMIUM TEXTILE SPECIFICATIONS</span>
               </div>
               <ul className="space-y-2 text-[11px] text-outside-muted font-sans">
                 <li>· 280 GSM custom-knit long-staple organic cotton</li>
                 <li>· Combed yarns to eliminate surface fuzz and pilling</li>
                 <li>· Pre-shrunk French Terry weave with bio-wash treatment</li>
-                <li>· 100% fair-wage ethical studio production in Ahmedabad</li>
+                <li>· 100% fair-wage ethical production in Ahmedabad, India</li>
               </ul>
             </div>
             <div className="md:col-span-6 order-1 md:order-2 space-y-4">
@@ -106,8 +106,8 @@ export default function AboutPage() {
                 <span>OUTSIDE APPAREL STUDIO PVT LTD</span>
               </div>
               <div>
-                <span className="block text-outside-text font-bold">GUJARAT GSTIN:</span>
-                <span>24AABCO1234F1Z5 (State Code 24)</span>
+                <span className="block text-outside-text font-bold">GSTIN:</span>
+                <span>24AABCO1234F1Z5 (Registered in India)</span>
               </div>
               <div>
                 <span className="block text-outside-text font-bold">STUDIO ADDRESS:</span>

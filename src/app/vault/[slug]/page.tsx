@@ -159,7 +159,7 @@ export default async function VaultDetailPage({
                 </span>
                 <span className="text-outside-border">•</span>
                 <span className="text-[11px] text-outside-inkSecondary uppercase tracking-wider">
-                  AHMEDABAD, GUJARAT (24)
+                  AHMEDABAD STUDIO, INDIA
                 </span>
               </div>
               <h1 className="text-3xl sm:text-4xl font-display font-black tracking-tight text-outside-ink uppercase">
