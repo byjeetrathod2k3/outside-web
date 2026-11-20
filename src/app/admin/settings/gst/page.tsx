@@ -95,9 +95,17 @@ export default function AdminGstSettingsPage() {
           </h1>
         </div>
 
-        <div className="flex items-center gap-2 text-xs text-[#3F4E44] bg-[#3F4E44]/10 border border-[#3F4E44]/30 px-3 py-1 font-bold">
-          <ShieldCheck className="w-4 h-4 text-[#3F4E44]" />
-          <span>GUJARAT (24) ENFORCED</span>
+        <div className="flex items-center gap-3">
+          <a
+            href="/api/admin/gst?export=gstr1"
+            className="px-3.5 py-1.5 bg-[#FCFBF8] border border-[#DCD7CC] hover:border-[#111110] text-[#111110] text-xs font-bold uppercase tracking-wider transition-colors flex items-center gap-2"
+          >
+            <span>DOWNLOAD GSTR-1 CSV</span>
+          </a>
+          <div className="flex items-center gap-2 text-xs text-[#3F4E44] bg-[#3F4E44]/10 border border-[#3F4E44]/30 px-3 py-1 font-bold">
+            <ShieldCheck className="w-4 h-4 text-[#3F4E44]" />
+            <span>GUJARAT (24) ENFORCED</span>
+          </div>
         </div>
       </div>
 

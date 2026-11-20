@@ -309,6 +309,136 @@
   "emailLogs": [],
   "auditLogs": [
     {
+      "id": "audit_1795164930101_pu730",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-20T08:55:30.101Z"
+    },
+    {
+      "id": "audit_1795164930098_e9ehz",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-20T08:55:30.098Z"
+    },
+    {
+      "id": "audit_1795164930095_e0tti",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 5,
+        "isLocked": true
+      },
+      "createdAt": "2026-11-20T08:55:30.095Z"
+    },
+    {
+      "id": "audit_1795164930094_u09ny",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 4,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-20T08:55:30.094Z"
+    },
+    {
+      "id": "audit_1795164930092_u32sq",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 3,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-20T08:55:30.092Z"
+    },
+    {
+      "id": "audit_1795164930090_yk0z2",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 2,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-20T08:55:30.090Z"
+    },
+    {
+      "id": "audit_1795164930088_h6wth",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 1,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-20T08:55:30.088Z"
+    },
+    {
+      "id": "audit_1795164930086_auqvo",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-20T08:55:30.086Z"
+    },
+    {
+      "id": "audit_1795164930084_z2qou",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-20T08:55:30.084Z"
+    },
+    {
+      "id": "audit_1795164577950_9en8i",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "::1",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-20T08:49:37.950Z"
+    },
+    {
       "id": "audit_1795164326151_kdjv2",
       "userId": "super_admin",
       "action": "SUPER_ADMIN_LOGIN_SUCCESS",
@@ -628,7 +758,7 @@
         "glassmorphism": true
       }
     ],
-    "updatedAt": "2026-11-20T08:24:44.835Z"
+    "updatedAt": "2026-11-20T08:55:30.441Z"
   },
   "featureFlags": [
     {
@@ -639,7 +769,7 @@
       "isEnabled": true,
       "description": "Display real-time countdown ticker on upcoming drops.",
       "configJson": null,
-      "updatedAt": "2026-11-20T08:24:44.840Z"
+      "updatedAt": "2026-11-20T08:55:30.448Z"
     },
     {
       "id": "flag_live_stock_counter",
@@ -649,7 +779,7 @@
       "isEnabled": true,
       "description": "Show exact remaining serialized pieces versus low-stock warning badge.",
       "configJson": null,
-      "updatedAt": "2026-11-20T08:24:44.840Z"
+      "updatedAt": "2026-11-20T08:55:30.448Z"
     },
     {
       "id": "flag_low_stock_threshold",
@@ -661,7 +791,7 @@
       "configJson": {
         "threshold": 10
       },
-      "updatedAt": "2026-11-20T08:24:44.840Z"
+      "updatedAt": "2026-11-20T08:55:30.448Z"
     },
     {
       "id": "flag_waitlist_capture",
@@ -671,7 +801,7 @@
       "isEnabled": true,
       "description": "Allow collectors to join the prioritized waitlist when an edition is sold out or upcoming.",
       "configJson": null,
-      "updatedAt": "2026-11-20T08:24:44.840Z"
+      "updatedAt": "2026-11-20T08:55:30.448Z"
     },
     {
       "id": "flag_fit_toggle",
@@ -683,7 +813,7 @@
       "configJson": {
         "defaultFit": "WOMEN"
       },
-      "updatedAt": "2026-11-20T08:24:44.840Z"
+      "updatedAt": "2026-11-20T08:55:30.448Z"
     },
     {
       "id": "flag_sticky_drop_bar",
@@ -693,7 +823,7 @@
       "isEnabled": true,
       "description": "Floating minimal quick-buy and size select bar docked on scroll.",
       "configJson": null,
-      "updatedAt": "2026-11-20T08:24:44.840Z"
+      "updatedAt": "2026-11-20T08:55:30.448Z"
     },
     {
       "id": "flag_checkout_flow",
@@ -703,7 +833,7 @@
       "isEnabled": true,
       "description": "When enabled, customers can checkout and pay; when disabled, storefront acts in Waitlist-Only Mode.",
       "configJson": null,
-      "updatedAt": "2026-11-20T08:24:44.840Z"
+      "updatedAt": "2026-11-20T08:55:30.448Z"
     },
     {
       "id": "flag_announcement_bar",
@@ -716,7 +846,7 @@
         "text": "DROP 001 LIVE // BETTER DAYS AHEAD · 250 SERIALIZED PIECES · FREE DOMESTIC EXPRESS SHIPPING",
         "link": "/"
       },
-      "updatedAt": "2026-11-20T08:24:44.840Z"
+      "updatedAt": "2026-11-20T08:55:30.448Z"
     },
     {
       "id": "flag_vault_archive",
@@ -726,7 +856,7 @@
       "isEnabled": true,
       "description": "Expose archival limited drops to public navigation and search engines.",
       "configJson": null,
-      "updatedAt": "2026-11-20T08:24:44.840Z"
+      "updatedAt": "2026-11-20T08:55:30.448Z"
     },
     {
       "id": "flag_journal",
@@ -736,7 +866,7 @@
       "isEnabled": true,
       "description": "Editorial brand essays, cotton engineering breakdowns, and manifesto articles.",
       "configJson": null,
-      "updatedAt": "2026-11-20T08:24:44.840Z"
+      "updatedAt": "2026-11-20T08:55:30.448Z"
     },
     {
       "id": "flag_cookie_consent",
@@ -746,7 +876,7 @@
       "isEnabled": true,
       "description": "Minimalist Sandstone Hairline consent pill docked at bottom-left.",
       "configJson": null,
-      "updatedAt": "2026-11-20T08:24:44.840Z"
+      "updatedAt": "2026-11-20T08:55:30.448Z"
     },
     {
       "id": "flag_maintenance_mode",
@@ -759,7 +889,7 @@
         "headline": "ATELIER IS CALIBRATING THE NEXT DROP",
         "subline": "DROP 002 PREPARATION UNDERWAY // AHMEDABAD STUDIO"
       },
-      "updatedAt": "2026-11-20T08:24:44.840Z"
+      "updatedAt": "2026-11-20T08:55:30.448Z"
     }
   ],
   "layoutConfig": {
@@ -843,7 +973,7 @@
       }
     },
     "mobileStickyCtaPosition": "bottom_fixed",
-    "updatedAt": "2026-11-20T08:24:44.843Z"
+    "updatedAt": "2026-11-20T08:55:30.454Z"
   },
   "seoConfig": {
     "titleTemplate": "%s | OUTSIDE India",
@@ -871,7 +1001,7 @@
       }
     ],
     "enableWaitlistReferral": true,
-    "updatedAt": "2026-11-20T08:24:43.745Z"
+    "updatedAt": "2026-11-20T08:55:30.104Z"
   },
   "superAdminSecurity": {
     "totpSecret": null,

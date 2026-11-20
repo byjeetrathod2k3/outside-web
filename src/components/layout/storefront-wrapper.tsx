@@ -24,8 +24,10 @@ export function StorefrontWrapper({
   const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
 
-  // If path is inside /admin or maintenance mode is OFF, render normal children
-  if (!maintenanceMode || pathname.startsWith('/admin')) {
+  const adminBasePath = process.env.NEXT_PUBLIC_ADMIN_BASE_PATH || '/outside-studio-ops';
+
+  // If path is inside /admin or stealth admin route or maintenance mode is OFF, render normal children
+  if (!maintenanceMode || pathname.startsWith('/admin') || pathname.startsWith(adminBasePath)) {
     return <>{children}</>;
   }
 
