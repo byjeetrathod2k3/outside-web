@@ -7,6 +7,7 @@ import { CartDrawer } from '@/components/commerce/cart-drawer';
 import { CookieConsent } from '@/components/layout/cookie-consent';
 import { WhatsAppConcierge } from '@/components/layout/whatsapp-concierge';
 import { StorefrontWrapper } from '@/components/layout/storefront-wrapper';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import { getThemeConfig, getFeatureFlags } from '@/lib/db';
 
 export const metadata: Metadata = {
@@ -175,6 +176,7 @@ export default function RootLayout({
             {cookieConsent && <CookieConsent />}
           </CartProvider>
         </StorefrontWrapper>
+        <SpeedInsights />
       </body>
     </html>
   );
