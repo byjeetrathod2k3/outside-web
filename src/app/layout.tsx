@@ -56,6 +56,20 @@ export const metadata: Metadata = {
       'Limited serialized drops. 280 GSM French Terry cotton t-shirts crafted in Gujarat.',
     images: ['/images/drops/drop-001-front.jpg'],
   },
+  manifest: '/site.webmanifest',
+  icons: {
+    icon: [
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/favicon-32x32.png', type: 'image/png', sizes: '32x32' },
+      { url: '/favicon-16x16.png', type: 'image/png', sizes: '16x16' },
+      { url: '/android-chrome-192x192.png', type: 'image/png', sizes: '192x192' },
+      { url: '/android-chrome-512x512.png', type: 'image/png', sizes: '512x512' },
+    ],
+    shortcut: '/favicon.ico',
+    apple: [
+      { url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
+    ],
+  },
   robots: {
     index: true,
     follow: true,
@@ -148,6 +162,7 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdOrg) }}
         />
+        <link rel="icon" href={theme.faviconUrl || '/favicon.ico'} sizes="any" />
       </head>
       <body className="min-h-screen bg-outside-canvas text-outside-ink flex flex-col antialiased selection:bg-outside-accent selection:text-white">
         <StorefrontWrapper maintenanceMode={isMaintenance} maintenanceConfig={maintenanceConfig}>
