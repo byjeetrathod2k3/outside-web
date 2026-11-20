@@ -56,12 +56,12 @@ export default function AdminLeadsPage() {
     <div className="space-y-8 font-mono">
       
       {/* Header */}
-      <div className="border-b border-outside-border pb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="border-b border-[#DCD7CC] pb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <span className="text-[10px] uppercase text-outside-crimson font-bold tracking-[0.25em]">
+          <span className="text-[10px] uppercase text-[#B82328] font-bold tracking-[0.25em]">
             COLLECTOR WAITLIST &amp; CRM INTELLIGENCE
           </span>
-          <h1 className="text-2xl font-display font-black text-white uppercase tracking-tight mt-1">
+          <h1 className="text-2xl font-display font-black text-[#111110] uppercase tracking-tight mt-1">
             Waitlist &amp; Inquiries ({filteredLeads.length})
           </h1>
         </div>
@@ -69,9 +69,9 @@ export default function AdminLeadsPage() {
         <div className="flex items-center gap-3">
           <button
             onClick={handleExportCsv}
-            className="px-4 py-2 bg-outside-surface border border-outside-border hover:border-outside-crimson text-white text-xs font-bold uppercase tracking-wider flex items-center gap-2 transition-colors"
+            className="px-4 py-2 bg-[#111110] hover:bg-[#B82328] text-white text-xs font-bold uppercase tracking-wider flex items-center gap-2 transition-colors cursor-pointer shadow-sm"
           >
-            <Download className="w-4 h-4 text-outside-crimson" />
+            <Download className="w-4 h-4" />
             <span>EXPORT LEADS CSV</span>
           </button>
         </div>
@@ -83,10 +83,10 @@ export default function AdminLeadsPage() {
           <button
             key={type}
             onClick={() => setFilterType(type)}
-            className={`px-3 py-1.5 border transition-all uppercase ${
+            className={`px-3 py-1.5 border transition-all uppercase cursor-pointer ${
               filterType === type
-                ? 'bg-outside-crimson border-outside-crimson text-white font-bold'
-                : 'bg-outside-surface border-outside-border text-outside-muted hover:text-white'
+                ? 'bg-[#111110] border-[#111110] text-white font-bold shadow-sm'
+                : 'bg-[#EDEAE2] border-[#DCD7CC] text-[#52504B] hover:text-[#111110] hover:border-[#111110]/50'
             }`}
           >
             {type.replace('_', ' ')}
@@ -95,17 +95,17 @@ export default function AdminLeadsPage() {
       </div>
 
       {/* Table */}
-      <div className="bg-outside-surface border border-outside-border overflow-hidden">
+      <div className="bg-[#FCFBF8] border border-[#DCD7CC] overflow-hidden shadow-editorial">
         {loading ? (
-          <div className="p-8 text-xs text-outside-muted">LOADING COLLECTOR PIPELINE...</div>
+          <div className="p-8 text-xs text-[#52504B]">LOADING COLLECTOR PIPELINE...</div>
         ) : filteredLeads.length === 0 ? (
-          <div className="p-12 text-center text-outside-muted text-xs">
+          <div className="p-12 text-center text-[#52504B] text-xs">
             NO LEADS RECORDED IN THIS CATEGORY.
           </div>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">
-              <thead className="bg-outside-card border-b border-outside-border text-outside-muted text-[10px] uppercase tracking-wider">
+              <thead className="bg-[#EDEAE2]/50 border-b border-[#DCD7CC] text-[#52504B] text-[10px] uppercase tracking-wider">
                 <tr>
                   <th className="p-4">Collector</th>
                   <th className="p-4">Classification</th>
@@ -115,44 +115,44 @@ export default function AdminLeadsPage() {
                   <th className="p-4 text-right">Captured</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-outside-border/40">
+              <tbody className="divide-y divide-[#DCD7CC]">
                 {filteredLeads.map((lead) => (
-                  <tr key={lead.id} className="hover:bg-outside-card/50 transition-colors">
+                  <tr key={lead.id} className="hover:bg-[#EDEAE2]/30 transition-colors">
                     <td className="p-4">
-                      <span className="font-bold text-white block">{lead.name || 'Anonymous'}</span>
-                      <span className="text-[10px] text-outside-muted block">{lead.email}</span>
+                      <span className="font-bold text-[#111110] block">{lead.name || 'Anonymous'}</span>
+                      <span className="text-[10px] text-[#52504B] block">{lead.email}</span>
                       {lead.phone && (
-                        <span className="text-[10px] text-outside-muted block">{lead.phone}</span>
+                        <span className="text-[10px] text-[#52504B] block font-mono">{lead.phone}</span>
                       )}
                     </td>
                     <td className="p-4">
-                      <span className="px-2 py-0.5 bg-outside-card border border-outside-border text-outside-chalkDim text-[10px]">
+                      <span className="px-2 py-0.5 bg-[#EDEAE2] border border-[#DCD7CC] text-[#52504B] text-[10px] uppercase font-bold">
                         {lead.type}
                       </span>
                       {lead.message && (
-                        <p className="text-[10px] text-outside-muted italic mt-1 line-clamp-1">
+                        <p className="text-[10px] text-[#52504B] italic mt-1 line-clamp-1">
                           &quot;{lead.message}&quot;
                         </p>
                       )}
                     </td>
                     <td className="p-4 text-[11px]">
                       {lead.preferredFit || lead.preferredSize ? (
-                        <span className="text-white">
+                        <span className="text-[#111110] font-bold">
                           {lead.preferredFit || 'ANY'} · {lead.preferredSize || 'ANY'}
                         </span>
                       ) : (
-                        <span className="text-outside-muted">-</span>
+                        <span className="text-[#52504B]">-</span>
                       )}
                     </td>
-                    <td className="p-4 text-[10px] text-outside-muted">
+                    <td className="p-4 text-[10px] text-[#52504B]">
                       {lead.source || 'direct'}
                     </td>
                     <td className="p-4">
-                      <span className="text-[10px] text-outside-crimson font-bold">
+                      <span className="text-[10px] px-2 py-0.5 bg-[#3F4E44]/10 text-[#3F4E44] border border-[#3F4E44]/30 font-bold uppercase tracking-wider">
                         {lead.status}
                       </span>
                     </td>
-                    <td className="p-4 text-right text-[10px] text-outside-muted">
+                    <td className="p-4 text-right text-[10px] text-[#52504B] font-mono">
                       {new Date(lead.createdAt).toLocaleDateString('en-IN')}
                     </td>
                   </tr>

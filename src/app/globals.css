@@ -3,62 +3,87 @@
 @tailwind utilities;
 
 :root {
-  --color-bg: #FAF9F6;
-  --color-surface: #FFFFFF;
-  --color-card: #FFFFFF;
-  --color-border: #E7E2DA;
-  --color-text: #111111;
-  --color-muted: #78716C;
-  --color-crimson: #D91E2A;
-  --color-crimson-hover: #B7121D;
+  --canvas: #F7F5F0;
+  --surface: #EDEAE2;
+  --elevated: #FCFBF8;
+  --border: #DCD7CC;
+  --ink: #111110;
+  --ink-secondary: #52504B;
+  --accent: #B82328;
+  --moss: #3F4E44;
 }
 
 body {
-  background-color: var(--color-bg);
-  color: var(--color-text);
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  background-color: var(--canvas);
+  color: var(--ink);
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 ::selection {
-  background: #D91E2A;
-  color: #FFFFFF;
+  background: #B82328;
+  color: #FCFBF8;
 }
 
-/* Minimalist Clean Scrollbar */
+/* Swiss Architectural Gridlines */
+.swiss-hairline-b {
+  border-bottom: 1px solid #DCD7CC;
+}
+
+.swiss-hairline-t {
+  border-top: 1px solid #DCD7CC;
+}
+
+.swiss-hairline-r {
+  border-right: 1px solid #DCD7CC;
+}
+
+.swiss-hairline-l {
+  border-left: 1px solid #DCD7CC;
+}
+
+.swiss-border {
+  border: 1px solid #DCD7CC;
+}
+
+/* Frosted Alabaster Glassmorphism */
+.frosted-alabaster {
+  background-color: rgba(247, 245, 240, 0.88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid #DCD7CC;
+}
+
+/* Minimalist Editorial Scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 5px;
+  height: 5px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #F5F3EF;
+  background: #F7F5F0;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #D6D1C7;
-  border-radius: 3px;
+  background: #DCD7CC;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #D91E2A;
+  background: #B82328;
 }
 
 /* Accessible focus ring */
 *:focus-visible {
-  outline: 2px solid #D91E2A;
+  outline: 2px solid #B82328;
   outline-offset: 2px;
 }
 
-/* Subtle Editorial Grid */
-.bg-subtle-grid {
-  background-size: 32px 32px;
-  background-image: 
-    linear-gradient(to right, rgba(0, 0, 0, 0.03) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
-}
-
-.text-balance {
-  text-wrap: balance;
+/* Micro-Text Typography Utility */
+.font-editorial-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
 }

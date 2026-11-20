@@ -29,12 +29,12 @@ export default function AdminOrdersPage() {
     <div className="space-y-8 font-mono">
       
       {/* Header */}
-      <div className="border-b border-outside-border pb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="border-b border-[#DCD7CC] pb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <span className="text-[10px] uppercase text-outside-crimson font-bold tracking-[0.25em]">
+          <span className="text-[10px] uppercase text-[#B82328] font-bold tracking-[0.25em]">
             AUDITED ORDER BOOK &amp; GST TAX INVOICES
           </span>
-          <h1 className="text-2xl font-display font-black text-white uppercase tracking-tight mt-1">
+          <h1 className="text-2xl font-display font-black text-[#111110] uppercase tracking-tight mt-1">
             Orders &amp; Invoices
           </h1>
         </div>
@@ -42,7 +42,7 @@ export default function AdminOrdersPage() {
         <div className="flex items-center gap-3">
           <a
             href="/api/admin/gst?export=gstr1"
-            className="px-4 py-2.5 bg-outside-crimson hover:bg-outside-crimsonBright text-white text-xs font-bold uppercase tracking-wider flex items-center gap-2 transition-colors shadow-lg"
+            className="px-4 py-2.5 bg-[#111110] hover:bg-[#B82328] text-white text-xs font-bold uppercase tracking-wider flex items-center gap-2 transition-colors shadow-sm cursor-pointer"
           >
             <Download className="w-4 h-4" />
             <span>EXPORT GSTR-1 HSN CSV</span>
@@ -51,17 +51,17 @@ export default function AdminOrdersPage() {
       </div>
 
       {/* Orders Table */}
-      <div className="bg-outside-surface border border-outside-border overflow-hidden">
+      <div className="bg-[#FCFBF8] border border-[#DCD7CC] overflow-hidden shadow-editorial">
         {loading ? (
-          <div className="p-8 text-xs text-outside-muted">LOADING TAX AUDIT TRAIL...</div>
+          <div className="p-8 text-xs text-[#52504B]">LOADING TAX AUDIT TRAIL...</div>
         ) : orders.length === 0 ? (
-          <div className="p-12 text-center text-outside-muted text-xs">
+          <div className="p-12 text-center text-[#52504B] text-xs">
             NO ORDERS CAPTURED YET. ORDERS FROM THE STOREFRONT WILL INSTANTLY GENERATE SEQUENTIAL INVOICES HERE.
           </div>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">
-              <thead className="bg-outside-card border-b border-outside-border text-outside-muted text-[10px] uppercase tracking-wider">
+              <thead className="bg-[#EDEAE2]/50 border-b border-[#DCD7CC] text-[#52504B] text-[10px] uppercase tracking-wider">
                 <tr>
                   <th className="p-4">Tax Invoice No.</th>
                   <th className="p-4">Collector Details</th>
@@ -73,58 +73,58 @@ export default function AdminOrdersPage() {
                   <th className="p-4 text-center">Invoice View</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-outside-border/40">
+              <tbody className="divide-y divide-[#DCD7CC]">
                 {orders.map((order) => {
                   const isInterState = order.stateCode !== '24';
                   return (
-                    <tr key={order.id} className="hover:bg-outside-card/50 transition-colors">
+                    <tr key={order.id} className="hover:bg-[#EDEAE2]/30 transition-colors">
                       <td className="p-4">
-                        <span className="font-bold text-white block">{order.invoiceNumber}</span>
-                        <span className="text-[10px] text-outside-muted">{order.orderNumber}</span>
+                        <span className="font-bold text-[#111110] block">{order.invoiceNumber}</span>
+                        <span className="text-[10px] text-[#52504B] font-mono">{order.orderNumber}</span>
                       </td>
                       <td className="p-4">
-                        <span className="text-white block font-bold">{order.customerName}</span>
-                        <span className="text-[10px] text-outside-muted">{order.customerEmail}</span>
+                        <span className="text-[#111110] block font-bold">{order.customerName}</span>
+                        <span className="text-[10px] text-[#52504B]">{order.customerEmail}</span>
                       </td>
                       <td className="p-4">
-                        <span className="text-outside-chalkDim block">
+                        <span className="text-[#111110] block font-medium">
                           {order.placeOfSupplyState}
                         </span>
-                        <span className="text-[9px] text-outside-muted">
+                        <span className="text-[9px] text-[#52504B] uppercase tracking-wider">
                           {isInterState ? 'INTER-STATE (IGST)' : 'INTRA-STATE (CGST+SGST)'}
                         </span>
                       </td>
-                      <td className="p-4 text-right text-outside-chalkDim">
+                      <td className="p-4 text-right text-[#52504B] font-mono">
                         ₹{(order.taxableAmountPaise / 100).toFixed(2)}
                       </td>
-                      <td className="p-4 text-right">
+                      <td className="p-4 text-right font-mono">
                         {isInterState ? (
-                          <span className="text-outside-muted">-</span>
+                          <span className="text-[#52504B]">-</span>
                         ) : (
-                          <span className="text-outside-crimson">
+                          <span className="text-[#B82328] font-bold">
                             ₹{(order.cgstPaise / 100).toFixed(2)} + ₹{(order.sgstPaise / 100).toFixed(2)}
                           </span>
                         )}
                       </td>
-                      <td className="p-4 text-right">
+                      <td className="p-4 text-right font-mono">
                         {isInterState ? (
-                          <span className="text-outside-crimson">
+                          <span className="text-[#B82328] font-bold">
                             ₹{(order.igstPaise / 100).toFixed(2)}
                           </span>
                         ) : (
-                          <span className="text-outside-muted">-</span>
+                          <span className="text-[#52504B]">-</span>
                         )}
                       </td>
-                      <td className="p-4 text-right font-bold text-white">
+                      <td className="p-4 text-right font-bold text-[#111110] font-mono">
                         ₹{(order.totalAmountPaise / 100).toFixed(2)}
                       </td>
                       <td className="p-4 text-center">
                         <Link
                           href={`/checkout/success?orderNumber=${order.orderNumber}`}
                           target="_blank"
-                          className="inline-flex items-center gap-1.5 px-3 py-1 bg-outside-card border border-outside-border hover:border-outside-crimson text-[10px] text-white uppercase tracking-wider transition-colors"
+                          className="inline-flex items-center gap-1.5 px-3 py-1 bg-[#EDEAE2] border border-[#DCD7CC] hover:border-[#111110] text-[10px] text-[#111110] uppercase tracking-wider transition-colors font-semibold"
                         >
-                          <Printer className="w-3 h-3 text-outside-crimson" />
+                          <Printer className="w-3 h-3 text-[#B82328]" />
                           <span>INVOICE</span>
                         </Link>
                       </td>

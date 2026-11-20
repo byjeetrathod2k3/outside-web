@@ -27,20 +27,20 @@ export function GlobalHeader() {
 
   return (
     <>
-      {/* Top Velocity Ticker Bar (Light Luxury Edition) */}
-      <div className="bg-outside-text text-white text-[11px] font-mono uppercase tracking-widest py-2 px-4 text-center flex items-center justify-center gap-3 select-none">
-        <span className="inline-block w-2 h-2 rounded-full bg-outside-crimson animate-pulse" />
+      {/* Top Velocity Ticker Bar (Swiss Architectural Hairline) */}
+      <div className="bg-outside-ink text-outside-elevated text-[11px] font-mono uppercase tracking-[0.2em] py-2 px-4 text-center flex items-center justify-center gap-3 select-none border-b border-outside-border">
+        <span className="inline-block w-2 h-2 rounded-full bg-outside-accent animate-pulse" />
         <span className="font-bold">DROP 001 LIVE // BETTER DAYS AHEAD · 250 SERIALIZED PIECES</span>
-        <span className="hidden md:inline text-white/40">|</span>
-        <span className="hidden md:inline text-white/80">GUJARAT ATELIER CRAFT · FREE DOMESTIC EXPRESS SHIPPING</span>
+        <span className="hidden md:inline text-outside-elevated/40">|</span>
+        <span className="hidden md:inline text-outside-elevated/80 font-normal">GUJARAT ATELIER CRAFT · FREE DOMESTIC EXPRESS SHIPPING</span>
       </div>
 
-      <header className="sticky top-0 z-40 w-full bg-white/95 backdrop-blur-md border-b border-outside-border transition-all shadow-sm">
+      <header className="sticky top-0 z-40 w-full frosted-alabaster transition-all">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
           
           {/* Logo with User Uploaded Real OUTSIDE Brand Graphic */}
           <Link href="/" className="relative flex items-center gap-3 group focus:outline-none">
-            <div className="relative h-12 w-44 sm:w-52 transition-transform group-hover:scale-[1.02]">
+            <div className="relative h-12 w-44 sm:w-52 transition-transform group-hover:scale-[1.01]">
               <Image
                 src="/images/OUTSIDE_logo.jpg"
                 alt="OUTSIDE Wear Your Story"
@@ -59,10 +59,10 @@ export function GlobalHeader() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`text-xs font-mono uppercase tracking-[0.2em] transition-colors ${
+                  className={`text-xs font-mono uppercase tracking-[0.2em] transition-all relative py-1 ${
                     isActive
-                      ? 'text-outside-crimson font-bold'
-                      : 'text-outside-muted hover:text-outside-text'
+                      ? 'text-outside-ink font-bold after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:bg-outside-accent'
+                      : 'text-outside-inkSecondary hover:text-outside-ink'
                   }`}
                 >
                   {link.label}
@@ -75,22 +75,22 @@ export function GlobalHeader() {
           <div className="flex items-center gap-5">
             <Link
               href="/admin"
-              className="hidden lg:flex items-center gap-1 text-[11px] font-mono uppercase tracking-wider text-outside-muted hover:text-outside-text transition-colors"
-              title="Studio Admin Access"
+              className="hidden lg:flex items-center gap-1 text-[11px] font-mono uppercase tracking-wider text-outside-inkSecondary hover:text-outside-ink transition-colors"
+              title="Studio Command Console"
             >
               <span>STUDIO</span>
-              <ArrowUpRight className="w-3 h-3 text-outside-crimson" />
+              <ArrowUpRight className="w-3 h-3 text-outside-accent" />
             </Link>
 
             {/* Shopping Bag Trigger */}
             <button
               onClick={openCart}
               aria-label="Open Shopping Bag"
-              className="relative p-2.5 rounded-full bg-outside-cardSubtle hover:bg-outside-border text-outside-text border border-outside-border transition-all hover:border-outside-crimson flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-outside-crimson"
+              className="relative p-2.5 rounded-none bg-outside-surface hover:bg-outside-elevated text-outside-ink border border-outside-border transition-all hover:border-outside-ink flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-outside-accent"
             >
               <ShoppingBag className="w-4 h-4" />
               {totalItemsCount > 0 && (
-                <span className="absolute -top-1.5 -right-1.5 bg-outside-crimson text-white text-[10px] font-bold font-mono h-5 w-5 rounded-full flex items-center justify-center animate-fade-in shadow-md">
+                <span className="absolute -top-1.5 -right-1.5 bg-outside-accent text-white text-[10px] font-bold font-mono h-5 w-5 flex items-center justify-center shadow-xs">
                   {totalItemsCount}
                 </span>
               )}
@@ -100,7 +100,7 @@ export function GlobalHeader() {
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               aria-label="Toggle Mobile Menu"
-              className="md:hidden p-2 text-outside-text hover:text-outside-crimson transition-colors"
+              className="md:hidden p-2 text-outside-ink hover:text-outside-accent transition-colors"
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
@@ -109,7 +109,7 @@ export function GlobalHeader() {
 
         {/* Mobile Navigation Drawer */}
         {mobileMenuOpen && (
-          <div className="md:hidden bg-white border-b border-outside-border px-6 py-8 animate-slide-down shadow-xl">
+          <div className="md:hidden bg-outside-elevated border-b border-outside-border px-6 py-8 animate-slide-down shadow-gallery">
             <div className="flex flex-col gap-6">
               {navLinks.map((link) => (
                 <Link
@@ -117,17 +117,17 @@ export function GlobalHeader() {
                   href={link.href}
                   onClick={() => setMobileMenuOpen(false)}
                   className={`text-sm font-mono uppercase tracking-[0.25em] ${
-                    pathname === link.href ? 'text-outside-crimson font-bold' : 'text-outside-text'
+                    pathname === link.href ? 'text-outside-accent font-bold' : 'text-outside-ink'
                   }`}
                 >
                   {link.label}
                 </Link>
               ))}
-              <div className="pt-6 border-t border-outside-border flex items-center justify-between text-xs font-mono text-outside-muted">
-                <Link href="/admin" onClick={() => setMobileMenuOpen(false)} className="hover:text-outside-text">
+              <div className="pt-6 border-t border-outside-border flex items-center justify-between text-xs font-mono text-outside-inkSecondary">
+                <Link href="/admin" onClick={() => setMobileMenuOpen(false)} className="hover:text-outside-ink font-bold">
                   STUDIO COMMAND &rarr;
                 </Link>
-                <span>AHMEDABAD, GUJARAT</span>
+                <span>AHMEDABAD, GUJARAT (24)</span>
               </div>
             </div>
           </div>

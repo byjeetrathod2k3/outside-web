@@ -2,8 +2,8 @@ import React from 'react';
 import { clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary' | 'outline' | 'ghost';
+export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  variant?: 'primary' | 'accent' | 'secondary' | 'outline' | 'ghost';
   size?: 'sm' | 'md' | 'lg';
   loading?: boolean;
   children: React.ReactNode;
@@ -23,17 +23,19 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     ref
   ) => {
     const base =
-      'inline-flex items-center justify-center font-mono uppercase tracking-[0.2em] font-bold transition-all focus:outline-none focus:ring-2 focus:ring-outside-crimson disabled:opacity-50 disabled:cursor-not-allowed select-none';
+      'inline-flex items-center justify-center font-mono uppercase tracking-[0.2em] font-bold transition-all focus:outline-none focus:ring-2 focus:ring-outside-accent disabled:opacity-50 disabled:cursor-not-allowed select-none border';
 
     const variants = {
       primary:
-        'bg-outside-crimson hover:bg-outside-crimsonHover text-white shadow-luxury hover:shadow-luxury-hover border border-outside-crimson',
+        'bg-outside-ink text-outside-elevated border-outside-ink hover:bg-black hover:border-outside-accent shadow-editorial active:scale-[0.99]',
+      accent:
+        'bg-outside-accent text-outside-elevated border-outside-accent hover:bg-[#96191E] shadow-editorial active:scale-[0.99]',
       secondary:
-        'bg-outside-text hover:bg-black text-white border border-outside-text shadow-sm',
+        'bg-outside-surface text-outside-ink border-outside-border hover:border-outside-ink active:scale-[0.99]',
       outline:
-        'bg-white hover:bg-outside-cardSubtle text-outside-text border border-outside-border hover:border-outside-text',
+        'bg-outside-elevated text-outside-ink border-outside-border hover:border-outside-ink hover:bg-outside-surface active:scale-[0.99]',
       ghost:
-        'bg-transparent hover:bg-outside-cardSubtle text-outside-muted hover:text-outside-text border border-transparent',
+        'bg-transparent text-outside-inkSecondary border-transparent hover:text-outside-ink hover:bg-outside-surface',
     };
 
     const sizes = {
