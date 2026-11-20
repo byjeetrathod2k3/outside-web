@@ -16,6 +16,7 @@ import {
 import { DirectAnswerBlocks } from '@/components/seo/direct-answer-blocks';
 import { MarqueeTicker } from '@/components/layout/marquee-ticker';
 import { CollectorReviews } from '@/components/commerce/collector-reviews';
+import { EditorialHero } from '@/components/home/editorial-hero';
 
 export default async function HomePage() {
   const store = getLocalStore();
@@ -63,9 +64,19 @@ export default async function HomePage() {
 
     switch (sectionId) {
       case 'hero':
+        const remainingPieces =
+          activeDrop.variants?.reduce((acc: number, v: any) => acc + (v.currentStock || 0), 0) || 75;
+
         return (
           <React.Fragment key="hero">
-            <section className={`border-b border-outside-border bg-subtle-grid ${visibilityClass}`}>
+            <EditorialHero
+              dropTitle={activeDrop.title}
+              dropNumber={activeDrop.dropNumber}
+              pricePaise={activeDrop.pricePaise}
+              totalPieces={activeDrop.totalEditionQty}
+              remainingPieces={remainingPieces}
+            />
+            <section id="active-drop" className={`border-b border-outside-border bg-subtle-grid ${visibilityClass}`}>
               <MarqueeTicker />
               <ActiveDropView drop={activeDrop} featureFlags={flags} />
             </section>
