@@ -9,6 +9,7 @@ export interface DeliveryEstimateResult {
   pincode: string;
   city?: string;
   state?: string;
+  stateCode?: string;
   estimatedDeliveryDate?: string;
   transitDaysMin?: number;
   transitDaysMax?: number;
@@ -18,42 +19,42 @@ export interface DeliveryEstimateResult {
   error?: string;
 }
 
-const PINCODE_ZONES: Record<string, { city: string; state: string; daysMin: number; daysMax: number }> = {
+const PINCODE_ZONES: Record<string, { city: string; state: string; stateCode: string; daysMin: number; daysMax: number }> = {
   // Gujarat (Origin)
-  '38': { city: 'Ahmedabad / Gandhinagar', state: 'Gujarat', daysMin: 1, daysMax: 2 },
-  '39': { city: 'Surat / Vadodara', state: 'Gujarat', daysMin: 1, daysMax: 2 },
-  '36': { city: 'Rajkot / Saurashtra', state: 'Gujarat', daysMin: 1, daysMax: 2 },
-  '37': { city: 'Kutch / Bhuj', state: 'Gujarat', daysMin: 2, daysMax: 3 },
+  '38': { city: 'Ahmedabad / Gandhinagar', state: 'Gujarat', stateCode: '24', daysMin: 1, daysMax: 2 },
+  '39': { city: 'Surat / Vadodara', state: 'Gujarat', stateCode: '24', daysMin: 1, daysMax: 2 },
+  '36': { city: 'Rajkot / Saurashtra', state: 'Gujarat', stateCode: '24', daysMin: 1, daysMax: 2 },
+  '37': { city: 'Kutch / Bhuj', state: 'Gujarat', stateCode: '24', daysMin: 2, daysMax: 3 },
 
   // Maharashtra
-  '40': { city: 'Mumbai Metro', state: 'Maharashtra', daysMin: 1, daysMax: 2 },
-  '41': { city: 'Pune / Western Maharashtra', state: 'Maharashtra', daysMin: 2, daysMax: 3 },
-  '42': { city: 'Nashik / Thane', state: 'Maharashtra', daysMin: 2, daysMax: 3 },
-  '44': { city: 'Nagpur / Vidarbha', state: 'Maharashtra', daysMin: 2, daysMax: 3 },
+  '40': { city: 'Mumbai Metro', state: 'Maharashtra', stateCode: '27', daysMin: 1, daysMax: 2 },
+  '41': { city: 'Pune / Western Maharashtra', state: 'Maharashtra', stateCode: '27', daysMin: 2, daysMax: 3 },
+  '42': { city: 'Nashik / Thane', state: 'Maharashtra', stateCode: '27', daysMin: 2, daysMax: 3 },
+  '44': { city: 'Nagpur / Vidarbha', state: 'Maharashtra', stateCode: '27', daysMin: 2, daysMax: 3 },
 
   // Delhi NCR
-  '11': { city: 'Delhi NCT', state: 'Delhi', daysMin: 2, daysMax: 3 },
-  '12': { city: 'Gurugram / Faridabad', state: 'Haryana', daysMin: 2, daysMax: 3 },
-  '20': { city: 'Noida / Ghaziabad', state: 'Uttar Pradesh', daysMin: 2, daysMax: 3 },
+  '11': { city: 'Delhi NCT', state: 'Delhi', stateCode: '07', daysMin: 2, daysMax: 3 },
+  '12': { city: 'Gurugram / Faridabad', state: 'Haryana', stateCode: '06', daysMin: 2, daysMax: 3 },
+  '20': { city: 'Noida / Ghaziabad', state: 'Uttar Pradesh', stateCode: '09', daysMin: 2, daysMax: 3 },
 
   // Karnataka & South
-  '56': { city: 'Bengaluru Urban', state: 'Karnataka', daysMin: 2, daysMax: 3 },
-  '57': { city: 'Mysuru / Mangaluru', state: 'Karnataka', daysMin: 3, daysMax: 4 },
-  '50': { city: 'Hyderabad Metro', state: 'Telangana', daysMin: 2, daysMax: 3 },
-  '60': { city: 'Chennai Metro', state: 'Tamil Nadu', daysMin: 2, daysMax: 3 },
-  '68': { city: 'Kochi / Ernakulam', state: 'Kerala', daysMin: 3, daysMax: 4 },
+  '56': { city: 'Bengaluru Urban', state: 'Karnataka', stateCode: '29', daysMin: 2, daysMax: 3 },
+  '57': { city: 'Mysuru / Mangaluru', state: 'Karnataka', stateCode: '29', daysMin: 3, daysMax: 4 },
+  '50': { city: 'Hyderabad Metro', state: 'Telangana', stateCode: '36', daysMin: 2, daysMax: 3 },
+  '60': { city: 'Chennai Metro', state: 'Tamil Nadu', stateCode: '33', daysMin: 2, daysMax: 3 },
+  '68': { city: 'Kochi / Ernakulam', state: 'Kerala', stateCode: '32', daysMin: 3, daysMax: 4 },
 
   // West Bengal & East
-  '70': { city: 'Kolkata Metro', state: 'West Bengal', daysMin: 2, daysMax: 4 },
-  '75': { city: 'Bhubaneswar', state: 'Odisha', daysMin: 3, daysMax: 4 },
+  '70': { city: 'Kolkata Metro', state: 'West Bengal', stateCode: '19', daysMin: 2, daysMax: 4 },
+  '75': { city: 'Bhubaneswar', state: 'Odisha', stateCode: '21', daysMin: 3, daysMax: 4 },
 
   // Rajasthan
-  '30': { city: 'Jaipur Metro', state: 'Rajasthan', daysMin: 2, daysMax: 3 },
-  '34': { city: 'Jodhpur', state: 'Rajasthan', daysMin: 2, daysMax: 3 },
+  '30': { city: 'Jaipur Metro', state: 'Rajasthan', stateCode: '08', daysMin: 2, daysMax: 3 },
+  '34': { city: 'Jodhpur', state: 'Rajasthan', stateCode: '08', daysMin: 2, daysMax: 3 },
 
   // Punjab / Chandigarh
-  '14': { city: 'Ludhiana / Jalandhar', state: 'Punjab', daysMin: 2, daysMax: 3 },
-  '16': { city: 'Chandigarh Tricity', state: 'Chandigarh', daysMin: 2, daysMax: 3 },
+  '14': { city: 'Ludhiana / Jalandhar', state: 'Punjab', stateCode: '03', daysMin: 2, daysMax: 3 },
+  '16': { city: 'Chandigarh Tricity', state: 'Chandigarh', stateCode: '04', daysMin: 2, daysMax: 3 },
 };
 
 /**
@@ -103,6 +104,7 @@ export function estimateDelivery(pincode: string): DeliveryEstimateResult {
   const zone = PINCODE_ZONES[prefix] || {
     city: 'Rest of India',
     state: 'India',
+    stateCode: '24', // Fallback
     daysMin: 3,
     daysMax: 5,
   };
@@ -114,6 +116,7 @@ export function estimateDelivery(pincode: string): DeliveryEstimateResult {
     pincode: clean,
     city: zone.city,
     state: zone.state,
+    stateCode: zone.stateCode,
     estimatedDeliveryDate: deliveryDate,
     transitDaysMin: zone.daysMin,
     transitDaysMax: zone.daysMax,

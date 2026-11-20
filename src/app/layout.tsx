@@ -5,6 +5,7 @@ import { GlobalHeader } from '@/components/layout/header';
 import { GlobalFooter } from '@/components/layout/footer';
 import { CartDrawer } from '@/components/commerce/cart-drawer';
 import { CookieConsent } from '@/components/layout/cookie-consent';
+import { WhatsAppConcierge } from '@/components/layout/whatsapp-concierge';
 import { StorefrontWrapper } from '@/components/layout/storefront-wrapper';
 import { getThemeConfig, getFeatureFlags } from '@/lib/db';
 
@@ -155,6 +156,7 @@ export default function RootLayout({
             <main className="flex-1">{children}</main>
             <CartDrawer />
             <GlobalFooter />
+            <WhatsAppConcierge />
             {cookieConsent && <CookieConsent />}
           </CartProvider>
         </StorefrontWrapper>

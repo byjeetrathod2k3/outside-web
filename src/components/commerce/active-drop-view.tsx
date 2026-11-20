@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import {
   ShieldCheck,
   Truck,
@@ -11,6 +12,12 @@ import {
   Check,
   Layers,
   ArrowRight,
+  Flame,
+  Zap,
+  ShoppingBag,
+  CreditCard,
+  MapPin,
+  Search,
 } from 'lucide-react';
 import { useCart } from '@/context/cart-context';
 import { Badge } from '@/components/ui/badge';
@@ -18,7 +25,6 @@ import { Button } from '@/components/ui/button';
 import { ViralShare } from '@/components/commerce/viral-share';
 import { InteractiveGarmentStage } from '@/components/commerce/interactive-garment-stage';
 import { estimateDelivery, DeliveryEstimateResult } from '@/lib/pincode';
-import { MapPin, Search } from 'lucide-react';
 
 interface Variant {
   id: string;
@@ -71,7 +77,14 @@ const FIT_SPECS = {
 };
 
 export function ActiveDropView({ drop, featureFlags }: { drop: DropData; featureFlags?: any[] }) {
-  const { addItem } = useCart();
+  const router = useRouter();
+  const {
+    addItem,
+    openCart,
+    buyerPincode,
+    setBuyerPincode,
+    setBuyerStateCode,
+  } = useCart();
 
   // Dynamic Feature Flag Resolvers
   const flags = featureFlags || [];
@@ -94,9 +107,18 @@ export function ActiveDropView({ drop, featureFlags }: { drop: DropData; feature
   const [waitlistSuccess, setWaitlistSuccess] = useState(false);
 
   // Indian Pincode Delivery Estimator
-  const [pincodeInput, setPincodeInput] = useState('380015');
-  const [deliveryResult, setDeliveryResult] = useState<DeliveryEstimateResult | null>(() => estimateDelivery('380015'));
+  const [pincodeInput, setPincodeInput] = useState(buyerPincode || '380015');
+  const [deliveryResult, setDeliveryResult] = useState<DeliveryEstimateResult | null>(() =>
+    estimateDelivery(buyerPincode || '380015')
+  );
   const [pincodeError, setPincodeError] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (buyerPincode && buyerPincode.length === 6) {
+      setPincodeInput(buyerPincode);
+      setDeliveryResult(estimateDelivery(buyerPincode));
+    }
+  }, [buyerPincode]);
 
   const handleCheckPincode = (e: React.FormEvent) => {
     e.preventDefault();
@@ -106,6 +128,10 @@ export function ActiveDropView({ drop, featureFlags }: { drop: DropData; feature
       setPincodeError(res.error || 'Please enter a valid 6-digit PIN code.');
     } else {
       setDeliveryResult(res);
+      setBuyerPincode(res.pincode);
+      if (res.stateCode) {
+        setBuyerStateCode(res.stateCode);
+      }
     }
   };
 
@@ -148,7 +174,7 @@ export function ActiveDropView({ drop, featureFlags }: { drop: DropData; feature
     shoulder: '21.5"',
   };
 
-  const handleAddToCart = () => {
+  const handleAddToCart = (openBag = false) => {
     if (!currentVariant || isOutOfStock) return;
 
     if (!enableCheckout) {
@@ -170,6 +196,32 @@ export function ActiveDropView({ drop, featureFlags }: { drop: DropData; feature
 
     setAddedAnimation(true);
     setTimeout(() => setAddedAnimation(false), 2000);
+    if (openBag) {
+      openCart();
+    }
+  };
+
+  const handleBuyNow = () => {
+    if (!currentVariant || isOutOfStock) return;
+
+    if (!enableCheckout) {
+      setWaitlistModalOpen(true);
+      return;
+    }
+
+    addItem({
+      dropId: drop.id,
+      variantId: currentVariant.id,
+      title: `${drop.title} (${selectedFit})`,
+      fit: selectedFit,
+      size: selectedSize,
+      quantity: 1,
+      unitPricePaise: drop.pricePaise,
+      maxStock: currentStock,
+      image: gallery[0],
+    });
+
+    router.push('/checkout');
   };
 
   const handleJoinWaitlist = async (e: React.FormEvent) => {
@@ -200,48 +252,104 @@ export function ActiveDropView({ drop, featureFlags }: { drop: DropData; feature
       {/* 1. STICKY MINIMAL ACTIVE DROP BAR (ON SCROLL) */}
       {/* ========================================== */}
       {enableStickyBar && (
-        <div
-          className={`fixed top-20 left-0 right-0 z-30 frosted-alabaster border-b border-outside-border px-4 py-2.5 transition-all duration-300 transform ${
-            showStickyBar ? 'translate-y-0 opacity-100 shadow-editorial' : '-translate-y-full opacity-0 pointer-events-none'
-          }`}
-        >
-          <div className="max-w-7xl mx-auto flex items-center justify-between gap-4 font-mono">
-            <div className="flex items-center gap-3">
-              <span className="w-2 h-2 rounded-full bg-outside-accent animate-pulse" />
-              <span className="text-xs font-bold text-outside-ink uppercase">
-                DROP 00{drop.dropNumber} // {drop.title}
-              </span>
-              <span className="hidden sm:inline text-xs text-outside-inkSecondary">
-                ₹{(drop.pricePaise / 100).toLocaleString('en-IN')} (Inc. 5% GST)
-              </span>
-            </div>
+        <>
+          {/* Top Sticky Bar (Desktop) */}
+          <div
+            className={`hidden md:block fixed top-20 left-0 right-0 z-30 frosted-alabaster border-b border-outside-border px-4 py-2.5 transition-all duration-300 transform ${
+              showStickyBar ? 'translate-y-0 opacity-100 shadow-editorial' : '-translate-y-full opacity-0 pointer-events-none'
+            }`}
+          >
+            <div className="max-w-7xl mx-auto flex items-center justify-between gap-4 font-mono">
+              <div className="flex items-center gap-3">
+                <span className="w-2 h-2 rounded-full bg-outside-accent animate-pulse" />
+                <span className="text-xs font-bold text-outside-ink uppercase">
+                  DROP 00{drop.dropNumber} // {drop.title}
+                </span>
+                <span className="text-xs text-outside-inkSecondary">
+                  ₹{(drop.pricePaise / 100).toLocaleString('en-IN')} (5% GST Inc.)
+                </span>
+                <span className="text-[10px] text-outside-moss font-bold bg-outside-moss/10 px-2 py-0.5 rounded">
+                  70% ALLOCATED
+                </span>
+              </div>
 
-            <div className="flex items-center gap-3">
-              {/* Quick Size Dropdown */}
-              <select
-                value={selectedSize}
-                onChange={(e) => setSelectedSize(e.target.value)}
-                className="bg-outside-elevated border border-outside-border px-2.5 py-1 text-xs text-outside-ink font-mono focus:border-outside-accent focus:outline-none"
-              >
-                {availableVariants.map((v) => (
-                  <option key={v.size} value={v.size} disabled={v.currentStock <= 0}>
-                    {selectedFit} · {v.size} {v.currentStock <= 0 ? '(SOLD OUT)' : `(${v.currentStock} left)`}
-                  </option>
-                ))}
-              </select>
+              <div className="flex items-center gap-3">
+                {/* Quick Size Dropdown */}
+                <select
+                  value={selectedSize}
+                  onChange={(e) => setSelectedSize(e.target.value)}
+                  className="bg-outside-elevated border border-outside-border px-2.5 py-1.5 text-xs text-outside-ink font-mono focus:border-outside-accent focus:outline-none cursor-pointer"
+                >
+                  {availableVariants.map((v) => (
+                    <option key={v.size} value={v.size} disabled={v.currentStock <= 0}>
+                      {selectedFit} · {v.size} {v.currentStock <= 0 ? '(SOLD OUT)' : `(${v.currentStock} left)`}
+                    </option>
+                  ))}
+                </select>
 
-              <Button
-                variant="primary"
-                size="sm"
-                onClick={handleAddToCart}
-                disabled={isOutOfStock}
-                className="text-[10px]"
-              >
-                {isOutOfStock ? 'WAITLIST' : 'RESERVE PIECE'}
-              </Button>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => handleAddToCart(true)}
+                  disabled={isOutOfStock}
+                  className="text-[10px] tracking-wider"
+                >
+                  ADD TO BAG
+                </Button>
+
+                <Button
+                  variant="primary"
+                  size="sm"
+                  onClick={handleBuyNow}
+                  disabled={isOutOfStock}
+                  className="text-[10px] tracking-wider bg-outside-accent hover:bg-outside-accent/90"
+                >
+                  {isOutOfStock ? 'JOIN WAITLIST' : 'BUY NOW'}
+                </Button>
+              </div>
             </div>
           </div>
-        </div>
+
+          {/* Bottom Floating Bar (Mobile on Scroll - Louis Philippe / Nykaa Standard) */}
+          <div
+            className={`md:hidden fixed bottom-0 left-0 right-0 z-40 bg-outside-elevated/95 backdrop-blur-md border-t border-outside-border p-3 transition-all duration-300 transform ${
+              showStickyBar ? 'translate-y-0 opacity-100 shadow-2xl' : 'translate-y-full opacity-0 pointer-events-none'
+            }`}
+          >
+            <div className="flex items-center justify-between gap-2">
+              <div className="flex flex-col">
+                <span className="text-[10px] font-mono text-outside-inkSecondary uppercase">
+                  {selectedFit} · SIZE {selectedSize}
+                </span>
+                <div className="flex items-baseline gap-1.5">
+                  <span className="text-xs font-mono font-bold text-outside-ink">
+                    ₹{(drop.pricePaise / 100).toLocaleString('en-IN')}
+                  </span>
+                  <span className="text-[9px] font-mono text-outside-moss font-bold">
+                    (UPI: ₹{Math.round((drop.pricePaise * 0.95) / 100).toLocaleString('en-IN')})
+                  </span>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => handleAddToCart(true)}
+                  disabled={isOutOfStock}
+                  className="px-3 py-2 border border-outside-ink text-outside-ink text-[11px] font-mono font-bold uppercase tracking-wider rounded"
+                >
+                  Bag
+                </button>
+                <button
+                  onClick={handleBuyNow}
+                  disabled={isOutOfStock}
+                  className="px-4 py-2 bg-outside-accent text-white text-[11px] font-mono font-bold uppercase tracking-wider rounded shadow"
+                >
+                  Buy Now
+                </button>
+              </div>
+            </div>
+          </div>
+        </>
       )}
 
       {/* ========================================== */}
@@ -300,10 +408,18 @@ export function ActiveDropView({ drop, featureFlags }: { drop: DropData; feature
             
             {/* Header & Pricing */}
             <div className="space-y-3">
-              <div className="flex items-center gap-2 font-editorial-label text-outside-accent font-bold">
-                <Sparkles className="w-3.5 h-3.5" />
-                <span>OFFICIAL SINGLE-DROP RELEASE</span>
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2 font-editorial-label text-outside-accent font-bold">
+                  <Sparkles className="w-3.5 h-3.5" />
+                  <span>OFFICIAL SINGLE-DROP RELEASE</span>
+                </div>
+                {/* Live Viewers Indicator (Louis Philippe / Cahoot Benchmark) */}
+                <div className="flex items-center gap-1.5 px-2.5 py-1 bg-outside-accent/10 border border-outside-accent/20 rounded-full text-[11px] font-mono text-outside-accent font-bold">
+                  <Flame className="w-3.5 h-3.5 text-outside-accent" />
+                  <span>318 VIEWING NOW</span>
+                </div>
               </div>
+
               <h1 className="text-3xl sm:text-4xl font-display font-black tracking-tighter text-outside-ink uppercase">
                 {drop.title}
               </h1>
@@ -311,14 +427,42 @@ export function ActiveDropView({ drop, featureFlags }: { drop: DropData; feature
                 {drop.subtitle}
               </p>
 
-              {/* Price & GST Transparency */}
-              <div className="pt-4 border-t border-outside-border flex items-baseline gap-4">
-                <span className="text-3xl font-mono font-black text-outside-ink tracking-tight">
-                  ₹{(drop.pricePaise / 100).toLocaleString('en-IN')}
-                </span>
+              {/* Price, Strikethrough MRP & GST Transparency */}
+              <div className="pt-4 border-t border-outside-border space-y-2.5">
+                <div className="flex items-baseline gap-3 flex-wrap">
+                  <span className="text-3xl sm:text-4xl font-mono font-black text-outside-ink tracking-tight">
+                    ₹{(drop.pricePaise / 100).toLocaleString('en-IN')}
+                  </span>
+                  <span className="text-sm font-mono text-outside-inkSecondary line-through">
+                    MRP ₹3,200
+                  </span>
+                  <span className="text-[11px] font-mono font-bold text-outside-moss bg-outside-moss/10 px-2 py-0.5 rounded border border-outside-moss/20">
+                    25% OFF LAUNCH DROP
+                  </span>
+                </div>
+
                 <div className="text-left font-mono text-[11px] text-outside-inkSecondary">
-                  <p className="text-outside-ink font-semibold">INCLUSIVE OF ALL TAXES (5% GST)</p>
-                  <p className="text-[10px] text-outside-inkSecondary">HSN: 61091000 · ZERO HIDDEN SURCHARGES</p>
+                  <p className="text-outside-ink font-semibold">INCLUSIVE OF ALL TAXES (5% APPAREL GST · HSN 61091000)</p>
+                  <p className="text-[10px] text-outside-inkSecondary">Free Domestic Air Express Dispatch from Ahmedabad Atelier (24)</p>
+                </div>
+
+                {/* 5% Extra UPI/Prepaid Discount Hook (Cahoot Benchmark) */}
+                <div className="p-2.5 bg-outside-moss/5 border border-outside-moss/30 rounded flex items-center justify-between font-mono text-xs">
+                  <div className="flex items-center gap-2">
+                    <Zap className="w-4 h-4 text-outside-moss shrink-0" />
+                    <span className="text-outside-ink font-bold">
+                      Pay <strong className="text-outside-moss text-sm">₹{Math.round((drop.pricePaise * 0.95) / 100).toLocaleString('en-IN')}</strong> with 5% Instant UPI
+                    </span>
+                  </div>
+                  <span className="text-[10px] uppercase font-bold text-outside-moss bg-outside-moss/15 px-2 py-0.5 rounded">
+                    CODE: OUTSIDE5
+                  </span>
+                </div>
+
+                {/* 0% Interest EMI Hook (Cahoot / Nykaa Benchmark) */}
+                <div className="flex items-center gap-2 font-mono text-[11px] text-outside-inkSecondary px-1">
+                  <CreditCard className="w-3.5 h-3.5 text-outside-ink shrink-0" />
+                  <span>Or 3 interest-free installments of <strong>₹800/mo</strong> via Snapmint / Simpl</span>
                 </div>
               </div>
             </div>
@@ -425,7 +569,7 @@ export function ActiveDropView({ drop, featureFlags }: { drop: DropData; feature
               </div>
             </div>
 
-            {/* Purchase CTA */}
+            {/* Purchase CTAs: Dual Action (Louis Philippe / Cahoot Benchmark) */}
             <div className="space-y-3 pt-2">
               {isOutOfStock ? (
                 <Button
@@ -438,30 +582,29 @@ export function ActiveDropView({ drop, featureFlags }: { drop: DropData; feature
                   <span>SIZE SOLD OUT — JOIN WAITLIST</span>
                 </Button>
               ) : (
-                <Button
-                  variant="primary"
-                  size="lg"
-                  onClick={handleAddToCart}
-                  className="w-full text-xs tracking-[0.25em]"
-                >
-                  {addedAnimation ? (
-                    <>
-                      <Check className="w-4 h-4 text-outside-elevated" />
-                      <span>ADDED TO BAG</span>
-                    </>
-                  ) : !enableCheckout ? (
-                    <>
-                      <span>REQUEST ALLOCATION (WAITLIST ONLY) &rarr;</span>
-                    </>
-                  ) : (
-                    <>
-                      <span>CLAIM PIECE NOW &rarr;</span>
-                      <span className="text-[10px] opacity-80 font-normal ml-2">
-                        (₹{(drop.pricePaise / 100).toLocaleString('en-IN')})
-                      </span>
-                    </>
-                  )}
-                </Button>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {/* Button 1: Add to Bag */}
+                  <Button
+                    variant="outline"
+                    size="lg"
+                    onClick={() => handleAddToCart(true)}
+                    className="w-full text-xs font-mono tracking-[0.2em] font-bold border-outside-ink text-outside-ink hover:bg-outside-surface transition-all flex items-center justify-center gap-2 cursor-pointer"
+                  >
+                    <ShoppingBag className="w-4 h-4" />
+                    <span>{addedAnimation ? 'ADDED TO BAG ✓' : 'ADD TO BAG'}</span>
+                  </Button>
+
+                  {/* Button 2: Buy Now (Instant Checkout) */}
+                  <Button
+                    variant="primary"
+                    size="lg"
+                    onClick={handleBuyNow}
+                    className="w-full text-xs font-mono tracking-[0.2em] font-bold bg-outside-accent hover:bg-outside-accent/90 text-white transition-all flex items-center justify-center gap-2 shadow-editorial cursor-pointer"
+                  >
+                    <span>BUY NOW</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </Button>
+                </div>
               )}
 
               {/* Trust Badges */}

@@ -15,6 +15,7 @@ import {
 } from '@/lib/seo';
 import { DirectAnswerBlocks } from '@/components/seo/direct-answer-blocks';
 import { MarqueeTicker } from '@/components/layout/marquee-ticker';
+import { CollectorReviews } from '@/components/commerce/collector-reviews';
 
 export default async function HomePage() {
   const store = getLocalStore();
@@ -63,11 +64,17 @@ export default async function HomePage() {
     switch (sectionId) {
       case 'hero':
         return (
-          <section key="hero" className={`border-b border-outside-border bg-subtle-grid ${visibilityClass}`}>
-            <MarqueeTicker />
-            <ActiveDropView drop={activeDrop} featureFlags={flags} />
-          </section>
+          <React.Fragment key="hero">
+            <section className={`border-b border-outside-border bg-subtle-grid ${visibilityClass}`}>
+              <MarqueeTicker />
+              <ActiveDropView drop={activeDrop} featureFlags={flags} />
+            </section>
+            <CollectorReviews />
+          </React.Fragment>
         );
+
+      case 'reviews':
+        return <CollectorReviews key="reviews" />;
 
       case 'story':
         return (

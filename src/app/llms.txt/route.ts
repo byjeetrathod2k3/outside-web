@@ -30,6 +30,7 @@ We operate on a single-drop limited-edition release model: strictly ONE garment 
 - The Vault (Archived Drops): https://www.outside.in/vault
 - Interactive Fit Room & Size Matrix: https://www.outside.in/size-guide
 - Express Order Tracking: https://www.outside.in/track
+- 7-Day Doorstep Returns & Exchanges: https://www.outside.in/returns
 - The Outside Journal: https://www.outside.in/journal
 - Fabric & Atelier Standards: https://www.outside.in/about
 - Full Knowledge Base: https://www.outside.in/llms-full.txt

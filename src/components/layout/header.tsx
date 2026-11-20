@@ -5,7 +5,9 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useCart } from '@/context/cart-context';
-import { ShoppingBag, Menu, X, ArrowRight } from 'lucide-react';
+import { ShoppingBag, Menu, X, ArrowRight, MapPin, ChevronDown } from 'lucide-react';
+import { PincodeModal } from '@/components/commerce/pincode-modal';
+import { estimateDelivery } from '@/lib/pincode';
 
 interface GlobalHeaderProps {
   initialTheme?: any;
@@ -14,8 +16,11 @@ interface GlobalHeaderProps {
 
 export function GlobalHeader({ initialTheme, initialFlags }: GlobalHeaderProps) {
   const pathname = usePathname();
-  const { totalItemsCount, openCart } = useCart();
+  const { totalItemsCount, openCart, buyerPincode, openPincodeModal } = useCart();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const deliveryInfo = buyerPincode ? estimateDelivery(buyerPincode) : null;
+  const shortCity = deliveryInfo?.city ? deliveryInfo.city.split('/')[0].trim() : 'Ahmedabad';
 
   const adminBasePath = process.env.NEXT_PUBLIC_ADMIN_BASE_PATH || '/outside-studio-ops';
 
@@ -103,8 +108,22 @@ export function GlobalHeader({ initialTheme, initialFlags }: GlobalHeaderProps) 
           </nav>
 
           {/* Action Utilities */}
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3 sm:gap-4">
             
+            {/* Delivery Location Pill (Louis Philippe Benchmark) */}
+            <button
+              onClick={openPincodeModal}
+              className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-full border border-outside-border bg-outside-surface/70 hover:bg-outside-surface text-[10px] sm:text-[11px] font-mono text-outside-inkSecondary hover:text-outside-ink transition-all cursor-pointer group"
+              title="Change Delivery Location"
+            >
+              <MapPin className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-outside-accent shrink-0" />
+              <span className="hidden sm:inline tracking-wider">DELIVER TO:</span>
+              <span className="font-bold text-outside-ink underline underline-offset-2 decoration-outside-border group-hover:decoration-outside-accent">
+                {shortCity} ({buyerPincode || '380015'})
+              </span>
+              <ChevronDown className="w-3 h-3 opacity-60 group-hover:opacity-100 transition-opacity" />
+            </button>
+
             {/* Shopping Bag Trigger */}
             <button
               onClick={openCart}
@@ -154,6 +173,9 @@ export function GlobalHeader({ initialTheme, initialFlags }: GlobalHeaderProps) 
           </div>
         )}
       </header>
+
+      {/* Upfront Delivery Pincode Modal */}
+      <PincodeModal />
     </>
   );
 }

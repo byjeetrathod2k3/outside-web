@@ -170,8 +170,13 @@ export function GlobalFooter() {
 
         {/* Compliance & Legal */}
         <div className="space-y-4">
-          <h4 className="text-xs font-mono uppercase tracking-[0.2em] text-outside-text font-bold">GOVERNANCE</h4>
+          <h4 className="text-xs font-mono uppercase tracking-[0.2em] text-outside-text font-bold">GOVERNANCE &amp; CARE</h4>
           <ul className="space-y-2.5 text-xs font-mono">
+            <li>
+              <Link href="/returns" className="text-outside-muted hover:text-outside-crimson transition-colors font-bold text-outside-text">
+                7-DAY DOORSTEP EXCHANGES
+              </Link>
+            </li>
             <li>
               <Link href="/privacy-policy" className="text-outside-muted hover:text-outside-crimson transition-colors">
                 PRIVACY POLICY

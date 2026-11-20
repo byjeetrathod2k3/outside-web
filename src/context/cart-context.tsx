@@ -24,10 +24,19 @@ interface CartContextType {
   addItem: (item: Omit<CartItem, 'id'>) => void;
   removeItem: (id: string) => void;
   updateQuantity: (id: string, qty: number) => void;
+  updateItemVariant: (oldId: string, newFit: 'WOMEN' | 'MEN' | 'UNISEX', newSize: string) => void;
   clearCart: () => void;
   totalItemsCount: number;
   buyerStateCode: string;
   setBuyerStateCode: (code: string) => void;
+  buyerPincode: string;
+  setBuyerPincode: (pin: string) => void;
+  isPincodeModalOpen: boolean;
+  openPincodeModal: () => void;
+  closePincodeModal: () => void;
+  isPrepaidDiscountApplied: boolean;
+  togglePrepaidDiscount: () => void;
+  prepaidDiscountPaise: number;
   taxBreakdown: OrderTaxBreakdown;
 }
 
@@ -37,6 +46,9 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([]);
   const [isOpen, setIsOpen] = useState(false);
   const [buyerStateCode, setBuyerStateCode] = useState('24'); // Default Gujarat (24)
+  const [buyerPincode, setBuyerPincode] = useState('380015'); // Default Ahmedabad
+  const [isPincodeModalOpen, setIsPincodeModalOpen] = useState(false);
+  const [isPrepaidDiscountApplied, setIsPrepaidDiscountApplied] = useState(true); // 5% UPI incentive default
   const [isHydrated, setIsHydrated] = useState(false);
 
   // Load from localStorage on mount
@@ -50,6 +62,14 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
       if (savedState) {
         setBuyerStateCode(savedState);
       }
+      const savedPin = localStorage.getItem('outside_buyer_pin');
+      if (savedPin) {
+        setBuyerPincode(savedPin);
+      }
+      const savedPrepaid = localStorage.getItem('outside_prepaid_discount');
+      if (savedPrepaid !== null) {
+        setIsPrepaidDiscountApplied(savedPrepaid === 'true');
+      }
     } catch (e) {
       console.warn('Could not read cart from localStorage', e);
     }
@@ -62,14 +82,19 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
       try {
         localStorage.setItem('outside_cart', JSON.stringify(items));
         localStorage.setItem('outside_buyer_state', buyerStateCode);
+        localStorage.setItem('outside_buyer_pin', buyerPincode);
+        localStorage.setItem('outside_prepaid_discount', String(isPrepaidDiscountApplied));
       } catch (e) {
         console.warn('Could not save cart to localStorage', e);
       }
     }
-  }, [items, buyerStateCode, isHydrated]);
+  }, [items, buyerStateCode, buyerPincode, isPrepaidDiscountApplied, isHydrated]);
 
   const openCart = () => setIsOpen(true);
   const closeCart = () => setIsOpen(false);
+  const openPincodeModal = () => setIsPincodeModalOpen(true);
+  const closePincodeModal = () => setIsPincodeModalOpen(false);
+  const togglePrepaidDiscount = () => setIsPrepaidDiscountApplied((prev) => !prev);
 
   const addItem = (newItem: Omit<CartItem, 'id'>) => {
     const id = `${newItem.dropId}-${newItem.fit}-${newItem.size}`;
@@ -98,6 +123,27 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     );
   };
 
+  const updateItemVariant = (
+    oldId: string,
+    newFit: 'WOMEN' | 'MEN' | 'UNISEX',
+    newSize: string
+  ) => {
+    setItems((prev) =>
+      prev.map((item) => {
+        if (item.id === oldId) {
+          const newId = `${item.dropId}-${newFit}-${newSize}`;
+          return {
+            ...item,
+            id: newId,
+            fit: newFit,
+            size: newSize,
+          };
+        }
+        return item;
+      })
+    );
+  };
+
   const clearCart = () => setItems([]);
 
   const totalItemsCount = items.reduce((acc, i) => acc + i.quantity, 0);
@@ -111,7 +157,19 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     quantity: i.quantity,
   }));
 
-  const taxBreakdown = calculateOrderGst(cartItemInputs, buyerStateCode);
+  const rawTaxBreakdown = calculateOrderGst(cartItemInputs, buyerStateCode);
+
+  // 5% Extra UPI/Prepaid discount (Cahoot benchmark)
+  const prepaidDiscountPaise = isPrepaidDiscountApplied
+    ? Math.round(rawTaxBreakdown.subtotalGrossPaise * 0.05)
+    : 0;
+
+  const finalPayableWithDiscount = Math.max(0, rawTaxBreakdown.finalPayablePaise - prepaidDiscountPaise);
+
+  const taxBreakdown: OrderTaxBreakdown = {
+    ...rawTaxBreakdown,
+    finalPayablePaise: finalPayableWithDiscount,
+  };
 
   return (
     <CartContext.Provider
@@ -123,10 +181,19 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
         addItem,
         removeItem,
         updateQuantity,
+        updateItemVariant,
         clearCart,
         totalItemsCount,
         buyerStateCode,
         setBuyerStateCode,
+        buyerPincode,
+        setBuyerPincode,
+        isPincodeModalOpen,
+        openPincodeModal,
+        closePincodeModal,
+        isPrepaidDiscountApplied,
+        togglePrepaidDiscount,
+        prepaidDiscountPaise,
         taxBreakdown,
       }}
     >

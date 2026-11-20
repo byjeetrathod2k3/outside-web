@@ -594,10 +594,14 @@ export function getLocalStore() {
 }
 
 export function saveLocalStore(data: any) {
-  if (!fs.existsSync(DATA_DIR)) {
-    fs.mkdirSync(DATA_DIR, { recursive: true });
+  try {
+    if (!fs.existsSync(DATA_DIR)) {
+      fs.mkdirSync(DATA_DIR, { recursive: true });
+    }
+    fs.writeFileSync(STORE_PATH, JSON.stringify(data, null, 2));
+  } catch (error) {
+    console.warn('[store] Note: File system write skipped or read-only in serverless environment:', error);
   }
-  fs.writeFileSync(STORE_PATH, JSON.stringify(data, null, 2));
 }
 
 // ==========================================
