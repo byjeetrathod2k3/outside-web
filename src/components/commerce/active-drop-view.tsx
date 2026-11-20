@@ -15,6 +15,7 @@ import {
 import { useCart } from '@/context/cart-context';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import { ViralShare } from '@/components/commerce/viral-share';
 
 interface Variant {
   id: string;
@@ -481,6 +482,11 @@ export function ActiveDropView({ drop, featureFlags }: { drop: DropData; feature
                   <span>7-DAY EXCHANGE</span>
                 </div>
               </div>
+
+              {/* Viral Social & WhatsApp Share Engine */}
+              <div className="pt-2">
+                <ViralShare title={drop.title} dropNumber={drop.dropNumber} />
+              </div>
             </div>
 
             {/* Garment Technical Specs Card */}
@@ -508,9 +514,25 @@ export function ActiveDropView({ drop, featureFlags }: { drop: DropData; feature
               </p>
 
               {waitlistSuccess ? (
-                <div className="p-4 bg-outside-surface border border-outside-accent text-outside-ink text-xs font-mono flex items-center gap-3">
-                  <Check className="w-5 h-5 text-outside-accent" />
-                  <span>YOU HAVE BEEN REGISTERED ON THE PRIORITY QUEUE.</span>
+                <div className="space-y-4">
+                  <div className="p-4 bg-outside-surface border border-outside-accent text-outside-ink text-xs font-mono flex items-center gap-3">
+                    <Check className="w-5 h-5 text-outside-accent flex-shrink-0" />
+                    <span>YOU HAVE BEEN REGISTERED ON THE PRIORITY QUEUE.</span>
+                  </div>
+                  <ViralShare
+                    isReferral={true}
+                    title={drop.title}
+                    dropNumber={drop.dropNumber}
+                    customText={`I just queued for early access to OUTSIDE DROP ${drop.dropNumber}. Use my collector link before the 250 pieces sell out:`}
+                  />
+                  <Button
+                    type="button"
+                    variant="outline"
+                    onClick={() => setWaitlistModalOpen(false)}
+                    className="w-full"
+                  >
+                    RETURN TO STORE
+                  </Button>
                 </div>
               ) : (
                 <form onSubmit={handleJoinWaitlist} className="space-y-4">

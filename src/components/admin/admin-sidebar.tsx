@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import {
   LayoutDashboard,
   Layers,
@@ -19,30 +19,58 @@ import {
   Grid,
   Menu,
   X,
+  Globe,
+  ShieldCheck,
 } from 'lucide-react';
 
 export function AdminSidebar() {
   const pathname = usePathname();
+  const router = useRouter();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [loggingOut, setLoggingOut] = useState(false);
+
+  const base = process.env.NEXT_PUBLIC_ADMIN_BASE_PATH || '/outside-studio-ops';
 
   const mainNav = [
-    { label: 'OVERVIEW', href: '/admin', icon: LayoutDashboard },
-    { label: 'DROP MANAGER', href: '/admin/drops', icon: Layers },
-    { label: 'ORDERS & INVOICES', href: '/admin/orders', icon: ShoppingBag },
-    { label: 'WAITLIST & CRM', href: '/admin/leads', icon: Users },
-    { label: 'HEADLESS CMS', href: '/admin/cms', icon: FileText },
+    { label: 'OVERVIEW', href: `${base}`, icon: LayoutDashboard },
+    { label: 'DROP MANAGER', href: `${base}/drops`, icon: Layers },
+    { label: 'ORDERS & INVOICES', href: `${base}/orders`, icon: ShoppingBag },
+    { label: 'WAITLIST & CRM', href: `${base}/leads`, icon: Users },
+    { label: 'HEADLESS CMS', href: `${base}/cms`, icon: FileText },
   ];
 
   const designNav = [
-    { label: 'APPEARANCE & THEME', href: '/admin/appearance', icon: Palette },
-    { label: 'FEATURE FLAGS', href: '/admin/features', icon: Sliders },
-    { label: 'LAYOUT & DENSITY', href: '/admin/layout', icon: Grid },
+    { label: 'APPEARANCE & THEME', href: `${base}/appearance`, icon: Palette },
+    { label: 'FEATURE FLAGS', href: `${base}/features`, icon: Sliders },
+    { label: 'LAYOUT & DENSITY', href: `${base}/layout`, icon: Grid },
+    { label: 'SEO, AEO & VIRAL', href: `${base}/seo`, icon: Globe },
   ];
 
   const settingsNav = [
-    { label: 'GST (GUJARAT 24)', href: '/admin/settings/gst', icon: Settings },
-    { label: 'EMAIL ENGINE', href: '/admin/settings/email', icon: Mail },
+    { label: 'GST (GUJARAT 24)', href: `${base}/settings/gst`, icon: Settings },
+    { label: 'EMAIL ENGINE', href: `${base}/settings/email`, icon: Mail },
+    { label: '2FA & SECURITY', href: `${base}/settings/security`, icon: ShieldCheck },
   ];
+
+  const isItemActive = (href: string) => {
+    if (pathname === href) return true;
+    if (pathname === href.replace(base, '/admin')) return true;
+    if (href === base && (pathname === '/admin' || pathname === base)) return true;
+    return false;
+  };
+
+  const handleLogout = async () => {
+    setLoggingOut(true);
+    try {
+      await fetch('/api/admin/auth', { method: 'DELETE' });
+      router.push(`${base}/login`);
+      router.refresh();
+    } catch {
+      router.push(`${base}/login`);
+    } finally {
+      setLoggingOut(false);
+    }
+  };
 
   return (
     <>
@@ -94,12 +122,12 @@ export function AdminSidebar() {
                 OUTSIDE
               </span>
               <span className="px-1.5 py-0.5 bg-[#FCFBF8] border border-[#DCD7CC] text-[9px] text-[#52504B] uppercase tracking-widest font-mono">
-                STUDIO v1.0
+                OPS v1.0
               </span>
               <ExternalLink className="w-3 h-3 text-[#52504B] group-hover:text-[#111110] transition-colors" />
             </Link>
             <p className="text-[10px] text-[#52504B] mt-1.5 uppercase tracking-wider font-mono">
-              COMMAND // RBAC SUPER_ADMIN
+              STEALTH // SUPER_ADMIN
             </p>
           </div>
 
@@ -109,7 +137,7 @@ export function AdminSidebar() {
               COMMERCE &amp; RELEASES
             </span>
             {mainNav.map((item) => {
-              const active = pathname === item.href;
+              const active = isItemActive(item.href);
               const Icon = item.icon;
               return (
                 <Link
@@ -134,7 +162,7 @@ export function AdminSidebar() {
                 DESIGN &amp; DYNAMIC GOVERNANCE
               </span>
               {designNav.map((item) => {
-                const active = pathname === item.href;
+                const active = isItemActive(item.href);
                 const Icon = item.icon;
                 return (
                   <Link
@@ -157,10 +185,10 @@ export function AdminSidebar() {
             {/* Compliance & Settings */}
             <div className="pt-4 mt-4 border-t border-[#DCD7CC]">
               <span className="px-3 text-[10px] text-[#52504B] uppercase tracking-widest block mb-2 font-bold">
-                COMPLIANCE &amp; SETTINGS
+                COMPLIANCE &amp; SECURITY
               </span>
               {settingsNav.map((item) => {
-                const active = pathname === item.href;
+                const active = isItemActive(item.href);
                 const Icon = item.icon;
                 return (
                   <Link
@@ -186,7 +214,7 @@ export function AdminSidebar() {
         <div className="p-4 border-t border-[#DCD7CC] bg-[#EDEAE2] space-y-3">
           <div className="flex items-center gap-3 px-2">
             <div className="w-8 h-8 rounded-none bg-[#111110] text-[#FCFBF8] font-bold flex items-center justify-center text-xs flex-shrink-0">
-              AD
+              SA
             </div>
             <div className="overflow-hidden">
               <p className="text-[11px] font-bold text-[#111110] truncate">admin@outside.in</p>
@@ -194,21 +222,15 @@ export function AdminSidebar() {
             </div>
           </div>
 
-          <form action="/api/admin/auth" method="POST">
-            <button
-              formAction={async () => {
-                const { cookies } = await import('next/headers');
-                const cookieStore = await cookies();
-                cookieStore.delete('outside_session');
-                const { redirect } = await import('next/navigation');
-                redirect('/admin/login');
-              }}
-              className="w-full min-h-[44px] flex items-center justify-center gap-2 py-2 px-3 bg-[#FCFBF8] border border-[#DCD7CC] hover:border-[#B82328] hover:bg-[#EDEAE2] text-[10px] text-[#52504B] hover:text-[#111110] uppercase tracking-wider transition-colors cursor-pointer"
-            >
-              <LogOut className="w-3.5 h-3.5" />
-              <span>TERMINATE SESSION</span>
-            </button>
-          </form>
+          <button
+            type="button"
+            onClick={handleLogout}
+            disabled={loggingOut}
+            className="w-full min-h-[44px] flex items-center justify-center gap-2 py-2 px-3 bg-[#FCFBF8] border border-[#DCD7CC] hover:border-[#B82328] hover:bg-[#EDEAE2] text-[10px] text-[#52504B] hover:text-[#111110] uppercase tracking-wider transition-colors cursor-pointer disabled:opacity-50"
+          >
+            <LogOut className="w-3.5 h-3.5" />
+            <span>{loggingOut ? 'TERMINATING...' : 'TERMINATE SESSION'}</span>
+          </button>
         </div>
       </aside>
     </>

@@ -8,31 +8,67 @@ const JWT_SECRET = new TextEncoder().encode(
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
-  const response = NextResponse.next();
+  const adminBasePath = (process.env.ADMIN_BASE_PATH || '/outside-studio-ops').replace(/\/$/, '');
 
-  // 1. Strict Security Headers & NoIndex for Admin Routes
-  if (pathname.startsWith('/admin')) {
-    response.headers.set('X-Robots-Tag', 'noindex, nofollow, noarchive, nosnippet');
+  // 1. Permanent 308 Redirect Manager
+  if (pathname === '/drops') {
+    return NextResponse.redirect(new URL('/', request.url), 308);
+  }
+  if (pathname === '/archive') {
+    return NextResponse.redirect(new URL('/vault', request.url), 308);
+  }
 
-    // Allow public access only to login
-    if (pathname === '/admin/login') {
-      return response;
+  // 2. Direct /admin discovery block (stealth mode protection)
+  // When ADMIN_BASE_PATH is configured to a stealth route, /admin returns 404
+  if (pathname.startsWith('/admin') && adminBasePath !== '/admin') {
+    return NextResponse.rewrite(new URL('/_not-found', request.url), { status: 404 });
+  }
+
+  // 3. Stealth Admin Route Handler (e.g., /outside-studio-ops/*)
+  if (pathname === adminBasePath || pathname.startsWith(`${adminBasePath}/`)) {
+    const internalPath = pathname.slice(adminBasePath.length) || '/';
+    const targetPath = `/admin${internalPath === '/' ? '' : internalPath}`;
+    const rewriteUrl = new URL(targetPath, request.url);
+
+    // Apply strict indexing protection headers
+    const headers = new Headers(request.headers);
+    headers.set('X-Robots-Tag', 'noindex, nofollow, noarchive, nosnippet');
+
+    // Allow public access to the stealth login screen
+    if (pathname === `${adminBasePath}/login` || internalPath === '/login') {
+      const res = NextResponse.rewrite(new URL('/admin/login', request.url), {
+        request: { headers },
+      });
+      res.headers.set('X-Robots-Tag', 'noindex, nofollow, noarchive, nosnippet');
+      return res;
     }
 
-    // Check admin authentication session cookie
+    // Check super admin session cookie
     const token = request.cookies.get('outside_session')?.value;
-
     if (!token) {
-      const loginUrl = new URL('/admin/login', request.url);
+      const loginUrl = new URL(`${adminBasePath}/login`, request.url);
       loginUrl.searchParams.set('from', pathname);
       return NextResponse.redirect(loginUrl);
     }
 
     try {
-      await jwtVerify(token, JWT_SECRET, { algorithms: ['HS256'] });
-      return response;
+      const { payload } = await jwtVerify(token, JWT_SECRET, { algorithms: ['HS256'] });
+
+      // Super Admin single-role enforcement
+      if (payload.role !== 'SUPER_ADMIN') {
+        const loginUrl = new URL(`${adminBasePath}/login`, request.url);
+        const redirectRes = NextResponse.redirect(loginUrl);
+        redirectRes.cookies.delete('outside_session');
+        return redirectRes;
+      }
+
+      const res = NextResponse.rewrite(rewriteUrl, {
+        request: { headers },
+      });
+      res.headers.set('X-Robots-Tag', 'noindex, nofollow, noarchive, nosnippet');
+      return res;
     } catch {
-      const loginUrl = new URL('/admin/login', request.url);
+      const loginUrl = new URL(`${adminBasePath}/login`, request.url);
       loginUrl.searchParams.set('from', pathname);
       const redirectRes = NextResponse.redirect(loginUrl);
       redirectRes.cookies.delete('outside_session');
@@ -40,9 +76,19 @@ export async function middleware(request: NextRequest) {
     }
   }
 
-  return response;
+  return NextResponse.next();
 }
 
 export const config = {
-  matcher: ['/admin/:path*'],
+  matcher: [
+    /*
+     * Match all paths except:
+     * - _next/static (static files)
+     * - _next/image (image optimization files)
+     * - favicon.ico (favicon)
+     * - images/ (public asset directory)
+     * - api/og (dynamic OG generator)
+     */
+    '/((?!_next/static|_next/image|favicon.ico|images/|api/og).*)',
+  ],
 };

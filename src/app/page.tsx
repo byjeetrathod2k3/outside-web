@@ -6,6 +6,14 @@ import { ActiveDropView } from '@/components/commerce/active-drop-view';
 import { SectionHeading } from '@/components/ui/section-heading';
 import { Badge } from '@/components/ui/badge';
 import { ArrowRight, Check, HelpCircle, BookOpen } from 'lucide-react';
+import {
+  JsonLd,
+  generateOrganizationSchema,
+  generateProductSchema,
+  generateBreadcrumbSchema,
+  generateFaqSchema,
+} from '@/lib/seo';
+import { DirectAnswerBlocks } from '@/components/seo/direct-answer-blocks';
 
 export default async function HomePage() {
   const store = getLocalStore();
@@ -333,33 +341,38 @@ export default async function HomePage() {
       case 'faqs':
         return (
           <section key="faqs" className={`py-24 border-b border-outside-border ${visibilityClass}`}>
-            <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
-              <SectionHeading
-                eyebrow="KNOWLEDGE BASE // DIRECT ANSWERS"
-                title="Frequently Asked Questions."
-                description="Clear, transparent answers regarding craft, GST compliance, sizing, and single-drop release mechanics."
-              />
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
+              {/* Direct Answer Editorial Blocks for AI Search & AEO */}
+              <DirectAnswerBlocks />
 
-              <div className="space-y-4">
-                {faqs.map((faq: any) => (
-                  <details
-                    key={faq.id}
-                    className="group p-6 bg-outside-elevated border border-outside-border open:border-outside-accent shadow-editorial transition-colors cursor-pointer"
-                  >
-                    <summary className="flex items-center justify-between text-sm font-mono uppercase font-bold text-outside-ink list-none">
-                      <div className="flex items-center gap-3">
-                        <HelpCircle className="w-4 h-4 text-outside-accent" />
-                        <span>{faq.question}</span>
+              <div className="max-w-4xl mx-auto space-y-12">
+                <SectionHeading
+                  eyebrow="KNOWLEDGE BASE // DIRECT ANSWERS"
+                  title="Frequently Asked Questions."
+                  description="Clear, transparent answers regarding craft, GST compliance, sizing, and single-drop release mechanics."
+                />
+
+                <div className="space-y-4">
+                  {faqs.map((faq: any) => (
+                    <details
+                      key={faq.id}
+                      className="group p-6 bg-outside-elevated border border-outside-border open:border-outside-accent shadow-editorial transition-colors cursor-pointer"
+                    >
+                      <summary className="flex items-center justify-between text-sm font-mono uppercase font-bold text-outside-ink list-none">
+                        <div className="flex items-center gap-3">
+                          <HelpCircle className="w-4 h-4 text-outside-accent" />
+                          <span>{faq.question}</span>
+                        </div>
+                        <span className="text-outside-inkSecondary group-open:rotate-180 transition-transform">
+                          &darr;
+                        </span>
+                      </summary>
+                      <div className="pt-4 mt-4 border-t border-outside-border text-xs text-outside-inkSecondary leading-relaxed font-sans">
+                        {faq.answer}
                       </div>
-                      <span className="text-outside-inkSecondary group-open:rotate-180 transition-transform">
-                        &darr;
-                      </span>
-                    </summary>
-                    <div className="pt-4 mt-4 border-t border-outside-border text-xs text-outside-inkSecondary leading-relaxed font-sans">
-                      {faq.answer}
-                    </div>
-                  </details>
-                ))}
+                    </details>
+                  ))}
+                </div>
               </div>
             </div>
           </section>
@@ -409,12 +422,18 @@ export default async function HomePage() {
         { id: 'vip' },
       ];
 
+  const orgSchema = generateOrganizationSchema();
+  const productSchema = generateProductSchema(activeDrop, true);
+  const breadcrumbSchema = generateBreadcrumbSchema([{ name: 'Home', url: '/' }]);
+  const faqJsonLd = generateFaqSchema(faqs);
+
   return (
     <div className="bg-outside-canvas text-outside-ink font-sans">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-      />
+      {/* Structured E-Commerce & AEO JSON-LD */}
+      <JsonLd data={orgSchema} />
+      <JsonLd data={productSchema} />
+      <JsonLd data={breadcrumbSchema} />
+      <JsonLd data={faqJsonLd} />
 
       {/* Dynamic Sections Sequence */}
       {configuredSections.map((secConfig: any) =>

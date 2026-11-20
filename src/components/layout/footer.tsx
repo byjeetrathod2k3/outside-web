@@ -186,8 +186,8 @@ export function GlobalFooter() {
               </Link>
             </li>
             <li>
-              <Link href="/admin" className="text-outside-muted hover:text-outside-crimson transition-colors">
-                STUDIO ADMIN CONSOLE
+              <Link href="/about" className="text-outside-muted hover:text-outside-crimson transition-colors">
+                ATELIER STANDARDS (AHMEDABAD)
               </Link>
             </li>
           </ul>

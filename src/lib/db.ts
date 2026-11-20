@@ -428,6 +428,52 @@ export const DEFAULT_LAYOUT_CONFIG: LayoutConfigData = {
 };
 
 // ==========================================
+// MODULE 3: SEO, AEO, GEO & STEALTH GOVERNANCE
+// ==========================================
+export interface SeoConfigData {
+  titleTemplate: string;
+  defaultTitle: string;
+  defaultMetaDescription: string;
+  ogImageUrl: string;
+  llmsManifesto: string;
+  crawlerPolicies: {
+    googlebot: boolean;
+    bingbot: boolean;
+    oaiSearch: boolean;
+    perplexity: boolean;
+    claudeBot: boolean;
+  };
+  redirects: { from: string; to: string; permanent: boolean }[];
+  enableWaitlistReferral: boolean;
+  updatedAt: string;
+}
+
+export const DEFAULT_SEO_CONFIG: SeoConfigData = {
+  titleTemplate: '%s | OUTSIDE India',
+  defaultTitle: 'OUTSIDE // Wear Your Story — Limited Serialized Drops',
+  defaultMetaDescription:
+    'Luxury streetwear engineered with 280 GSM combed organic cotton in Gujarat, India. Single-drop serialized editions capped at 250 pieces. Women-first fit philosophy.',
+  ogImageUrl: '/api/og?drop=001',
+  llmsManifesto: `OUTSIDE is an architectural luxury D2C apparel brand based in Ahmedabad, Gujarat, India (State Code 24).
+We operate on a strict single-drop limited-edition release model: strictly ONE design is available at any given time, produced in a serialized batch of 250 pieces, and never restocked.
+Garments are cut from custom-milled 280 GSM combed organic cotton with a French terry knit, featuring double bio-washing and an ergonomic Women-First boxy silhouette.
+All orders are billed under Indian GST (HSN 61091000) with sequential invoicing.`,
+  crawlerPolicies: {
+    googlebot: true,
+    bingbot: true,
+    oaiSearch: true,
+    perplexity: true,
+    claudeBot: true,
+  },
+  redirects: [
+    { from: '/drops', to: '/', permanent: true },
+    { from: '/archive', to: '/vault', permanent: true },
+  ],
+  enableWaitlistReferral: true,
+  updatedAt: new Date().toISOString(),
+};
+
+// ==========================================
 // LOCAL JSON RESILIENT STORE
 // ==========================================
 const DATA_DIR = path.join(process.cwd(), 'data');
@@ -489,6 +535,12 @@ export function getLocalStore() {
     themeConfig: DEFAULT_THEME_CONFIG,
     featureFlags: DEFAULT_FEATURE_FLAGS,
     layoutConfig: DEFAULT_LAYOUT_CONFIG,
+    seoConfig: DEFAULT_SEO_CONFIG,
+    superAdminSecurity: {
+      totpSecret: null as string | null,
+      totpEnabled: false,
+    },
+    securityLockouts: [] as { ip: string; failedAttempts: number; lockedUntil: string | null }[],
   };
 
   if (!fs.existsSync(STORE_PATH)) {
@@ -520,6 +572,19 @@ export function getLocalStore() {
     }
     if (!parsed.layoutConfig) {
       parsed.layoutConfig = DEFAULT_LAYOUT_CONFIG;
+    }
+    // Ensure Module 3 entities exist
+    if (!parsed.seoConfig) {
+      parsed.seoConfig = DEFAULT_SEO_CONFIG;
+    }
+    if (!parsed.superAdminSecurity) {
+      parsed.superAdminSecurity = {
+        totpSecret: null,
+        totpEnabled: false,
+      };
+    }
+    if (!parsed.securityLockouts) {
+      parsed.securityLockouts = [];
     }
 
     return parsed;
@@ -668,4 +733,135 @@ export function recordAuditLog(entry: {
     store.auditLogs = store.auditLogs.slice(0, 500);
   }
   saveLocalStore(store);
+}
+
+// ==========================================
+// MODULE 3: SEO, AEO, GEO & STEALTH HELPERS
+// ==========================================
+export function getAdminBasePath(): string {
+  const custom = process.env.ADMIN_BASE_PATH;
+  if (!custom) return '/outside-studio-ops';
+  return custom.startsWith('/') ? custom : `/${custom}`;
+}
+
+export function getSeoConfig(): SeoConfigData {
+  const store = getLocalStore();
+  return store.seoConfig || DEFAULT_SEO_CONFIG;
+}
+
+export function saveSeoConfig(newConfig: Partial<SeoConfigData>): SeoConfigData {
+  const store = getLocalStore();
+  store.seoConfig = {
+    ...store.seoConfig,
+    ...newConfig,
+    updatedAt: new Date().toISOString(),
+  };
+  saveLocalStore(store);
+  return store.seoConfig;
+}
+
+export function resetSeoConfig(): SeoConfigData {
+  const store = getLocalStore();
+  store.seoConfig = {
+    ...DEFAULT_SEO_CONFIG,
+    updatedAt: new Date().toISOString(),
+  };
+  saveLocalStore(store);
+  return store.seoConfig;
+}
+
+export function getSuperAdminSecurity(): { totpSecret: string | null; totpEnabled: boolean } {
+  const store = getLocalStore();
+  return store.superAdminSecurity || { totpSecret: null, totpEnabled: false };
+}
+
+export function saveSuperAdminSecurity(data: { totpSecret?: string | null; totpEnabled?: boolean }) {
+  const store = getLocalStore();
+  store.superAdminSecurity = {
+    ...store.superAdminSecurity,
+    ...data,
+  };
+  saveLocalStore(store);
+  return store.superAdminSecurity;
+}
+
+/**
+ * Enforces strict login rate limiting:
+ * Max 5 failed attempts per IP address within a 15-minute rolling window.
+ */
+export function checkLoginRateLimit(ip: string): {
+  allowed: boolean;
+  remainingAttempts: number;
+  lockoutRemainingSeconds?: number;
+} {
+  const store = getLocalStore();
+  if (!store.securityLockouts) store.securityLockouts = [];
+
+  const now = Date.now();
+  const entry = store.securityLockouts.find((l: any) => l.ip === ip);
+
+  if (!entry) {
+    return { allowed: true, remainingAttempts: 5 };
+  }
+
+  // Check if actively locked out
+  if (entry.lockedUntil) {
+    const lockedUntilTime = new Date(entry.lockedUntil).getTime();
+    if (now < lockedUntilTime) {
+      const remainingSecs = Math.ceil((lockedUntilTime - now) / 1000);
+      return {
+        allowed: false,
+        remainingAttempts: 0,
+        lockoutRemainingSeconds: remainingSecs,
+      };
+    } else {
+      // Lockout expired - reset
+      entry.failedAttempts = 0;
+      entry.lockedUntil = null;
+      saveLocalStore(store);
+      return { allowed: true, remainingAttempts: 5 };
+    }
+  }
+
+  const remaining = Math.max(0, 5 - entry.failedAttempts);
+  return { allowed: remaining > 0, remainingAttempts: remaining };
+}
+
+export function recordLoginAttempt(ip: string, email: string, success: boolean) {
+  const store = getLocalStore();
+  if (!store.securityLockouts) store.securityLockouts = [];
+
+  const now = Date.now();
+  let entry = store.securityLockouts.find((l: any) => l.ip === ip);
+
+  if (!entry) {
+    entry = { ip, failedAttempts: 0, lockedUntil: null };
+    store.securityLockouts.push(entry);
+  }
+
+  if (success) {
+    // Reset failed counter on success
+    entry.failedAttempts = 0;
+    entry.lockedUntil = null;
+  } else {
+    entry.failedAttempts = (entry.failedAttempts || 0) + 1;
+    if (entry.failedAttempts >= 5) {
+      // 15-minute IP lockout
+      entry.lockedUntil = new Date(now + 15 * 60 * 1000).toISOString();
+    }
+  }
+
+  saveLocalStore(store);
+
+  recordAuditLog({
+    userId: 'super_admin',
+    action: success ? 'SUPER_ADMIN_LOGIN_SUCCESS' : 'SUPER_ADMIN_LOGIN_FAILURE',
+    entityType: 'SECURITY_AUTH',
+    metadata: {
+      ip,
+      email,
+      failedAttempts: entry.failedAttempts,
+      isLocked: !!entry.lockedUntil,
+    },
+  });
 }
