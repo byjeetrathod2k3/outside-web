@@ -1,0 +1,417 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ==========================================
+// 1. AUTHENTICATION & RBAC
+// ==========================================
+enum Role {
+  SUPER_ADMIN
+  ADMIN
+  EDITOR
+  VIEWER
+}
+
+model User {
+  id           String     @id @default(cuid())
+  email        String     @unique
+  name         String
+  passwordHash String
+  role         Role       @default(EDITOR)
+  isActive     Boolean    @default(true)
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+
+  assignedLeads Lead[]     @relation("AssignedUser")
+  auditLogs     AuditLog[]
+}
+
+// ==========================================
+// 2. SINGLE-DROP LIMITED APPAREL COMMERCE
+// ==========================================
+enum DropStatus {
+  DRAFT
+  UPCOMING
+  LIVE
+  SOLD_OUT
+  ARCHIVED
+}
+
+enum FitCategory {
+  WOMEN
+  MEN
+  UNISEX
+}
+
+model Drop {
+  id              String       @id @default(cuid())
+  dropNumber      Int          @unique // e.g., 1 for "DROP 001"
+  slug            String       @unique
+  title           String
+  subtitle        String?
+  story           String       @db.Text // Editorial copy & design inspiration
+  fabricSpecs     String?      @db.Text // GSM, 100% comb cotton, bio-washed, care instructions
+  pricePaise      Int          // Stored in paise (e.g. ₹2,200 = 220000 paise)
+  currency        String       @default("INR")
+  totalEditionQty Int          // Total limited pieces produced (e.g., 250)
+  status          DropStatus   @default(DRAFT)
+  launchAt        DateTime?    // Drives countdown timer
+  soldOutAt       DateTime?
+  primaryImageUrl String
+  galleryUrls     Json         // Array of editorial & lookbook image URLs
+  isFeatured      Boolean      @default(false) // Featured active drop on homepage
+
+  // SEO / AEO / GEO
+  seoTitle        String?
+  seoDescription  String?
+  canonicalUrl    String?
+  ogImageUrl      String?
+  noIndex         Boolean      @default(false)
+
+  variants        DropVariant[]
+  leads           Lead[]
+  orders          Order[]
+  orderItems      OrderItem[]
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+
+  @@index([status, isFeatured])
+}
+
+model DropVariant {
+  id            String      @id @default(cuid())
+  dropId        String
+  drop          Drop        @relation(fields: [dropId], references: [id], onDelete: Cascade)
+  sku           String      @unique
+  fit           FitCategory @default(WOMEN) // Women-first catalog structure
+  size          String      // XS, S, M, L, XL, XXL
+  initialStock  Int
+  currentStock  Int         // Decremented atomically via transaction
+  reservedStock Int         @default(0)
+
+  orderItems    OrderItem[]
+
+  @@unique([dropId, fit, size])
+  @@index([dropId])
+}
+
+// ==========================================
+// 3. ORDERS & INDIA GST AUDIT TRAIL
+// ==========================================
+enum PaymentStatus {
+  PENDING
+  AUTHORIZED
+  PAID
+  FAILED
+  REFUNDED
+}
+
+enum FulfillmentStatus {
+  UNFULFILLED
+  PROCESSING
+  SHIPPED
+  DELIVERED
+  CANCELLED
+}
+
+model Order {
+  id                 String            @id @default(cuid())
+  orderNumber        String            @unique // e.g., ORD-2026-0001
+  invoiceNumber      String            @unique // e.g., OUT/26-27/0001
+  customerName       String
+  customerEmail      String
+  customerPhone      String
+  shippingAddress    String
+  shippingCity       String
+  shippingState      String            // Buyer state (e.g. Gujarat, Maharashtra)
+  shippingPincode    String
+  shippingCountry    String            @default("India")
+  placeOfSupplyState String            // Place of Supply for GST (e.g. "24-Gujarat")
+  stateCode          String            // 2-digit Indian State Code (e.g. "24")
+
+  pricingMode        PricingMode       @default(TAX_INCLUSIVE)
+  subtotalPaise      Int               // Sum of item gross
+  taxableAmountPaise Int               // Total net taxable value
+  cgstPaise          Int               // Intra-state CGST
+  sgstPaise          Int               // Intra-state SGST
+  igstPaise          Int               // Inter-state IGST
+  totalTaxPaise      Int
+  totalAmountPaise   Int               // Final payable amount
+  currency           String            @default("INR")
+
+  paymentStatus      PaymentStatus     @default(PENDING)
+  paymentId          String?           // Gateway payment reference ID
+  paymentGateway     String?           // razorpay | cashfree | phonepe
+  fulfillmentStatus  FulfillmentStatus @default(UNFULFILLED)
+  trackingNumber     String?
+
+  dropId             String?
+  drop               Drop?             @relation(fields: [dropId], references: [id], onDelete: SetNull)
+  items              OrderItem[]
+
+  createdAt          DateTime          @default(now())
+  updatedAt          DateTime          @updatedAt
+
+  @@index([customerEmail])
+  @@index([paymentStatus])
+  @@index([createdAt])
+}
+
+model OrderItem {
+  id                 String       @id @default(cuid())
+  orderId            String
+  order              Order        @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  dropId             String?
+  drop               Drop?        @relation(fields: [dropId], references: [id], onDelete: SetNull)
+  dropVariantId      String?
+  dropVariant        DropVariant? @relation(fields: [dropVariantId], references: [id], onDelete: SetNull)
+
+  title              String
+  fit                FitCategory
+  size               String
+  quantity           Int
+  unitPricePaise     Int          // Price per piece in paise
+  taxableAmountPaise Int          // Net taxable base
+  hsnCode            String       // e.g., 61091000
+  gstRate            Decimal      @db.Decimal(5, 2) // 5.00 or 18.00 (%)
+  isInterState       Boolean      // False = CGST+SGST, True = IGST
+  cgstRate           Decimal      @db.Decimal(5, 2) // e.g. 2.50 or 9.00
+  sgstRate           Decimal      @db.Decimal(5, 2) // e.g. 2.50 or 9.00
+  igstRate           Decimal      @db.Decimal(5, 2) // e.g. 5.00 or 18.00
+  cgstAmountPaise    Int
+  sgstAmountPaise    Int
+  igstAmountPaise    Int
+  totalTaxPaise      Int
+  totalAmountPaise   Int
+
+  createdAt          DateTime     @default(now())
+
+  @@index([orderId])
+  @@index([hsnCode])
+}
+
+// ==========================================
+// 4. ADMIN-MANAGED GST ENGINE CONFIGURATION
+// ==========================================
+enum PricingMode {
+  TAX_INCLUSIVE
+  TAX_EXCLUSIVE
+}
+
+model GstConfig {
+  id                String      @id @default("singleton")
+  isEnabled         Boolean     @default(true)
+  sellerLegalName   String      @default("OUTSIDE APPAREL STUDIO PVT LTD")
+  gstin             String      @default("24AABCO1234F1Z5") // Gujarat origin
+  originStateCode   String      @default("24")              // Gujarat code
+  originStateName   String      @default("Gujarat")
+  registeredAddress String      @default("Plot 104, Design District, Ahmedabad, Gujarat 380015")
+  pricingMode       PricingMode @default(TAX_INCLUSIVE)
+  thresholdInr      Int         @default(2500)             // ₹2,500 threshold
+  lowSlabRate       Decimal     @default(5.00) @db.Decimal(5, 2)  // 5% if <= ₹2500
+  highSlabRate      Decimal     @default(18.00) @db.Decimal(5, 2) // 18% if > ₹2500
+  defaultHsn        String      @default("61091000")
+  invoicePrefix     String      @default("OUT/26-27/")
+  invoiceCounter    Int         @default(1)
+  financialYear     String      @default("2026-2027")
+  updatedAt         DateTime    @updatedAt
+}
+
+// ==========================================
+// 5. ADMIN-MANAGED TRANSACTIONAL EMAIL
+// ==========================================
+enum EmailProvider {
+  SMTP
+  RESEND
+}
+
+model EmailConfig {
+  id                String        @id @default("singleton")
+  provider          EmailProvider @default(SMTP)
+  host              String?       @default("smtp.gmail.com")
+  port              Int?          @default(587)
+  secure            Boolean       @default(false)
+  username          String?
+  encryptedPassword String?       // AES-256-GCM encrypted
+  encryptedApiKey   String?       // AES-256-GCM encrypted
+  fromName          String        @default("OUTSIDE")
+  fromEmail         String        @default("drops@outside.in")
+  replyTo           String?       @default("support@outside.in")
+  isEnabled         Boolean       @default(true)
+  updatedAt         DateTime      @updatedAt
+}
+
+enum EmailTemplateType {
+  WAITLIST_CONFIRMATION
+  DROP_LIVE_ALERT
+  ORDER_CONFIRMATION_INVOICE
+  CONTACT_INQUIRY_RECEIPT
+}
+
+model EmailTemplate {
+  id        String            @id @default(cuid())
+  type      EmailTemplateType @unique
+  subject   String
+  bodyHtml  String            @db.Text
+  bodyText  String            @db.Text
+  isActive  Boolean           @default(true)
+  updatedAt DateTime          @updatedAt
+}
+
+model EmailLog {
+  id           String            @id @default(cuid())
+  templateType EmailTemplateType
+  recipient    String
+  subject      String
+  status       String            // SENT, FAILED, SIMULATED
+  errorMessage String?
+  metadata     Json?
+  sentAt       DateTime          @default(now())
+
+  @@index([recipient])
+  @@index([sentAt])
+}
+
+// ==========================================
+// 6. HEADLESS CMS, JOURNAL & FAQS (AEO/GEO)
+// ==========================================
+enum PublishStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
+model Page {
+  id             String        @id @default(cuid())
+  slug           String        @unique
+  title          String
+  contentBlocks  Json          // Structured sections for modular rendering
+  status         PublishStatus @default(DRAFT)
+  publishedAt    DateTime?
+
+  // Dynamic SEO
+  seoTitle       String?
+  seoDescription String?
+  canonicalUrl   String?
+  ogImageUrl     String?
+  noIndex        Boolean       @default(false)
+  schemaJsonLd   Json?
+
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+
+  @@index([status, slug])
+}
+
+model JournalPost {
+  id             String        @id @default(cuid())
+  slug           String        @unique
+  title          String
+  excerpt        String
+  body           String        @db.Text
+  coverImageUrl  String?
+  authorName     String
+  status         PublishStatus @default(DRAFT)
+  publishedAt    DateTime?
+
+  // SEO / GEO
+  seoTitle       String?
+  seoDescription String?
+  canonicalUrl   String?
+  noIndex        Boolean       @default(false)
+
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+
+  @@index([status, publishedAt])
+}
+
+model FAQ {
+  id        String   @id @default(cuid())
+  question  String
+  answer    String   @db.Text
+  category  String   @default("General") // Sizing, Drops, Shipping, Fabric, GST
+  sortOrder Int      @default(0)
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// ==========================================
+// 7. LEAD & DROP WAITLIST CRM
+// ==========================================
+enum LeadType {
+  DROP_WAITLIST
+  CONTACT_INQUIRY
+  PRESS_COLLAB
+  WHOLESALE
+}
+
+enum LeadStatus {
+  NEW
+  CONTACTED
+  QUALIFIED
+  CONVERTED
+  ARCHIVED
+}
+
+model Lead {
+  id             String       @id @default(cuid())
+  type           LeadType     @default(DROP_WAITLIST)
+  status         LeadStatus   @default(NEW)
+  name           String?
+  email          String
+  phone          String?
+  preferredFit   FitCategory?
+  preferredSize  String?
+  message        String?      @db.Text
+  source         String?      // e.g., "homepage-drop-countdown", "vault-page"
+  dropId         String?
+  drop           Drop?        @relation(fields: [dropId], references: [id], onDelete: SetNull)
+  assignedUserId String?
+  assignedUser   User?        @relation("AssignedUser", fields: [assignedUserId], references: [id], onDelete: SetNull)
+  internalNotes  String?      @db.Text
+  followUpAt     DateTime?
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+
+  @@index([type, status])
+  @@index([email])
+}
+
+// ==========================================
+// 8. TECHNICAL SEO, REDIRECTS & AUDIT LOGS
+// ==========================================
+model Redirect {
+  id         String   @id @default(cuid())
+  sourcePath String   @unique // e.g., "/old-drop"
+  targetPath String   // e.g., "/vault/drop-001"
+  statusCode Int      @default(301)
+  isActive   Boolean  @default(true)
+  createdAt  DateTime @default(now())
+}
+
+model SiteSetting {
+  key       String   @id // e.g., "navigation_links", "footer_links", "crawler_policy"
+  value     Json
+  updatedAt DateTime @updatedAt
+}
+
+model AuditLog {
+  id         String   @id @default(cuid())
+  userId     String?
+  user       User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  action     String   // e.g., "DROP_PUBLISHED", "GST_UPDATED", "STOCK_ADJUSTED"
+  entityType String   // e.g., "Drop", "GstConfig", "Order"
+  entityId   String?
+  metadata   Json?
+  ipAddress  String?
+  createdAt  DateTime @default(now())
+
+  @@index([entityType, createdAt])
+}

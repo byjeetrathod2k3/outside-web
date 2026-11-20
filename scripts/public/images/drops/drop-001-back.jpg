@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1500" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#121212" />
+      <stop offset="100%" stop-color="#080808" />
+    </linearGradient>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#222" stroke-width="1" stroke-opacity="0.4" />
+    </pattern>
+  </defs>
+  <rect width="1200" height="1500" fill="url(#bg)" />
+  <rect width="1200" height="1500" fill="url(#grid)" />
+  
+  <!-- Architectural Silhouette Illustration -->
+  <g transform="translate(300, 250)" stroke="#333" stroke-width="2" fill="none">
+    <!-- Boxy Oversized T-Shirt Wireframe -->
+    <path d="M 150 50 Q 300 100 450 50 L 580 180 L 480 280 L 430 220 L 430 850 L 170 850 L 170 220 L 120 280 L 20 180 Z" stroke="#555" stroke-width="3" fill="#141414" fill-opacity="0.8" />
+    <!-- Collar -->
+    <path d="M 230 65 Q 300 120 370 65" stroke="#D91E2A" stroke-width="4" fill="none" />
+    <!-- Center Crease / Seam -->
+    <line x1="300" y1="120" x2="300" y2="850" stroke="#2A2A2A" stroke-dasharray="6,6" />
+    <!-- Distressed Stamp Accent -->
+    <rect x="250" y="320" width="100" height="30" fill="#D91E2A" fill-opacity="0.15" stroke="#D91E2A" stroke-width="1" />
+    <text x="300" y="340" fill="#D91E2A" font-family="monospace" font-size="12" letter-spacing="4" text-anchor="middle">OUTSIDE</text>
+  </g>
+
+  <!-- Editorial Meta Badges -->
+  <text x="80" y="120" fill="#888" font-family="monospace" font-size="20" letter-spacing="6">EDITION // SPEC-280</text>
+  <text x="80" y="160" fill="#FFF" font-family="sans-serif" font-weight="900" font-size="44" letter-spacing="2">MIDNIGHT MONOLITH</text>
+  <text x="80" y="200" fill="#D91E2A" font-family="monospace" font-size="18" letter-spacing="3">BACK DISTRESSED GRAPHIC</text>
+
+  <!-- Bottom Stamp -->
+  <line x1="80" y1="1380" x2="1120" y2="1380" stroke="#333" stroke-width="1" />
+  <text x="80" y="1420" fill="#666" font-family="monospace" font-size="16" letter-spacing="4">GUJARAT, INDIA · 280 GSM COMBED COTTON · SERIALIZED RUN</text>
+  <text x="1120" y="1420" fill="#FFF" font-family="monospace" font-size="16" letter-spacing="4" text-anchor="end">001 / 250</text>
+</svg>

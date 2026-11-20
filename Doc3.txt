@@ -1,0 +1,236 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ==========================================
+// 1. AUTHENTICATION & RBAC
+// ==========================================
+enum Role {
+  SUPER_ADMIN
+  ADMIN
+  EDITOR
+  VIEWER
+}
+
+model User {
+  id           String     @id @default(cuid())
+  email        String     @unique
+  name         String
+  passwordHash String
+  role         Role       @default(EDITOR)
+  isActive     Boolean    @default(true)
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+
+  assignedLeads Lead[]     @relation("AssignedUser")
+  auditLogs     AuditLog[]
+}
+
+// ==========================================
+// 2. SINGLE-DROP LIMITED T-SHIRT ENGINE
+// ==========================================
+enum DropStatus {
+  DRAFT
+  UPCOMING
+  LIVE
+  SOLD_OUT
+  ARCHIVED
+}
+
+enum FitCategory {
+  WOMEN
+  MEN
+  UNISEX
+}
+
+model Drop {
+  id              String     @id @default(cuid())
+  dropNumber      Int        @unique // e.g., 1 for "DROP 001"
+  slug            String     @unique
+  title           String
+  subtitle        String?
+  story           String     @db.Text // Editorial copy & design inspiration
+  fabricSpecs     String?    @db.Text // GSM, cotton type, care instructions
+  priceCents      Int        // Stored in smallest currency unit (paise/cents)
+  currency        String     @default("INR")
+  totalEditionQty Int        // Total limited pieces produced (e.g., 250)
+  status          DropStatus @default(DRAFT)
+  launchAt        DateTime?  // Drives countdown timer
+  soldOutAt       DateTime?
+  primaryImageUrl String
+  galleryUrls     Json       // Array of editorial & lookbook image URLs
+  isFeatured      Boolean    @default(false) // Only 1 active drop featured on homepage
+
+  // SEO / AEO / GEO
+  seoTitle        String?
+  seoDescription  String?
+  canonicalUrl    String?
+  ogImageUrl      String?
+  noIndex         Boolean    @default(false)
+
+  variants        DropVariant[]
+  leads           Lead[]
+  createdAt       DateTime   @default(now())
+  updatedAt       DateTime   @updatedAt
+
+  @@index([status, isFeatured])
+}
+
+model DropVariant {
+  id            String      @id @default(cuid())
+  dropId        String
+  drop          Drop        @relation(fields: [dropId], references: [id], onDelete: Cascade)
+  sku           String      @unique
+  fit           FitCategory @default(WOMEN) // Women-first catalog structure
+  size          String      // XS, S, M, L, XL, XXL
+  initialStock  Int
+  currentStock  Int         // Decremented atomically via PostgreSQL transaction
+  reservedStock Int         @default(0)
+
+  @@unique([dropId, fit, size])
+  @@index([dropId])
+}
+
+// ==========================================
+// 3. HEADLESS CMS, JOURNAL & FAQs (AEO/GEO)
+// ==========================================
+enum PublishStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
+model Page {
+  id             String        @id @default(cuid())
+  slug           String        @unique
+  title          String
+  contentBlocks  Json          // Structured sections for modular rendering
+  status         PublishStatus @default(DRAFT)
+  publishedAt    DateTime?
+
+  // Dynamic SEO
+  seoTitle       String?
+  seoDescription String?
+  canonicalUrl   String?
+  ogImageUrl     String?
+  noIndex        Boolean       @default(false)
+  schemaJsonLd   Json?
+
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+
+  @@index([status, slug])
+}
+
+model JournalPost {
+  id             String        @id @default(cuid())
+  slug           String        @unique
+  title          String
+  excerpt        String
+  body           String        @db.Text
+  coverImageUrl  String?
+  authorName     String
+  status         PublishStatus @default(DRAFT)
+  publishedAt    DateTime?
+
+  // SEO / GEO
+  seoTitle       String?
+  seoDescription String?
+  canonicalUrl   String?
+  noIndex        Boolean       @default(false)
+
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+
+  @@index([status, publishedAt])
+}
+
+model FAQ {
+  id        String   @id @default(cuid())
+  question  String
+  answer    String   @db.Text
+  category  String   @default("General") // Sizing, Drops, Shipping, Fabric
+  sortOrder Int      @default(0)
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// ==========================================
+// 4. LEAD & DROP WAITLIST CRM
+// ==========================================
+enum LeadType {
+  DROP_WAITLIST
+  CONTACT_INQUIRY
+  PRESS_COLLAB
+  WHOLESALE
+}
+
+enum LeadStatus {
+  NEW
+  CONTACTED
+  QUALIFIED
+  CONVERTED
+  ARCHIVED
+}
+
+model Lead {
+  id             String     @id @default(cuid())
+  type           LeadType   @default(DROP_WAITLIST)
+  status         LeadStatus @default(NEW)
+  name           String?
+  email          String
+  phone          String?
+  preferredFit   FitCategory?
+  preferredSize  String?
+  message        String?    @db.Text
+  source         String?    // e.g., "homepage-countdown", "vault-page"
+  dropId         String?
+  drop           Drop?      @relation(fields: [dropId], references: [id], onDelete: SetNull)
+  assignedUserId String?
+  assignedUser   User?      @relation("AssignedUser", fields: [assignedUserId], references: [id], onDelete: SetNull)
+  internalNotes  String?    @db.Text
+  followUpAt     DateTime?
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
+
+  @@index([type, status])
+  @@index([email])
+}
+
+// ==========================================
+// 5. TECHNICAL SEO, REDIRECTS & AUDIT LOGS
+// ==========================================
+model Redirect {
+  id         String   @id @default(cuid())
+  sourcePath String   @unique // e.g., "/old-drop"
+  targetPath String   // e.g., "/vault/drop-001"
+  statusCode Int      @default(301)
+  isActive   Boolean  @default(true)
+  createdAt  DateTime @default(now())
+}
+
+model SiteSetting {
+  key       String   @id // e.g., "navigation_links", "footer_links", "crawler_policy"
+  value     Json
+  updatedAt DateTime @updatedAt
+}
+
+model AuditLog {
+  id         String   @id @default(cuid())
+  userId     String?
+  user       User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  action     String   // e.g., "DROP_PUBLISHED", "STOCK_UPDATED", "LEAD_EXPORTED"
+  entityType String   // e.g., "Drop", "Page", "Lead"
+  entityId   String?
+  metadata   Json?
+  ipAddress  String?
+  createdAt  DateTime @default(now())
+
+  @@index([entityType, createdAt])
+}

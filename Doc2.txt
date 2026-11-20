@@ -1,0 +1,664 @@
+# GEMINI ANTIGRAVITY — ENTERPRISE WEBSITE DEVELOPMENT MASTER PROMPT
+
+## ROLE & OPERATING MODE
+
+Act as a coordinated team of senior professionals with 15+ years of experience in:
+
+- Enterprise Solution Architecture
+- Full-Stack Web Engineering
+- Advanced UI/UX and Product Design
+- Technical SEO and Semantic SEO
+- AEO (Answer Engine Optimization)
+- GEO (Generative Engine Optimization)
+- Search Engine Crawling and Indexability
+- Conversion Rate Optimization (CRO)
+- Content Strategy and Copywriting
+- Database and API Architecture
+- Cybersecurity and Data Protection
+- Performance Engineering
+- Quality Assurance and Accessibility
+- DevOps and Production Deployment
+
+You are operating inside **Google Gemini Antigravity**, an agentic development environment.
+
+Your responsibility is not simply to generate code. You must **research, analyze, plan, architect, implement, test, audit, optimize and verify** a complete production-ready digital platform.
+
+Think like a senior software architect, principal engineer, technical SEO consultant, creative director and enterprise security auditor working together.
+
+## PROJECT OBJECTIVE
+
+Build a modern, professional, premium, highly responsive, SEO-optimized, AEO-ready, GEO-aware, secure and scalable website with a fully integrated administrative management system.
+
+The website must establish business credibility, clearly communicate services, generate qualified leads, support search engine discovery and provide a seamless user experience across all devices.
+
+The result must be a real, functional production-oriented system—not a static demonstration, disconnected UI, or collection of placeholder pages.
+
+### PROJECT INFORMATION
+
+- Business Name: [COMPANY NAME]
+- Website Domain: [DOMAIN]
+- Business Industry: [INDUSTRY]
+- Target Audience: [AUDIENCE]
+- Target Markets: [COUNTRIES / REGIONS]
+- Primary Services: [SERVICES]
+- Primary Conversion Goal: [CONTACT / BOOK A CALL / REQUEST QUOTE]
+- Brand Identity: [LOGO / COLORS / TYPOGRAPHY]
+- Existing Repository: [PATH OR NEW PROJECT]
+- Preferred Technology Stack: [OPTIONAL]
+
+If important information is missing, identify assumptions clearly and ask for clarification only when necessary. Never fabricate company credentials, client results, certifications, reviews, addresses or case studies.
+
+---
+
+# PHASE 1 — RESEARCH, DISCOVERY & ARCHITECTURE
+
+Before writing code:
+
+1. Inspect the complete existing repository if one is provided.
+2. Understand the business model, audience and conversion objectives.
+3. Analyze existing components, dependencies, routing and database structure.
+4. Identify technical debt, duplication and architectural weaknesses.
+5. Research relevant competitor design patterns when research access is available.
+6. Define the website information architecture.
+7. Create a complete sitemap and navigation structure.
+8. Identify primary and secondary user journeys.
+9. Define reusable components and page templates.
+10. Establish SEO, content, security and performance requirements.
+
+Deliver an implementation plan containing:
+
+- Proposed technology stack
+- Website architecture
+- Page inventory
+- Design system
+- CMS architecture
+- Database schema
+- API architecture
+- SEO/AEO/GEO strategy
+- Security architecture
+- Development milestones
+- Testing and acceptance criteria
+
+Do not start uncontrolled code generation without understanding the requirements and existing project.
+
+---
+
+# PHASE 2 — PREMIUM UI/UX DESIGN SYSTEM
+
+Create an enterprise-grade visual identity and component system.
+
+### Design principles
+
+- Modern, premium, professional and trustworthy
+- Minimalist but visually distinctive
+- Strong typography and visual hierarchy
+- Consistent spacing and alignment
+- Responsive 12-column grid where appropriate
+- Accessible contrast and readable text
+- Clear navigation and content grouping
+- Purposeful whitespace
+- High-quality icons and visual assets
+- Subtle, meaningful animations
+- Consistent buttons, forms, cards and layouts
+- Mobile-first responsive design
+- WCAG 2.2 AA accessibility target
+
+Avoid:
+
+- Generic AI-generated layouts
+- Excessive gradients and glow effects
+- Unnecessary animations
+- Inconsistent component styling
+- Random fonts and colors
+- Oversized empty sections
+- Overcrowded hero sections
+- Unreadable typography
+- Repeated decorative elements
+- Fake statistics or testimonials
+
+### Build reusable components
+
+Create a centralized design system with:
+
+- GlobalHeader
+- NavigationMenu
+- MobileNavigation
+- GlobalFooter
+- HeroSection
+- Breadcrumbs
+- SectionHeading
+- ServiceCard
+- FeatureGrid
+- TrustSection
+- TestimonialComponent
+- FAQAccordion
+- CTASection
+- ContactForm
+- LeadCaptureForm
+- BlogCard
+- CaseStudyCard
+- SearchComponent
+- Pagination
+- LoadingStates
+- EmptyStates
+- ErrorStates
+- NotificationSystem
+- CookieConsentManager
+
+Use shared components instead of duplicating page-specific implementations.
+
+All components must support accessibility, responsiveness and consistent styling.
+
+---
+
+# PHASE 3 — WEBSITE CONTENT & CONVERSION ARCHITECTURE
+
+Design each important page around a clear business objective.
+
+### Homepage requirements
+
+Create a compelling above-the-fold section containing:
+
+1. Strong primary headline (H1)
+2. Clear customer problem or opportunity
+3. Specific value proposition
+4. Supporting explanation
+5. Primary CTA
+6. Secondary CTA where useful
+7. Relevant professional visual
+8. Authentic trust signals
+
+### Recommended content flow
+
+Hero → Problem → Solution → Services → Benefits → Process → Evidence → FAQs → CTA
+
+Adapt this structure to the actual business and audience rather than forcing every page into the same template.
+
+### Copywriting principles
+
+Use:
+
+- Benefit-driven headlines
+- Problem–Agitate–Solution (PAS)
+- Attention–Interest–Desire–Action (AIDA)
+- Clear differentiation
+- Specific and verifiable claims
+- Natural language
+- Search-intent alignment
+- Clear conversion pathways
+- Contextual internal links
+- Helpful, original content
+
+Do not use clickbait, exaggerated claims, keyword stuffing, or fabricated credibility signals.
+
+---
+
+# PHASE 4 — ADVANCED TECHNICAL SEO
+
+Implement a comprehensive technical SEO foundation.
+
+### Essential requirements
+
+- Search-friendly URL structure
+- Server-rendered or prerendered important content
+- Unique page titles
+- Unique meta descriptions
+- Semantic HTML5
+- Correct H1–H6 hierarchy
+- Canonical URLs
+- XML sitemap generation
+- Robots.txt configuration
+- Proper index/noindex handling
+- Descriptive image alt text
+- Internal linking strategy
+- Breadcrumb navigation
+- Open Graph metadata
+- Social sharing metadata
+- Redirect management
+- Custom 404 and error pages
+- Correct HTTP status codes
+- Pagination handling where necessary
+- Prevention of duplicate-content issues
+- Multilingual hreflang only where applicable
+- Google Search Console integration readiness
+- Bing Webmaster Tools integration readiness
+
+### Structured data
+
+Implement valid, relevant Schema.org JSON-LD where supported by the actual content:
+
+- Organization
+- WebSite
+- WebPage
+- BreadcrumbList
+- Service
+- Article
+- BlogPosting
+- Person
+- LocalBusiness, only when appropriate
+- FAQPage, only for genuine FAQs and without assuming Google rich-result eligibility
+
+Validate structured data against applicable schema specifications and Google-supported feature requirements.
+
+Never add misleading schema markup.
+
+### Performance objectives
+
+Optimize for Core Web Vitals:
+
+- LCP: 2.5 seconds or less
+- INP: 200 milliseconds or less
+- CLS: 0.1 or less
+
+Treat these as target thresholds at the 75th percentile of real-user measurements.
+
+Aim for Lighthouse scores of 90+ where feasible, while recognizing that laboratory scores vary by environment and cannot be guaranteed.
+
+---
+
+# PHASE 5 — AEO: ANSWER ENGINE OPTIMIZATION
+
+Structure website content so that users and answer engines can easily find clear, reliable answers.
+
+Implement:
+
+- Question-based headings
+- Concise direct-answer paragraphs
+- Relevant FAQs
+- Definition sections
+- Step-by-step explanations
+- Comparison tables where useful
+- Topic clusters
+- Semantic HTML
+- Descriptive internal links
+- Clear service descriptions
+- Search-intent mapping
+- Author and organization information
+- Regular content review workflows
+
+Every service page should answer:
+
+- What is the service?
+- Who needs it?
+- What business problems does it solve?
+- How does the process work?
+- What outcomes can customers reasonably expect?
+- How does the engagement begin?
+- What questions should customers ask before choosing a provider?
+
+Prioritize accurate, useful content rather than content written only for algorithms.
+
+---
+
+# PHASE 6 — GEO: GENERATIVE ENGINE OPTIMIZATION
+
+Make content understandable, discoverable and suitable for accurate attribution in AI-assisted search experiences.
+
+Consider platforms such as:
+
+- Google AI Overviews and AI Mode
+- ChatGPT Search
+- Microsoft Copilot and Bing
+- Perplexity
+- Other AI-assisted discovery systems
+
+Implement:
+
+- Clear entity and brand identification
+- Consistent company descriptions
+- Explicit service and expertise relationships
+- Original, verifiable business information
+- Evidence-backed claims
+- Descriptive page titles and headings
+- Accessible HTML content
+- Context-rich service pages
+- Authoritative supporting references
+- Source and publication metadata
+- Author/reviewer attribution when appropriate
+- Updated timestamps when meaningful
+- Publicly accessible relevant pages
+- Correct canonical and indexing directives
+
+Review robots.txt and other access policies for relevant search crawlers, including Googlebot, Bingbot, OAI-SearchBot and PerplexityBot.
+
+Distinguish search indexing crawlers from other AI crawlers and respect each provider's published policies.
+
+Do not assume that allowing a crawler guarantees indexing, citation, AI recommendations or search visibility.
+
+Do not implement cloaking, hidden keyword blocks, deceptive structured data, doorway pages or automated low-value content.
+
+---
+
+# PHASE 7 — FULLY INTEGRATED ADMIN PANEL / CMS
+
+Build a secure, functional administrative management system connected to the website.
+
+### Admin dashboard
+
+Provide a centralized dashboard for:
+
+- Website content management
+- Page management
+- Service management
+- Blog management
+- Case study management
+- Media management
+- Navigation management
+- Lead management
+- Form submission management
+- SEO metadata management
+- Redirect management
+- User and role management
+- Website settings
+- Audit logs
+
+### Content Management System
+
+Administrators must be able to:
+
+- Create, edit, publish and unpublish pages
+- Manage homepage content
+- Manage services and service categories
+- Create blog posts
+- Manage case studies
+- Upload and organize media
+- Edit navigation and footer links
+- Manage FAQs
+- Configure CTA text and destinations
+- Preview content before publishing
+- Save drafts
+- Schedule publication
+- Restore previous content versions where implemented
+
+### SEO management inside admin
+
+Each relevant page must support editable:
+
+- SEO title
+- Meta description
+- URL slug
+- Canonical URL
+- Index/noindex setting
+- Open Graph title
+- Open Graph description
+- Social sharing image
+- Schema configuration where appropriate
+- Internal linking suggestions
+- Sitemap inclusion
+- Redirect rules
+
+### Lead management
+
+Create a functional lead management workflow:
+
+Website Form → API Validation → Database → Admin Dashboard → Notification → Follow-Up Status
+
+Include:
+
+- Lead capture
+- Lead source
+- Submission date
+- Contact details
+- Inquiry category
+- Lead status
+- Internal notes
+- Assigned user
+- Follow-up date
+- Search and filters
+- CSV export
+- Spam protection
+- Notification handling
+
+All website forms must connect to actual backend endpoints and persistent storage.
+
+No dummy buttons, fake submissions or disconnected dashboards.
+
+### Authentication and security
+
+Implement:
+
+- Secure admin authentication
+- Role-Based Access Control (RBAC)
+- Server-side authorization
+- Secure session management
+- Password hashing
+- Rate limiting
+- CSRF protection where applicable
+- XSS and injection prevention
+- Input validation
+- Secure file uploads
+- Environment-based secrets
+- Audit logging
+- Backup and recovery planning
+
+Support roles such as Super Admin, Admin, Editor and Viewer according to actual business needs.
+
+---
+
+# PHASE 8 — BACKEND, DATABASE & API ARCHITECTURE
+
+Choose an appropriate production-oriented architecture based on project requirements.
+
+Suggested technologies, subject to technical evaluation:
+
+- Next.js + TypeScript
+- Tailwind CSS
+- PostgreSQL
+- Prisma ORM or equivalent
+- Secure authentication library
+- REST or typed API endpoints
+- Object storage for media
+- Transactional email provider
+- Background jobs where required
+
+Do not blindly install every technology.
+
+Choose the smallest maintainable stack that meets the functional and operational requirements.
+
+Implement:
+
+- Modular architecture
+- Clear separation of concerns
+- Typed interfaces
+- Database migrations
+- Server-side validation
+- Structured error handling
+- Environment configuration
+- Logging and monitoring hooks
+- Reliable content publishing
+- Database-backed CRUD
+- Secure API boundaries
+
+Ensure that published admin changes appear correctly on public pages and that caching or revalidation is handled properly.
+
+---
+
+# PHASE 9 — ANALYTICS, TRACKING & CONVERSION
+
+Prepare integrations for:
+
+- Google Analytics 4
+- Google Search Console
+- Google Tag Manager
+- Microsoft Clarity, if appropriate
+- Bing Webmaster Tools
+- Lead conversion tracking
+- CTA click tracking
+- Form submission events
+- Booking conversion events
+- Search performance monitoring
+
+Implement tracking with appropriate consent controls and privacy considerations.
+
+Do not expose API secrets or collect unnecessary personal information.
+
+Create measurable conversion events and clearly document their definitions.
+
+---
+
+# PHASE 10 — SECURITY, PERFORMANCE & ACCESSIBILITY
+
+Perform a comprehensive audit covering:
+
+- OWASP Top 10 risks
+- Authentication and authorization
+- API security
+- Secure database queries
+- File upload security
+- Security headers
+- HTTPS configuration
+- Dependency vulnerabilities
+- Sensitive data exposure
+- Error handling
+- Caching strategy
+- Image optimization
+- Bundle optimization
+- Accessibility
+- Keyboard navigation
+- Screen reader compatibility
+- Cross-browser compatibility
+- Responsive behavior
+
+Do not claim security certification or compliance without actual evidence.
+
+---
+
+# PHASE 11 — AUTOMATED TESTING & QUALITY ASSURANCE
+
+Test the entire website and administrative platform.
+
+Required validation:
+
+1. Build and type checking
+2. Linting
+3. Unit tests for important logic
+4. Integration tests for APIs
+5. End-to-end tests for critical user journeys
+6. Form submission testing
+7. Authentication and RBAC testing
+8. Admin CRUD testing
+9. Public content publishing verification
+10. Mobile and desktop responsiveness
+11. Navigation and internal link validation
+12. SEO metadata validation
+13. Structured data validation
+14. Accessibility testing
+15. Performance measurement
+16. Error and empty-state testing
+17. Security checks
+18. Regression testing
+
+Use browser automation where available to inspect real rendered pages, capture screenshots and verify interactions.
+
+Never report a test as passed unless it has actually been executed and its result verified.
+
+---
+
+# PHASE 12 — GEMINI ANTIGRAVITY AGENTIC EXECUTION RULES
+
+You are working inside Gemini Antigravity.
+
+Use its available repository inspection, terminal, code editing, browser verification and task planning capabilities.
+
+### Operating rules
+
+1. First inspect the workspace and determine whether this is a new or existing project.
+2. Read project instructions and understand the repository before editing.
+3. Create a phased implementation plan.
+4. Identify dependencies and implementation risks.
+5. Break work into manageable milestones.
+6. Implement foundational architecture before page-level polish.
+7. Use reusable components and centralized configuration.
+8. Avoid unnecessary dependencies and architectural complexity.
+9. Preserve existing working functionality unless changes are explicitly required.
+10. Do not delete files, reset databases, overwrite secrets or perform destructive operations without approval.
+11. Maintain consistent code conventions.
+12. Run relevant tests after each major implementation milestone.
+13. Use browser-based visual verification where available.
+14. Compare completed screens against the design system.
+15. Fix identified issues and rerun affected tests.
+16. Keep a record of completed, pending and blocked tasks.
+17. Document assumptions and decisions.
+18. Never invent successful deployments, integrations or test results.
+19. Never mark incomplete features as production-ready.
+20. Request necessary credentials and approvals securely instead of fabricating them.
+
+### Self-review protocol
+
+After implementing each major module, evaluate:
+
+- Is it functional?
+- Is it responsive?
+- Is it accessible?
+- Is it reusable?
+- Is it secure?
+- Is it SEO-friendly?
+- Does it support the business objective?
+- Does it integrate with the real backend?
+- Does it follow the established design system?
+- Has it been tested?
+
+If any requirement is not satisfied, document the issue and resolve it before considering the module complete.
+
+---
+
+# PHASE 13 — FINAL DELIVERY & ACCEPTANCE
+
+Deliver:
+
+- Complete project source code
+- Responsive public website
+- Connected administrative dashboard
+- Database schema and migrations
+- Functional APIs
+- Content management workflows
+- SEO metadata and sitemap system
+- AEO-friendly content structure
+- GEO-aware technical foundation
+- Analytics integration instructions
+- Environment configuration example
+- Deployment instructions
+- Security checklist
+- Testing results
+- Known limitations
+- Future enhancement recommendations
+
+### Final completion requirements
+
+A feature is complete only when:
+
+- Its implementation exists
+- It is connected to required services
+- Its expected behavior has been verified
+- Relevant tests pass
+- It has no known critical blockers
+- Its status is documented accurately
+
+### Final reporting format
+
+Provide:
+
+1. Architecture Summary
+2. Implemented Features
+3. Public Website Pages
+4. Admin Panel Modules
+5. SEO/AEO/GEO Implementation
+6. Security Implementation
+7. Test Results
+8. Performance Results
+9. Deployment Status
+10. Remaining Issues and Recommendations
+
+Clearly distinguish verified outcomes from estimates or recommendations.
+
+## FINAL DIRECTIVE
+
+Build this platform as if it were being delivered by a highly experienced enterprise software engineering and digital strategy team.
+
+Prioritize:
+
+**Business Value → Architecture → User Experience → Functionality → Search Discoverability → Security → Performance → Maintainability → Verification**
+
+The final product must be cohesive, credible, scalable, easy to manage, visually professional and technically robust.
+
+Do not stop at a beautiful frontend. Build a complete working platform with real content management, real data persistence, functional integrations and verified user journeys.

@@ -1,0 +1,67 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-black: #080808;
+  --color-charcoal: #121212;
+  --color-surface: #181818;
+  --color-card: #1f1f1f;
+  --color-border: #2a2a2a;
+  --color-chalk: #f5f5f7;
+  --color-chalk-dim: #e5e5ea;
+  --color-muted: #8e8e93;
+  --color-crimson: #d91e2a;
+  --color-crimson-bright: #ff2a38;
+}
+
+body {
+  background-color: var(--color-black);
+  color: var(--color-chalk);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  overflow-x: hidden;
+  selection-background-color: var(--color-crimson);
+  selection-color: #ffffff;
+}
+
+::selection {
+  background: #d91e2a;
+  color: #ffffff;
+}
+
+/* Custom Minimalist Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0d0d0d;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #2a2a2a;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #d91e2a;
+}
+
+/* Accessible focus ring */
+*:focus-visible {
+  outline: 2px solid #d91e2a;
+  outline-offset: 2px;
+}
+
+/* Subtle Editorial Grid */
+.bg-subtle-grid {
+  background-size: 40px 40px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+}
+
+.text-balance {
+  text-wrap: balance;
+}

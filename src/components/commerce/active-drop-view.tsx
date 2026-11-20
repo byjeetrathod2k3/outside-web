@@ -1,0 +1,395 @@
+'use client';
+
+import React, { useState } from 'react';
+import Image from 'next/image';
+import {
+  ShieldCheck,
+  Truck,
+  RotateCcw,
+  Sparkles,
+  AlertCircle,
+  Check,
+  ChevronDown,
+  Info,
+  Clock,
+  Layers,
+} from 'lucide-react';
+import { useCart } from '@/context/cart-context';
+
+interface Variant {
+  id: string;
+  sku: string;
+  fit: 'WOMEN' | 'MEN' | 'UNISEX';
+  size: string;
+  initialStock: number;
+  currentStock: number;
+  reservedStock: number;
+}
+
+interface DropData {
+  id: string;
+  dropNumber: number;
+  slug: string;
+  title: string;
+  subtitle: string;
+  story: string;
+  fabricSpecs: string;
+  pricePaise: number;
+  currency: string;
+  totalEditionQty: number;
+  status: 'LIVE' | 'UPCOMING' | 'SOLD_OUT';
+  primaryImageUrl: string;
+  galleryUrls: string[];
+  variants: Variant[];
+}
+
+export function ActiveDropView({ drop }: { drop: DropData }) {
+  const { addItem } = useCart();
+  const [selectedFit, setSelectedFit] = useState<'WOMEN' | 'MEN'>('WOMEN');
+  const [selectedSize, setSelectedSize] = useState<string>('M');
+  const [activeImageIndex, setActiveImageIndex] = useState(0);
+  const [addedAnimation, setAddedAnimation] = useState(false);
+  const [waitlistModalOpen, setWaitlistModalOpen] = useState(false);
+  const [waitlistEmail, setWaitlistEmail] = useState('');
+  const [waitlistSuccess, setWaitlistSuccess] = useState(false);
+
+  // Filter variants by selected fit
+  const availableVariants = drop.variants.filter((v) => v.fit === selectedFit);
+  const currentVariant =
+    availableVariants.find((v) => v.size === selectedSize) || availableVariants[0];
+
+  const currentStock = currentVariant ? currentVariant.currentStock : 0;
+  const isOutOfStock = currentStock <= 0;
+
+  // Total remaining stock across all variants
+  const totalStockRemaining = drop.variants.reduce((acc, v) => acc + v.currentStock, 0);
+  const percentClaimed = Math.round(
+    ((drop.totalEditionQty - totalStockRemaining) / drop.totalEditionQty) * 100
+  );
+
+  const gallery = drop.galleryUrls && drop.galleryUrls.length > 0 ? drop.galleryUrls : [drop.primaryImageUrl];
+
+  const handleAddToCart = () => {
+    if (!currentVariant || isOutOfStock) return;
+
+    addItem({
+      dropId: drop.id,
+      variantId: currentVariant.id,
+      title: `${drop.title} (${selectedFit})`,
+      fit: selectedFit,
+      size: selectedSize,
+      quantity: 1,
+      unitPricePaise: drop.pricePaise,
+      maxStock: currentStock,
+      image: gallery[0],
+    });
+
+    setAddedAnimation(true);
+    setTimeout(() => setAddedAnimation(false), 2000);
+  };
+
+  const handleJoinWaitlist = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!waitlistEmail) return;
+    try {
+      await fetch('/api/leads', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          type: 'DROP_WAITLIST',
+          email: waitlistEmail,
+          preferredFit: selectedFit,
+          preferredSize: selectedSize,
+          dropId: drop.id,
+          source: 'active-drop-stock-gate',
+        }),
+      });
+      setWaitlistSuccess(true);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  return (
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-16">
+      
+      {/* Velocity / Scarcity Badge */}
+      <div className="mb-8 flex flex-wrap items-center justify-between gap-4 p-4 bg-outside-surface border border-outside-border">
+        <div className="flex items-center gap-3">
+          <span className="w-2.5 h-2.5 rounded-full bg-outside-crimson animate-ping" />
+          <span className="text-xs font-mono font-bold text-white tracking-widest uppercase">
+            DROP 00{drop.dropNumber} // SERIALIZED EDITION OF {drop.totalEditionQty}
+          </span>
+        </div>
+        <div className="flex items-center gap-4 text-xs font-mono">
+          <span className="text-outside-muted">
+            CLAIMED: <strong className="text-white">{percentClaimed}%</strong>
+          </span>
+          <span className="text-outside-border">|</span>
+          <span className="text-outside-crimson font-bold">
+            REMAINING PIECES: {totalStockRemaining}
+          </span>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+        
+        {/* Left: Lookbook & Image Gallery Showcase */}
+        <div className="lg:col-span-7 space-y-4">
+          <div className="relative aspect-[4/5] w-full bg-outside-card border border-outside-border overflow-hidden group">
+            <Image
+              src={gallery[activeImageIndex] || gallery[0]}
+              alt={`${drop.title} angle ${activeImageIndex + 1}`}
+              fill
+              priority
+              className="object-cover transition-transform duration-700 group-hover:scale-105"
+            />
+            
+            {/* Serial Number Stamp Watermark */}
+            <div className="absolute top-4 left-4 bg-outside-black/80 backdrop-blur-md px-3 py-1.5 border border-outside-border font-mono text-[10px] text-outside-chalk tracking-widest uppercase">
+              SPEC: 280 GSM · GUJARAT WEAVE
+            </div>
+
+            <div className="absolute bottom-4 right-4 bg-outside-black/90 backdrop-blur-md px-3 py-1.5 border border-outside-border font-mono text-[11px] text-outside-crimson tracking-widest">
+              TAG: #OUT-00{drop.dropNumber}
+            </div>
+          </div>
+
+          {/* Thumbnail Strip */}
+          <div className="grid grid-cols-4 gap-3">
+            {gallery.map((url, idx) => (
+              <button
+                key={url + idx}
+                onClick={() => setActiveImageIndex(idx)}
+                className={`relative aspect-square bg-outside-card border transition-all ${
+                  activeImageIndex === idx
+                    ? 'border-outside-crimson ring-1 ring-outside-crimson'
+                    : 'border-outside-border hover:border-outside-muted/60 opacity-70 hover:opacity-100'
+                }`}
+              >
+                <Image
+                  src={url}
+                  alt={`Thumbnail ${idx + 1}`}
+                  fill
+                  className="object-cover"
+                />
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Right: Product Architectural Details & Buy Engine */}
+        <div className="lg:col-span-5 space-y-8">
+          
+          {/* Header & Pricing */}
+          <div className="space-y-3">
+            <div className="flex items-center gap-2 text-[11px] font-mono text-outside-crimson uppercase tracking-[0.25em]">
+              <Sparkles className="w-3.5 h-3.5" />
+              <span>OFFICIAL SINGLE-DROP RELEASE</span>
+            </div>
+            <h1 className="text-3xl sm:text-4xl font-display font-black tracking-tight text-white uppercase">
+              {drop.title}
+            </h1>
+            <p className="text-sm font-sans text-outside-muted leading-relaxed">
+              {drop.subtitle}
+            </p>
+
+            {/* Price & GST Transparency */}
+            <div className="pt-4 border-t border-outside-border/80 flex items-baseline gap-4">
+              <span className="text-3xl font-mono font-bold text-white tracking-tight">
+                ₹{(drop.pricePaise / 100).toLocaleString('en-IN')}
+              </span>
+              <div className="text-left font-mono text-[11px] text-outside-muted">
+                <p className="text-outside-chalkDim">INCLUSIVE OF ALL TAXES (5% GST)</p>
+                <p className="text-[10px] text-outside-muted">HSN: 61091000 · NO HIDDEN FEES</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Fit Selector (Women-First Philosophy) */}
+          <div className="space-y-3">
+            <div className="flex justify-between items-center">
+              <label className="text-xs font-mono uppercase tracking-[0.2em] text-white flex items-center gap-2">
+                <span>SELECT SILHOUETTE FIT</span>
+                <span className="text-[10px] text-outside-crimson font-bold">// WOMEN-FIRST PATTERN</span>
+              </label>
+              <a
+                href="#fit-philosophy"
+                className="text-[11px] font-mono text-outside-muted hover:text-white underline decoration-outside-border underline-offset-4"
+              >
+                FIT PHILOSOPHY
+              </a>
+            </div>
+
+            <div className="grid grid-cols-2 gap-3">
+              {(['WOMEN', 'MEN'] as const).map((fit) => (
+                <button
+                  key={fit}
+                  onClick={() => setSelectedFit(fit)}
+                  className={`py-3.5 px-4 font-mono text-xs uppercase tracking-widest border transition-all flex flex-col items-center justify-center gap-1 ${
+                    selectedFit === fit
+                      ? 'bg-outside-surface border-outside-crimson text-white font-bold ring-1 ring-outside-crimson'
+                      : 'bg-outside-card border-outside-border text-outside-muted hover:text-white hover:border-outside-muted'
+                  }`}
+                >
+                  <span>{fit === 'WOMEN' ? 'WOMEN SILHOUETTE' : 'MEN SILHOUETTE'}</span>
+                  <span className="text-[10px] text-outside-muted">
+                    {fit === 'WOMEN' ? 'Ergonomic Boxy Cut' : 'Relaxed Structured Cut'}
+                  </span>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Size Matrix & Atomic Stock Indicators */}
+          <div className="space-y-3">
+            <div className="flex justify-between items-center text-xs font-mono">
+              <span className="uppercase tracking-wider text-white">CHOOSE SIZE</span>
+              <span className="text-outside-muted">
+                {currentStock > 0 ? (
+                  <span className="text-outside-crimson font-bold">
+                    {currentStock <= 5 ? `ONLY ${currentStock} LEFT IN STOCK` : `${currentStock} AVAILABLE`}
+                  </span>
+                ) : (
+                  <span className="text-outside-crimson font-bold">SOLD OUT</span>
+                )}
+              </span>
+            </div>
+
+            <div className="grid grid-cols-4 gap-2.5">
+              {availableVariants.map((v) => {
+                const isSelected = selectedSize === v.size;
+                const isSoldOut = v.currentStock <= 0;
+
+                return (
+                  <button
+                    key={v.size}
+                    disabled={isSoldOut}
+                    onClick={() => setSelectedSize(v.size)}
+                    className={`py-3 font-mono text-xs uppercase tracking-wider border relative transition-all ${
+                      isSelected
+                        ? 'bg-white text-black font-bold border-white shadow-lg'
+                        : isSoldOut
+                        ? 'bg-outside-card/40 border-outside-border/40 text-outside-muted/40 cursor-not-allowed line-through'
+                        : 'bg-outside-card border-outside-border text-outside-chalk hover:border-white'
+                    }`}
+                  >
+                    <span>{v.size}</span>
+                    {v.currentStock > 0 && v.currentStock <= 5 && !isSelected && (
+                      <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-outside-crimson" />
+                    )}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Purchase Actions */}
+          <div className="space-y-3 pt-2">
+            {isOutOfStock ? (
+              <button
+                onClick={() => setWaitlistModalOpen(true)}
+                className="w-full py-4 px-6 bg-outside-card border border-outside-crimson text-outside-crimson hover:bg-outside-crimson hover:text-white font-mono text-xs uppercase tracking-[0.2em] font-bold transition-all flex items-center justify-center gap-2"
+              >
+                <AlertCircle className="w-4 h-4" />
+                <span>SIZE SOLD OUT — JOIN WAITLIST</span>
+              </button>
+            ) : (
+              <button
+                onClick={handleAddToCart}
+                className="w-full py-4 px-6 bg-outside-crimson hover:bg-outside-crimsonBright text-white font-mono text-xs uppercase tracking-[0.25em] font-bold transition-all shadow-xl flex items-center justify-center gap-3 group"
+              >
+                {addedAnimation ? (
+                  <>
+                    <Check className="w-4 h-4" />
+                    <span>ADDED TO BAG</span>
+                  </>
+                ) : (
+                  <>
+                    <span>CLAIM PIECE NOW &rarr;</span>
+                    <span className="text-[10px] opacity-80 font-normal">
+                      (₹{(drop.pricePaise / 100).toLocaleString('en-IN')})
+                    </span>
+                  </>
+                )}
+              </button>
+            )}
+
+            <div className="grid grid-cols-3 gap-3 pt-4 text-center font-mono text-[10px] text-outside-muted">
+              <div className="p-2.5 bg-outside-surface border border-outside-border/60">
+                <Truck className="w-4 h-4 mx-auto mb-1 text-white" />
+                <span>EXPRESS 2-4 DAYS</span>
+              </div>
+              <div className="p-2.5 bg-outside-surface border border-outside-border/60">
+                <ShieldCheck className="w-4 h-4 mx-auto mb-1 text-white" />
+                <span>100% GST INVOICE</span>
+              </div>
+              <div className="p-2.5 bg-outside-surface border border-outside-border/60">
+                <RotateCcw className="w-4 h-4 mx-auto mb-1 text-white" />
+                <span>7-DAY EXCHANGE</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Fabric Specifications Micro-Bento */}
+          <div className="p-5 bg-outside-surface border border-outside-border space-y-3 font-mono text-xs">
+            <div className="flex items-center gap-2 text-white font-bold uppercase tracking-wider">
+              <Layers className="w-4 h-4 text-outside-crimson" />
+              <span>GARMENT TECHNICAL SPECIFICATIONS</span>
+            </div>
+            <p className="text-outside-muted leading-relaxed font-sans text-xs">
+              {drop.fabricSpecs}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* Waitlist Modal */}
+      {waitlistModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-sm">
+          <div className="bg-outside-charcoal border border-outside-border max-w-md w-full p-8 relative">
+            <h3 className="text-lg font-mono uppercase tracking-wider text-white mb-2">
+              JOIN {selectedFit} · SIZE {selectedSize} WAITLIST
+            </h3>
+            <p className="text-xs text-outside-muted leading-relaxed mb-6">
+              If another collector cancels their order or extra allocation opens up, you will be alerted immediately.
+            </p>
+
+            {waitlistSuccess ? (
+              <div className="p-4 bg-outside-surface border border-outside-crimson text-white text-xs font-mono flex items-center gap-3">
+                <Check className="w-5 h-5 text-outside-crimson" />
+                <span>YOU HAVE BEEN REGISTERED ON THE PRIORITY QUEUE.</span>
+              </div>
+            ) : (
+              <form onSubmit={handleJoinWaitlist} className="space-y-4">
+                <input
+                  type="email"
+                  required
+                  placeholder="ENTER YOUR EMAIL ADDRESS"
+                  value={waitlistEmail}
+                  onChange={(e) => setWaitlistEmail(e.target.value)}
+                  className="w-full bg-outside-surface border border-outside-border px-4 py-3 text-xs font-mono text-white focus:border-outside-crimson focus:outline-none"
+                />
+                <div className="flex gap-3">
+                  <button
+                    type="submit"
+                    className="flex-1 py-3 bg-outside-crimson text-white text-xs font-mono uppercase tracking-widest font-bold hover:bg-outside-crimsonBright"
+                  >
+                    CONFIRM WAITLIST SPOT
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setWaitlistModalOpen(false)}
+                    className="px-4 py-3 bg-outside-card border border-outside-border text-white text-xs font-mono"
+                  >
+                    CLOSE
+                  </button>
+                </div>
+              </form>
+            )}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}

@@ -1,0 +1,293 @@
+{
+  "drops": [
+    {
+      "id": "drop_001",
+      "dropNumber": 1,
+      "slug": "drop-001-midnight-monolith",
+      "title": "DROP 001 // MIDNIGHT MONOLITH",
+      "subtitle": "280 GSM Heavyweight French Terry Cotton. Serialized Edition of 250.",
+      "story": "Conceived at 3 AM in the brutalist corridors of Ahmedabad. DROP 001 explores the tension between architectural rigidity and tactile intimacy. Engineered from custom-milled 280 GSM organic long-staple combed cotton, double-bio-washed for a crisp yet lived-in drape. Each piece features reinforced split-side seams, distressed screen-printed typography on the nape, and a hand-numbered serial hem tag. Once the 250 units are claimed, this edition will be permanently sealed into The Vault.",
+      "fabricSpecs": "280 GSM 100% Combed Organic Cotton · French Terry Weave · Pre-Shrunk & Bio-Washed · Ribbed Collar with Lycra Recovery · Made in Gujarat, India",
+      "pricePaise": 240000,
+      "currency": "INR",
+      "totalEditionQty": 250,
+      "status": "LIVE",
+      "launchAt": "2026-11-18T06:35:04.105Z",
+      "soldOutAt": null,
+      "primaryImageUrl": "/images/drops/drop-001-main.jpg",
+      "galleryUrls": [
+        "/images/drops/drop-001-main.jpg",
+        "/images/drops/drop-001-back.jpg",
+        "/images/drops/drop-001-detail1.jpg",
+        "/images/drops/drop-001-detail2.jpg"
+      ],
+      "isFeatured": true,
+      "seoTitle": "DROP 001: Midnight Monolith T-Shirt — OUTSIDE India",
+      "seoDescription": "Limited to 250 serialized pieces. 280 GSM heavyweight combed cotton oversized t-shirt designed and crafted in Gujarat, India. Wear your story.",
+      "canonicalUrl": "https://www.outside.in",
+      "ogImageUrl": "/images/drops/drop-001-og.jpg",
+      "noIndex": false,
+      "variants": [
+        {
+          "id": "v_w_xs",
+          "dropId": "drop_001",
+          "sku": "OUT-001-W-XS",
+          "fit": "WOMEN",
+          "size": "XS",
+          "initialStock": 25,
+          "currentStock": 18,
+          "reservedStock": 0
+        },
+        {
+          "id": "v_w_s",
+          "dropId": "drop_001",
+          "sku": "OUT-001-W-S",
+          "fit": "WOMEN",
+          "size": "S",
+          "initialStock": 35,
+          "currentStock": 11,
+          "reservedStock": 0
+        },
+        {
+          "id": "v_w_m",
+          "dropId": "drop_001",
+          "sku": "OUT-001-W-M",
+          "fit": "WOMEN",
+          "size": "M",
+          "initialStock": 40,
+          "currentStock": 4,
+          "reservedStock": 0
+        },
+        {
+          "id": "v_w_l",
+          "dropId": "drop_001",
+          "sku": "OUT-001-W-L",
+          "fit": "WOMEN",
+          "size": "L",
+          "initialStock": 25,
+          "currentStock": 8,
+          "reservedStock": 0
+        },
+        {
+          "id": "v_m_s",
+          "dropId": "drop_001",
+          "sku": "OUT-001-M-S",
+          "fit": "MEN",
+          "size": "S",
+          "initialStock": 25,
+          "currentStock": 15,
+          "reservedStock": 0
+        },
+        {
+          "id": "v_m_m",
+          "dropId": "drop_001",
+          "sku": "OUT-001-M-M",
+          "fit": "MEN",
+          "size": "M",
+          "initialStock": 45,
+          "currentStock": 9,
+          "reservedStock": 0
+        },
+        {
+          "id": "v_m_l",
+          "dropId": "drop_001",
+          "sku": "OUT-001-M-L",
+          "fit": "MEN",
+          "size": "L",
+          "initialStock": 35,
+          "currentStock": 7,
+          "reservedStock": 0
+        },
+        {
+          "id": "v_m_xl",
+          "dropId": "drop_001",
+          "sku": "OUT-001-M-XL",
+          "fit": "MEN",
+          "size": "XL",
+          "initialStock": 10,
+          "currentStock": 2,
+          "reservedStock": 0
+        }
+      ]
+    },
+    {
+      "id": "drop_000",
+      "dropNumber": 0,
+      "slug": "drop-000-genesis-raw",
+      "title": "DROP 000 // GENESIS PROTOTYPE",
+      "subtitle": "Unbleached Organic Raw Cotton. Limited Prototype Run of 100.",
+      "story": "The initial design manifesto. Hand-stitched label, raw edge cuffs, zero dye treatment.",
+      "pricePaise": 220000,
+      "totalEditionQty": 100,
+      "status": "ARCHIVED",
+      "launchAt": "2026-08-15T00:00:00.000Z",
+      "soldOutAt": "2026-08-15T04:22:18.000Z",
+      "primaryImageUrl": "/images/drops/drop-000-main.jpg",
+      "isFeatured": false
+    }
+  ],
+  "orders": [
+    {
+      "id": "ord_1795156614483",
+      "orderNumber": "ORD-614483",
+      "invoiceNumber": "OUT/26-27/0003",
+      "customerName": "Diya Sharma",
+      "customerEmail": "diya@outside.in",
+      "customerPhone": "9876543210",
+      "shippingAddress": "Design Boulevard",
+      "shippingCity": "Ahmedabad",
+      "shippingState": "Gujarat",
+      "shippingPincode": "380015",
+      "stateCode": "24",
+      "placeOfSupplyState": "24-Gujarat",
+      "pricingMode": "TAX_INCLUSIVE",
+      "subtotalPaise": 240000,
+      "taxableAmountPaise": 228571,
+      "cgstPaise": 5714,
+      "sgstPaise": 5715,
+      "igstPaise": 0,
+      "totalTaxPaise": 11429,
+      "totalAmountPaise": 240000,
+      "paymentStatus": "PAID",
+      "paymentGateway": "mock_sandbox",
+      "fulfillmentStatus": "PROCESSING",
+      "items": [
+        {
+          "title": "DROP 001 // MIDNIGHT MONOLITH (WOMEN)",
+          "fit": "WOMEN",
+          "size": "S",
+          "quantity": 1,
+          "unitPricePaise": 240000,
+          "grossAmountPaise": 240000,
+          "taxableAmountPaise": 228571,
+          "hsnCode": "61091000",
+          "gstRate": 5,
+          "isInterState": false,
+          "cgstRate": 2.5,
+          "sgstRate": 2.5,
+          "igstRate": 0,
+          "cgstAmountPaise": 5714,
+          "sgstAmountPaise": 5715,
+          "igstAmountPaise": 0,
+          "totalTaxPaise": 11429
+        }
+      ],
+      "createdAt": "2026-11-20T06:36:54.483Z"
+    }
+  ],
+  "leads": [
+    {
+      "id": "lead_demo_1",
+      "type": "DROP_WAITLIST",
+      "status": "NEW",
+      "name": "Aarav Mehta",
+      "email": "aarav@example.com",
+      "phone": "+919876543210",
+      "preferredFit": "MEN",
+      "preferredSize": "L",
+      "source": "homepage-countdown",
+      "createdAt": "2026-11-20T06:35:04.199Z"
+    }
+  ],
+  "faqs": [
+    {
+      "id": "faq_1",
+      "category": "Drops & Editions",
+      "question": "How do OUTSIDE drops work?",
+      "answer": "We operate on a single-drop schedule. Each drop features exactly one silhouette, produced in a strictly capped, serialized edition (usually 100 to 250 pieces). Once an edition sells out, it will never be restocked or reissued; it moves permanently into The Vault.",
+      "sortOrder": 1
+    },
+    {
+      "id": "faq_2",
+      "category": "GST & Invoicing",
+      "question": "How is GST calculated on apparel orders?",
+      "answer": "In compliance with Indian Tax Laws (HSN 6109 for cotton knitted t-shirts), items with a sale price up to ₹2,500 are charged 5% GST, while items above ₹2,500 are taxed at 18% GST. For deliveries within Gujarat (State Code 24), tax is split into CGST (2.5% / 9%) + SGST (2.5% / 9%). For all other states, IGST is applied.",
+      "sortOrder": 2
+    },
+    {
+      "id": "faq_3",
+      "category": "Fit & Sizing",
+      "question": "What is the Women-First fit philosophy?",
+      "answer": "Rather than shrinking down a standard boxy men’s cut, our Women-first silhouettes are custom-patterned with proportioned shoulders, ergonomic armhole depth, and calibrated drape to achieve an authentic oversized aesthetic without overwhelming the frame.",
+      "sortOrder": 3
+    },
+    {
+      "id": "faq_4",
+      "category": "Shipping & Delivery",
+      "question": "Where do you ship from, and how fast is delivery?",
+      "answer": "All drops ship directly from our studio in Ahmedabad, Gujarat. Orders are dispatched via Bluedart / Delhivery Express within 24 hours of drop confirmation. Typical transit time is 2-4 business days across metro India.",
+      "sortOrder": 4
+    }
+  ],
+  "journal": [
+    {
+      "id": "journal_1",
+      "slug": "why-we-dont-restock-the-anti-inventory-thesis",
+      "title": "Why We Don’t Restock: The Anti-Inventory Thesis",
+      "excerpt": "Fast fashion manufactures landfill; luxury manufactures artificial hype. OUTSIDE exists at the intersection of architectural design and uncompromised rarity.",
+      "body": "Modern fashion has an overproduction problem. Brands produce tens of thousands of identical garments, mark them up by 800%, discount the remainder by 60%, and incinerate what remains.\n\nAt OUTSIDE, we reject this wasteful cycle. Every piece is numbered. We calculate the exact yardage of cotton needed before cutting a single pattern. When DROP 001 sells out its 250 units, the pattern is retired to The Vault. \n\nThis is not artificial scarcity—it is respect for the fabric, respect for the weavers in Gujarat, and respect for the wearer who knows their garment will never be replicated.",
+      "coverImageUrl": "/images/journal/journal-01.jpg",
+      "authorName": "Studio Outside",
+      "publishedAt": "2026-11-10T10:00:00.000Z",
+      "status": "PUBLISHED"
+    },
+    {
+      "id": "journal_2",
+      "slug": "the-anatomy-of-280gsm-french-terry",
+      "title": "The Anatomy of 280 GSM French Terry: Why Weight Matters",
+      "excerpt": "An engineering breakdown of combed long-staple cotton, loop-back knits, and zero-compromise tactile drape.",
+      "body": "Most retail t-shirts range between 140 to 180 GSM (grams per square meter). They feel thin, lose their neckline elasticity after three washes, and cling to the body.\n\nFor DROP 001, we developed a proprietary 280 GSM French Terry. The outer face is ultra-smooth combed yarn, while the reverse side features a micro-loop construction that absorbs moisture and breathes effortlessly in tropical Indian climates. \n\nThe weight creates an architectural drape—the t-shirt holds its boxy structure without sagging, creating clean, intentional silhouettes on both men and women.",
+      "coverImageUrl": "/images/journal/journal-02.jpg",
+      "authorName": "Studio Outside",
+      "publishedAt": "2026-11-15T12:00:00.000Z",
+      "status": "PUBLISHED"
+    }
+  ],
+  "gstConfig": {
+    "isEnabled": true,
+    "sellerLegalName": "OUTSIDE APPAREL STUDIO PVT LTD",
+    "gstin": "24AABCO1234F1Z5",
+    "originStateCode": "24",
+    "originStateName": "Gujarat",
+    "registeredAddress": "Plot 104, Design District, SG Highway, Ahmedabad, Gujarat 380015",
+    "pricingMode": "TAX_INCLUSIVE",
+    "thresholdInr": 2500,
+    "lowSlabRate": 5,
+    "highSlabRate": 18,
+    "defaultHsn": "61091000",
+    "invoicePrefix": "OUT/26-27/",
+    "invoiceCounter": 4,
+    "financialYear": "2026-2027"
+  },
+  "emailConfig": {
+    "isEnabled": true,
+    "provider": "SMTP",
+    "host": "smtp.gmail.com",
+    "port": 587,
+    "secure": false,
+    "username": "drops@outside.in",
+    "fromName": "OUTSIDE",
+    "fromEmail": "drops@outside.in",
+    "replyTo": "support@outside.in"
+  },
+  "emailLogs": [],
+  "auditLogs": [
+    {
+      "id": "audit_1795156614483",
+      "action": "ORDER_PLACED_INVOICE_GENERATED",
+      "entityType": "Order",
+      "entityId": "ord_1795156614483",
+      "metadata": {
+        "invoiceNumber": "OUT/26-27/0003",
+        "totalAmount": 2400
+      },
+      "createdAt": "2026-11-20T06:36:54.483Z"
+    },
+    {
+      "id": "audit_init",
+      "action": "SYSTEM_INITIALIZED",
+      "entityType": "System",
+      "createdAt": "2026-11-20T06:35:04.199Z"
+    }
+  ]
+}
