@@ -84,8 +84,8 @@ export function InteractiveGarmentStage({
   const angles = [
     { id: 'front', label: '01 // FRONT', src: primaryImageUrl || '/images/drops/drop-001-front.jpg' },
     { id: 'back', label: '02 // BACK', src: galleryUrls[1] || '/images/drops/drop-001-back.jpg' },
-    { id: 'embroidery', label: '03 // EMBROIDERY', src: '/images/drops/drop-001-front.jpg' },
-    { id: 'tag', label: '04 // CANVAS TAG', src: '/images/drops/drop-001-front.jpg' },
+    { id: 'embroidery', label: '03 // EMBROIDERY', src: '/images/drops/drop-001-detail1.jpg' },
+    { id: 'tag', label: '04 // CANVAS TAG', src: '/images/drops/drop-001-detail2.jpg' },
   ];
 
   const [activeAngleIndex, setActiveAngleIndex] = useState(0);

@@ -38,6 +38,8 @@ export const INITIAL_DROP = {
   galleryUrls: [
     '/images/drops/drop-001-front.jpg',
     '/images/drops/drop-001-back.jpg',
+    '/images/drops/drop-001-detail1.jpg',
+    '/images/drops/drop-001-detail2.jpg',
   ],
   isFeatured: true,
   seoTitle: 'DROP 001: Better Days Ahead T-Shirt — OUTSIDE India',

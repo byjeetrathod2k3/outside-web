@@ -17,7 +17,9 @@
       "primaryImageUrl": "/images/drops/drop-001-front.jpg",
       "galleryUrls": [
         "/images/drops/drop-001-front.jpg",
-        "/images/drops/drop-001-back.jpg"
+        "/images/drops/drop-001-back.jpg",
+        "/images/drops/drop-001-detail1.jpg",
+        "/images/drops/drop-001-detail2.jpg"
       ],
       "isFeatured": true,
       "seoTitle": "DROP 001: Better Days Ahead T-Shirt — OUTSIDE India",
@@ -308,6 +310,123 @@
   },
   "emailLogs": [],
   "auditLogs": [
+    {
+      "id": "audit_1795174004254_cl2nv",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-20T11:26:44.254Z"
+    },
+    {
+      "id": "audit_1795174004252_7718s",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-20T11:26:44.252Z"
+    },
+    {
+      "id": "audit_1795174004249_wtwix",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 5,
+        "isLocked": true
+      },
+      "createdAt": "2026-11-20T11:26:44.249Z"
+    },
+    {
+      "id": "audit_1795174004246_y4ev8",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 4,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-20T11:26:44.246Z"
+    },
+    {
+      "id": "audit_1795174004244_h18e5",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 3,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-20T11:26:44.244Z"
+    },
+    {
+      "id": "audit_1795174004242_ftb4o",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 2,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-20T11:26:44.242Z"
+    },
+    {
+      "id": "audit_1795174004239_9kro7",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 1,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-20T11:26:44.239Z"
+    },
+    {
+      "id": "audit_1795174004237_br59t",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-20T11:26:44.237Z"
+    },
+    {
+      "id": "audit_1795174004234_a5zon",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-20T11:26:44.234Z"
+    },
     {
       "id": "audit_1795173184910_9fh6j",
       "userId": "super_admin",
@@ -1460,7 +1579,7 @@
         "glassmorphism": true
       }
     ],
-    "updatedAt": "2026-11-20T11:13:05.541Z"
+    "updatedAt": "2026-11-20T11:26:45.014Z"
   },
   "featureFlags": [
     {
@@ -1471,7 +1590,7 @@
       "isEnabled": true,
       "description": "Display real-time countdown ticker on upcoming drops.",
       "configJson": null,
-      "updatedAt": "2026-11-20T11:13:05.548Z"
+      "updatedAt": "2026-11-20T11:26:45.030Z"
     },
     {
       "id": "flag_live_stock_counter",
@@ -1481,7 +1600,7 @@
       "isEnabled": true,
       "description": "Show exact remaining serialized pieces versus low-stock warning badge.",
       "configJson": null,
-      "updatedAt": "2026-11-20T11:13:05.548Z"
+      "updatedAt": "2026-11-20T11:26:45.030Z"
     },
     {
       "id": "flag_low_stock_threshold",
@@ -1493,7 +1612,7 @@
       "configJson": {
         "threshold": 10
       },
-      "updatedAt": "2026-11-20T11:13:05.548Z"
+      "updatedAt": "2026-11-20T11:26:45.030Z"
     },
     {
       "id": "flag_waitlist_capture",
@@ -1503,7 +1622,7 @@
       "isEnabled": true,
       "description": "Allow collectors to join the prioritized waitlist when an edition is sold out or upcoming.",
       "configJson": null,
-      "updatedAt": "2026-11-20T11:13:05.548Z"
+      "updatedAt": "2026-11-20T11:26:45.030Z"
     },
     {
       "id": "flag_fit_toggle",
@@ -1515,7 +1634,7 @@
       "configJson": {
         "defaultFit": "WOMEN"
       },
-      "updatedAt": "2026-11-20T11:13:05.548Z"
+      "updatedAt": "2026-11-20T11:26:45.030Z"
     },
     {
       "id": "flag_sticky_drop_bar",
@@ -1525,7 +1644,7 @@
       "isEnabled": true,
       "description": "Floating minimal quick-buy and size select bar docked on scroll.",
       "configJson": null,
-      "updatedAt": "2026-11-20T11:13:05.548Z"
+      "updatedAt": "2026-11-20T11:26:45.030Z"
     },
     {
       "id": "flag_checkout_flow",
@@ -1535,7 +1654,7 @@
       "isEnabled": true,
       "description": "When enabled, customers can checkout and pay; when disabled, storefront acts in Waitlist-Only Mode.",
       "configJson": null,
-      "updatedAt": "2026-11-20T11:13:05.548Z"
+      "updatedAt": "2026-11-20T11:26:45.030Z"
     },
     {
       "id": "flag_announcement_bar",
@@ -1548,7 +1667,7 @@
         "text": "DROP 001 LIVE // BETTER DAYS AHEAD · 250 SERIALIZED PIECES · FREE DOMESTIC EXPRESS SHIPPING",
         "link": "/"
       },
-      "updatedAt": "2026-11-20T11:13:05.548Z"
+      "updatedAt": "2026-11-20T11:26:45.030Z"
     },
     {
       "id": "flag_vault_archive",
@@ -1558,7 +1677,7 @@
       "isEnabled": true,
       "description": "Expose archival limited drops to public navigation and search engines.",
       "configJson": null,
-      "updatedAt": "2026-11-20T11:13:05.548Z"
+      "updatedAt": "2026-11-20T11:26:45.030Z"
     },
     {
       "id": "flag_journal",
@@ -1568,7 +1687,7 @@
       "isEnabled": true,
       "description": "Editorial brand essays, cotton engineering breakdowns, and manifesto articles.",
       "configJson": null,
-      "updatedAt": "2026-11-20T11:13:05.548Z"
+      "updatedAt": "2026-11-20T11:26:45.030Z"
     },
     {
       "id": "flag_cookie_consent",
@@ -1578,7 +1697,7 @@
       "isEnabled": true,
       "description": "Minimalist Sandstone Hairline consent pill docked at bottom-left.",
       "configJson": null,
-      "updatedAt": "2026-11-20T11:13:05.548Z"
+      "updatedAt": "2026-11-20T11:26:45.030Z"
     },
     {
       "id": "flag_maintenance_mode",
@@ -1591,7 +1710,7 @@
         "headline": "ATELIER IS CALIBRATING THE NEXT DROP",
         "subline": "DROP 002 PREPARATION UNDERWAY // AHMEDABAD STUDIO"
       },
-      "updatedAt": "2026-11-20T11:13:05.548Z"
+      "updatedAt": "2026-11-20T11:26:45.030Z"
     }
   ],
   "layoutConfig": {
@@ -1675,7 +1794,7 @@
       }
     },
     "mobileStickyCtaPosition": "bottom_fixed",
-    "updatedAt": "2026-11-20T11:13:05.552Z"
+    "updatedAt": "2026-11-20T11:26:45.039Z"
   },
   "seoConfig": {
     "titleTemplate": "%s | OUTSIDE India",
@@ -1703,7 +1822,7 @@
       }
     ],
     "enableWaitlistReferral": true,
-    "updatedAt": "2026-11-20T11:13:04.913Z"
+    "updatedAt": "2026-11-20T11:26:44.257Z"
   },
   "superAdminSecurity": {
     "totpSecret": null,

@@ -34,7 +34,7 @@ const LOOKBOOK_FRAMES = [
     id: 'frame-03',
     title: 'FRAME 03 // EMBROIDERY METALLURGY',
     subtitle: 'Hand-Finished Floral Stem · Rayon Threadwork',
-    image: '/images/drops/drop-001-front.jpg',
+    image: '/images/drops/drop-001-detail1.jpg',
     aspect: 'aspect-square',
     caption: 'Multi-tiered chain-stitch embroidery with debossed heart canvas tag reading "for a kinder you".',
     tag: 'MACRO DETAIL',
