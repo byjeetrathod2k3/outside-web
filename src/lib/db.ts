@@ -20,6 +20,75 @@ if (process.env.NODE_ENV !== 'production') {
 // ==========================================
 // SEED DATA & RESILIENT REPOSITORY (LIGHT THEME)
 // ==========================================
+export interface GarmentHotspot {
+  id: string;
+  xPercent: number; // 0 to 100
+  yPercent: number; // 0 to 100
+  zoomLevel: number; // 1.5, 2.0, 2.5, 3.0, 3.5
+  title: string;
+  tag: string;
+  description: string;
+  spec: string;
+}
+
+export const DEFAULT_HOTSPOTS: GarmentHotspot[] = [
+  {
+    id: 'hs_embroidery',
+    xPercent: 54,
+    yPercent: 27,
+    zoomLevel: 2.8,
+    title: 'Raised Chain-Stitch Floral Embroidery',
+    tag: 'HAND-CRAFTED ATELIER EMBROIDERY',
+    description:
+      'Multi-threaded chocolate umber and rose-pink botanical bloom with cursive "Better Days Ahead" calligraphy. Hand-finished in our Ahmedabad atelier to resist wash distortion.',
+    spec: 'High-Density Rayon Thread · 12,400 Stitches',
+  },
+  {
+    id: 'hs_fabric',
+    xPercent: 30,
+    yPercent: 55,
+    zoomLevel: 2.5,
+    title: '280 GSM Combed Organic French Terry',
+    tag: 'CUSTOM-MILLED IN GUJARAT (24)',
+    description:
+      'Substantial architectural weight in Natural Raw Unbleached Ivory. Double bio-washed for zero shrinkage with a tactile soft-touch loopback interior.',
+    spec: '280 GSM · 100% Organic Combed Cotton',
+  },
+  {
+    id: 'hs_stem',
+    xPercent: 68,
+    yPercent: 51,
+    zoomLevel: 3.0,
+    title: 'Continuous Braided Stemwork & Cord',
+    tag: 'DIMENSIONAL BOTANICAL CRAFT',
+    description:
+      'Elongated vertical braided botanical stem anchoring downwards from the flower into the hem, creating architectural visual flow across the torso.',
+    spec: 'Braided Rayon Cord · Double-Reinforced Anchor Stitches',
+  },
+  {
+    id: 'hs_tag',
+    xPercent: 64,
+    yPercent: 76,
+    zoomLevel: 2.5,
+    title: 'Tethered Canvas Tag Inscription',
+    tag: 'SERIALIZED SIGNATURE DETAIL',
+    description:
+      'Elongated knotted dimensional cord anchored into a raw-edge canvas tag debossed with "for a kinder you" and subtle heart emblem.',
+    spec: 'Raw Canvas · Double-Reinforced Knot Stitches',
+  },
+  {
+    id: 'hs_sleeve',
+    xPercent: 88,
+    yPercent: 42,
+    zoomLevel: 2.6,
+    title: 'Embroidered Sleeve Brand Emblem',
+    tag: 'OFFICIAL OUTSIDE MARK',
+    description:
+      'High-definition OUTSIDE obsidian carbon wordmark enclosing the crimson coiled serpent emblem on the left sleeve hem.',
+    spec: 'Embroidered Patchwork · Precision Merrow Border',
+  },
+];
+
 export const INITIAL_DROP = {
   id: 'drop_001',
   dropNumber: 1,
@@ -41,6 +110,7 @@ export const INITIAL_DROP = {
     '/images/drops/drop-001-detail1.jpg',
     '/images/drops/drop-001-detail2.jpg',
   ],
+  hotspots: DEFAULT_HOTSPOTS,
   isFeatured: true,
   seoTitle: 'DROP 001: Better Days Ahead T-Shirt — OUTSIDE India',
   seoDescription: 'Limited to 250 serialized pieces. 280 GSM heavyweight combed cotton oversized t-shirt with tactile floral embroidery. Wear your story.',
@@ -561,6 +631,9 @@ export function getLocalStore() {
       parsed.drops[0].primaryImageUrl = INITIAL_DROP.primaryImageUrl;
       parsed.drops[0].galleryUrls = INITIAL_DROP.galleryUrls;
       parsed.drops[0].story = INITIAL_DROP.story;
+      if (!parsed.drops[0].hotspots || parsed.drops[0].hotspots.length === 0) {
+        parsed.drops[0].hotspots = DEFAULT_HOTSPOTS;
+      }
     }
     if (!parsed.drops || parsed.drops.length < 4) {
       parsed.drops = [INITIAL_DROP, ...VAULT_DROPS];

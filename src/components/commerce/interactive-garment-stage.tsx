@@ -5,40 +5,43 @@ import Image from 'next/image';
 import {
   Sparkles,
   Maximize2,
+  Minimize2,
   ZoomIn,
-  Eye,
-  Info,
+  RotateCcw,
   Check,
-  Layers,
-  ShieldCheck,
   X,
+  ChevronRight,
+  Layers,
 } from 'lucide-react';
 
-interface Hotspot {
+export interface GarmentHotspot {
   id: string;
   xPercent: number; // 0 to 100
   yPercent: number; // 0 to 100
+  zoomLevel: number; // 1.5 - 3.5
   title: string;
   tag: string;
   description: string;
   spec: string;
 }
 
-const FRONT_HOTSPOTS: Hotspot[] = [
+export const FALLBACK_HOTSPOTS: GarmentHotspot[] = [
   {
-    id: 'embroidery',
-    xPercent: 68,
-    yPercent: 28,
+    id: 'hs_embroidery',
+    xPercent: 54,
+    yPercent: 27,
+    zoomLevel: 2.8,
     title: 'Raised Chain-Stitch Floral Embroidery',
     tag: 'HAND-CRAFTED ATELIER EMBROIDERY',
     description:
-      'Multi-threaded crimson and rose-pink floral head with botanical stemwork reading "Better Days Ahead". Hand-finished in our Ahmedabad atelier to resist wash distortion.',
+      'Multi-threaded chocolate umber and rose-pink botanical bloom with cursive "Better Days Ahead" calligraphy. Hand-finished in our Ahmedabad atelier to resist wash distortion.',
     spec: 'High-Density Rayon Thread · 12,400 Stitches',
   },
   {
-    id: 'fabric',
-    xPercent: 32,
-    yPercent: 44,
+    id: 'hs_fabric',
+    xPercent: 30,
+    yPercent: 55,
+    zoomLevel: 2.5,
     title: '280 GSM Combed Organic French Terry',
     tag: 'CUSTOM-MILLED IN GUJARAT (24)',
     description:
@@ -46,9 +49,21 @@ const FRONT_HOTSPOTS: Hotspot[] = [
     spec: '280 GSM · 100% Organic Combed Cotton',
   },
   {
-    id: 'tag',
+    id: 'hs_stem',
+    xPercent: 68,
+    yPercent: 51,
+    zoomLevel: 3.0,
+    title: 'Continuous Braided Stemwork & Cord',
+    tag: 'DIMENSIONAL BOTANICAL CRAFT',
+    description:
+      'Elongated vertical braided botanical stem anchoring downwards from the flower into the hem, creating architectural visual flow across the torso.',
+    spec: 'Braided Rayon Cord · Double-Reinforced Anchor Stitches',
+  },
+  {
+    id: 'hs_tag',
     xPercent: 64,
-    yPercent: 74,
+    yPercent: 76,
+    zoomLevel: 2.5,
     title: 'Tethered Canvas Tag Inscription',
     tag: 'SERIALIZED SIGNATURE DETAIL',
     description:
@@ -56,9 +71,10 @@ const FRONT_HOTSPOTS: Hotspot[] = [
     spec: 'Raw Canvas · Double-Reinforced Knot Stitches',
   },
   {
-    id: 'sleeve',
+    id: 'hs_sleeve',
     xPercent: 88,
     yPercent: 42,
+    zoomLevel: 2.6,
     title: 'Embroidered Sleeve Brand Emblem',
     tag: 'OFFICIAL OUTSIDE MARK',
     description:
@@ -72,6 +88,7 @@ interface InteractiveGarmentStageProps {
   galleryUrls?: string[];
   dropTitle: string;
   dropNumber: number;
+  hotspots?: GarmentHotspot[];
 }
 
 export function InteractiveGarmentStage({
@@ -79,6 +96,7 @@ export function InteractiveGarmentStage({
   galleryUrls = [],
   dropTitle,
   dropNumber,
+  hotspots,
 }: InteractiveGarmentStageProps) {
   // Available Angles
   const angles = [
@@ -89,171 +107,233 @@ export function InteractiveGarmentStage({
   ];
 
   const [activeAngleIndex, setActiveAngleIndex] = useState(0);
-  const [activeHotspot, setActiveHotspot] = useState<Hotspot | null>(null);
+  const [activeHotspotId, setActiveHotspotId] = useState<string | null>(null);
   const [showHotspots, setShowHotspots] = useState(true);
-  const [isZooming, setIsZooming] = useState(false);
-  const [zoomPos, setZoomPos] = useState({ x: 50, y: 50 });
 
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!containerRef.current) return;
-    const rect = containerRef.current.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width) * 100;
-    const y = ((e.clientY - rect.top) / rect.height) * 100;
-    setZoomPos({ x: Math.max(0, Math.min(100, x)), y: Math.max(0, Math.min(100, y)) });
-  };
-
   const currentAngle = angles[activeAngleIndex];
   const isFrontAngle = activeAngleIndex === 0;
+
+  const activeHotspotList = (hotspots && hotspots.length > 0) ? hotspots : FALLBACK_HOTSPOTS;
+  const activeHotspot = activeHotspotList.find((h) => h.id === activeHotspotId) || null;
+
+  const currentZoomScale = activeHotspot ? (activeHotspot.zoomLevel || 2.5) : 1;
+  const currentOriginX = activeHotspot ? activeHotspot.xPercent : 50;
+  const currentOriginY = activeHotspot ? activeHotspot.yPercent : 50;
+
+  const handleToggleHotspot = (hotspot: GarmentHotspot) => {
+    if (activeHotspotId === hotspot.id) {
+      setActiveHotspotId(null);
+    } else {
+      setActiveHotspotId(hotspot.id);
+    }
+  };
+
+  const handleResetZoom = () => {
+    setActiveHotspotId(null);
+  };
+
+  const handleNextHotspot = () => {
+    if (!activeHotspotList.length) return;
+    const currentIndex = activeHotspotList.findIndex((h) => h.id === activeHotspotId);
+    const nextIndex = (currentIndex + 1) % activeHotspotList.length;
+    setActiveHotspotId(activeHotspotList[nextIndex].id);
+  };
 
   return (
     <div className="space-y-4 font-mono select-none">
       {/* Main High-Fidelity Garment Stage */}
       <div
         ref={containerRef}
-        onMouseMove={handleMouseMove}
-        onMouseEnter={() => setIsZooming(true)}
-        onMouseLeave={() => setIsZooming(false)}
-        className="relative aspect-[4/5] bg-[#EDEAE2]/50 border border-[#DCD7CC] overflow-hidden group shadow-luxury cursor-crosshair"
+        className="relative aspect-[4/5] bg-[#EDEAE2]/50 border border-[#DCD7CC] overflow-hidden group shadow-luxury"
       >
-        {/* Background Image / Normal View */}
+        {/* Transforming Zoom Container */}
         <div
-          className={`w-full h-full relative transition-transform duration-200 ${
-            isZooming ? 'scale-100' : 'scale-100'
-          }`}
+          className="w-full h-full relative transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] will-change-transform"
+          style={{
+            transformOrigin: `${currentOriginX}% ${currentOriginY}%`,
+            transform: `scale(${currentZoomScale})`,
+          }}
         >
-          <Image
-            src={currentAngle.src}
-            alt={`${dropTitle} - ${currentAngle.label}`}
-            fill
-            priority
-            sizes="(max-width: 768px) 100vw, 50vw"
-            className={`object-contain p-4 md:p-6 transition-all duration-300 ${
-              isZooming ? 'opacity-0 md:opacity-0' : 'opacity-100'
-            }`}
-          />
+          {/* Garment Image */}
+          <div className="w-full h-full relative">
+            <Image
+              src={currentAngle.src}
+              alt={`${dropTitle} - ${currentAngle.label}`}
+              fill
+              priority
+              sizes="(max-width: 768px) 100vw, 50vw"
+              className="object-contain p-4 md:p-6 select-none pointer-events-none"
+            />
+          </div>
+
+          {/* Interactive Hotspot Pins (Moving synchronously with Garment Coordinates) */}
+          {isFrontAngle &&
+            showHotspots &&
+            activeHotspotList.map((hotspot) => {
+              const isActive = activeHotspot?.id === hotspot.id;
+              const isAnyActive = !!activeHotspot;
+              // Counter-scale so the pin circle stays sharp and uniformly sized
+              const counterScale = isAnyActive ? 1 / currentZoomScale : 1;
+
+              return (
+                <div
+                  key={hotspot.id}
+                  style={{
+                    left: `${hotspot.xPercent}%`,
+                    top: `${hotspot.yPercent}%`,
+                  }}
+                  className={`absolute z-20 -translate-x-1/2 -translate-y-1/2 transition-opacity duration-300 ${
+                    isAnyActive && !isActive ? 'opacity-40 hover:opacity-100' : 'opacity-100'
+                  }`}
+                >
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleToggleHotspot(hotspot);
+                    }}
+                    style={{
+                      transform: `scale(${counterScale})`,
+                      transformOrigin: 'center center',
+                    }}
+                    className="relative group p-1.5 focus:outline-none cursor-pointer flex items-center justify-center transition-transform"
+                    aria-label={hotspot.title}
+                  >
+                    {/* Pulsing ring on inactive pins */}
+                    {!isActive && (
+                      <span className="absolute inset-0 rounded-full bg-[#B82328]/35 animate-ping opacity-80 pointer-events-none" />
+                    )}
+
+                    {/* Circular Pin Icon matching User's Spec: White Disc + Crimson Ring + Dark/Red Symbol */}
+                    <span
+                      className={`relative w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center font-bold text-xs sm:text-sm transition-all duration-300 shadow-luxury border-2 ${
+                        isActive
+                          ? 'bg-[#B82328] text-white border-white scale-110 ring-2 ring-[#B82328]'
+                          : 'bg-[#FCFBF8] text-[#111110] border-[#B82328] hover:border-[#111110] hover:scale-115'
+                      }`}
+                    >
+                      {isActive ? '−' : '+'}
+                    </span>
+                  </button>
+                </div>
+              );
+            })}
         </div>
 
-        {/* Desktop Macro Zoom Lens Overlay */}
-        <div
-          className={`absolute inset-0 pointer-events-none transition-opacity duration-200 overflow-hidden ${
-            isZooming ? 'opacity-100' : 'opacity-0'
-          }`}
-          style={{
-            backgroundImage: `url(${currentAngle.src})`,
-            backgroundPosition: `${zoomPos.x}% ${zoomPos.y}%`,
-            backgroundSize: '240%',
-            backgroundRepeat: 'no-repeat',
-          }}
-        />
-
-        {/* Top Floating Badges */}
+        {/* Top Floating Edition Badges */}
         <div className="absolute top-4 left-4 z-20 flex flex-col gap-1.5 pointer-events-none">
           <div className="bg-[#FCFBF8]/95 backdrop-blur-sm border border-[#DCD7CC] px-3 py-1.5 text-[10px] uppercase font-bold tracking-widest text-[#111110] shadow-sm flex items-center gap-1.5">
             <span className="w-1.5 h-1.5 rounded-full bg-[#B82328]" />
             <span>DROP 00{dropNumber} // SERIAL EDITION OF 250</span>
           </div>
-          <div className="bg-[#111110] text-white px-2.5 py-1 text-[9px] uppercase tracking-wider font-bold w-fit">
-            280 GSM FRENCH TERRY
-          </div>
+          {activeHotspot ? (
+            <div className="bg-[#B82328] text-white px-2.5 py-1 text-[9px] uppercase tracking-wider font-bold w-fit flex items-center gap-1 shadow-sm">
+              <ZoomIn className="w-3 h-3" />
+              <span>MACRO ZOOM: {currentZoomScale.toFixed(1)}× FOCAL LOCK</span>
+            </div>
+          ) : (
+            <div className="bg-[#111110] text-white px-2.5 py-1 text-[9px] uppercase tracking-wider font-bold w-fit">
+              280 GSM FRENCH TERRY
+            </div>
+          )}
         </div>
 
         {/* Top Right Tool Action Toggles */}
         <div className="absolute top-4 right-4 z-20 flex items-center gap-1.5">
+          {activeHotspot && (
+            <button
+              type="button"
+              onClick={handleResetZoom}
+              className="px-3 py-1 bg-[#111110] hover:bg-[#B82328] text-white text-[10px] uppercase font-bold tracking-wider transition-colors border border-[#111110] shadow-md flex items-center gap-1.5 cursor-pointer"
+            >
+              <RotateCcw className="w-3 h-3" />
+              <span>RESET (1.0×)</span>
+            </button>
+          )}
+
           {isFrontAngle && (
             <button
               type="button"
               onClick={() => setShowHotspots(!showHotspots)}
-              className={`px-2.5 py-1 text-[10px] uppercase font-bold tracking-wider transition-all border shadow-sm flex items-center gap-1.5 ${
+              className={`px-2.5 py-1 text-[10px] uppercase font-bold tracking-wider transition-all border shadow-sm flex items-center gap-1.5 cursor-pointer ${
                 showHotspots
                   ? 'bg-[#111110] text-white border-[#111110]'
                   : 'bg-[#FCFBF8]/90 text-[#52504B] border-[#DCD7CC] hover:text-[#111110]'
               }`}
             >
               <Sparkles className="w-3 h-3 text-[#B82328]" />
-              <span>{showHotspots ? 'HIDE HOTSPOTS' : 'SHOW HOTSPOTS'}</span>
+              <span>{showHotspots ? 'HIDE PINS' : 'SHOW PINS'}</span>
             </button>
           )}
-
-          <div className="hidden md:flex items-center gap-1 bg-[#FCFBF8]/90 backdrop-blur-sm border border-[#DCD7CC] px-2.5 py-1 text-[9px] text-[#52504B] uppercase tracking-wider font-bold">
-            <ZoomIn className="w-3 h-3 text-[#111110]" />
-            <span>HOVER TO LENS ZOOM</span>
-          </div>
         </div>
 
-        {/* Interactive Hotspot Pins (Only on Front View) */}
-        {isFrontAngle &&
-          showHotspots &&
-          FRONT_HOTSPOTS.map((hotspot) => {
-            const isActive = activeHotspot?.id === hotspot.id;
-            return (
-              <div
-                key={hotspot.id}
-                style={{
-                  left: `${hotspot.xPercent}%`,
-                  top: `${hotspot.yPercent}%`,
-                }}
-                className="absolute z-20 -translate-x-1/2 -translate-y-1/2"
-              >
-                {/* Pulsing Pin Button */}
+        {/* Fixed Viewport Bottom Dock: Active Hotspot Craft Card */}
+        {activeHotspot && (
+          <div className="absolute bottom-3 inset-x-3 sm:bottom-4 sm:inset-x-4 z-30 bg-[#FCFBF8]/98 backdrop-blur-md border-2 border-[#111110] p-4 text-left shadow-2xl space-y-2.5 animate-in fade-in slide-in-from-bottom-2 duration-300">
+            <div className="flex items-start justify-between gap-3 border-b border-[#DCD7CC] pb-2">
+              <div>
+                <span className="text-[9px] font-bold text-[#B82328] uppercase tracking-widest block font-mono">
+                  {activeHotspot.tag}
+                </span>
+                <h4 className="text-xs sm:text-sm font-bold text-[#111110] uppercase font-display leading-tight mt-0.5">
+                  {activeHotspot.title}
+                </h4>
+              </div>
+
+              <div className="flex items-center gap-1">
                 <button
                   type="button"
-                  onClick={() => setActiveHotspot(isActive ? null : hotspot)}
-                  className="relative group p-2 focus:outline-none cursor-pointer"
-                  aria-label={hotspot.title}
+                  onClick={handleNextHotspot}
+                  className="px-2 py-1 bg-[#EDEAE2] hover:bg-[#DCD7CC] text-[10px] text-[#111110] font-bold uppercase tracking-wider flex items-center gap-1 transition-colors"
+                  title="Next craft hotspot"
                 >
-                  <span className="absolute inset-0 rounded-full bg-[#B82328]/30 animate-ping opacity-75" />
-                  <span
-                    className={`relative w-6 h-6 rounded-full flex items-center justify-center font-bold text-[10px] transition-all shadow-md border ${
-                      isActive
-                        ? 'bg-[#B82328] text-white border-white scale-125'
-                        : 'bg-[#FCFBF8] text-[#111110] border-[#B82328] hover:scale-110'
-                    }`}
-                  >
-                    +
-                  </span>
+                  <span>NEXT</span>
+                  <ChevronRight className="w-3 h-3" />
                 </button>
-
-                {/* Hotspot Popover Card */}
-                {isActive && (
-                  <div className="absolute left-1/2 -translate-x-1/2 bottom-full mb-3 w-64 bg-[#FCFBF8] border-2 border-[#111110] p-4 text-left shadow-2xl z-30 space-y-2 pointer-events-auto">
-                    <div className="flex items-start justify-between gap-2 border-b border-[#DCD7CC] pb-2">
-                      <div>
-                        <span className="text-[9px] font-bold text-[#B82328] uppercase tracking-widest block">
-                          {hotspot.tag}
-                        </span>
-                        <h4 className="text-xs font-bold text-[#111110] uppercase font-display leading-tight">
-                          {hotspot.title}
-                        </h4>
-                      </div>
-                      <button
-                        onClick={() => setActiveHotspot(null)}
-                        className="text-[#52504B] hover:text-[#111110] p-0.5"
-                      >
-                        <X className="w-3.5 h-3.5" />
-                      </button>
-                    </div>
-
-                    <p className="text-[11px] text-[#52504B] font-sans leading-relaxed">
-                      {hotspot.description}
-                    </p>
-
-                    <div className="pt-2 border-t border-[#DCD7CC] text-[9px] text-[#111110] font-bold">
-                      SPEC: {hotspot.spec}
-                    </div>
-                  </div>
-                )}
+                <button
+                  type="button"
+                  onClick={handleResetZoom}
+                  className="text-[#52504B] hover:text-[#111110] p-1 cursor-pointer transition-colors"
+                  aria-label="Close craft zoom"
+                >
+                  <X className="w-4 h-4" />
+                </button>
               </div>
-            );
-          })}
+            </div>
+
+            <p className="text-[11px] sm:text-xs text-[#52504B] font-sans leading-relaxed">
+              {activeHotspot.description}
+            </p>
+
+            <div className="pt-2 border-t border-[#DCD7CC] flex flex-wrap items-center justify-between gap-2 text-[9px] font-mono">
+              <span className="text-[#111110] font-bold uppercase">
+                SPEC: {activeHotspot.spec}
+              </span>
+              <span className="text-[#B82328] font-bold">
+                ZOOM LEVEL: {currentZoomScale.toFixed(1)}×
+              </span>
+            </div>
+          </div>
+        )}
 
         {/* Bottom Left Angle Watermark */}
-        <div className="absolute bottom-4 left-4 z-20 pointer-events-none">
-          <span className="text-[10px] text-[#52504B] font-bold tracking-widest uppercase bg-[#FCFBF8]/90 px-2 py-0.5 border border-[#DCD7CC]">
-            {currentAngle.label}
-          </span>
-        </div>
+        {!activeHotspot && (
+          <div className="absolute bottom-4 left-4 z-20 pointer-events-none">
+            <span className="text-[10px] text-[#52504B] font-bold tracking-widest uppercase bg-[#FCFBF8]/90 px-2 py-0.5 border border-[#DCD7CC]">
+              {currentAngle.label}
+            </span>
+          </div>
+        )}
+
+        {/* Non-Zoomed Helper Pill */}
+        {!activeHotspot && isFrontAngle && showHotspots && (
+          <div className="absolute bottom-4 right-4 z-20 pointer-events-none hidden sm:flex items-center gap-1.5 bg-[#FCFBF8]/95 border border-[#DCD7CC] px-2.5 py-1 text-[9px] text-[#111110] font-bold uppercase tracking-wider shadow-sm">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#B82328]" />
+            <span>CLICK ANY PIN TO ZOOM (2.5×–3.0×)</span>
+          </div>
+        )}
       </div>
 
       {/* Thumbnail Selector Strip */}
@@ -266,7 +346,7 @@ export function InteractiveGarmentStage({
               type="button"
               onClick={() => {
                 setActiveAngleIndex(idx);
-                setActiveHotspot(null);
+                setActiveHotspotId(null);
               }}
               className={`relative aspect-[4/5] bg-[#EDEAE2]/40 border transition-all overflow-hidden p-1 group cursor-pointer ${
                 isSelected

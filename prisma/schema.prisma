@@ -64,6 +64,7 @@ model Drop {
   soldOutAt       DateTime?
   primaryImageUrl String
   galleryUrls     Json         // Array of editorial & lookbook image URLs
+  hotspots        Json?        // Craft detail hotspots with xPercent, yPercent, zoomLevel, title, description, spec
   isFeatured      Boolean      @default(false) // Featured active drop on homepage
 
   // SEO / AEO / GEO

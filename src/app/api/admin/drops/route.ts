@@ -56,7 +56,7 @@ export async function POST(request: Request) {
 export async function PUT(request: Request) {
   try {
     const body = await request.json();
-    const { id, status, isFeatured, variants, title, pricePaise } = body;
+    const { id, status, isFeatured, variants, title, pricePaise, hotspots } = body;
 
     const store = getLocalStore();
     const dropIndex = store.drops.findIndex((d: any) => d.id === id);
@@ -81,6 +81,7 @@ export async function PUT(request: Request) {
       ...(variants && { variants }),
       ...(title && { title }),
       ...(pricePaise !== undefined && { pricePaise: Number(pricePaise) }),
+      ...(hotspots !== undefined && { hotspots }),
       updatedAt: new Date().toISOString(),
     };
 

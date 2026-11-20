@@ -50,6 +50,7 @@ interface DropData {
   status: 'LIVE' | 'UPCOMING' | 'SOLD_OUT';
   primaryImageUrl: string;
   galleryUrls: string[];
+  hotspots?: any[];
   variants: Variant[];
 }
 
@@ -393,13 +394,14 @@ export function ActiveDropView({ drop, featureFlags }: { drop: DropData; feature
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
           
-          {/* Left: Hyper-Tactile Interactive Garment Stage with Hotspots & Lens Zoom */}
+          {/* Left: Hyper-Tactile Interactive Garment Stage with Hotspots & Macro Dot Zoom */}
           <div className="lg:col-span-7">
             <InteractiveGarmentStage
               primaryImageUrl={drop.primaryImageUrl}
               galleryUrls={drop.galleryUrls}
               dropTitle={drop.title}
               dropNumber={drop.dropNumber}
+              hotspots={drop.hotspots}
             />
           </div>
 
