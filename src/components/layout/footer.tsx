@@ -12,8 +12,10 @@ export function GlobalFooter() {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  // Suppress public footer in admin dashboard
-  if (pathname.startsWith('/admin')) {
+  const adminBasePath = process.env.NEXT_PUBLIC_ADMIN_BASE_PATH || '/outside-studio-ops';
+
+  // Suppress public footer in admin dashboard (both /admin and stealth base path)
+  if (pathname.startsWith('/admin') || pathname.startsWith(adminBasePath)) {
     return null;
   }
 
@@ -122,13 +124,13 @@ export function GlobalFooter() {
               </Link>
             </li>
             <li>
-              <Link href="/vault" className="text-outside-muted hover:text-outside-crimson transition-colors">
-                THE VAULT (ARCHIVE)
+              <Link href="/lookbook" className="text-outside-muted hover:text-outside-crimson transition-colors">
+                EDITORIAL LOOKBOOK
               </Link>
             </li>
             <li>
-              <Link href="/about" className="text-outside-muted hover:text-outside-crimson transition-colors">
-                WOMEN-FIRST PHILOSOPHY
+              <Link href="/vault" className="text-outside-muted hover:text-outside-crimson transition-colors">
+                THE VAULT (ARCHIVE)
               </Link>
             </li>
             <li>
@@ -144,18 +146,18 @@ export function GlobalFooter() {
           <h4 className="text-xs font-mono uppercase tracking-[0.2em] text-outside-text font-bold">STUDIO &amp; CRAFT</h4>
           <ul className="space-y-2.5 text-xs font-mono">
             <li>
-              <Link href="/about" className="text-outside-muted hover:text-outside-crimson transition-colors">
-                FABRIC STANDARDS (280 GSM)
+              <Link href="/craft" className="text-outside-muted hover:text-outside-crimson transition-colors">
+                THE CRAFT &amp; ATELIER (280 GSM)
               </Link>
             </li>
             <li>
               <Link href="/size-guide" className="text-outside-muted hover:text-outside-crimson transition-colors">
-                FIT &amp; SIZE MATRIX
+                FIT ROOM &amp; SIZE MATRIX
               </Link>
             </li>
             <li>
-              <Link href="/shipping-returns" className="text-outside-muted hover:text-outside-crimson transition-colors">
-                EXPRESS SHIPPING &amp; RETURNS
+              <Link href="/track" className="text-outside-muted hover:text-outside-crimson transition-colors">
+                TRACK DISPATCH (EXPRESS AIR)
               </Link>
             </li>
             <li>

@@ -17,8 +17,10 @@ export function GlobalHeader({ initialTheme, initialFlags }: GlobalHeaderProps) 
   const { totalItemsCount, openCart } = useCart();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  // Suppress public header in admin dashboard
-  if (pathname.startsWith('/admin')) {
+  const adminBasePath = process.env.NEXT_PUBLIC_ADMIN_BASE_PATH || '/outside-studio-ops';
+
+  // Suppress public header in admin dashboard (both /admin and stealth base path)
+  if (pathname.startsWith('/admin') || pathname.startsWith(adminBasePath)) {
     return null;
   }
 
@@ -38,10 +40,12 @@ export function GlobalHeader({ initialTheme, initialFlags }: GlobalHeaderProps) 
 
   const navLinks = [
     { label: 'ACTIVE DROP', href: '/' },
+    { label: 'LOOKBOOK', href: '/lookbook' },
+    { label: 'THE CRAFT', href: '/craft' },
     ...(showVault ? [{ label: 'THE VAULT', href: '/vault' }] : []),
     ...(showJournal ? [{ label: 'JOURNAL', href: '/journal' }] : []),
-    { label: 'ABOUT', href: '/about' },
-    { label: 'CONTACT', href: '/contact' },
+    { label: 'FIT ROOM', href: '/size-guide' },
+    { label: 'TRACK', href: '/track' },
   ];
 
   return (

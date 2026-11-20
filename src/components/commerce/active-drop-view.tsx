@@ -16,6 +16,9 @@ import { useCart } from '@/context/cart-context';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { ViralShare } from '@/components/commerce/viral-share';
+import { InteractiveGarmentStage } from '@/components/commerce/interactive-garment-stage';
+import { estimateDelivery, DeliveryEstimateResult } from '@/lib/pincode';
+import { MapPin, Search } from 'lucide-react';
 
 interface Variant {
   id: string;
@@ -89,6 +92,22 @@ export function ActiveDropView({ drop, featureFlags }: { drop: DropData; feature
   const [waitlistModalOpen, setWaitlistModalOpen] = useState(false);
   const [waitlistEmail, setWaitlistEmail] = useState('');
   const [waitlistSuccess, setWaitlistSuccess] = useState(false);
+
+  // Indian Pincode Delivery Estimator
+  const [pincodeInput, setPincodeInput] = useState('380015');
+  const [deliveryResult, setDeliveryResult] = useState<DeliveryEstimateResult | null>(() => estimateDelivery('380015'));
+  const [pincodeError, setPincodeError] = useState<string | null>(null);
+
+  const handleCheckPincode = (e: React.FormEvent) => {
+    e.preventDefault();
+    setPincodeError(null);
+    const res = estimateDelivery(pincodeInput);
+    if (!res.valid) {
+      setPincodeError(res.error || 'Please enter a valid 6-digit PIN code.');
+    } else {
+      setDeliveryResult(res);
+    }
+  };
 
   // Monitor scroll for the sticky minimal "Active Drop Bar"
   useEffect(() => {
@@ -230,72 +249,50 @@ export function ActiveDropView({ drop, featureFlags }: { drop: DropData; feature
       {/* ========================================== */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-16">
         
-        {/* Top Velocity Scarcity Hairline Bar */}
-        <div className="mb-8 flex flex-wrap items-center justify-between gap-4 p-4 bg-outside-elevated border border-outside-border shadow-editorial">
-          <div className="flex items-center gap-3">
-            <span className="w-2.5 h-2.5 rounded-full bg-outside-accent animate-ping" />
-            <span className="font-editorial-label font-bold text-outside-ink">
-              DROP 00{drop.dropNumber} // SERIALIZED EDITION OF {drop.totalEditionQty}
-            </span>
+        {/* Adidas Confirmed-Style Drop Scarcity & Allocation Velocity Meter */}
+        <div className="mb-8 p-5 bg-[#FCFBF8] border border-[#DCD7CC] shadow-editorial space-y-3 font-mono">
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <div className="flex items-center gap-3">
+              <span className="w-2.5 h-2.5 rounded-full bg-[#B82328] animate-ping" />
+              <span className="text-xs uppercase font-bold text-[#111110] tracking-wider">
+                DROP 00{drop.dropNumber} // SERIAL ALLOCATION PROTOCOL
+              </span>
+              <span className="text-[10px] text-[#52504B] uppercase bg-[#EDEAE2] px-2 py-0.5 border border-[#DCD7CC]">
+                STRICT CAPPED RUN
+              </span>
+            </div>
+            <div className="text-xs font-bold">
+              <span className="text-[#B82328]">{percentClaimed}% ALLOCATED</span>
+              <span className="text-[#DCD7CC] mx-2">|</span>
+              <span className="text-[#111110]">{totalStockRemaining} OF {drop.totalEditionQty} PIECES REMAINING</span>
+            </div>
           </div>
-          <div className="flex items-center gap-4 text-xs font-mono">
-            <span className="text-outside-inkSecondary">
-              CLAIMED: <strong className="text-outside-ink">{percentClaimed}%</strong>
-            </span>
-            <span className="text-outside-border">|</span>
-            <span className="text-outside-accent font-bold">
-              REMAINING: {totalStockRemaining} PIECES
-            </span>
+
+          {/* Visual Segmented Progress Bar */}
+          <div className="w-full bg-[#EDEAE2] h-2.5 overflow-hidden border border-[#DCD7CC]">
+            <div
+              className="bg-[#B82328] h-full transition-all duration-1000 ease-out"
+              style={{ width: `${percentClaimed}%` }}
+            />
+          </div>
+
+          <div className="flex justify-between text-[10px] text-[#52504B]">
+            <span>SERIAL #OUT-001-001</span>
+            <span className="font-bold text-[#111110]">NO RE-ISSUES OR RESTOCKS ONCE CLAIMED</span>
+            <span>SERIAL #OUT-001-250</span>
           </div>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
           
-          {/* Left: Lookbook Gallery with Curtain Reveal */}
-          <div className="lg:col-span-7 space-y-4">
-            <div className="relative aspect-[4/5] w-full bg-outside-elevated border border-outside-border overflow-hidden group shadow-editorial">
-              <Image
-                src={gallery[activeImageIndex] || gallery[0]}
-                alt={`${drop.title} perspective ${activeImageIndex + 1}`}
-                fill
-                priority
-                className="object-contain p-2 transition-transform duration-700 group-hover:scale-[1.03]"
-              />
-              
-              {/* Perspective Spec Label */}
-              <div className="absolute top-4 left-4 bg-outside-elevated/95 backdrop-blur-md px-3 py-1.5 border border-outside-border font-editorial-label text-outside-ink font-bold shadow-editorial">
-                {activeImageIndex === 0 ? 'FRONT // EMBROIDERY SPEC' : 'BACK // SAME GIRL MANIFESTO'}
-              </div>
-
-              <div className="absolute bottom-4 right-4 bg-outside-elevated/95 backdrop-blur-md px-3 py-1.5 border border-outside-border font-mono text-[11px] text-outside-accent font-bold tracking-widest shadow-editorial">
-                EDITION: #OUT-00{drop.dropNumber}
-              </div>
-            </div>
-
-            {/* Thumbnail Selector Strip with Hairline Borders */}
-            <div className="grid grid-cols-4 gap-3">
-              {gallery.map((url, idx) => (
-                <button
-                  key={url + idx}
-                  onClick={() => setActiveImageIndex(idx)}
-                  className={`relative aspect-square bg-outside-elevated border transition-all overflow-hidden p-1 ${
-                    activeImageIndex === idx
-                      ? 'border-outside-accent ring-1 ring-outside-accent shadow-editorial'
-                      : 'border-outside-border hover:border-outside-inkSecondary opacity-80 hover:opacity-100'
-                  }`}
-                >
-                  <Image
-                    src={url}
-                    alt={`Thumbnail ${idx + 1}`}
-                    fill
-                    className="object-contain"
-                  />
-                  <span className="absolute bottom-1 left-1 text-[8px] font-mono font-bold px-1 bg-outside-elevated/90 text-outside-ink border border-outside-border">
-                    {idx === 0 ? 'FRONT' : 'BACK'}
-                  </span>
-                </button>
-              ))}
-            </div>
+          {/* Left: Hyper-Tactile Interactive Garment Stage with Hotspots & Lens Zoom */}
+          <div className="lg:col-span-7">
+            <InteractiveGarmentStage
+              primaryImageUrl={drop.primaryImageUrl}
+              galleryUrls={drop.galleryUrls}
+              dropTitle={drop.title}
+              dropNumber={drop.dropNumber}
+            />
           </div>
 
           {/* Right: Architectural Garment Details & Purchasing Console */}
@@ -481,6 +478,58 @@ export function ActiveDropView({ drop, featureFlags }: { drop: DropData; feature
                   <RotateCcw className="w-4 h-4 mx-auto mb-1 text-outside-ink" />
                   <span>7-DAY EXCHANGE</span>
                 </div>
+              </div>
+
+              {/* Indian Pincode Delivery Estimator (Skechers / Adidas Confirmed Standard) */}
+              <div className="p-4 bg-outside-surface border border-outside-border space-y-3 font-mono text-xs">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2 font-bold text-outside-ink uppercase">
+                    <MapPin className="w-4 h-4 text-outside-accent" />
+                    <span>CHECK EXPRESS DELIVERY DATE</span>
+                  </div>
+                  <span className="text-[10px] text-outside-moss font-bold uppercase">
+                    FREE DOMESTIC AIR
+                  </span>
+                </div>
+
+                <form onSubmit={handleCheckPincode} className="flex gap-2">
+                  <div className="relative flex-1">
+                    <input
+                      type="text"
+                      maxLength={6}
+                      placeholder="Enter 6-digit PIN code"
+                      value={pincodeInput}
+                      onChange={(e) => setPincodeInput(e.target.value.replace(/\D/g, ''))}
+                      className="w-full px-3 py-2 bg-outside-elevated border border-outside-border text-xs text-outside-ink font-mono focus:border-outside-accent focus:outline-none"
+                    />
+                  </div>
+                  <button
+                    type="submit"
+                    className="px-4 py-2 bg-outside-ink hover:bg-black text-white text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer"
+                  >
+                    CHECK
+                  </button>
+                </form>
+
+                {pincodeError && (
+                  <p className="text-[11px] text-outside-accent font-sans">{pincodeError}</p>
+                )}
+
+                {deliveryResult && deliveryResult.valid && (
+                  <div className="p-3 bg-outside-elevated border border-outside-border space-y-1">
+                    <div className="flex items-center justify-between text-xs">
+                      <span className="font-bold text-outside-ink">
+                        {deliveryResult.city}, {deliveryResult.state}
+                      </span>
+                      <span className="text-outside-moss font-bold text-[11px]">
+                        Arrives by {deliveryResult.estimatedDeliveryDate}
+                      </span>
+                    </div>
+                    <p className="text-[10px] text-outside-inkSecondary font-sans">
+                      {deliveryResult.courierPartner} · {deliveryResult.dispatchNote}
+                    </p>
+                  </div>
+                )}
               </div>
 
               {/* Viral Social & WhatsApp Share Engine */}

@@ -25,7 +25,11 @@ We operate on a single-drop limited-edition release model: strictly ONE garment 
 
 ## Key URLs
 - Homepage (Active Drop): https://www.outside.in/
+- Editorial Lookbook: https://www.outside.in/lookbook
+- The Craft & Material Engineering: https://www.outside.in/craft
 - The Vault (Archived Drops): https://www.outside.in/vault
+- Interactive Fit Room & Size Matrix: https://www.outside.in/size-guide
+- Express Order Tracking: https://www.outside.in/track
 - The Outside Journal: https://www.outside.in/journal
 - Fabric & Atelier Standards: https://www.outside.in/about
 - Full Knowledge Base: https://www.outside.in/llms-full.txt

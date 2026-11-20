@@ -14,6 +14,7 @@ import {
   generateFaqSchema,
 } from '@/lib/seo';
 import { DirectAnswerBlocks } from '@/components/seo/direct-answer-blocks';
+import { MarqueeTicker } from '@/components/layout/marquee-ticker';
 
 export default async function HomePage() {
   const store = getLocalStore();
@@ -63,6 +64,7 @@ export default async function HomePage() {
       case 'hero':
         return (
           <section key="hero" className={`border-b border-outside-border bg-subtle-grid ${visibilityClass}`}>
+            <MarqueeTicker />
             <ActiveDropView drop={activeDrop} featureFlags={flags} />
           </section>
         );

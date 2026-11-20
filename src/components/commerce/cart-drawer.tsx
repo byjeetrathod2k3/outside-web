@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { X, Trash2, ArrowRight, ShieldCheck } from 'lucide-react';
+import { X, Trash2, ArrowRight, ShieldCheck, Truck } from 'lucide-react';
 import { useCart } from '@/context/cart-context';
 import { INDIAN_STATES } from '@/lib/gst';
 
@@ -46,6 +46,23 @@ export function CartDrawer() {
             >
               <X className="w-5 h-5" />
             </button>
+          </div>
+
+          {/* Free Express Shipping Meter (Puma / Adidas Benchmark) */}
+          <div className="bg-[#EDEAE2] p-3 border-b border-outside-border text-xs font-mono">
+            <div className="flex items-center justify-between text-[11px] font-bold">
+              <span className="text-outside-text flex items-center gap-1.5">
+                <Truck className="w-3.5 h-3.5 text-outside-crimson" />
+                <span>FREE DOMESTIC AIR EXPRESS SHIPPING</span>
+              </span>
+              <span className="text-outside-moss">UNLOCKED ✓</span>
+            </div>
+            <div className="w-full bg-white h-1.5 mt-2 border border-outside-border overflow-hidden">
+              <div className="bg-outside-moss h-full w-full" />
+            </div>
+            <p className="text-[10px] text-outside-muted mt-1 font-sans">
+              Dispatches via Bluedart Air directly from Ahmedabad Atelier (State Code 24).
+            </p>
           </div>
 
           {/* Items List */}
