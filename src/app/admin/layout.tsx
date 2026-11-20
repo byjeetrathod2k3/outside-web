@@ -36,8 +36,16 @@ export default function AdminLayout({
         <div>
           {/* Logo & Studio Identifier */}
           <div className="p-6 border-b border-[#DCD7CC] bg-[#EDEAE2]">
-            <Link href="/" target="_blank" className="flex items-center gap-2 group">
-              <span className="text-[#B82328] font-black tracking-widest text-lg font-display uppercase">
+            <Link href="/" target="_blank" className="flex items-center gap-2.5 group">
+              <div className="relative w-6 h-6 flex-shrink-0">
+                <Image
+                  src="/images/OUTSIDE_icon.png"
+                  alt="OUTSIDE"
+                  fill
+                  className="object-contain"
+                />
+              </div>
+              <span className="text-[#111110] font-black tracking-widest text-base font-display uppercase">
                 OUTSIDE
               </span>
               <span className="px-1.5 py-0.5 bg-[#FCFBF8] border border-[#DCD7CC] text-[9px] text-[#52504B] uppercase tracking-widest font-mono">

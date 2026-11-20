@@ -38,15 +38,15 @@ export function GlobalHeader() {
       <header className="sticky top-0 z-40 w-full frosted-alabaster transition-all">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
           
-          {/* Logo with User Uploaded Real OUTSIDE Brand Graphic */}
-          <Link href="/" className="relative flex items-center gap-3 group focus:outline-none">
-            <div className="relative h-12 w-44 sm:w-52 transition-transform group-hover:scale-[1.01]">
+          {/* Standalone Brand Emblem (Pure Icon Mark) */}
+          <Link href="/" className="relative flex items-center group focus:outline-none" aria-label="OUTSIDE Home">
+            <div className="relative h-11 w-11 sm:h-12 sm:w-12 transition-transform duration-300 group-hover:scale-105">
               <Image
-                src="/images/OUTSIDE_logo.jpg"
-                alt="OUTSIDE Wear Your Story"
+                src="/images/OUTSIDE_icon.png"
+                alt="OUTSIDE"
                 fill
                 priority
-                className="object-contain object-left mix-blend-multiply"
+                className="object-contain"
               />
             </div>
           </Link>
