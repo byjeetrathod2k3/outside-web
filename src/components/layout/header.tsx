@@ -8,6 +8,7 @@ import { useCart } from '@/context/cart-context';
 import { ShoppingBag, Menu, X, ArrowRight, MapPin, ChevronDown } from 'lucide-react';
 import { PincodeModal } from '@/components/commerce/pincode-modal';
 import { estimateDelivery } from '@/lib/pincode';
+import ShinyText from '@/components/reactbits/ShinyText/ShinyText';
 
 interface GlobalHeaderProps {
   initialTheme?: any;
@@ -60,7 +61,13 @@ export function GlobalHeader({ initialTheme, initialFlags }: GlobalHeaderProps) 
         <div className="bg-outside-ink text-outside-elevated text-[11px] font-mono uppercase tracking-[0.2em] py-2 px-4 text-center flex items-center justify-center gap-3 select-none border-b border-outside-border">
           <span className="inline-block w-2 h-2 rounded-full bg-outside-accent animate-pulse" />
           <Link href={announcementLink} className="hover:underline flex items-center gap-2">
-            <span className="font-bold">{announcementText}</span>
+            <ShinyText
+              text={announcementText}
+              speed={3.5}
+              color="#EDEAE2"
+              shineColor="#FFFFFF"
+              className="font-bold tracking-[0.2em]"
+            />
           </Link>
         </div>
       )}
@@ -68,34 +75,40 @@ export function GlobalHeader({ initialTheme, initialFlags }: GlobalHeaderProps) 
       <header
         className={`sticky top-0 z-40 w-full transition-all ${
           isGlass
-            ? 'bg-outside-canvas/90 backdrop-blur-md border-b border-outside-border'
+            ? 'bg-outside-canvas/98 backdrop-blur-md border-b border-outside-border'
             : 'bg-outside-canvas border-b border-outside-border'
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
           
-          {/* Standalone Brand Emblem (Pure Icon Mark) */}
-          <Link href="/" className="relative flex items-center group focus:outline-none" aria-label="OUTSIDE Home">
-            <div className="relative h-11 w-11 sm:h-12 sm:w-12 transition-transform duration-300 group-hover:scale-105">
-              <Image
-                src={logoUrl}
-                alt="OUTSIDE"
-                fill
-                priority
-                className="object-contain"
-              />
-            </div>
-          </Link>
+          {/* 1. Left: Brand Emblem */}
+          <div className="shrink-0 flex items-center">
+            <Link
+              href="/"
+              className="relative flex items-center group focus:outline-none shrink-0"
+              aria-label="OUTSIDE Home"
+            >
+              <div className="relative h-10 w-10 sm:h-11 sm:w-11 shrink-0">
+                <Image
+                  src={logoUrl}
+                  alt="OUTSIDE"
+                  fill
+                  priority
+                  className="object-contain"
+                />
+              </div>
+            </Link>
+          </div>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-8">
+          {/* 2. Center: Desktop Navigation (Balanced & Equidistant) */}
+          <nav className="hidden lg:flex items-center gap-4 xl:gap-6 2xl:gap-8 shrink-0">
             {navLinks.map((link) => {
               const isActive = pathname === link.href;
               return (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`text-xs font-mono uppercase tracking-[0.2em] transition-all relative py-1 ${
+                  className={`text-[11px] xl:text-xs font-mono uppercase tracking-[0.16em] xl:tracking-[0.2em] whitespace-nowrap transition-colors relative py-1.5 ${
                     isActive
                       ? 'text-outside-ink font-bold after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:bg-outside-accent'
                       : 'text-outside-inkSecondary hover:text-outside-ink'
@@ -107,62 +120,64 @@ export function GlobalHeader({ initialTheme, initialFlags }: GlobalHeaderProps) 
             })}
           </nav>
 
-          {/* Action Utilities */}
-          <div className="flex items-center gap-3 sm:gap-4">
-            
-            {/* Delivery Location Pill (Louis Philippe Benchmark) */}
+          {/* 3. Right: Action Utilities */}
+          <div className="shrink-0 flex items-center gap-2.5 sm:gap-3.5">
+            {/* Delivery Location Pill */}
             <button
               onClick={openPincodeModal}
-              className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-full border border-outside-border bg-outside-surface/70 hover:bg-outside-surface text-[10px] sm:text-[11px] font-mono text-outside-inkSecondary hover:text-outside-ink transition-all cursor-pointer group"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-outside-border bg-outside-surface/60 hover:bg-outside-surface text-[10px] sm:text-[11px] font-mono text-outside-inkSecondary hover:text-outside-ink transition-colors cursor-pointer group shrink-0"
               title="Change Delivery Location"
             >
-              <MapPin className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-outside-accent shrink-0" />
-              <span className="hidden sm:inline tracking-wider">DELIVER TO:</span>
+              <MapPin className="w-3.5 h-3.5 text-outside-accent shrink-0" />
               <span className="font-bold text-outside-ink underline underline-offset-2 decoration-outside-border group-hover:decoration-outside-accent">
-                {shortCity} ({buyerPincode || '380015'})
+                {shortCity}
               </span>
-              <ChevronDown className="w-3 h-3 opacity-60 group-hover:opacity-100 transition-opacity" />
+              <span className="hidden sm:inline text-[10px] text-outside-inkSecondary">
+                ({buyerPincode || '380015'})
+              </span>
+              <ChevronDown className="w-3 h-3 opacity-60 group-hover:opacity-100 transition-opacity shrink-0" />
             </button>
 
             {/* Shopping Bag Trigger */}
             <button
               onClick={openCart}
               aria-label="Open Shopping Bag"
-              className="relative min-w-[44px] min-h-[44px] flex items-center justify-center p-2 text-outside-ink hover:text-outside-accent transition-colors group focus:outline-none cursor-pointer"
+              className="relative min-w-[40px] min-h-[40px] flex items-center justify-center p-2 text-outside-ink hover:text-outside-accent transition-colors focus:outline-none cursor-pointer"
             >
-              <ShoppingBag className="w-5 h-5 transition-transform group-hover:scale-105" />
+              <ShoppingBag className="w-5 h-5" />
               {totalItemsCount > 0 && (
-                <span className="absolute top-1 right-1 bg-outside-accent text-white text-[9px] font-mono font-bold w-4 h-4 rounded-full flex items-center justify-center animate-fade-in shadow-sm">
+                <span className="absolute top-1 right-1 bg-outside-accent text-white text-[9px] font-mono font-bold w-4 h-4 rounded-full flex items-center justify-center shadow-sm">
                   {totalItemsCount}
                 </span>
               )}
             </button>
 
-            {/* Mobile Hamburger Trigger */}
+            {/* Mobile / Tablet Hamburger Trigger (Visible below lg) */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               aria-label="Toggle Mobile Menu"
-              className="md:hidden min-w-[44px] min-h-[44px] flex items-center justify-center p-2 text-outside-ink hover:text-outside-accent transition-colors cursor-pointer"
+              className="lg:hidden min-w-[40px] min-h-[40px] flex items-center justify-center p-2 text-outside-ink hover:text-outside-accent transition-colors cursor-pointer"
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
           </div>
         </div>
 
-        {/* Mobile Navigation Drawer */}
+        {/* Mobile / Tablet Navigation Drawer (Visible below lg) */}
         {mobileMenuOpen && (
-          <div className="md:hidden bg-outside-elevated border-b border-outside-border px-6 py-8 animate-slide-down shadow-gallery">
-            <div className="flex flex-col gap-6">
+          <div className="lg:hidden bg-outside-elevated border-b border-outside-border px-6 py-8 animate-slide-down shadow-gallery">
+            <div className="flex flex-col gap-5">
               {navLinks.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className={`text-sm font-mono uppercase tracking-[0.25em] ${
-                    pathname === link.href ? 'text-outside-accent font-bold' : 'text-outside-ink'
+                  className={`text-sm font-mono uppercase tracking-[0.25em] flex items-center justify-between py-1.5 transition-colors ${
+                    pathname === link.href ? 'text-outside-accent font-bold' : 'text-outside-ink hover:text-outside-accent'
                   }`}
                 >
-                  {link.label}
+                  <span>{link.label}</span>
+                  <ArrowRight className="w-4 h-4 opacity-40" />
                 </Link>
               ))}
               <div className="pt-6 border-t border-outside-border flex items-center justify-between text-xs font-mono text-outside-inkSecondary">

@@ -26,6 +26,7 @@ import { Button } from '@/components/ui/button';
 import { ViralShare } from '@/components/commerce/viral-share';
 import { InteractiveGarmentStage } from '@/components/commerce/interactive-garment-stage';
 import { estimateDelivery, DeliveryEstimateResult } from '@/lib/pincode';
+import ShinyText from '@/components/reactbits/ShinyText/ShinyText';
 
 interface Variant {
   id: string;
@@ -137,23 +138,34 @@ export function ActiveDropView({ drop, featureFlags }: { drop: DropData; feature
     }
   };
 
-  // Monitor scroll for the sticky minimal "Active Drop Bar"
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 480) {
-        setShowStickyBar(true);
-      } else {
-        setShowStickyBar(false);
-      }
-    };
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
   // Filter variants by selected fit
   const availableVariants = drop.variants.filter((v) => v.fit === selectedFit);
   const currentVariant =
     availableVariants.find((v) => v.size === selectedSize) || availableVariants[0];
+
+  // Auto-reconcile size if switching between fits with differing size ranges (e.g. XS for Women, XL for Men)
+  useEffect(() => {
+    const available = drop.variants.filter((v) => v.fit === selectedFit);
+    if (!available.some((v) => v.size === selectedSize)) {
+      setSelectedSize(available[0]?.size || 'M');
+    }
+  }, [selectedFit, drop.variants, selectedSize]);
+
+  // Monitor scroll for the sticky minimal "Active Drop Bar" - show ONLY when main CTA is scrolled above viewport
+  useEffect(() => {
+    const handleScroll = () => {
+      const ctaEl = document.getElementById('main-purchase-cta');
+      if (ctaEl) {
+        const rect = ctaEl.getBoundingClientRect();
+        setShowStickyBar(rect.bottom < 70);
+      } else {
+        setShowStickyBar(window.scrollY > 1200);
+      }
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const currentStock = currentVariant ? currentVariant.currentStock : 0;
   const isOutOfStock = currentStock <= 0;
@@ -257,7 +269,7 @@ export function ActiveDropView({ drop, featureFlags }: { drop: DropData; feature
         <>
           {/* Top Sticky Bar (Desktop) */}
           <div
-            className={`hidden md:block fixed top-20 left-0 right-0 z-30 frosted-alabaster border-b border-outside-border px-4 py-2.5 transition-all duration-300 transform ${
+            className={`hidden md:block fixed top-20 left-0 right-0 z-30 bg-outside-elevated/98 backdrop-blur-md border-b border-outside-border px-4 py-2.5 transition-all duration-300 transform ${
               showStickyBar ? 'translate-y-0 opacity-100 shadow-editorial' : '-translate-y-full opacity-0 pointer-events-none'
             }`}
           >
@@ -360,35 +372,35 @@ export function ActiveDropView({ drop, featureFlags }: { drop: DropData; feature
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-16">
         
         {/* Adidas Confirmed-Style Drop Scarcity & Allocation Velocity Meter */}
-        <div className="mb-8 p-5 bg-[#FCFBF8] border border-[#DCD7CC] shadow-editorial space-y-3 font-mono">
+        <div className="mb-8 p-5 bg-outside-elevated border border-outside-border shadow-editorial space-y-3 font-mono">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div className="flex items-center gap-3">
-              <span className="w-2.5 h-2.5 rounded-full bg-[#B82328] animate-ping" />
-              <span className="text-xs uppercase font-bold text-[#111110] tracking-wider">
+              <span className="w-2.5 h-2.5 rounded-full bg-outside-accent animate-ping" />
+              <span className="text-xs uppercase font-bold text-outside-ink tracking-wider">
                 DROP 00{drop.dropNumber} // LIMITED EDITION RUN (250 PIECES ONLY)
               </span>
-              <span className="text-[10px] text-[#52504B] uppercase bg-[#EDEAE2] px-2 py-0.5 border border-[#DCD7CC]">
+              <span className="text-[10px] text-outside-inkSecondary uppercase bg-outside-surface px-2 py-0.5 border border-outside-border">
                 STRICT CAPPED RUN
               </span>
             </div>
             <div className="text-xs font-bold">
-              <span className="text-[#B82328]">{percentClaimed}% CLAIMED</span>
-              <span className="text-[#DCD7CC] mx-2">|</span>
-              <span className="text-[#111110]">{totalStockRemaining} OF {drop.totalEditionQty} PIECES REMAINING</span>
+              <span className="text-outside-accent">{percentClaimed}% CLAIMED</span>
+              <span className="text-outside-border mx-2">|</span>
+              <span className="text-outside-ink">{totalStockRemaining} OF {drop.totalEditionQty} PIECES REMAINING</span>
             </div>
           </div>
 
           {/* Visual Segmented Progress Bar */}
-          <div className="w-full bg-[#EDEAE2] h-2.5 overflow-hidden border border-[#DCD7CC]">
+          <div className="w-full bg-outside-surface h-2.5 overflow-hidden border border-outside-border">
             <div
-              className="bg-[#B82328] h-full transition-all duration-1000 ease-out"
+              className="bg-outside-accent h-full transition-all duration-1000 ease-out"
               style={{ width: `${percentClaimed}%` }}
             />
           </div>
 
-          <div className="flex justify-between text-[10px] text-[#52504B]">
+          <div className="flex justify-between text-[10px] text-outside-inkSecondary">
             <span>SERIAL #OUT-001-001</span>
-            <span className="font-bold text-[#111110]">NO RESTOCKS ONCE SOLD OUT</span>
+            <span className="font-bold text-outside-ink">NO RESTOCKS ONCE SOLD OUT</span>
             <span>SERIAL #OUT-001-250</span>
           </div>
         </div>
@@ -453,8 +465,16 @@ export function ActiveDropView({ drop, featureFlags }: { drop: DropData; feature
                 <div className="p-2.5 bg-outside-moss/5 border border-outside-moss/30 rounded flex items-center justify-between font-mono text-xs">
                   <div className="flex items-center gap-2">
                     <Zap className="w-4 h-4 text-outside-moss shrink-0" />
-                    <span className="text-outside-ink font-bold">
-                      Pay <strong className="text-outside-moss text-sm">₹{Math.round((drop.pricePaise * 0.95) / 100).toLocaleString('en-IN')}</strong> with 5% Instant UPI
+                    <span className="text-outside-ink font-bold flex items-center gap-1.5">
+                      <span>Pay</span>
+                      <strong className="text-outside-moss text-sm">₹{Math.round((drop.pricePaise * 0.95) / 100).toLocaleString('en-IN')}</strong>
+                      <ShinyText
+                        text="with 5% Instant UPI"
+                        speed={3}
+                        color="#3F4E44"
+                        shineColor="#FFFFFF"
+                        className="font-bold"
+                      />
                     </span>
                   </div>
                   <span className="text-[10px] uppercase font-bold text-outside-moss bg-outside-moss/15 px-2 py-0.5 rounded">
@@ -573,7 +593,7 @@ export function ActiveDropView({ drop, featureFlags }: { drop: DropData; feature
             </div>
 
             {/* Purchase CTAs: Dual Action (Louis Philippe / Cahoot Benchmark) */}
-            <div className="space-y-3 pt-2">
+            <div id="main-purchase-cta" className="space-y-3 pt-2">
               {isOutOfStock ? (
                 <Button
                   variant="outline"
@@ -591,7 +611,7 @@ export function ActiveDropView({ drop, featureFlags }: { drop: DropData; feature
                     variant="outline"
                     size="lg"
                     onClick={() => handleAddToCart(true)}
-                    className="w-full text-xs font-mono tracking-[0.2em] font-bold border-outside-ink text-outside-ink hover:bg-outside-surface transition-all flex items-center justify-center gap-2 cursor-pointer"
+                    className="w-full text-xs font-mono tracking-[0.2em] font-bold border-outside-ink text-outside-ink hover:bg-outside-surface transition-colors flex items-center justify-center gap-2 cursor-pointer"
                   >
                     <ShoppingBag className="w-4 h-4" />
                     <span>{addedAnimation ? 'ADDED TO BAG ✓' : 'ADD TO BAG'}</span>
@@ -602,7 +622,7 @@ export function ActiveDropView({ drop, featureFlags }: { drop: DropData; feature
                     variant="primary"
                     size="lg"
                     onClick={handleBuyNow}
-                    className="w-full text-xs font-mono tracking-[0.2em] font-bold bg-outside-accent hover:bg-outside-accent/90 text-white transition-all flex items-center justify-center gap-2 shadow-editorial cursor-pointer"
+                    className="w-full text-xs font-mono tracking-[0.2em] font-bold bg-outside-accent hover:bg-outside-accent/90 text-white transition-colors flex items-center justify-center gap-2 shadow-editorial cursor-pointer"
                   >
                     <span>BUY NOW</span>
                     <ArrowRight className="w-4 h-4" />
@@ -676,6 +696,50 @@ export function ActiveDropView({ drop, featureFlags }: { drop: DropData; feature
                     </p>
                   </div>
                 )}
+              </div>
+
+              {/* Collector Unboxing & Authenticity Guarantee */}
+              <div className="p-4 bg-outside-surface border border-outside-border space-y-2.5 font-mono text-xs">
+                <div className="flex items-center justify-between">
+                  <span className="font-bold text-outside-ink uppercase flex items-center gap-1.5">
+                    <Sparkles className="w-3.5 h-3.5 text-outside-accent" />
+                    <span>WHAT ARRIVES IN YOUR COLLECTOR BOX</span>
+                  </span>
+                  <span className="text-[10px] text-outside-moss font-bold uppercase">100% SERIALIZED</span>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[11px] text-outside-inkSecondary font-sans">
+                  <div className="p-2 bg-outside-elevated border border-outside-border flex items-start gap-1.5">
+                    <Check className="w-3.5 h-3.5 text-outside-accent shrink-0 mt-0.5" />
+                    <span>Hand-signed Certificate of Authenticity</span>
+                  </div>
+                  <div className="p-2 bg-outside-elevated border border-outside-border flex items-start gap-1.5">
+                    <Check className="w-3.5 h-3.5 text-outside-accent shrink-0 mt-0.5" />
+                    <span>Serialized inner hem tag (#OUT-001-XXX)</span>
+                  </div>
+                  <div className="p-2 bg-outside-elevated border border-outside-border flex items-start gap-1.5">
+                    <Check className="w-3.5 h-3.5 text-outside-accent shrink-0 mt-0.5" />
+                    <span>Rigid Sandstone Archival Collector Box</span>
+                  </div>
+                  <div className="p-2 bg-outside-elevated border border-outside-border flex items-start gap-1.5">
+                    <Check className="w-3.5 h-3.5 text-outside-accent shrink-0 mt-0.5" />
+                    <span>Acid-free tissue wrap & Organic Care Guide</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Verified Payment Trust Banner */}
+              <div className="p-3.5 bg-outside-elevated border border-outside-border flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 text-[11px] font-mono">
+                <span className="text-outside-ink font-bold flex items-center gap-1.5">
+                  <ShieldCheck className="w-4 h-4 text-outside-moss shrink-0" />
+                  <span>256-BIT ENCRYPTED RAZORPAY CHECKOUT</span>
+                </span>
+                <div className="flex items-center gap-1.5 text-[10px] text-outside-inkSecondary flex-wrap">
+                  <span className="px-1.5 py-0.5 bg-outside-surface border border-outside-border font-bold">UPI / QR</span>
+                  <span className="px-1.5 py-0.5 bg-outside-surface border border-outside-border font-bold">CARDS</span>
+                  <span className="px-1.5 py-0.5 bg-outside-surface border border-outside-border font-bold">NETBANKING</span>
+                  <span className="px-1.5 py-0.5 bg-outside-surface border border-outside-border font-bold text-outside-moss">COD</span>
+                  <span className="px-1.5 py-0.5 bg-outside-surface border border-outside-border font-bold">0% EMI</span>
+                </div>
               </div>
 
               {/* Viral Social & WhatsApp Share Engine */}

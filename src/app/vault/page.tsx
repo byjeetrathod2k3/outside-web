@@ -5,6 +5,9 @@ import { getLocalStore } from '@/lib/db';
 import { Lock, ArrowRight } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { SectionHeading } from '@/components/ui/section-heading';
+import SpotlightCard from '@/components/reactbits/SpotlightCard/SpotlightCard';
+import CountUp from '@/components/reactbits/CountUp/CountUp';
+import DecryptedText from '@/components/reactbits/DecryptedText/DecryptedText';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -36,9 +39,11 @@ export default function VaultPage() {
           {drops.map((drop: any) => {
             const isLive = drop.status === 'LIVE';
             return (
-              <div
+              <SpotlightCard
                 key={drop.id}
-                className="bg-outside-elevated border border-outside-border flex flex-col justify-between overflow-hidden group shadow-editorial hover:border-outside-accent/60 transition-all"
+                theme="light"
+                spotlightColor="rgba(184, 35, 40, 0.14)"
+                className="bg-outside-elevated border border-outside-border flex flex-col justify-between overflow-hidden group shadow-editorial hover:border-outside-accent/60 transition-all !p-0"
               >
                 <div className="relative aspect-[4/5] bg-outside-surface overflow-hidden">
                   <Image
@@ -70,7 +75,9 @@ export default function VaultPage() {
                   </div>
 
                   <div className="pt-4 border-t border-outside-border flex items-center justify-between font-mono text-xs">
-                    <span className="text-outside-inkSecondary">RUN: {drop.totalEditionQty} PIECES</span>
+                    <span className="text-outside-inkSecondary">
+                      RUN: <CountUp to={drop.totalEditionQty} duration={1} /> PIECES
+                    </span>
                     <Link
                       href={isLive ? '/' : `/vault/${drop.slug}`}
                       className="text-outside-accent hover:underline flex items-center gap-1.5 uppercase font-bold text-[11px]"
@@ -80,7 +87,7 @@ export default function VaultPage() {
                     </Link>
                   </div>
                 </div>
-              </div>
+              </SpotlightCard>
             );
           })}
         </div>

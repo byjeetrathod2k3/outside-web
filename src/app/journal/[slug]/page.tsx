@@ -6,6 +6,13 @@ import { getLocalStore } from '@/lib/db';
 import { ArrowLeft, Clock } from 'lucide-react';
 import type { Metadata } from 'next';
 
+export function generateStaticParams() {
+  const store = getLocalStore();
+  return (store.journal || []).map((post: any) => ({
+    slug: post.slug,
+  }));
+}
+
 export async function generateMetadata({
   params,
 }: {

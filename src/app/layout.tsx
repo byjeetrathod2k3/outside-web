@@ -33,6 +33,9 @@ export const metadata: Metadata = {
   authors: [{ name: 'OUTSIDE Apparel Studio', url: 'https://www.outside.in' }],
   creator: 'OUTSIDE APPAREL STUDIO PVT LTD',
   publisher: 'OUTSIDE APPAREL STUDIO PVT LTD',
+  alternates: {
+    canonical: 'https://www.outside.in',
+  },
   openGraph: {
     type: 'website',
     locale: 'en_IN',

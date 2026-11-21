@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Share2, Check, Copy } from 'lucide-react';
 
 interface ViralShareProps {
@@ -21,8 +21,15 @@ export function ViralShare({
   className = '',
 }: ViralShareProps) {
   const [copied, setCopied] = useState(false);
+  const [currentUrl, setCurrentUrl] = useState<string>(url || 'https://www.outside.in');
 
-  const targetUrl = typeof window !== 'undefined' ? url || window.location.href : 'https://www.outside.in';
+  useEffect(() => {
+    if (!url && typeof window !== 'undefined') {
+      setCurrentUrl(window.location.href);
+    }
+  }, [url]);
+
+  const targetUrl = currentUrl;
 
   const defaultShareText = isReferral
     ? `I just queued for early access to OUTSIDE DROP ${dropNumber} (${title}). Limited to 250 serialized pieces. Wear your story:`
@@ -31,12 +38,13 @@ export function ViralShare({
   const shareText = customText || defaultShareText;
 
   const handleNativeShare = async () => {
+    const activeUrl = url || (typeof window !== 'undefined' ? window.location.href : currentUrl);
     if (typeof navigator !== 'undefined' && navigator.share) {
       try {
         await navigator.share({
           title: `OUTSIDE // ${title}`,
           text: shareText,
-          url: targetUrl,
+          url: activeUrl,
         });
         return;
       } catch (err: any) {
@@ -51,8 +59,9 @@ export function ViralShare({
   };
 
   const handleCopyLink = () => {
+    const activeUrl = url || (typeof window !== 'undefined' ? window.location.href : currentUrl);
     if (typeof navigator !== 'undefined' && navigator.clipboard) {
-      navigator.clipboard.writeText(`${shareText} ${targetUrl}`);
+      navigator.clipboard.writeText(`${shareText} ${activeUrl}`);
       setCopied(true);
       setTimeout(() => setCopied(false), 2500);
     }
@@ -70,6 +79,7 @@ export function ViralShare({
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Share on WhatsApp"
+          suppressHydrationWarning
           className="inline-flex items-center gap-2 px-3.5 py-2.5 bg-[#25D366]/10 hover:bg-[#25D366]/20 border border-[#25D366]/40 text-[#128C7E] text-xs font-bold uppercase tracking-wider transition-all"
         >
           {/* WhatsApp SVG Icon */}
@@ -85,6 +95,7 @@ export function ViralShare({
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Share on X"
+          suppressHydrationWarning
           className="inline-flex items-center gap-2 px-3 py-2.5 bg-[#EDEAE2] hover:bg-[#DCD7CC] border border-[#DCD7CC] text-[#111110] text-xs font-bold uppercase tracking-wider transition-all"
         >
           <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">

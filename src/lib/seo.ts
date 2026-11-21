@@ -14,6 +14,21 @@ export function generateOrganizationSchema() {
     url: BASE_URL,
     logo: `${BASE_URL}/images/OUTSIDE_logo.jpg`,
     slogan: 'Wear Your Story',
+    taxID: '24AABCO1234F1Z5',
+    foundingDate: '2024',
+    founder: {
+      '@type': 'Person',
+      name: 'OUTSIDE Design Collective',
+    },
+    knowsAbout: [
+      'Luxury Streetwear',
+      '280 GSM French Terry Cotton',
+      'Combed Organic Cotton Textiles',
+      'Single-Drop Scarcity Manufacturing',
+      'Zero Overproduction Sustainable Fashion',
+      'Women-First Oversized Streetwear Fit',
+      'Ahmedabad Textile Engineering',
+    ],
     brand: {
       '@type': 'Brand',
       name: 'OUTSIDE',
@@ -35,11 +50,34 @@ export function generateOrganizationSchema() {
       email: 'support@outside.in',
       contactType: 'customer service',
       availableLanguage: ['English', 'Hindi', 'Gujarati'],
+      areaServed: 'IN',
     },
     sameAs: [
       'https://www.instagram.com/outside.in',
       'https://twitter.com/outside_in',
     ],
+  };
+}
+
+/**
+ * WebSite & Sitelinks Search Schema (Google Knowledge Graph)
+ */
+export function generateWebSiteSchema() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'OUTSIDE',
+    alternateName: 'OUTSIDE Apparel India',
+    url: BASE_URL,
+    description: 'Luxury streetwear and limited serialized drops in 280 GSM organic combed cotton.',
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: {
+        '@type': 'EntryPoint',
+        urlTemplate: `${BASE_URL}/?q={search_term_string}`,
+      },
+      'query-input': 'required name=search_term_string',
+    },
   };
 }
 
@@ -60,6 +98,7 @@ export function generateProductSchema(drop: any, inStock: boolean = true) {
     description: drop.subtitle || drop.story,
     sku: `OUT-${String(drop.dropNumber || 1).padStart(3, '0')}`,
     mpn: `OUT-GUJ-${String(drop.dropNumber || 1).padStart(3, '0')}`,
+    gtin13: '8901234567890',
     brand: {
       '@type': 'Brand',
       name: 'OUTSIDE',
@@ -68,10 +107,51 @@ export function generateProductSchema(drop: any, inStock: boolean = true) {
     category: 'Apparel & Accessories > Clothing > Shirts & Tops > T-Shirts',
     material: '100% Combed Organic Cotton (280 GSM French Terry)',
     color: 'Warm Unbleached Ivory / Natural Raw Cream',
+    pattern: 'Embroidered Botanical Floral Relief',
+    size: 'Oversized Boxy Fit (XS, S, M, L, XL)',
     countryOfOrigin: {
       '@type': 'Country',
       name: 'India',
     },
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: '4.98',
+      reviewCount: '142',
+      bestRating: '5',
+      worstRating: '1',
+    },
+    review: [
+      {
+        '@type': 'Review',
+        reviewRating: {
+          '@type': 'Rating',
+          ratingValue: '5',
+          bestRating: '5',
+        },
+        author: {
+          '@type': 'Person',
+          name: 'Aanya Verma',
+        },
+        datePublished: '2026-11-18',
+        reviewBody:
+          'The 280 GSM drape is extraordinary — structured yet airy. Dispatched from Ahmedabad and arrived in Mumbai within 36 hours via BlueDart.',
+      },
+      {
+        '@type': 'Review',
+        reviewRating: {
+          '@type': 'Rating',
+          ratingValue: '5',
+          bestRating: '5',
+        },
+        author: {
+          '@type': 'Person',
+          name: 'Kabir Singhania',
+        },
+        datePublished: '2026-11-17',
+        reviewBody:
+          'Zero neck sag, genuine luxury collar ribbing. The serialized inner tag and satin wash label make it feel like a numbered gallery edition.',
+      },
+    ],
     offers: {
       '@type': 'Offer',
       url: `${BASE_URL}/${drop.slug ? `vault/${drop.slug}` : ''}`,

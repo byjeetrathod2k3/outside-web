@@ -9,6 +9,13 @@ import type { Metadata } from 'next';
 import { JsonLd, generateProductSchema, generateBreadcrumbSchema } from '@/lib/seo';
 import { ViralShare } from '@/components/commerce/viral-share';
 
+export function generateStaticParams() {
+  const store = getLocalStore();
+  return (store.drops || []).map((drop: any) => ({
+    slug: drop.slug,
+  }));
+}
+
 export async function generateMetadata({
   params,
 }: {

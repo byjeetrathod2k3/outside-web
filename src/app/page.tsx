@@ -9,6 +9,7 @@ import { ArrowRight, Check, HelpCircle, BookOpen } from 'lucide-react';
 import {
   JsonLd,
   generateOrganizationSchema,
+  generateWebSiteSchema,
   generateProductSchema,
   generateBreadcrumbSchema,
   generateFaqSchema,
@@ -16,7 +17,14 @@ import {
 import { DirectAnswerBlocks } from '@/components/seo/direct-answer-blocks';
 import { MarqueeTicker } from '@/components/layout/marquee-ticker';
 import { CollectorReviews } from '@/components/commerce/collector-reviews';
+import { MultiDropShowcase } from '@/components/commerce/multi-drop-showcase';
 import { EditorialHero } from '@/components/home/editorial-hero';
+import SpotlightCard from '@/components/reactbits/SpotlightCard/SpotlightCard';
+import CountUp from '@/components/reactbits/CountUp/CountUp';
+import DecryptedText from '@/components/reactbits/DecryptedText/DecryptedText';
+import ShinyText from '@/components/reactbits/ShinyText/ShinyText';
+import BlurText from '@/components/reactbits/BlurText/BlurText';
+import Waves from '@/components/reactbits/Waves/Waves';
 
 export default async function HomePage() {
   const store = getLocalStore();
@@ -34,6 +42,9 @@ export default async function HomePage() {
   const vaultMobile = layout.gridColumns?.vault?.mobile === 2 ? 'grid-cols-2' : 'grid-cols-1';
   const vaultTablet = layout.gridColumns?.vault?.tablet === 3 ? 'md:grid-cols-3' : layout.gridColumns?.vault?.tablet === 1 ? 'md:grid-cols-1' : 'md:grid-cols-2';
   const vaultDesktop = layout.gridColumns?.vault?.desktop === 4 ? 'lg:grid-cols-4' : layout.gridColumns?.vault?.desktop === 2 ? 'lg:grid-cols-2' : 'lg:grid-cols-3';
+
+  const lookbookMobile = layout.gridColumns?.lookbook?.mobile === 2 ? 'grid-cols-2' : 'grid-cols-1';
+  const lookbookDesktop = layout.gridColumns?.lookbook?.desktop === 3 ? 'lg:grid-cols-3' : 'lg:grid-cols-2';
 
   // Schema.org FAQPage for Answer Engine Discoverability (AEO)
   const faqSchema = {
@@ -59,37 +70,52 @@ export default async function HomePage() {
   };
 
   // Section Renderers Dictionary
-  const renderSection = (sectionId: string, secConfig?: any) => {
+  const renderSection = (sectionId: string, secConfig?: any, index?: number) => {
     const visibilityClass = getVisibilityClass(secConfig);
+    const sectionKey = secConfig?.id || `${sectionId}-${index ?? 0}`;
 
     switch (sectionId) {
       case 'hero':
         const remainingPieces =
           activeDrop.variants?.reduce((acc: number, v: any) => acc + (v.currentStock || 0), 0) || 75;
+        const hasExplicitReviewsSection = layout.sections?.some((s: any) => s.id === 'reviews');
 
         return (
-          <React.Fragment key="hero">
+          <React.Fragment key={sectionKey}>
             <EditorialHero
               dropTitle={activeDrop.title}
               dropNumber={activeDrop.dropNumber}
               pricePaise={activeDrop.pricePaise}
               totalPieces={activeDrop.totalEditionQty}
               remainingPieces={remainingPieces}
+              allDrops={store.drops}
             />
             <section id="active-drop" className={`border-b border-outside-border bg-subtle-grid ${visibilityClass}`}>
               <MarqueeTicker />
               <ActiveDropView drop={activeDrop} featureFlags={flags} />
             </section>
-            <CollectorReviews />
+            {!hasExplicitReviewsSection && <CollectorReviews />}
           </React.Fragment>
         );
 
+      case 'drops':
+      case 'catalog':
+        return (
+          <div key={sectionKey} id="all-drops">
+            <MultiDropShowcase
+              drops={store.drops}
+              activeDropId={activeDrop.id}
+              className={visibilityClass}
+            />
+          </div>
+        );
+
       case 'reviews':
-        return <CollectorReviews key="reviews" />;
+        return <CollectorReviews key={sectionKey} />;
 
       case 'story':
         return (
-          <section key="story" className={`py-24 border-b border-outside-border bg-outside-cardSubtle/40 ${visibilityClass}`}>
+          <section key={sectionKey} className={`py-24 border-b border-outside-border bg-outside-cardSubtle/40 ${visibilityClass}`}>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <SectionHeading
                 eyebrow="THE ANTI-INVENTORY PHILOSOPHY"
@@ -100,11 +126,15 @@ export default async function HomePage() {
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {/* Bento Card 1 */}
-                <div className="p-8 bg-outside-elevated border border-outside-border flex flex-col justify-between hover:border-outside-accent/60 transition-all shadow-editorial">
+                <SpotlightCard
+                  theme="light"
+                  spotlightColor="rgba(184, 35, 40, 0.16)"
+                  className="p-8 bg-outside-elevated border border-outside-border flex flex-col justify-between hover:border-outside-accent/60 transition-all shadow-editorial"
+                >
                   <div className="space-y-4">
                     <span className="text-xs font-mono text-outside-accent font-bold">01 // MATERIAL ENGINEERING</span>
                     <h3 className="text-xl font-bold font-display text-outside-ink uppercase">
-                      280 GSM French Terry Cotton
+                      <CountUp to={280} duration={1} /> GSM French Terry Cotton
                     </h3>
                     <p className="text-xs text-outside-inkSecondary leading-relaxed font-sans">
                       Custom-milled in India using 100% long-staple combed organic cotton. Double-bio-washed to eliminate shrinkage while preserving soft, durable structure.
@@ -113,14 +143,18 @@ export default async function HomePage() {
                   <div className="pt-8 border-t border-outside-border font-mono text-[11px] text-outside-ink font-bold">
                     <span>WEIGHT: 280 GSM · 100% ORGANIC COMBED</span>
                   </div>
-                </div>
+                </SpotlightCard>
 
                 {/* Bento Card 2 */}
-                <div className="p-8 bg-outside-elevated border border-outside-border flex flex-col justify-between hover:border-outside-accent/60 transition-all shadow-editorial">
+                <SpotlightCard
+                  theme="light"
+                  spotlightColor="rgba(184, 35, 40, 0.16)"
+                  className="p-8 bg-outside-elevated border border-outside-border flex flex-col justify-between hover:border-outside-accent/60 transition-all shadow-editorial"
+                >
                   <div className="space-y-4">
                     <span className="text-xs font-mono text-outside-accent font-bold">02 // PERMANENT RETIREMENT</span>
                     <h3 className="text-xl font-bold font-display text-outside-ink uppercase">
-                      The 250-Piece Hard Limit
+                      The <CountUp to={250} duration={1.2} />-Piece Hard Limit
                     </h3>
                     <p className="text-xs text-outside-inkSecondary leading-relaxed font-sans">
                       Every garment carries a serialized tag on the inner hem. Once unit 250 is claimed, the digital patterns are retired permanently into The Vault.
@@ -129,10 +163,14 @@ export default async function HomePage() {
                   <div className="pt-8 border-t border-outside-border font-mono text-[11px] text-outside-ink font-bold">
                     <span>ZERO RESTOCKS · ZERO DEADSTOCK</span>
                   </div>
-                </div>
+                </SpotlightCard>
 
                 {/* Bento Card 3 */}
-                <div className="p-8 bg-outside-elevated border border-outside-border flex flex-col justify-between hover:border-outside-accent/60 transition-all shadow-editorial">
+                <SpotlightCard
+                  theme="light"
+                  spotlightColor="rgba(184, 35, 40, 0.16)"
+                  className="p-8 bg-outside-elevated border border-outside-border flex flex-col justify-between hover:border-outside-accent/60 transition-all shadow-editorial"
+                >
                   <div className="space-y-4">
                     <span className="text-xs font-mono text-outside-accent font-bold">03 // MADE IN INDIA &amp; GST</span>
                     <h3 className="text-xl font-bold font-display text-outside-ink uppercase">
@@ -143,18 +181,168 @@ export default async function HomePage() {
                     </p>
                   </div>
                   <div className="pt-8 border-t border-outside-border font-mono text-[11px] text-outside-ink font-bold">
-                    <span>GSTIN: 24AABCO1234F1Z5 · HSN 61091000</span>
+                    <span>GSTIN: <DecryptedText text="24AABCO1234F1Z5" speed={30} animateOn="view" /> · HSN 61091000</span>
                   </div>
-                </div>
+                </SpotlightCard>
               </div>
             </div>
           </section>
         );
 
       case 'lookbook':
+        return (
+          <section key={sectionKey} id="lookbook" className={`py-24 border-b border-outside-border bg-outside-surface/30 ${visibilityClass}`}>
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+              <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6">
+                <div className="space-y-3">
+                  <span className="text-[11px] font-mono uppercase tracking-[0.3em] text-outside-accent font-bold">
+                    VISUAL EDITORIAL // IN SITU
+                  </span>
+                  <h2 className="text-3xl sm:text-4xl font-display font-black tracking-tight text-outside-ink uppercase">
+                    The Lookbook // Drop 001 In Motion.
+                  </h2>
+                  <p className="text-xs sm:text-sm text-outside-inkSecondary font-sans max-w-2xl leading-relaxed">
+                    280 GSM unbleached French Terry cotton, ergonomic women-first dropped shoulders, and multi-layered chain-stitch typography captured under natural studio light.
+                  </p>
+                </div>
+                <Link
+                  href="/lookbook"
+                  className="text-xs font-mono text-outside-accent hover:underline uppercase tracking-wider flex items-center gap-2 font-bold whitespace-nowrap"
+                >
+                  <span>VIEW FULL LOOKBOOK (12 FRAMES)</span>
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+              </div>
+
+              {/* Lookbook Bento Gallery */}
+              <div className={`grid ${lookbookMobile} md:grid-cols-2 ${lookbookDesktop} gap-6`}>
+                {/* Lookbook Frame 1 */}
+                <SpotlightCard
+                  theme="light"
+                  spotlightColor="rgba(184, 35, 40, 0.12)"
+                  className="bg-outside-elevated border border-outside-border overflow-hidden group shadow-editorial !p-0 flex flex-col justify-between"
+                >
+                  <div className="relative aspect-[4/5] bg-outside-surface overflow-hidden">
+                    <Image
+                      src="/images/drops/drop-001-front.jpg"
+                      alt="OUTSIDE DROP 001 Front Silhouette - Studio Direct"
+                      fill
+                      className="object-contain p-4 group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute top-3 left-3">
+                      <span className="px-2 py-1 bg-outside-elevated/90 backdrop-blur text-[10px] font-mono font-bold uppercase tracking-wider text-outside-ink border border-outside-border">
+                        FRAME 01 // TEXTILE GRAVITY
+                      </span>
+                    </div>
+                  </div>
+                  <div className="p-5 border-t border-outside-border space-y-2">
+                    <div className="flex items-center justify-between text-xs font-mono">
+                      <span className="font-bold text-outside-ink">NATURAL RAW IVORY</span>
+                      <span className="text-outside-accent font-bold">280 GSM</span>
+                    </div>
+                    <p className="text-[11px] text-outside-inkSecondary font-sans leading-relaxed">
+                      Heavyweight drape holding architectural boxy silhouette without synthetic stiffeners.
+                    </p>
+                  </div>
+                </SpotlightCard>
+
+                {/* Lookbook Frame 2 */}
+                <SpotlightCard
+                  theme="light"
+                  spotlightColor="rgba(184, 35, 40, 0.12)"
+                  className="bg-outside-elevated border border-outside-border overflow-hidden group shadow-editorial !p-0 flex flex-col justify-between"
+                >
+                  <div className="relative aspect-[4/5] bg-outside-surface overflow-hidden">
+                    <Image
+                      src="/images/drops/drop-001-back.jpg"
+                      alt="OUTSIDE DROP 001 Typographic Manifesto - Upper Back"
+                      fill
+                      className="object-contain p-4 group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute top-3 left-3">
+                      <span className="px-2 py-1 bg-outside-elevated/90 backdrop-blur text-[10px] font-mono font-bold uppercase tracking-wider text-outside-ink border border-outside-border">
+                        FRAME 02 // TYPOGRAPHIC MANIFESTO
+                      </span>
+                    </div>
+                  </div>
+                  <div className="p-5 border-t border-outside-border space-y-2">
+                    <div className="flex items-center justify-between text-xs font-mono">
+                      <span className="font-bold text-outside-ink">SAME GIRL BRIGHTER DAYS</span>
+                      <span className="text-outside-accent font-bold">MATTE PIGMENT</span>
+                    </div>
+                    <p className="text-[11px] text-outside-inkSecondary font-sans leading-relaxed">
+                      High-density matte charcoal pigment bonded into combed cotton fibers for lifelong wash resistance.
+                    </p>
+                  </div>
+                </SpotlightCard>
+
+                {/* Lookbook Frame 3 */}
+                <SpotlightCard
+                  theme="light"
+                  spotlightColor="rgba(184, 35, 40, 0.12)"
+                  className="bg-outside-elevated border border-outside-border overflow-hidden group shadow-editorial !p-0 flex flex-col justify-between"
+                >
+                  <div className="relative aspect-[4/5] bg-outside-surface overflow-hidden">
+                    <Image
+                      src="/images/drops/drop-001-detail1.jpg"
+                      alt="OUTSIDE DROP 001 Embroidery Metallurgy Detail"
+                      fill
+                      className="object-contain p-4 group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute top-3 left-3">
+                      <span className="px-2 py-1 bg-outside-elevated/90 backdrop-blur text-[10px] font-mono font-bold uppercase tracking-wider text-outside-ink border border-outside-border">
+                        FRAME 03 // EMBROIDERY METALLURGY
+                      </span>
+                    </div>
+                  </div>
+                  <div className="p-5 border-t border-outside-border space-y-2">
+                    <div className="flex items-center justify-between text-xs font-mono">
+                      <span className="font-bold text-outside-ink">CHAIN-STITCH WORK</span>
+                      <span className="text-outside-accent font-bold">DEBOSSED HEART</span>
+                    </div>
+                    <p className="text-[11px] text-outside-inkSecondary font-sans leading-relaxed">
+                      Multi-tiered rayon threadwork with tactile hand-finished canvas patch reading &quot;for a kinder you&quot;.
+                    </p>
+                  </div>
+                </SpotlightCard>
+
+                {/* Lookbook Frame 4 */}
+                <SpotlightCard
+                  theme="light"
+                  spotlightColor="rgba(184, 35, 40, 0.12)"
+                  className="bg-outside-elevated border border-outside-border overflow-hidden group shadow-editorial !p-0 flex flex-col justify-between"
+                >
+                  <div className="relative aspect-[4/5] bg-outside-surface overflow-hidden">
+                    <Image
+                      src="/images/drops/drop-001-collar.jpg"
+                      alt="OUTSIDE DROP 001 Lycra Recovery Collar"
+                      fill
+                      className="object-contain p-4 group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute top-3 left-3">
+                      <span className="px-2 py-1 bg-outside-elevated/90 backdrop-blur text-[10px] font-mono font-bold uppercase tracking-wider text-outside-ink border border-outside-border">
+                        FRAME 04 // COLLAR &amp; SEAM RECOVERY
+                      </span>
+                    </div>
+                  </div>
+                  <div className="p-5 border-t border-outside-border space-y-2">
+                    <div className="flex items-center justify-between text-xs font-mono">
+                      <span className="font-bold text-outside-ink">REINFORCED 1.25&quot; RIB</span>
+                      <span className="text-outside-accent font-bold">ZERO SAG</span>
+                    </div>
+                    <p className="text-[11px] text-outside-inkSecondary font-sans leading-relaxed">
+                      Engineered Lycra blend neckband maintains shape after 50+ wash cycles without bacon-neck distortion.
+                    </p>
+                  </div>
+                </SpotlightCard>
+              </div>
+            </div>
+          </section>
+        );
+
       case 'specs':
         return (
-          <section key="lookbook" id="fit-philosophy" className={`py-24 border-b border-outside-border ${visibilityClass}`}>
+          <section key={sectionKey} id="fit-philosophy" className={`py-24 border-b border-outside-border ${visibilityClass}`}>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
                 <div className="lg:col-span-6 space-y-6">
@@ -254,9 +442,11 @@ export default async function HomePage() {
 
               <div className={`grid ${vaultMobile} ${vaultTablet} ${vaultDesktop} gap-8`}>
                 {vaultDrops.map((drop: any) => (
-                  <div
+                  <SpotlightCard
                     key={drop.id}
-                    className="bg-outside-elevated border border-outside-border overflow-hidden flex flex-col justify-between group shadow-editorial hover:border-outside-accent/50 transition-all"
+                    theme="light"
+                    spotlightColor="rgba(184, 35, 40, 0.14)"
+                    className="bg-outside-elevated border border-outside-border overflow-hidden flex flex-col justify-between group shadow-editorial hover:border-outside-accent/50 transition-all !p-0"
                   >
                     <div className="relative aspect-[4/5] bg-outside-surface overflow-hidden">
                       <Image
@@ -297,7 +487,7 @@ export default async function HomePage() {
                         </Link>
                       </div>
                     </div>
-                  </div>
+                  </SpotlightCard>
                 ))}
               </div>
             </div>
@@ -400,21 +590,41 @@ export default async function HomePage() {
 
       case 'vip':
         return (
-          <section key="vip" className={`py-24 bg-outside-ink text-white text-center ${visibilityClass}`}>
-            <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
-              <span className="text-xs font-mono uppercase tracking-[0.3em] font-bold text-outside-accent">
-                LIMITED EDITION // ZERO DEADSTOCK
-              </span>
-              <h2 className="text-4xl sm:text-6xl font-display font-black tracking-tight uppercase">
-                Wear Your Story.
-              </h2>
+          <section key="vip" className={`relative overflow-hidden py-24 bg-outside-ink text-white text-center ${visibilityClass}`}>
+            {/* Silk Wave Textile Animation Background */}
+            <div className="absolute inset-0 pointer-events-none opacity-20">
+              <Waves lineColor="#ffffff" mouseInteraction={false} speed={0.4} />
+            </div>
+
+            <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+              <div className="inline-block">
+                <ShinyText
+                  text="LIMITED EDITION // ZERO DEADSTOCK"
+                  speed={3}
+                  color="#B82328"
+                  shineColor="#FFFFFF"
+                  className="text-xs font-mono uppercase tracking-[0.3em] font-bold"
+                />
+              </div>
+
+              <div className="flex justify-center">
+                <BlurText
+                  text="WEAR YOUR STORY."
+                  delay={100}
+                  animateBy="words"
+                  direction="top"
+                  className="text-4xl sm:text-6xl font-display font-black tracking-tight uppercase text-white justify-center"
+                />
+              </div>
+
               <p className="text-sm max-w-xl mx-auto leading-relaxed text-white/80 font-sans">
                 DROP 001 is currently live and allocation is claimed in real time. Once unit 250 is claimed, no further pieces will ever be created.
               </p>
-              <div className="pt-4">
+
+              <div className="pt-4 flex justify-center">
                 <a
                   href="#active-drop"
-                  className="inline-flex items-center gap-3 px-8 py-4 bg-outside-accent hover:bg-outside-accent text-white font-mono text-xs uppercase tracking-[0.25em] font-bold transition-all shadow-editorial cursor-pointer"
+                  className="inline-flex items-center gap-3 px-8 py-4 bg-outside-accent hover:bg-outside-accent/90 text-white font-mono text-xs uppercase tracking-[0.25em] font-bold transition-colors shadow-editorial cursor-pointer rounded"
                 >
                   <span>CLAIM YOUR PIECE TODAY</span>
                   <ArrowRight className="w-4 h-4" />
@@ -434,8 +644,10 @@ export default async function HomePage() {
     ? [...layout.sections].sort((a: any, b: any) => a.sortOrder - b.sortOrder)
     : [
         { id: 'hero' },
+        { id: 'drops' },
         { id: 'story' },
         { id: 'lookbook' },
+        { id: 'specs' },
         { id: 'vault' },
         { id: 'journal' },
         { id: 'faqs' },
@@ -443,6 +655,7 @@ export default async function HomePage() {
       ];
 
   const orgSchema = generateOrganizationSchema();
+  const websiteSchema = generateWebSiteSchema();
   const productSchema = generateProductSchema(activeDrop, true);
   const breadcrumbSchema = generateBreadcrumbSchema([{ name: 'Home', url: '/' }]);
   const faqJsonLd = generateFaqSchema(faqs);
@@ -451,13 +664,14 @@ export default async function HomePage() {
     <div className="bg-outside-canvas text-outside-ink font-sans">
       {/* Structured E-Commerce & AEO JSON-LD */}
       <JsonLd data={orgSchema} />
+      <JsonLd data={websiteSchema} />
       <JsonLd data={productSchema} />
       <JsonLd data={breadcrumbSchema} />
       <JsonLd data={faqJsonLd} />
 
       {/* Dynamic Sections Sequence */}
-      {configuredSections.map((secConfig: any) =>
-        renderSection(secConfig.id, secConfig)
+      {configuredSections.map((secConfig: any, idx: number) =>
+        renderSection(secConfig.id, secConfig, idx)
       )}
     </div>
   );

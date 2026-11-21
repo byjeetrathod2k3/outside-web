@@ -4,6 +4,10 @@ import Image from 'next/image';
 import type { Metadata } from 'next';
 import { ArrowRight, Sparkles, Eye, ShieldAlert } from 'lucide-react';
 import { SectionHeading } from '@/components/ui/section-heading';
+import SpotlightCard from '@/components/reactbits/SpotlightCard/SpotlightCard';
+import BlurText from '@/components/reactbits/BlurText/BlurText';
+import ShinyText from '@/components/reactbits/ShinyText/ShinyText';
+import DecryptedText from '@/components/reactbits/DecryptedText/DecryptedText';
 
 export const metadata: Metadata = {
   title: 'Editorial Lookbook // DROP 001: Better Days Ahead | OUTSIDE',
@@ -60,11 +64,21 @@ export default function LookbookPage() {
           <div className="space-y-2">
             <div className="flex items-center gap-2 text-xs text-outside-crimson uppercase tracking-[0.25em] font-bold">
               <span className="w-2 h-2 rounded-full bg-outside-crimson animate-pulse" />
-              <span>EDITORIAL ARCHIVE // DROP 001</span>
+              <ShinyText
+                text="EDITORIAL ARCHIVE // DROP 001"
+                speed={3}
+                color="#B82328"
+                shineColor="#FFFFFF"
+                className="tracking-[0.25em] font-bold"
+              />
             </div>
-            <h1 className="text-4xl sm:text-6xl font-display font-black tracking-tight text-outside-text uppercase">
-              Better Days Ahead.
-            </h1>
+            <BlurText
+              text="Better Days Ahead."
+              delay={100}
+              animateBy="words"
+              direction="top"
+              className="text-4xl sm:text-6xl font-display font-black tracking-tight text-outside-text uppercase"
+            />
             <p className="text-sm font-sans text-outside-muted max-w-xl leading-relaxed">
               Photographed in our Ahmedabad studio. An intimate exploration of raw unbleached cotton, botanical threadwork, and the quiet power of intentional rarity.
             </p>
@@ -73,7 +87,7 @@ export default function LookbookPage() {
           <div className="flex items-center gap-3">
             <Link
               href="/"
-              className="px-6 py-3.5 bg-outside-crimson hover:bg-outside-crimsonHover text-white text-xs uppercase tracking-widest font-bold transition-all shadow-sm flex items-center gap-2"
+              className="px-6 py-3.5 bg-outside-crimson hover:bg-outside-crimsonHover text-white text-xs uppercase tracking-widest font-bold transition-colors shadow-sm flex items-center gap-2 cursor-pointer"
             >
               <span>CLAIM PIECE (₹2,400)</span>
               <ArrowRight className="w-4 h-4" />
@@ -86,11 +100,13 @@ export default function LookbookPage() {
           {LOOKBOOK_FRAMES.map((frame, idx) => {
             const isLarge = idx % 2 === 0;
             return (
-              <div
+              <SpotlightCard
                 key={frame.id}
+                theme="light"
+                spotlightColor="rgba(184, 35, 40, 0.14)"
                 className={`${
                   isLarge ? 'md:col-span-7' : 'md:col-span-5'
-                } bg-white border border-outside-border overflow-hidden shadow-luxury group transition-all`}
+                } bg-white border border-outside-border overflow-hidden shadow-luxury group transition-all !p-0`}
               >
                 {/* Image Stage */}
                 <div className={`relative ${frame.aspect} bg-[#EDEAE2]/40 overflow-hidden`}>
@@ -102,7 +118,7 @@ export default function LookbookPage() {
                     className="object-contain p-4 group-hover:scale-[1.03] transition-transform duration-700"
                   />
                   <div className="absolute top-4 left-4 bg-white/95 backdrop-blur-sm px-3 py-1 border border-outside-border text-[9px] uppercase font-bold tracking-widest text-outside-text">
-                    {frame.tag}
+                    <DecryptedText text={frame.tag} speed={30} animateOn="view" />
                   </div>
                 </div>
 
@@ -121,7 +137,7 @@ export default function LookbookPage() {
                     {frame.caption}
                   </p>
                 </div>
-              </div>
+              </SpotlightCard>
             );
           })}
         </div>

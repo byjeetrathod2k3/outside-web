@@ -8,60 +8,6 @@ const STATIC_CMS_PAGES: Record<
   string,
   { title: string; subtitle: string; contentHtml: string }
 > = {
-  'size-guide': {
-    title: 'SIZE & FIT GUIDE // 280 GSM APPAREL',
-    subtitle: 'Calibrated specifically for our Women-first and Men architectural oversized cuts.',
-    contentHtml: `
-      <h2>The Fit &amp; Cut Guide</h2>
-      <p>All OUTSIDE garments feature an intentional architectural drape. We recommend selecting your true size for an authentic dropped-shoulder relaxed fit, or sizing down one step for a more classic structured fit.</p>
-      
-      <table style="width:100%; text-align:left; border-collapse:collapse; margin:24px 0; font-family: monospace; font-size: 13px;">
-        <thead>
-          <tr style="border-bottom: 2px solid #E7E2DA; color: #D91E2A;">
-            <th style="padding:12px 10px;">SIZE</th>
-            <th style="padding:12px 10px;">CHEST (INCHES)</th>
-            <th style="padding:12px 10px;">LENGTH (INCHES)</th>
-            <th style="padding:12px 10px;">SHOULDER (INCHES)</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr style="border-bottom: 1px solid #E7E2DA;">
-            <td style="padding:10px; font-weight:bold;">XS (Women)</td>
-            <td style="padding:10px;">38 - 40"</td>
-            <td style="padding:10px;">25.5"</td>
-            <td style="padding:10px;">19.5"</td>
-          </tr>
-          <tr style="border-bottom: 1px solid #E7E2DA;">
-            <td style="padding:10px; font-weight:bold;">S (Women / Men)</td>
-            <td style="padding:10px;">41 - 43"</td>
-            <td style="padding:10px;">26.5"</td>
-            <td style="padding:10px;">20.5"</td>
-          </tr>
-          <tr style="border-bottom: 1px solid #E7E2DA;">
-            <td style="padding:10px; font-weight:bold;">M (Women / Men)</td>
-            <td style="padding:10px;">44 - 46"</td>
-            <td style="padding:10px;">27.5"</td>
-            <td style="padding:10px;">21.5"</td>
-          </tr>
-          <tr style="border-bottom: 1px solid #E7E2DA;">
-            <td style="padding:10px; font-weight:bold;">L (Men)</td>
-            <td style="padding:10px;">47 - 49"</td>
-            <td style="padding:10px;">28.5"</td>
-            <td style="padding:10px;">22.5"</td>
-          </tr>
-          <tr style="border-bottom: 1px solid #E7E2DA;">
-            <td style="padding:10px; font-weight:bold;">XL (Men)</td>
-            <td style="padding:10px;">50 - 52"</td>
-            <td style="padding:10px;">29.5"</td>
-            <td style="padding:10px;">23.5"</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <h3>Care Instructions</h3>
-      <p>Machine wash cold with like colors inside out. Do not tumble dry. Steam or low-heat iron on reverse side. Avoid ironing directly on embroidery or screen-printed sleeve graphics.</p>
-    `,
-  },
   'shipping-returns': {
     title: 'EXPRESS SHIPPING & RETURNS POLICY',
     subtitle: 'Domestic Indian express transit and serialized exchange terms.',
@@ -176,6 +122,12 @@ const STATIC_CMS_PAGES: Record<
     `,
   },
 };
+
+export function generateStaticParams() {
+  return Object.keys(STATIC_CMS_PAGES).map((slug) => ({
+    slug,
+  }));
+}
 
 export async function generateMetadata({
   params,

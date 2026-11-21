@@ -75,7 +75,7 @@ export function GlobalFooter() {
                   placeholder="ENTER YOUR WORK OR PERSONAL EMAIL"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="flex-1 bg-white border border-outside-border px-4 py-3.5 text-xs font-mono text-outside-text placeholder-outside-muted focus:border-outside-crimson focus:outline-none shadow-sm rounded-none"
+                  className="flex-1 bg-outside-elevated border border-outside-border px-4 py-3.5 text-xs font-mono text-outside-text placeholder-outside-muted focus:border-outside-crimson focus:outline-none shadow-sm rounded-none"
                 />
                 <button
                   type="submit"
@@ -99,16 +99,16 @@ export function GlobalFooter() {
       </div>
 
       {/* Main Footer Links & Legal Matrix */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 items-start">
         
         {/* Brand Column */}
         <div className="lg:col-span-2 space-y-4">
-          <div className="relative h-12 w-48">
+          <div className="relative h-11 w-44">
             <Image
-              src="/images/OUTSIDE_logo.jpg"
+              src="/images/OUTSIDE_logo_transparent.png"
               alt="OUTSIDE"
               fill
-              className="object-contain object-left mix-blend-multiply"
+              className="object-contain object-left"
             />
           </div>
           <p className="text-xs text-outside-muted leading-relaxed max-w-sm font-sans">

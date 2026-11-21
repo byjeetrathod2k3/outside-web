@@ -10,11 +10,15 @@ const DEFAULT_MESSAGE =
 
 export function WhatsAppConcierge() {
   const pathname = usePathname();
-  const [isTooltipOpen, setIsTooltipOpen] = useState(true);
+  const [isTooltipOpen, setIsTooltipOpen] = useState(false);
   const adminBasePath = process.env.NEXT_PUBLIC_ADMIN_BASE_PATH || '/outside-studio-ops';
 
-  // Do not render on admin routes
-  if (pathname.startsWith('/admin') || pathname.startsWith(adminBasePath)) {
+  // Do not render on admin or checkout routes to ensure distraction-free flow
+  if (
+    pathname.startsWith('/admin') ||
+    pathname.startsWith('/checkout') ||
+    pathname.startsWith(adminBasePath)
+  ) {
     return null;
   }
 
@@ -22,7 +26,7 @@ export function WhatsAppConcierge() {
   const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMsg}`;
 
   return (
-    <div className="fixed bottom-6 right-6 z-40 flex flex-col items-end gap-2 font-mono select-none">
+    <div className="fixed bottom-24 md:bottom-6 right-4 sm:right-6 z-30 flex flex-col items-end gap-2 font-mono select-none">
       
       {/* Floating Guidance Balloon / Tooltip */}
       {isTooltipOpen && (

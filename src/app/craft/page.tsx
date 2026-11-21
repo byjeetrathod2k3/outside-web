@@ -15,6 +15,9 @@ import {
   Scale,
 } from 'lucide-react';
 import { SectionHeading } from '@/components/ui/section-heading';
+import SpotlightCard from '@/components/reactbits/SpotlightCard/SpotlightCard';
+import BlurText from '@/components/reactbits/BlurText/BlurText';
+import ShinyText from '@/components/reactbits/ShinyText/ShinyText';
 
 export const metadata: Metadata = {
   title: 'Fabric & Craftsmanship // 280 GSM Cotton | OUTSIDE India',
@@ -70,11 +73,21 @@ export default function CraftPage() {
         <div className="border-b border-outside-border pb-8 max-w-4xl space-y-3">
           <div className="flex items-center gap-2 text-xs text-outside-crimson uppercase tracking-[0.25em] font-bold">
             <span className="w-2 h-2 rounded-full bg-outside-crimson animate-pulse" />
-            <span>PREMIUM FABRIC &amp; CRAFT PHILOSOPHY</span>
+            <ShinyText
+              text="PREMIUM FABRIC & CRAFT PHILOSOPHY"
+              speed={3}
+              color="#B82328"
+              shineColor="#FFFFFF"
+              className="tracking-[0.25em] font-bold"
+            />
           </div>
-          <h1 className="text-4xl sm:text-6xl font-display font-black tracking-tight text-outside-text uppercase">
-            Built From Heavyweight Truth.
-          </h1>
+          <BlurText
+            text="Built From Heavyweight Truth."
+            delay={100}
+            animateBy="words"
+            direction="top"
+            className="text-4xl sm:text-6xl font-display font-black tracking-tight text-outside-text uppercase"
+          />
           <p className="text-sm font-sans text-outside-muted leading-relaxed max-w-2xl">
             We reject the disposable, micro-plastic fabric race. Every OUTSIDE piece is developed with obsessive material honesty in the textile hub of Ahmedabad, India.
           </p>
@@ -85,8 +98,10 @@ export default function CraftPage() {
           {CRAFT_PILLARS.map((pillar) => {
             const Icon = pillar.icon;
             return (
-              <div
+              <SpotlightCard
                 key={pillar.step}
+                theme="light"
+                spotlightColor="rgba(184, 35, 40, 0.14)"
                 className="bg-white border border-outside-border p-8 sm:p-10 space-y-6 shadow-luxury hover:border-outside-crimson/50 transition-all flex flex-col justify-between"
               >
                 <div className="space-y-4">
@@ -122,7 +137,7 @@ export default function CraftPage() {
                   <span>QUALITY TESTED IN AHMEDABAD, INDIA</span>
                   <CheckCircle2 className="w-4 h-4 text-outside-moss" />
                 </div>
-              </div>
+              </SpotlightCard>
             );
           })}
         </div>

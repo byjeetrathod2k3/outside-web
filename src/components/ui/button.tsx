@@ -23,17 +23,17 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     ref
   ) => {
     const base =
-      'inline-flex items-center justify-center font-mono uppercase tracking-[0.2em] font-bold transition-all focus:outline-none focus:ring-2 focus:ring-outside-accent disabled:opacity-50 disabled:cursor-not-allowed select-none border';
+      'inline-flex items-center justify-center font-mono uppercase tracking-[0.2em] font-bold transition-colors focus:outline-none focus:ring-2 focus:ring-outside-accent disabled:opacity-50 disabled:cursor-not-allowed select-none border';
 
     const variants = {
       primary:
-        'bg-outside-ink text-outside-elevated border-outside-ink hover:bg-black hover:border-outside-accent shadow-editorial active:scale-[0.99]',
+        'bg-outside-ink text-outside-elevated border-outside-ink hover:bg-black hover:border-outside-accent shadow-editorial',
       accent:
-        'bg-outside-accent text-outside-elevated border-outside-accent hover:bg-[#96191E] shadow-editorial active:scale-[0.99]',
+        'bg-outside-accent text-outside-elevated border-outside-accent hover:bg-[#96191E] shadow-editorial',
       secondary:
-        'bg-outside-surface text-outside-ink border-outside-border hover:border-outside-ink active:scale-[0.99]',
+        'bg-outside-surface text-outside-ink border-outside-border hover:border-outside-ink',
       outline:
-        'bg-outside-elevated text-outside-ink border-outside-border hover:border-outside-ink hover:bg-outside-surface active:scale-[0.99]',
+        'bg-outside-elevated text-outside-ink border-outside-border hover:border-outside-ink hover:bg-outside-surface',
       ghost:
         'bg-transparent text-outside-inkSecondary border-transparent hover:text-outside-ink hover:bg-outside-surface',
     };

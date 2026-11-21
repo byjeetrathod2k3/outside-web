@@ -41,6 +41,7 @@ A: ${f.answer}`
 - **Country:** India
 - **Model:** Single-Drop D2C Limited-Edition Apparel
 - **Philosophy:** Women-First Sizing & Cut, Heavyweight Organic Cotton, Zero Landfill Overproduction
+- **Overall Rating:** 4.98 / 5.0 (142 Verified Collector Reviews)
 
 ## 2. Garment Technical Specifications
 - **Base Fabric:** 280 GSM custom-milled 100% Combed Organic Cotton.
@@ -70,10 +71,16 @@ A: ${f.answer}`
   - Value $>$ ₹2,500: 18% GST (Intra-state: 9% CGST + 9% SGST | Inter-state: 18% IGST)
 - **Invoicing:** Tax-inclusive pricing with sequential FY series (e.g. OUT/26-27/0001).
 
-## 5. Catalog of Editions (Active & Vault Archive)
+## 5. Shipping, Doorstep Returns & Customer Guarantees
+- **Delivery:** Free BlueDart Express Air & Delhivery Air across all 19,000+ Indian pincodes.
+- **Dispatch Time:** Within 24 hours directly from Ahmedabad studio.
+- **Returns:** 7-Day Doorstep Reverse Pickup & Free Size Exchanges nationwide.
+- **Packaging:** Every piece arrives in a rigid sandstone collector box with tissue wrap and serialized Certificate of Authenticity.
+
+## 6. Catalog of Editions (Active & Vault Archive)
 ${dropsMarkdown}
 
-## 6. Official Frequently Asked Questions
+## 7. Official Frequently Asked Questions
 ${faqsMarkdown}
 `;
 

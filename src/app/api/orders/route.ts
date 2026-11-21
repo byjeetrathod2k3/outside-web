@@ -57,6 +57,7 @@ export async function POST(request: Request) {
       shippingPincode,
       stateCode = '24',
       items,
+      isPrepaidDiscountApplied = false,
     } = body;
 
     if (!customerEmail || !items || items.length === 0) {
@@ -71,6 +72,10 @@ export async function POST(request: Request) {
 
     // 1. Calculate itemized GST
     const taxBreakdown = calculateOrderGst(items, stateCode, gstConfig);
+    const discountPaise = isPrepaidDiscountApplied
+      ? Math.round(taxBreakdown.subtotalGrossPaise * 0.05)
+      : 0;
+    const finalOrderAmountPaise = Math.max(0, taxBreakdown.finalPayablePaise - discountPaise);
 
     // 2. Generate sequential financial-year invoice number
     const currentCounter = gstConfig.invoiceCounter || 1;
@@ -144,12 +149,13 @@ export async function POST(request: Request) {
       placeOfSupplyState: `${stateCode}-${taxBreakdown.buyerStateName}`,
       pricingMode: taxBreakdown.pricingMode,
       subtotalPaise: taxBreakdown.subtotalGrossPaise,
+      discountPaise,
       taxableAmountPaise: taxBreakdown.totalTaxableAmountPaise,
       cgstPaise: taxBreakdown.totalCgstPaise,
       sgstPaise: taxBreakdown.totalSgstPaise,
       igstPaise: taxBreakdown.totalIgstPaise,
       totalTaxPaise: taxBreakdown.totalTaxPaise,
-      totalAmountPaise: taxBreakdown.finalPayablePaise,
+      totalAmountPaise: finalOrderAmountPaise,
       paymentStatus: 'PAID',
       paymentGateway: 'mock_sandbox',
       fulfillmentStatus: 'PROCESSING',

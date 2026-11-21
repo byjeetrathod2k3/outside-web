@@ -1,9 +1,11 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 import { ShieldCheck, X } from 'lucide-react';
 
 export function CookieConsent() {
+  const pathname = usePathname();
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -18,12 +20,14 @@ export function CookieConsent() {
     setVisible(false);
   };
 
-  if (!visible) return null;
+  if (!visible || pathname.startsWith('/checkout') || pathname.startsWith('/admin')) {
+    return null;
+  }
 
   return (
     <aside
       aria-label="Privacy and cookies consent"
-      className="fixed bottom-4 left-4 z-50 max-w-sm bg-outside-elevated border border-outside-border p-4 shadow-gallery font-mono text-xs animate-slide-up"
+      className="fixed bottom-4 left-4 right-4 sm:right-auto sm:max-w-md z-50 bg-outside-elevated border border-outside-border p-4 shadow-gallery font-mono text-xs animate-slide-up"
     >
       <div className="flex items-start gap-3">
         <ShieldCheck className="w-5 h-5 text-outside-accent flex-shrink-0 mt-0.5" />

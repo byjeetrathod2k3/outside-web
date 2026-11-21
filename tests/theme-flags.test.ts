@@ -58,7 +58,7 @@ describe('Module 2: Dynamic Theme, Feature Flags & Layout Governance', () => {
   describe('Layout & Responsive Governance', () => {
     it('reads default section order and grid densities', () => {
       const layout = getLayoutConfig();
-      expect(layout.sections.length).toBe(8);
+      expect(layout.sections.length).toBe(9);
       expect(layout.sections[0].id).toBe('hero');
       expect(layout.gridColumns.vault.desktop).toBe(3);
     });
