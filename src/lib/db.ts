@@ -854,7 +854,13 @@ export const DEFAULT_HERO_CONFIG: HeroConfigData = {
 const DATA_DIR = path.join(process.cwd(), 'data');
 const STORE_PATH = path.join(DATA_DIR, 'store.json');
 
+let memoryStore: any = null;
+
 export function getLocalStore() {
+  if (memoryStore) {
+    return memoryStore;
+  }
+
   if (!fs.existsSync(DATA_DIR)) {
     fs.mkdirSync(DATA_DIR, { recursive: true });
   }
@@ -982,18 +988,29 @@ export function getLocalStore() {
       parsed.heroConfig = DEFAULT_HERO_CONFIG;
     }
 
+    memoryStore = parsed;
     return parsed;
   } catch {
+    memoryStore = initialData;
     return initialData;
   }
 }
 
 export function saveLocalStore(data: any) {
+  memoryStore = data;
   try {
     if (!fs.existsSync(DATA_DIR)) {
       fs.mkdirSync(DATA_DIR, { recursive: true });
     }
-    fs.writeFileSync(STORE_PATH, JSON.stringify(data, null, 2));
+    // Attempt write with retry to handle Windows transient file locks
+    for (let i = 0; i < 3; i++) {
+      try {
+        fs.writeFileSync(STORE_PATH, JSON.stringify(data, null, 2));
+        break;
+      } catch (err) {
+        if (i === 2) throw err;
+      }
+    }
   } catch (error) {
     console.warn('[store] Note: File system write skipped or read-only in serverless environment:', error);
   }
