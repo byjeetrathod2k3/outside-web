@@ -9,6 +9,7 @@ import {
   ArrowRight,
   ShieldCheck,
   AlertTriangle,
+  Boxes,
 } from 'lucide-react';
 
 export default function AdminDashboardPage() {
@@ -48,6 +49,13 @@ export default function AdminDashboardPage() {
         </div>
 
         <div className="flex items-center gap-3">
+          <Link
+            href="/admin/inventory"
+            className="px-4 py-2 bg-[#EDEAE2] border border-[#DCD7CC] hover:border-[#111110] text-[#111110] text-xs uppercase tracking-wider transition-colors font-semibold flex items-center gap-1.5"
+          >
+            <Boxes className="w-3.5 h-3.5 text-[#B82328]" />
+            <span>INVENTORY & SKUS</span>
+          </Link>
           <Link
             href="/admin/drops"
             className="px-4 py-2 bg-[#EDEAE2] border border-[#DCD7CC] hover:border-[#111110] text-[#111110] text-xs uppercase tracking-wider transition-colors font-semibold"
@@ -171,10 +179,10 @@ export default function AdminDashboardPage() {
 
           <div className="pt-2 text-right">
             <Link
-              href="/admin/drops"
+              href="/admin/inventory"
               className="text-xs text-[#B82328] hover:text-[#111110] font-bold flex items-center justify-end gap-1.5 transition-colors"
             >
-              <span>ADJUST PHYSICAL STOCK IN DROP MANAGER</span>
+              <span>MANAGE & ADJUST PHYSICAL STOCK IN INVENTORY MATRIX</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>

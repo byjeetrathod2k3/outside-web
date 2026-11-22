@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import {
   Layers,
   Plus,
@@ -16,6 +17,7 @@ import {
   Move,
   Sliders,
   Check,
+  Boxes,
 } from 'lucide-react';
 import { GarmentHotspot } from '@/components/commerce/interactive-garment-stage';
 
@@ -790,9 +792,18 @@ export default function AdminDropsPage() {
 
                 {/* Atomic Variant Stock Adjuster */}
                 <div className="space-y-3 pt-2">
-                  <h4 className="text-xs uppercase text-[#111110] font-bold tracking-wider">
-                    STOCK MANAGEMENT PER FIT &amp; SIZE
-                  </h4>
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                    <h4 className="text-xs uppercase text-[#111110] font-bold tracking-wider">
+                      STOCK MANAGEMENT PER FIT &amp; SIZE
+                    </h4>
+                    <Link
+                      href="/admin/inventory"
+                      className="text-[11px] font-bold text-[#B82328] hover:text-[#111110] flex items-center gap-1.5 transition-colors uppercase tracking-wider"
+                    >
+                      <Boxes className="w-3.5 h-3.5" />
+                      <span>OPEN FULL INVENTORY MATRIX &amp; SKUS &rarr;</span>
+                    </Link>
+                  </div>
 
                   <div className="border border-[#DCD7CC] overflow-hidden">
                     <table className="w-full text-left text-xs">

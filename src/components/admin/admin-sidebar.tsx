@@ -21,6 +21,7 @@ import {
   X,
   Globe,
   ShieldCheck,
+  Boxes,
 } from 'lucide-react';
 
 export function AdminSidebar() {
@@ -39,6 +40,7 @@ export function AdminSidebar() {
   const mainNav = [
     { label: 'OVERVIEW', href: `${base}`, icon: LayoutDashboard },
     { label: 'DROP MANAGER', href: `${base}/drops`, icon: Layers },
+    { label: 'INVENTORY & SKUS', href: `${base}/inventory`, icon: Boxes },
     { label: 'ORDERS & INVOICES', href: `${base}/orders`, icon: ShoppingBag },
     { label: 'WAITLIST & CRM', href: `${base}/leads`, icon: Users },
     { label: 'HEADLESS CMS', href: `${base}/cms`, icon: FileText },

@@ -148,8 +148,10 @@ export const VAULT_DROPS = [
     variants: [
       { id: 'v2_w_s', dropId: 'drop_002', sku: 'OUT-002-W-S', fit: 'WOMEN', size: 'S', initialStock: 30, currentStock: 30, reservedStock: 0 },
       { id: 'v2_w_m', dropId: 'drop_002', sku: 'OUT-002-W-M', fit: 'WOMEN', size: 'M', initialStock: 40, currentStock: 40, reservedStock: 0 },
-      { id: 'v2_m_m', dropId: 'drop_002', sku: 'OUT-002-M-M', fit: 'MEN', size: 'M', initialStock: 50, currentStock: 50, reservedStock: 0 },
-      { id: 'v2_m_l', dropId: 'drop_002', sku: 'OUT-002-M-L', fit: 'MEN', size: 'L', initialStock: 40, currentStock: 40, reservedStock: 0 },
+      { id: 'v2_w_l', dropId: 'drop_002', sku: 'OUT-002-W-L', fit: 'WOMEN', size: 'L', initialStock: 30, currentStock: 30, reservedStock: 0 },
+      { id: 'v2_m_s', dropId: 'drop_002', sku: 'OUT-002-M-S', fit: 'MEN', size: 'S', initialStock: 25, currentStock: 25, reservedStock: 0 },
+      { id: 'v2_m_m', dropId: 'drop_002', sku: 'OUT-002-M-M', fit: 'MEN', size: 'M', initialStock: 45, currentStock: 45, reservedStock: 0 },
+      { id: 'v2_m_l', dropId: 'drop_002', sku: 'OUT-002-M-L', fit: 'MEN', size: 'L', initialStock: 30, currentStock: 30, reservedStock: 0 },
     ],
   },
   {
@@ -167,7 +169,12 @@ export const VAULT_DROPS = [
     primaryImageUrl: '/images/drops/drop-003-front.jpg',
     galleryUrls: ['/images/drops/drop-003-front.jpg', '/images/drops/drop-003-back.jpg'],
     isFeatured: false,
-    variants: [],
+    variants: [
+      { id: 'v3_w_s', dropId: 'drop_003', sku: 'OUT-003-W-S', fit: 'WOMEN', size: 'S', initialStock: 50, currentStock: 0, reservedStock: 0 },
+      { id: 'v3_w_m', dropId: 'drop_003', sku: 'OUT-003-W-M', fit: 'WOMEN', size: 'M', initialStock: 60, currentStock: 0, reservedStock: 0 },
+      { id: 'v3_m_m', dropId: 'drop_003', sku: 'OUT-003-M-M', fit: 'MEN', size: 'M', initialStock: 80, currentStock: 0, reservedStock: 0 },
+      { id: 'v3_m_l', dropId: 'drop_003', sku: 'OUT-003-M-L', fit: 'MEN', size: 'L', initialStock: 60, currentStock: 0, reservedStock: 0 },
+    ],
   },
   {
     id: 'drop_000',
@@ -184,7 +191,11 @@ export const VAULT_DROPS = [
     primaryImageUrl: '/images/drops/drop-000-front.jpg',
     galleryUrls: ['/images/drops/drop-000-front.jpg', '/images/drops/drop-000-back.jpg'],
     isFeatured: false,
-    variants: [],
+    variants: [
+      { id: 'v0_u_s', dropId: 'drop_000', sku: 'OUT-000-U-S', fit: 'WOMEN', size: 'S', initialStock: 30, currentStock: 0, reservedStock: 0 },
+      { id: 'v0_u_m', dropId: 'drop_000', sku: 'OUT-000-U-M', fit: 'MEN', size: 'M', initialStock: 40, currentStock: 0, reservedStock: 0 },
+      { id: 'v0_u_l', dropId: 'drop_000', sku: 'OUT-000-U-L', fit: 'MEN', size: 'L', initialStock: 30, currentStock: 0, reservedStock: 0 },
+    ],
   },
 ];
 
