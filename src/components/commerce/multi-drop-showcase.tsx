@@ -64,6 +64,7 @@ interface MultiDropShowcaseProps {
   drops: DropItem[];
   activeDropId?: string;
   className?: string;
+  categories?: any[];
 }
 
 type FilterCategory = 'ALL' | 'LIVE' | 'UPCOMING' | 'WOMEN' | 'MEN' | 'ARCHIVED';
@@ -82,6 +83,7 @@ export function MultiDropShowcase({
   drops = [],
   activeDropId,
   className = '',
+  categories,
 }: MultiDropShowcaseProps) {
   const router = useRouter();
   const { addItem, openCart, toggleWishlist, isInWishlist } = useCart();
@@ -265,6 +267,7 @@ export function MultiDropShowcase({
             activeFilter={activeFilter}
             onSelectCategory={(catId) => setActiveFilter(catId as FilterCategory)}
             drops={drops}
+            categories={categories}
           />
         </div>
 

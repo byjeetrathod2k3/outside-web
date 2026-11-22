@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import NextImage from 'next/image';
 import {
   Layout,
   Save,
@@ -15,6 +16,8 @@ import {
   Eye,
   Grid,
   Layers,
+  Sparkles,
+  Image as ImageIcon,
 } from 'lucide-react';
 
 export default function AdminLayoutControlsPage() {
@@ -27,6 +30,22 @@ export default function AdminLayoutControlsPage() {
     mobileStickyCtaPosition: 'bottom_fixed',
   });
 
+  const [heroConfig, setHeroConfig] = useState<any>({
+    desktopImageUrl: '/images/outside_hero_final.png',
+    mobileImageUrl: '/images/outside_hero_final.png',
+    altText: 'DROP 001 Better Days Ahead Heavyweight T-Shirt',
+    backgroundColor: '#EAE2D8',
+    objectPosition: 'right center',
+    eyebrowText: 'DROP 001 · LIMITED EDITION',
+    headlineLine1: 'WEAR',
+    headlineLine2: 'YOUR',
+    headlineLine3: 'STORY',
+    subheadline: 'EXCLUSIVE APPAREL • MADE IN INDIA',
+    bodyDescription: 'A limited run of 250 pieces, crafted from 280 GSM organic cotton. Thoughtfully designed, ethically made, and built to last.',
+    ctaText: 'CLAIM DROP 001',
+    secondaryCtaText: 'EXPLORE THE COLLECTION ▸',
+  });
+
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [successMsg, setSuccessMsg] = useState<string | null>(null);
@@ -35,12 +54,21 @@ export default function AdminLayoutControlsPage() {
   const [iframeKey, setIframeKey] = useState(0);
 
   useEffect(() => {
-    async function loadLayout() {
+    async function loadData() {
       try {
-        const res = await fetch('/api/admin/layout');
-        if (res.ok) {
-          const data = await res.json();
+        const [resLayout, resHero] = await Promise.all([
+          fetch('/api/admin/layout'),
+          fetch('/api/admin/hero'),
+        ]);
+
+        if (resLayout.ok) {
+          const data = await resLayout.json();
           if (data.layout) setLayout(data.layout);
+        }
+
+        if (resHero.ok) {
+          const data = await resHero.json();
+          if (data.heroConfig) setHeroConfig(data.heroConfig);
         }
       } catch (err: any) {
         setErrorMsg(err.message);
@@ -48,7 +76,7 @@ export default function AdminLayoutControlsPage() {
         setLoading(false);
       }
     }
-    loadLayout();
+    loadData();
   }, []);
 
   const handleMoveSection = (index: number, direction: 'up' | 'down') => {
@@ -84,18 +112,25 @@ export default function AdminLayoutControlsPage() {
     setSuccessMsg(null);
 
     try {
-      const res = await fetch('/api/admin/layout', {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(layout),
-      });
+      const [layoutRes, heroRes] = await Promise.all([
+        fetch('/api/admin/layout', {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(layout),
+        }),
+        fetch('/api/admin/hero', {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(heroConfig),
+        }),
+      ]);
 
-      const data = await res.json();
-      if (!res.ok) {
-        throw new Error(data.error || 'Failed to update layout');
+      const layoutData = await layoutRes.json();
+      if (!layoutRes.ok) {
+        throw new Error(layoutData.error || 'Failed to update layout');
       }
 
-      setSuccessMsg('LAYOUT & RESPONSIVE GOVERNANCE SAVED // STOREFRONT REORDERED');
+      setSuccessMsg('LAYOUT, HERO PRESENTATION & RESPONSIVE GOVERNANCE SAVED');
       setIframeKey((prev) => prev + 1);
       setTimeout(() => setSuccessMsg(null), 4000);
     } catch (err: any) {
@@ -296,6 +331,166 @@ export default function AdminLayoutControlsPage() {
         {/* Right: Grid & Density Controls & Live Previewer (5 Cols) */}
         <div className="lg:col-span-5 space-y-6">
           
+          {/* Hero Visual & Image Replacement Card */}
+          <div className="bg-[#FCFBF8] border border-[#DCD7CC] p-6 space-y-4 shadow-editorial">
+            <div className="border-b border-[#DCD7CC] pb-3 flex justify-between items-center">
+              <h3 className="text-xs uppercase text-[#111110] font-bold tracking-wider flex items-center gap-2">
+                <ImageIcon className="w-4 h-4 text-[#B82328]" />
+                <span>HERO SECTION VISUAL &amp; IMAGE REPLACEMENT</span>
+              </h3>
+              <span className="text-[10px] text-[#2E6F40] font-bold">SEO OPTIMIZED</span>
+            </div>
+
+            <div className="space-y-4">
+              {/* Thumbnail Preview */}
+              <div
+                className="relative w-full aspect-[2/1] border border-[#DCD7CC] overflow-hidden flex items-center justify-center"
+                style={{ backgroundColor: heroConfig.backgroundColor || '#EAE2D8' }}
+              >
+                {heroConfig.desktopImageUrl ? (
+                  <img
+                    src={heroConfig.desktopImageUrl}
+                    alt={heroConfig.altText || 'Hero Visual'}
+                    className="w-full h-full object-cover select-none"
+                    style={{ objectPosition: heroConfig.objectPosition || 'right center' }}
+                  />
+                ) : (
+                  <span className="text-xs text-[#52504B]">No image configured</span>
+                )}
+                <div className="absolute bottom-2 left-2 px-2 py-0.5 bg-[#111110]/80 backdrop-blur-xs text-white text-[9px] font-mono uppercase">
+                  Current Studio Asset
+                </div>
+              </div>
+
+              {/* Desktop Image URL */}
+              <div>
+                <label className="block text-[10px] font-bold uppercase text-[#111110] tracking-wider mb-1">
+                  Desktop Hero Image URL *
+                </label>
+                <input
+                  type="text"
+                  value={heroConfig.desktopImageUrl || ''}
+                  onChange={(e) =>
+                    setHeroConfig({ ...heroConfig, desktopImageUrl: e.target.value })
+                  }
+                  className="w-full px-3 py-2 bg-[#FAF8F5] border border-[#DCD7CC] text-xs text-[#111110] focus:border-[#111110] outline-none font-mono"
+                  placeholder="/images/outside_hero_final.png"
+                />
+                {/* Presets */}
+                <div className="flex flex-wrap gap-1.5 mt-2">
+                  {[
+                    { label: 'OUTSIDE Final (1774×887)', url: '/images/outside_hero_final.png' },
+                    { label: 'Drop 001 Front', url: '/images/drops/drop-001-front.jpg' },
+                    { label: 'Drop 002 Sage', url: '/images/drops/drop-002-front.jpg' },
+                    { label: 'Drop 003 Obsidian', url: '/images/drops/drop-003-front.jpg' },
+                  ].map((p) => (
+                    <button
+                      key={p.url}
+                      type="button"
+                      onClick={() =>
+                        setHeroConfig({ ...heroConfig, desktopImageUrl: p.url })
+                      }
+                      className="text-[9px] px-2 py-0.5 bg-[#EDEAE2] border border-[#DCD7CC] hover:border-[#111110] text-[#111110] font-mono transition-colors"
+                    >
+                      {p.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Mobile Image URL */}
+              <div>
+                <label className="block text-[10px] font-bold uppercase text-[#111110] tracking-wider mb-1">
+                  Mobile Hero Image URL (Optional)
+                </label>
+                <input
+                  type="text"
+                  value={heroConfig.mobileImageUrl || ''}
+                  onChange={(e) =>
+                    setHeroConfig({ ...heroConfig, mobileImageUrl: e.target.value })
+                  }
+                  className="w-full px-3 py-2 bg-[#FAF8F5] border border-[#DCD7CC] text-xs text-[#111110] focus:border-[#111110] outline-none font-mono"
+                  placeholder="Leave empty to use desktop asset"
+                />
+              </div>
+
+              {/* SEO Alt Text & Alignment */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-[10px] font-bold uppercase text-[#111110] tracking-wider mb-1">
+                    SEO Image Alt Text *
+                  </label>
+                  <input
+                    type="text"
+                    value={heroConfig.altText || ''}
+                    onChange={(e) =>
+                      setHeroConfig({ ...heroConfig, altText: e.target.value })
+                    }
+                    className="w-full px-3 py-2 bg-[#FAF8F5] border border-[#DCD7CC] text-xs text-[#111110] focus:border-[#111110] outline-none font-mono"
+                    placeholder="Keywords for Google Discover"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-[10px] font-bold uppercase text-[#111110] tracking-wider mb-1">
+                    Background Color Hex
+                  </label>
+                  <div className="flex gap-2">
+                    <input
+                      type="text"
+                      value={heroConfig.backgroundColor || '#EAE2D8'}
+                      onChange={(e) =>
+                        setHeroConfig({ ...heroConfig, backgroundColor: e.target.value })
+                      }
+                      className="w-full px-3 py-2 bg-[#FAF8F5] border border-[#DCD7CC] text-xs text-[#111110] focus:border-[#111110] outline-none font-mono"
+                    />
+                    <div
+                      className="w-8 h-8 border border-[#DCD7CC] rounded shrink-0"
+                      style={{ backgroundColor: heroConfig.backgroundColor || '#EAE2D8' }}
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Headline & Eyebrow Customizer */}
+              <div className="grid grid-cols-3 gap-2 pt-2 border-t border-[#DCD7CC]">
+                <div>
+                  <label className="block text-[9px] uppercase font-bold text-[#52504B]">Line 1</label>
+                  <input
+                    type="text"
+                    value={heroConfig.headlineLine1 || 'WEAR'}
+                    onChange={(e) =>
+                      setHeroConfig({ ...heroConfig, headlineLine1: e.target.value.toUpperCase() })
+                    }
+                    className="w-full px-2 py-1 text-xs bg-[#FAF8F5] border border-[#DCD7CC] focus:border-[#111110] outline-none font-mono uppercase"
+                  />
+                </div>
+                <div>
+                  <label className="block text-[9px] uppercase font-bold text-[#52504B]">Line 2</label>
+                  <input
+                    type="text"
+                    value={heroConfig.headlineLine2 || 'YOUR'}
+                    onChange={(e) =>
+                      setHeroConfig({ ...heroConfig, headlineLine2: e.target.value.toUpperCase() })
+                    }
+                    className="w-full px-2 py-1 text-xs bg-[#FAF8F5] border border-[#DCD7CC] focus:border-[#111110] outline-none font-mono uppercase"
+                  />
+                </div>
+                <div>
+                  <label className="block text-[9px] uppercase font-bold text-[#52504B]">Line 3</label>
+                  <input
+                    type="text"
+                    value={heroConfig.headlineLine3 || 'STORY'}
+                    onChange={(e) =>
+                      setHeroConfig({ ...heroConfig, headlineLine3: e.target.value.toUpperCase() })
+                    }
+                    className="w-full px-2 py-1 text-xs bg-[#FAF8F5] border border-[#DCD7CC] focus:border-[#111110] outline-none font-mono uppercase"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
           {/* Grid & Sticky Density Card */}
           <div className="bg-[#FCFBF8] border border-[#DCD7CC] p-6 space-y-6 shadow-editorial">
             <div className="border-b border-[#DCD7CC] pb-3 flex justify-between items-center">

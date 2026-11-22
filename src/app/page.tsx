@@ -1,7 +1,12 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { getLocalStore, DEFAULT_LAYOUT_CONFIG } from '@/lib/db';
+import {
+  getLocalStore,
+  DEFAULT_LAYOUT_CONFIG,
+  DEFAULT_HERO_CONFIG,
+  DEFAULT_CATEGORIES,
+} from '@/lib/db';
 import { ActiveDropView } from '@/components/commerce/active-drop-view';
 import { SectionHeading } from '@/components/ui/section-heading';
 import { Badge } from '@/components/ui/badge';
@@ -90,6 +95,7 @@ export default async function HomePage() {
             totalPieces={activeDrop.totalEditionQty}
             remainingPieces={remainingPieces}
             allDrops={store.drops}
+            heroConfig={store.heroConfig || DEFAULT_HERO_CONFIG}
           />
         );
 
@@ -103,6 +109,7 @@ export default async function HomePage() {
                 drops={store.drops}
                 activeDropId={activeDrop.id}
                 className={visibilityClass}
+                categories={store.categories || DEFAULT_CATEGORIES}
               />
             </div>
             {!hasExplicitReviewsSection && <CollectorReviews />}

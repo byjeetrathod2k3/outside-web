@@ -558,6 +558,120 @@ All orders are billed under Indian GST (HSN 61091000) with sequential invoicing.
 };
 
 // ==========================================
+// MODULE 4: CATEGORY STORY BUBBLES
+// ==========================================
+export interface CategoryBubble {
+  id: string;
+  label: string;
+  sublabel: string;
+  badge: string;
+  image: string;
+  isLive?: boolean;
+  sortOrder: number;
+  isActive: boolean;
+}
+
+export const DEFAULT_CATEGORIES: CategoryBubble[] = [
+  {
+    id: 'ALL',
+    label: 'All Pieces',
+    sublabel: '4 Editions',
+    badge: 'EXPLORE',
+    image: '/images/OUTSIDE_icon.png',
+    isLive: false,
+    sortOrder: 1,
+    isActive: true,
+  },
+  {
+    id: 'LIVE',
+    label: 'Drop 001',
+    sublabel: 'Better Days',
+    badge: 'LIVE NOW',
+    image: '/images/drops/drop-001-front.jpg',
+    isLive: true,
+    sortOrder: 2,
+    isActive: true,
+  },
+  {
+    id: 'UPCOMING',
+    label: 'Drop 002',
+    sublabel: 'Botanical',
+    badge: 'NEXT DROP',
+    image: '/images/drops/drop-002-front.jpg',
+    isLive: false,
+    sortOrder: 3,
+    isActive: true,
+  },
+  {
+    id: 'WOMEN',
+    label: "Women's Fit",
+    sublabel: 'Ergo-Boxy',
+    badge: 'SIGNATURE',
+    image: '/images/drops/drop-001-front.jpg',
+    isLive: false,
+    sortOrder: 4,
+    isActive: true,
+  },
+  {
+    id: 'MEN',
+    label: "Men's Fit",
+    sublabel: 'Structured',
+    badge: 'RELAXED',
+    image: '/images/drops/drop-003-front.jpg',
+    isLive: false,
+    sortOrder: 5,
+    isActive: true,
+  },
+  {
+    id: 'ARCHIVED',
+    label: 'The Vault',
+    sublabel: 'Sold Out',
+    badge: 'ARCHIVE',
+    image: '/images/drops/drop-000-front.jpg',
+    isLive: false,
+    sortOrder: 6,
+    isActive: true,
+  },
+];
+
+// ==========================================
+// MODULE 5: HOMEPAGE HERO PRESENTATION CONFIG
+// ==========================================
+export interface HeroConfigData {
+  desktopImageUrl: string;
+  mobileImageUrl: string;
+  altText: string;
+  backgroundColor: string;
+  eyebrowText: string;
+  headlineLine1: string;
+  headlineLine2: string;
+  headlineLine3: string;
+  subheadline: string;
+  bodyDescription: string;
+  ctaText: string;
+  secondaryCtaText: string;
+  objectPosition: string;
+  updatedAt: string;
+}
+
+export const DEFAULT_HERO_CONFIG: HeroConfigData = {
+  desktopImageUrl: '/images/outside_hero_final.png',
+  mobileImageUrl: '/images/outside_hero_final.png',
+  altText: 'DROP 001 Better Days Ahead Heavyweight T-Shirt',
+  backgroundColor: '#EAE2D8',
+  eyebrowText: 'DROP 001 · LIMITED EDITION',
+  headlineLine1: 'WEAR',
+  headlineLine2: 'YOUR',
+  headlineLine3: 'STORY',
+  subheadline: 'EXCLUSIVE APPAREL • MADE IN INDIA',
+  bodyDescription: 'A limited run of 250 pieces, crafted from 280 GSM organic cotton. Thoughtfully designed, ethically made, and built to last.',
+  ctaText: 'CLAIM DROP 001',
+  secondaryCtaText: 'EXPLORE THE COLLECTION ▸',
+  objectPosition: 'right center',
+  updatedAt: new Date().toISOString(),
+};
+
+// ==========================================
 // LOCAL JSON RESILIENT STORE
 // ==========================================
 const DATA_DIR = path.join(process.cwd(), 'data');
@@ -620,6 +734,8 @@ export function getLocalStore() {
     featureFlags: DEFAULT_FEATURE_FLAGS,
     layoutConfig: DEFAULT_LAYOUT_CONFIG,
     seoConfig: DEFAULT_SEO_CONFIG,
+    categories: DEFAULT_CATEGORIES,
+    heroConfig: DEFAULT_HERO_CONFIG,
     superAdminSecurity: {
       totpSecret: null as string | null,
       totpEnabled: false,
@@ -678,6 +794,13 @@ export function getLocalStore() {
     }
     if (!parsed.securityLockouts) {
       parsed.securityLockouts = [];
+    }
+    // Ensure Module 4 & 5 entities exist
+    if (!Array.isArray(parsed.categories)) {
+      parsed.categories = DEFAULT_CATEGORIES;
+    }
+    if (!parsed.heroConfig) {
+      parsed.heroConfig = DEFAULT_HERO_CONFIG;
     }
 
     return parsed;
@@ -962,3 +1085,55 @@ export function recordLoginAttempt(ip: string, email: string, success: boolean) 
     },
   });
 }
+
+// ==========================================
+// CATEGORY HELPERS
+// ==========================================
+export function getCategories(): CategoryBubble[] {
+  const store = getLocalStore();
+  return Array.isArray(store.categories) ? store.categories : DEFAULT_CATEGORIES;
+}
+
+export function saveCategories(categories: CategoryBubble[]): CategoryBubble[] {
+  const store = getLocalStore();
+  store.categories = categories;
+  saveLocalStore(store);
+  return store.categories;
+}
+
+export function resetCategories(): CategoryBubble[] {
+  const store = getLocalStore();
+  store.categories = DEFAULT_CATEGORIES;
+  saveLocalStore(store);
+  return store.categories;
+}
+
+// ==========================================
+// HERO CONFIG HELPERS
+// ==========================================
+export function getHeroConfig(): HeroConfigData {
+  const store = getLocalStore();
+  return store.heroConfig || DEFAULT_HERO_CONFIG;
+}
+
+export function saveHeroConfig(newConfig: Partial<HeroConfigData>): HeroConfigData {
+  const store = getLocalStore();
+  store.heroConfig = {
+    ...(store.heroConfig || DEFAULT_HERO_CONFIG),
+    ...newConfig,
+    updatedAt: new Date().toISOString(),
+  };
+  saveLocalStore(store);
+  return store.heroConfig;
+}
+
+export function resetHeroConfig(): HeroConfigData {
+  const store = getLocalStore();
+  store.heroConfig = {
+    ...DEFAULT_HERO_CONFIG,
+    updatedAt: new Date().toISOString(),
+  };
+  saveLocalStore(store);
+  return store.heroConfig;
+}
+

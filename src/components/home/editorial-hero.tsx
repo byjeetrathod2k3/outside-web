@@ -14,6 +14,21 @@ interface EditorialHeroProps {
   totalPieces: number;
   remainingPieces: number;
   allDrops?: any[];
+  heroConfig?: {
+    desktopImageUrl?: string;
+    mobileImageUrl?: string;
+    altText?: string;
+    backgroundColor?: string;
+    eyebrowText?: string;
+    headlineLine1?: string;
+    headlineLine2?: string;
+    headlineLine3?: string;
+    subheadline?: string;
+    bodyDescription?: string;
+    ctaText?: string;
+    secondaryCtaText?: string;
+    objectPosition?: string;
+  };
 }
 
 const AVAILABLE_SIZES = ['XS', 'S', 'M', 'L', 'XL', '2XL'];
@@ -49,7 +64,14 @@ export function EditorialHero({
   totalPieces,
   remainingPieces,
   allDrops = [],
+  heroConfig,
 }: EditorialHeroProps) {
+  const desktopImage = heroConfig?.desktopImageUrl || '/images/outside_hero_final.png';
+  const mobileImage = heroConfig?.mobileImageUrl || desktopImage;
+  const heroAlt = heroConfig?.altText || `DROP 00${dropNumber} Better Days Ahead Heavyweight T-Shirt`;
+  const heroBg = heroConfig?.backgroundColor || '#EAE2D8';
+  const heroPos = heroConfig?.objectPosition || 'right center';
+
   const [selectedFit] = useState<'WOMEN' | 'MEN'>('WOMEN');
   const [selectedSize, setSelectedSize] = useState<string>('M');
   const [justAdded, setJustAdded] = useState(false);
@@ -122,15 +144,15 @@ export function EditorialHero({
       {/* ===================================================================== */}
       {/* 1. UPPER HERO EDITORIAL CANVAS (Untouched Background, Seamless Fit)   */}
       {/* ===================================================================== */}
-      <div className="relative w-full min-h-[580px] lg:min-h-[640px] flex items-center overflow-hidden bg-[#EAE2D8]">
+      <div className="relative w-full min-h-[580px] lg:min-h-[640px] flex items-center overflow-hidden" style={{ backgroundColor: heroBg }}>
         
         {/* Full-Height Studio Background Image Layer Anchored Flush to the Right */}
-        <div className="hidden md:block absolute inset-y-0 right-0 -right-[2px] w-full lg:w-[75%] xl:w-[78%] h-full z-0 pointer-events-none overflow-hidden bg-[#EAE2D8]">
+        <div className="hidden md:block absolute inset-y-0 right-0 -right-[2px] w-full lg:w-[75%] xl:w-[78%] h-full z-0 pointer-events-none overflow-hidden" style={{ backgroundColor: heroBg }}>
           <img
-            src="/images/outside_hero_final.png"
-            alt="DROP 001 Better Days Ahead Heavyweight T-Shirt"
+            src={desktopImage}
+            alt={heroAlt}
             className="w-full h-full object-cover object-right select-none"
-            style={{ objectPosition: 'right center' }}
+            style={{ objectPosition: heroPos }}
             loading="eager"
             decoding="sync"
             // @ts-ignore
@@ -179,7 +201,7 @@ export function EditorialHero({
           <div className="flex items-center gap-3 font-mono text-[11px] tracking-[0.2em] uppercase text-[#111111]">
             <span className="flex items-center gap-1.5 font-bold">
               <span className="text-[#B91C1C]">✦</span>
-              <span>DROP 00{dropNumber}</span>
+              <span>{heroConfig?.eyebrowText || `DROP 00${dropNumber}`}</span>
             </span>
             <span className="w-14 h-[1px] bg-[#B91C1C]/70 inline-block" />
             <span className="text-[#3A3A3A] font-semibold">LIMITED EDITION</span>
@@ -187,21 +209,25 @@ export function EditorialHero({
 
           {/* Element 2: Headline */}
           <h1 className="font-black text-[#111111] text-6xl lg:text-[76px] leading-[0.88] tracking-[-0.03em] uppercase select-none mt-5">
-            WEAR<br />
-            YOUR<br />
-            STORY<span className="inline-block w-3.5 h-3.5 rounded-full bg-[#B91C1C] ml-1 align-baseline" />
+            {heroConfig?.headlineLine1 || 'WEAR'}<br />
+            {heroConfig?.headlineLine2 || 'YOUR'}<br />
+            {heroConfig?.headlineLine3 || 'STORY'}<span className="inline-block w-3.5 h-3.5 rounded-full bg-[#B91C1C] ml-1 align-baseline" />
           </h1>
 
           {/* Element 3: Sub-label */}
           <p className="font-mono text-[11px] tracking-[0.22em] text-[#3A3A3A] mt-4 uppercase">
-            EXCLUSIVE APPAREL • MADE IN INDIA
+            {heroConfig?.subheadline || 'EXCLUSIVE APPAREL • MADE IN INDIA'}
           </p>
 
           {/* Element 4: Body Copy */}
           <p className="text-sm text-[#3A3A3A] leading-relaxed max-w-[340px] mt-4">
-            A limited run of {totalPieces} pieces, crafted from{' '}
-            <strong className="text-[#111111] font-bold">280 GSM organic cotton</strong>.
-            Thoughtfully designed, ethically made, and built to last.
+            {heroConfig?.bodyDescription || (
+              <>
+                A limited run of {totalPieces} pieces, crafted from{' '}
+                <strong className="text-[#111111] font-bold">280 GSM organic cotton</strong>.
+                Thoughtfully designed, ethically made, and built to last.
+              </>
+            )}
           </p>
 
           {/* Element 5: Vertically Stacked CTAs */}
@@ -219,7 +245,7 @@ export function EditorialHero({
               ) : (
                 <>
                   <ShoppingBag className="w-4 h-4 text-white" />
-                  <span>CLAIM DROP 00{dropNumber} — {formattedPrice} →</span>
+                  <span>{heroConfig?.ctaText ? `${heroConfig.ctaText} — ${formattedPrice} →` : `CLAIM DROP 00${dropNumber} — ${formattedPrice} →`}</span>
                 </>
               )}
             </button>
@@ -229,7 +255,7 @@ export function EditorialHero({
               onClick={scrollToCatalog}
               className="w-[225px] h-10 rounded-md bg-white/60 hover:bg-white border border-black/15 text-[#111111] font-mono text-[11px] tracking-[0.15em] uppercase flex items-center justify-center gap-2 transition-colors cursor-pointer active:scale-[0.99]"
             >
-              <span>EXPLORE THE COLLECTION ▸</span>
+              <span>{heroConfig?.secondaryCtaText || 'EXPLORE THE COLLECTION ▸'}</span>
             </a>
           </div>
         </div>
@@ -237,10 +263,10 @@ export function EditorialHero({
         {/* Responsive Mobile Stack (< 768px) */}
         <div className="md:hidden flex flex-col w-full">
           {/* Full-width Hero Product Visual */}
-          <div className="relative w-full aspect-[4/3] overflow-hidden bg-[#F6F2EB]">
+          <div className="relative w-full aspect-[4/3] overflow-hidden" style={{ backgroundColor: heroBg }}>
             <img
-              src="/images/outside_hero_final.png"
-              alt="DROP 001 Better Days Ahead Heavyweight T-Shirt"
+              src={mobileImage}
+              alt={heroAlt}
               className="w-full h-full object-cover object-[65%_center] select-none"
               loading="eager"
               decoding="sync"

@@ -8,14 +8,16 @@ interface CategoryStoryBubblesProps {
   activeFilter?: string;
   onSelectCategory?: (category: string) => void;
   drops?: any[];
+  categories?: any[];
 }
 
 export function CategoryStoryBubbles({
   activeFilter = 'ALL',
   onSelectCategory,
   drops = [],
+  categories: customCategories,
 }: CategoryStoryBubblesProps) {
-  const categories = [
+  const fallbackCategories = [
     {
       id: 'ALL',
       label: 'All Pieces',
@@ -23,6 +25,7 @@ export function CategoryStoryBubbles({
       image: '/images/OUTSIDE_icon.png',
       badge: 'EXPLORE',
       isLive: false,
+      isActive: true,
     },
     {
       id: 'LIVE',
@@ -31,6 +34,7 @@ export function CategoryStoryBubbles({
       image: '/images/drops/drop-001-front.jpg',
       badge: 'LIVE NOW',
       isLive: true,
+      isActive: true,
     },
     {
       id: 'UPCOMING',
@@ -39,6 +43,7 @@ export function CategoryStoryBubbles({
       image: '/images/drops/drop-002-front.jpg',
       badge: 'NEXT DROP',
       isLive: false,
+      isActive: true,
     },
     {
       id: 'WOMEN',
@@ -47,6 +52,7 @@ export function CategoryStoryBubbles({
       image: '/images/drops/drop-001-front.jpg',
       badge: 'SIGNATURE',
       isLive: false,
+      isActive: true,
     },
     {
       id: 'MEN',
@@ -55,6 +61,7 @@ export function CategoryStoryBubbles({
       image: '/images/drops/drop-003-front.jpg',
       badge: 'RELAXED',
       isLive: false,
+      isActive: true,
     },
     {
       id: 'ARCHIVED',
@@ -63,8 +70,15 @@ export function CategoryStoryBubbles({
       image: '/images/drops/drop-000-front.jpg',
       badge: 'ARCHIVE',
       isLive: false,
+      isActive: true,
     },
   ];
+
+  const categories = (
+    customCategories && customCategories.length > 0
+      ? customCategories
+      : fallbackCategories
+  ).filter((c: any) => c.isActive !== false);
 
   const handleClick = (id: string, e: React.MouseEvent) => {
     if (onSelectCategory) {
