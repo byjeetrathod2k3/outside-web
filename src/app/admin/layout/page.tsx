@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import NextImage from 'next/image';
+import Link from 'next/link';
 import {
   Layout,
   Save,
@@ -24,6 +25,9 @@ import {
   Check,
   HelpCircle,
   ExternalLink,
+  Package,
+  ArrowRight,
+  Palette,
 } from 'lucide-react';
 
 export default function AdminLayoutControlsPage() {
@@ -52,6 +56,7 @@ export default function AdminLayoutControlsPage() {
     secondaryCtaText: 'EXPLORE THE COLLECTION ▸',
   });
 
+  const [allDrops, setAllDrops] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [successMsg, setSuccessMsg] = useState<string | null>(null);
@@ -62,13 +67,15 @@ export default function AdminLayoutControlsPage() {
   // Section Specific Settings Modal State
   const [activeEditingSection, setActiveEditingSection] = useState<any | null>(null);
   const [modalSettings, setModalSettings] = useState<Record<string, any>>({});
+  const [modalHeroPreview, setModalHeroPreview] = useState<'desktop' | 'mobile'>('desktop');
 
   useEffect(() => {
     async function loadData() {
       try {
-        const [resLayout, resHero] = await Promise.all([
+        const [resLayout, resHero, resDrops] = await Promise.all([
           fetch('/api/admin/layout'),
           fetch('/api/admin/hero'),
+          fetch('/api/admin/drops'),
         ]);
 
         if (resLayout.ok) {
@@ -80,6 +87,11 @@ export default function AdminLayoutControlsPage() {
           const data = await resHero.json();
           if (data.heroConfig) setHeroConfig(data.heroConfig);
         }
+
+        if (resDrops.ok) {
+          const data = await resDrops.json();
+          if (data.drops) setAllDrops(data.drops);
+        }
       } catch (err: any) {
         setErrorMsg(err.message);
       } finally {
@@ -88,6 +100,40 @@ export default function AdminLayoutControlsPage() {
     }
     loadData();
   }, []);
+
+  const handleSaveLayoutDirect = async (layoutToSave = layout, heroToSave = heroConfig) => {
+    setSaving(true);
+    setErrorMsg(null);
+    setSuccessMsg(null);
+
+    try {
+      const [layoutRes, heroRes] = await Promise.all([
+        fetch('/api/admin/layout', {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(layoutToSave),
+        }),
+        fetch('/api/admin/hero', {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(heroToSave),
+        }),
+      ]);
+
+      const layoutData = await layoutRes.json();
+      if (!layoutRes.ok) {
+        throw new Error(layoutData.error || 'Failed to update layout');
+      }
+
+      setSuccessMsg('SECTION SETTINGS & LAYOUT ARCHITECTURE SAVED & REVALIDATED.');
+      setIframeKey((prev) => prev + 1);
+      setTimeout(() => setSuccessMsg(null), 4000);
+    } catch (err: any) {
+      setErrorMsg(err.message);
+    } finally {
+      setSaving(false);
+    }
+  };
 
   const handleMoveSection = (index: number, direction: 'up' | 'down') => {
     const sections = [...layout.sections];
@@ -103,7 +149,9 @@ export default function AdminLayoutControlsPage() {
       sec.sortOrder = idx + 1;
     });
 
-    setLayout({ ...layout, sections });
+    const updatedLayout = { ...layout, sections };
+    setLayout(updatedLayout);
+    handleSaveLayoutDirect(updatedLayout);
   };
 
   const handleToggleVisibility = (
@@ -113,7 +161,9 @@ export default function AdminLayoutControlsPage() {
     const updatedSections = layout.sections.map((sec: any) =>
       sec.id === sectionId ? { ...sec, [device]: !sec[device] } : sec
     );
-    setLayout({ ...layout, sections: updatedSections });
+    const updatedLayout = { ...layout, sections: updatedSections };
+    setLayout(updatedLayout);
+    handleSaveLayoutDirect(updatedLayout); // Auto-save immediately so clicks work 100%!
   };
 
   const openSectionSettings = (sec: any) => {
@@ -132,46 +182,12 @@ export default function AdminLayoutControlsPage() {
     setLayout(updatedLayout);
     setActiveEditingSection(null);
 
-    // Auto-save updated layout
-    handleSaveLayoutDirect(updatedLayout);
-  };
-
-  const handleSaveLayoutDirect = async (layoutToSave = layout) => {
-    setSaving(true);
-    setErrorMsg(null);
-    setSuccessMsg(null);
-
-    try {
-      const [layoutRes, heroRes] = await Promise.all([
-        fetch('/api/admin/layout', {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(layoutToSave),
-        }),
-        fetch('/api/admin/hero', {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(heroConfig),
-        }),
-      ]);
-
-      const layoutData = await layoutRes.json();
-      if (!layoutRes.ok) {
-        throw new Error(layoutData.error || 'Failed to update layout');
-      }
-
-      setSuccessMsg('SECTION SETTINGS & LAYOUT ARCHITECTURE SAVED SUCCESSFULLY.');
-      setIframeKey((prev) => prev + 1);
-      setTimeout(() => setSuccessMsg(null), 4000);
-    } catch (err: any) {
-      setErrorMsg(err.message);
-    } finally {
-      setSaving(false);
-    }
+    // Auto-save updated layout + heroConfig
+    handleSaveLayoutDirect(updatedLayout, heroConfig);
   };
 
   const handleSave = async () => {
-    await handleSaveLayoutDirect(layout);
+    await handleSaveLayoutDirect(layout, heroConfig);
   };
 
   const handleReset = async () => {
@@ -241,14 +257,14 @@ export default function AdminLayoutControlsPage() {
       </div>
 
       {successMsg && (
-        <div className="p-4 bg-[#3F4E44]/10 border border-[#3F4E44] text-[#3F4E44] text-xs flex items-center gap-2 font-bold">
+        <div className="p-4 bg-[#3F4E44]/10 border border-[#3F4E44] text-[#3F4E44] text-xs flex items-center gap-2 font-bold animate-fade-in">
           <CheckCircle2 className="w-4 h-4 text-[#3F4E44] flex-shrink-0" />
           <span>{successMsg}</span>
         </div>
       )}
 
       {errorMsg && (
-        <div className="p-4 bg-[#B82328]/10 border border-[#B82328] text-[#B82328] text-xs flex items-center gap-2 font-bold">
+        <div className="p-4 bg-[#B82328]/10 border border-[#B82328] text-[#B82328] text-xs flex items-center gap-2 font-bold animate-fade-in">
           <AlertTriangle className="w-4 h-4 text-[#B82328] flex-shrink-0" />
           <span>{errorMsg}</span>
         </div>
@@ -265,11 +281,11 @@ export default function AdminLayoutControlsPage() {
                 <Layers className="w-4 h-4 text-[#B82328]" />
                 <span>HOMEPAGE SECTION SEQUENCE &amp; INDIVIDUAL CONTROLS</span>
               </h3>
-              <span className="text-[10px] text-[#52504B]">REORDERABLE · CUSTOMIZABLE</span>
+              <span className="text-[10px] text-[#52504B]">REORDERABLE · AUTO-SAVED</span>
             </div>
 
             <p className="text-[11px] text-[#52504B] leading-relaxed">
-              Drag or use arrows to adjust vertical reading order. Click <strong>SETTINGS</strong> on any section to configure card limits, default filters, custom copy, and styling without hurting SEO.
+              Click <strong>SETTINGS</strong> on any section to configure card limits, grid columns, copy, and artwork. Click <strong>DESK</strong>, <strong>TAB</strong>, or <strong>MOB</strong> to toggle responsive visibility (auto-persisted instantly).
             </p>
 
             <div className="space-y-2.5">
@@ -289,8 +305,13 @@ export default function AdminLayoutControlsPage() {
                       <span className="text-[10px] text-[#52504B] font-mono">
                         #{sec.id}
                         {sec.id === 'drops' && (
-                          <span className="ml-2 text-[#B82328] font-semibold">
-                            (Default: {sec.settings?.defaultCardCount !== undefined ? (sec.settings.defaultCardCount === 0 ? 'All Cards' : `${sec.settings.defaultCardCount} Cards`) : '3 Cards'})
+                          <span className="ml-2 text-[#B82328] font-bold">
+                            ({sec.settings?.defaultCardCount !== undefined ? (sec.settings.defaultCardCount === 0 ? 'All Cards' : `${sec.settings.defaultCardCount} Cards`) : '3 Cards'} · {sec.settings?.defaultGridColumns ? `${sec.settings.defaultGridColumns} Cols` : (sec.settings?.defaultCardCount === 4 ? '4 Cols' : '3 Cols')})
+                          </span>
+                        )}
+                        {sec.id === 'hero' && (
+                          <span className="ml-2 text-[#3F4E44] font-semibold">
+                            (Image &amp; Visual Studio)
                           </span>
                         )}
                         {sec.id === 'vault' && sec.settings?.defaultCardCount && (
@@ -316,45 +337,45 @@ export default function AdminLayoutControlsPage() {
                       <span>SETTINGS</span>
                     </button>
 
-                    {/* Desktop Toggle */}
+                    {/* Desktop Toggle (Auto-saves immediately) */}
                     <button
                       type="button"
                       onClick={() => handleToggleVisibility(sec.id, 'visibleDesktop')}
-                      title="Desktop (1280px+)"
+                      title="Toggle Desktop Visibility (1024px+)"
                       className={`px-2 py-1 text-[10px] border flex items-center gap-1 cursor-pointer transition-colors ${
-                        sec.visibleDesktop
+                        sec.visibleDesktop !== false
                           ? 'bg-[#FCFBF8] border-[#111110] text-[#111110] font-bold'
-                          : 'bg-transparent border-[#DCD7CC] text-[#52504B] line-through'
+                          : 'bg-transparent border-[#DCD7CC] text-[#B82328] line-through opacity-70'
                       }`}
                     >
                       <Monitor className="w-3 h-3" />
                       <span>DESK</span>
                     </button>
 
-                    {/* Tablet Toggle */}
+                    {/* Tablet Toggle (Auto-saves immediately) */}
                     <button
                       type="button"
                       onClick={() => handleToggleVisibility(sec.id, 'visibleTablet')}
-                      title="Tablet (768px)"
+                      title="Toggle Tablet Visibility (768px - 1023px)"
                       className={`px-2 py-1 text-[10px] border flex items-center gap-1 cursor-pointer transition-colors ${
-                        sec.visibleTablet
+                        sec.visibleTablet !== false
                           ? 'bg-[#FCFBF8] border-[#111110] text-[#111110] font-bold'
-                          : 'bg-transparent border-[#DCD7CC] text-[#52504B] line-through'
+                          : 'bg-transparent border-[#DCD7CC] text-[#B82328] line-through opacity-70'
                       }`}
                     >
                       <Tablet className="w-3 h-3" />
                       <span>TAB</span>
                     </button>
 
-                    {/* Mobile Toggle */}
+                    {/* Mobile Toggle (Auto-saves immediately) */}
                     <button
                       type="button"
                       onClick={() => handleToggleVisibility(sec.id, 'visibleMobile')}
-                      title="Mobile (375px)"
+                      title="Toggle Mobile Visibility (< 768px)"
                       className={`px-2 py-1 text-[10px] border flex items-center gap-1 cursor-pointer transition-colors ${
-                        sec.visibleMobile
+                        sec.visibleMobile !== false
                           ? 'bg-[#FCFBF8] border-[#111110] text-[#111110] font-bold'
-                          : 'bg-transparent border-[#DCD7CC] text-[#52504B] line-through'
+                          : 'bg-transparent border-[#DCD7CC] text-[#B82328] line-through opacity-70'
                       }`}
                     >
                       <Smartphone className="w-3 h-3" />
@@ -368,6 +389,7 @@ export default function AdminLayoutControlsPage() {
                         disabled={idx === 0}
                         onClick={() => handleMoveSection(idx, 'up')}
                         className="p-1 hover:bg-[#FCFBF8] text-[#111110] disabled:opacity-30 cursor-pointer"
+                        title="Move Up"
                       >
                         <MoveUp className="w-3.5 h-3.5" />
                       </button>
@@ -376,6 +398,7 @@ export default function AdminLayoutControlsPage() {
                         disabled={idx === layout.sections.length - 1}
                         onClick={() => handleMoveSection(idx, 'down')}
                         className="p-1 hover:bg-[#FCFBF8] text-[#111110] disabled:opacity-30 cursor-pointer"
+                        title="Move Down"
                       >
                         <MoveDown className="w-3.5 h-3.5" />
                       </button>
@@ -388,176 +411,73 @@ export default function AdminLayoutControlsPage() {
 
         </div>
 
-        {/* Right: Grid & Density Controls & Live Previewer (5 Cols) */}
+        {/* Right: Live Previewer & Responsive Density Controls (5 Cols) */}
         <div className="lg:col-span-5 space-y-6">
           
-          {/* Hero Visual & Image Replacement Card */}
-          <div id="hero-editor-card" className="bg-[#FCFBF8] border border-[#DCD7CC] p-6 space-y-4 shadow-editorial">
-            <div className="border-b border-[#DCD7CC] pb-3 flex justify-between items-center">
+          {/* Storefront Live Interactive Preview */}
+          <div className="bg-[#FCFBF8] border border-[#DCD7CC] p-6 space-y-4 shadow-editorial">
+            <div className="flex items-center justify-between border-b border-[#DCD7CC] pb-3">
               <h3 className="text-xs uppercase text-[#111110] font-bold tracking-wider flex items-center gap-2">
-                <ImageIcon className="w-4 h-4 text-[#B82328]" />
-                <span>HERO SECTION VISUAL &amp; IMAGE REPLACEMENT</span>
+                <Eye className="w-4 h-4 text-[#B82328]" />
+                <span>STOREFRONT LIVE PREVIEW</span>
               </h3>
-              <span className="text-[10px] text-[#3F4E44] font-bold">SEO PROTECTED</span>
-            </div>
 
-            <p className="text-[11px] text-[#52504B] leading-relaxed">
-              Replace the main homepage hero artwork. Changes immediately update LCP preloading and Google Image Search tags.
-            </p>
-
-            {/* Live Hero Thumbnail Preview */}
-            <div className="relative aspect-[16/9] w-full border border-[#DCD7CC] overflow-hidden flex items-center justify-center" style={{ backgroundColor: heroConfig.backgroundColor || '#EAE2D8' }}>
-              <NextImage
-                src={heroConfig.desktopImageUrl || '/images/outside_hero_final.png'}
-                alt={heroConfig.altText || 'Outside Hero'}
-                fill
-                className="object-contain"
-                sizes="(max-width: 768px) 100vw, 500px"
-              />
-              <span className="absolute bottom-2 right-2 px-2 py-0.5 bg-[#111110]/80 text-[#FCFBF8] text-[9px] font-mono">
-                DESKTOP PREVIEW
-              </span>
-            </div>
-
-            {/* Preset Selector */}
-            <div className="space-y-1.5">
-              <label className="text-[10px] font-bold uppercase text-[#52504B] block">
-                Quick Studio Presets
-              </label>
-              <div className="grid grid-cols-2 gap-2 text-[10px]">
+              <div className="flex items-center gap-1 bg-[#EDEAE2] p-1 border border-[#DCD7CC]">
                 <button
                   type="button"
-                  onClick={() => setHeroConfig({
-                    ...heroConfig,
-                    desktopImageUrl: '/images/outside_hero_final.png',
-                    mobileImageUrl: '/images/outside_hero_final.png',
-                    backgroundColor: '#EAE2D8',
-                    altText: 'DROP 001 Better Days Ahead Heavyweight T-Shirt',
-                  })}
-                  className="p-2 border border-[#DCD7CC] hover:border-[#111110] text-left bg-white cursor-pointer font-bold"
+                  onClick={() => setPreviewViewport('mobile')}
+                  className={`p-1 ${previewViewport === 'mobile' ? 'bg-[#FCFBF8] shadow-xs text-[#111110]' : 'text-[#52504B]'}`}
+                  title="Mobile View (375px)"
                 >
-                  01. Outside Hero Final
+                  <Smartphone className="w-3.5 h-3.5" />
                 </button>
                 <button
                   type="button"
-                  onClick={() => setHeroConfig({
-                    ...heroConfig,
-                    desktopImageUrl: '/images/drops/drop-001-front.jpg',
-                    mobileImageUrl: '/images/drops/drop-001-back.jpg',
-                    backgroundColor: '#F7F5F0',
-                    altText: 'OUTSIDE Drop 001 Ivory Edition',
-                  })}
-                  className="p-2 border border-[#DCD7CC] hover:border-[#111110] text-left bg-white cursor-pointer font-bold"
+                  onClick={() => setPreviewViewport('tablet')}
+                  className={`p-1 ${previewViewport === 'tablet' ? 'bg-[#FCFBF8] shadow-xs text-[#111110]' : 'text-[#52504B]'}`}
+                  title="Tablet View (768px)"
                 >
-                  02. Drop 001 Studio
+                  <Tablet className="w-3.5 h-3.5" />
                 </button>
                 <button
                   type="button"
-                  onClick={() => setHeroConfig({
-                    ...heroConfig,
-                    desktopImageUrl: '/images/drops/drop-002-front.jpg',
-                    mobileImageUrl: '/images/drops/drop-002-back.jpg',
-                    backgroundColor: '#EAE6DF',
-                    altText: 'OUTSIDE Drop 002 Botanical Moss Edition',
-                  })}
-                  className="p-2 border border-[#DCD7CC] hover:border-[#111110] text-left bg-white cursor-pointer font-bold"
+                  onClick={() => setPreviewViewport('desktop')}
+                  className={`p-1 ${previewViewport === 'desktop' ? 'bg-[#FCFBF8] shadow-xs text-[#111110]' : 'text-[#52504B]'}`}
+                  title="Desktop View (100%)"
                 >
-                  03. Drop 002 Botanical
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setHeroConfig({
-                    ...heroConfig,
-                    desktopImageUrl: '/images/drops/drop-003-front.jpg',
-                    mobileImageUrl: '/images/drops/drop-003-back.jpg',
-                    backgroundColor: '#E5E4E2',
-                    altText: 'OUTSIDE Drop 003 Obsidian Black Edition',
-                  })}
-                  className="p-2 border border-[#DCD7CC] hover:border-[#111110] text-left bg-white cursor-pointer font-bold"
-                >
-                  04. Drop 003 Obsidian
+                  <Monitor className="w-3.5 h-3.5" />
                 </button>
               </div>
             </div>
 
-            {/* Custom URLs and SEO Fields */}
-            <div className="space-y-3 pt-2 text-xs">
-              <div>
-                <label className="text-[10px] font-bold uppercase text-[#52504B] block mb-1">
-                  Desktop Image URL (or path)
-                </label>
-                <input
-                  type="text"
-                  value={heroConfig.desktopImageUrl || ''}
-                  onChange={(e) => setHeroConfig({ ...heroConfig, desktopImageUrl: e.target.value })}
-                  placeholder="/images/outside_hero_final.png"
-                  className="w-full bg-[#FCFBF8] border border-[#DCD7CC] p-2 text-xs font-mono text-[#111110] focus:border-[#B82328] focus:outline-none"
+            <div className="flex justify-center bg-[#EDEAE2]/30 p-2 border border-[#DCD7CC]">
+              <div
+                className={`bg-white transition-all overflow-hidden border border-[#DCD7CC] shadow-inner ${
+                  previewViewport === 'mobile'
+                    ? 'w-[375px] h-[640px]'
+                    : previewViewport === 'tablet'
+                    ? 'w-[768px] h-[680px]'
+                    : 'w-full h-[680px]'
+                }`}
+              >
+                <iframe
+                  key={iframeKey}
+                  src="/"
+                  className="w-full h-full border-none"
+                  title="Storefront Live Preview"
                 />
               </div>
+            </div>
 
-              <div>
-                <label className="text-[10px] font-bold uppercase text-[#52504B] block mb-1">
-                  Mobile Image URL (or path)
-                </label>
-                <input
-                  type="text"
-                  value={heroConfig.mobileImageUrl || ''}
-                  onChange={(e) => setHeroConfig({ ...heroConfig, mobileImageUrl: e.target.value })}
-                  placeholder="/images/outside_hero_final.png"
-                  className="w-full bg-[#FCFBF8] border border-[#DCD7CC] p-2 text-xs font-mono text-[#111110] focus:border-[#B82328] focus:outline-none"
-                />
-              </div>
-
-              <div className="grid grid-cols-2 gap-3">
-                <div>
-                  <label className="text-[10px] font-bold uppercase text-[#52504B] block mb-1">
-                    Canvas Tint Color
-                  </label>
-                  <div className="flex items-center gap-2">
-                    <input
-                      type="color"
-                      value={heroConfig.backgroundColor || '#EAE2D8'}
-                      onChange={(e) => setHeroConfig({ ...heroConfig, backgroundColor: e.target.value })}
-                      className="w-8 h-8 p-0 border border-[#DCD7CC] cursor-pointer"
-                    />
-                    <input
-                      type="text"
-                      value={heroConfig.backgroundColor || '#EAE2D8'}
-                      onChange={(e) => setHeroConfig({ ...heroConfig, backgroundColor: e.target.value })}
-                      className="w-full bg-[#FCFBF8] border border-[#DCD7CC] p-1.5 text-[11px] font-mono text-[#111110]"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label className="text-[10px] font-bold uppercase text-[#52504B] block mb-1">
-                    Object Alignment
-                  </label>
-                  <select
-                    value={heroConfig.objectPosition || 'right center'}
-                    onChange={(e) => setHeroConfig({ ...heroConfig, objectPosition: e.target.value })}
-                    className="w-full bg-[#FCFBF8] border border-[#DCD7CC] p-2 text-xs font-mono text-[#111110]"
-                  >
-                    <option value="right center">Right Center</option>
-                    <option value="center center">Center Center</option>
-                    <option value="left center">Left Center</option>
-                    <option value="center top">Center Top</option>
-                  </select>
-                </div>
-              </div>
-
-              <div>
-                <label className="text-[10px] font-bold uppercase text-[#52504B] block mb-1">
-                  SEO Alt Text (Google Image Search)
-                </label>
-                <input
-                  type="text"
-                  value={heroConfig.altText || ''}
-                  onChange={(e) => setHeroConfig({ ...heroConfig, altText: e.target.value })}
-                  placeholder="DROP 001 Better Days Ahead Heavyweight T-Shirt"
-                  className="w-full bg-[#FCFBF8] border border-[#DCD7CC] p-2 text-xs font-mono text-[#111110] focus:border-[#B82328] focus:outline-none"
-                />
-              </div>
+            <div className="flex justify-between items-center text-[10px] text-[#52504B]">
+              <span>Active Viewport: <strong className="text-[#111110] uppercase">{previewViewport}</strong></span>
+              <button
+                type="button"
+                onClick={() => setIframeKey((prev) => prev + 1)}
+                className="text-[#B82328] hover:underline font-bold cursor-pointer"
+              >
+                Reload Storefront Frame ↺
+              </button>
             </div>
           </div>
 
@@ -565,7 +485,7 @@ export default function AdminLayoutControlsPage() {
           <div className="bg-[#FCFBF8] border border-[#DCD7CC] p-6 space-y-4 shadow-editorial">
             <h3 className="text-xs uppercase text-[#111110] font-bold tracking-wider flex items-center gap-2 border-b border-[#DCD7CC] pb-3">
               <Grid className="w-4 h-4 text-[#B82328]" />
-              <span>GRID COLUMNS &amp; STICKY DENSITY</span>
+              <span>THE VAULT GRID COLUMNS &amp; STICKY DENSITY</span>
             </h3>
 
             <div className="space-y-4 text-xs">
@@ -578,15 +498,17 @@ export default function AdminLayoutControlsPage() {
                     <span className="text-[9px] uppercase font-bold text-[#52504B] block text-center">Mobile (375px)</span>
                     <select
                       value={layout.gridColumns?.vault?.mobile || 1}
-                      onChange={(e) =>
-                        setLayout({
+                      onChange={(e) => {
+                        const newLayout = {
                           ...layout,
                           gridColumns: {
                             ...layout.gridColumns,
                             vault: { ...layout.gridColumns?.vault, mobile: Number(e.target.value) },
                           },
-                        })
-                      }
+                        };
+                        setLayout(newLayout);
+                        handleSaveLayoutDirect(newLayout);
+                      }}
                       className="w-full bg-[#FCFBF8] border border-[#DCD7CC] p-1.5 text-xs font-mono text-[#111110] cursor-pointer"
                     >
                       <option value={1}>1 Col</option>
@@ -598,15 +520,17 @@ export default function AdminLayoutControlsPage() {
                     <span className="text-[9px] uppercase font-bold text-[#52504B] block text-center">Tablet (768px)</span>
                     <select
                       value={layout.gridColumns?.vault?.tablet || 2}
-                      onChange={(e) =>
-                        setLayout({
+                      onChange={(e) => {
+                        const newLayout = {
                           ...layout,
                           gridColumns: {
                             ...layout.gridColumns,
                             vault: { ...layout.gridColumns?.vault, tablet: Number(e.target.value) },
                           },
-                        })
-                      }
+                        };
+                        setLayout(newLayout);
+                        handleSaveLayoutDirect(newLayout);
+                      }}
                       className="w-full bg-[#FCFBF8] border border-[#DCD7CC] p-1.5 text-xs font-mono text-[#111110] cursor-pointer"
                     >
                       <option value={1}>1 Col</option>
@@ -619,15 +543,17 @@ export default function AdminLayoutControlsPage() {
                     <span className="text-[9px] uppercase font-bold text-[#52504B] block text-center">Desktop (1280px)</span>
                     <select
                       value={layout.gridColumns?.vault?.desktop || 3}
-                      onChange={(e) =>
-                        setLayout({
+                      onChange={(e) => {
+                        const newLayout = {
                           ...layout,
                           gridColumns: {
                             ...layout.gridColumns,
                             vault: { ...layout.gridColumns?.vault, desktop: Number(e.target.value) },
                           },
-                        })
-                      }
+                        };
+                        setLayout(newLayout);
+                        handleSaveLayoutDirect(newLayout);
+                      }}
                       className="w-full bg-[#FCFBF8] border border-[#DCD7CC] p-1.5 text-xs font-mono text-[#111110] cursor-pointer"
                     >
                       <option value={2}>2 Cols</option>
@@ -645,7 +571,11 @@ export default function AdminLayoutControlsPage() {
                 <div className="grid grid-cols-2 gap-2">
                   <button
                     type="button"
-                    onClick={() => setLayout({ ...layout, mobileStickyCtaPosition: 'bottom_fixed' })}
+                    onClick={() => {
+                      const newLayout = { ...layout, mobileStickyCtaPosition: 'bottom_fixed' };
+                      setLayout(newLayout);
+                      handleSaveLayoutDirect(newLayout);
+                    }}
                     className={`p-3 border text-left cursor-pointer transition-colors ${
                       layout.mobileStickyCtaPosition === 'bottom_fixed'
                         ? 'bg-[#EDEAE2] border-[#111110] font-bold text-[#111110]'
@@ -658,7 +588,11 @@ export default function AdminLayoutControlsPage() {
 
                   <button
                     type="button"
-                    onClick={() => setLayout({ ...layout, mobileStickyCtaPosition: 'inline' })}
+                    onClick={() => {
+                      const newLayout = { ...layout, mobileStickyCtaPosition: 'inline' };
+                      setLayout(newLayout);
+                      handleSaveLayoutDirect(newLayout);
+                    }}
                     className={`p-3 border text-left cursor-pointer transition-colors ${
                       layout.mobileStickyCtaPosition === 'inline'
                         ? 'bg-[#EDEAE2] border-[#111110] font-bold text-[#111110]'
@@ -673,62 +607,6 @@ export default function AdminLayoutControlsPage() {
             </div>
           </div>
 
-          {/* Storefront Live Preview */}
-          <div className="bg-[#FCFBF8] border border-[#DCD7CC] p-6 space-y-4 shadow-editorial">
-            <div className="flex items-center justify-between border-b border-[#DCD7CC] pb-3">
-              <h3 className="text-xs uppercase text-[#111110] font-bold tracking-wider flex items-center gap-2">
-                <Eye className="w-4 h-4 text-[#B82328]" />
-                <span>STOREFRONT LIVE PREVIEW</span>
-              </h3>
-
-              <div className="flex items-center gap-1 bg-[#EDEAE2] p-1 border border-[#DCD7CC]">
-                <button
-                  type="button"
-                  onClick={() => setPreviewViewport('mobile')}
-                  className={`p-1 ${previewViewport === 'mobile' ? 'bg-[#FCFBF8] shadow-xs' : 'text-[#52504B]'}`}
-                  title="Mobile View"
-                >
-                  <Smartphone className="w-3.5 h-3.5" />
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setPreviewViewport('tablet')}
-                  className={`p-1 ${previewViewport === 'tablet' ? 'bg-[#FCFBF8] shadow-xs' : 'text-[#52504B]'}`}
-                  title="Tablet View"
-                >
-                  <Tablet className="w-3.5 h-3.5" />
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setPreviewViewport('desktop')}
-                  className={`p-1 ${previewViewport === 'desktop' ? 'bg-[#FCFBF8] shadow-xs' : 'text-[#52504B]'}`}
-                  title="Desktop View"
-                >
-                  <Monitor className="w-3.5 h-3.5" />
-                </button>
-              </div>
-            </div>
-
-            <div className="flex justify-center bg-[#EDEAE2]/30 p-2 border border-[#DCD7CC]">
-              <div
-                className={`bg-white transition-all overflow-hidden border border-[#DCD7CC] shadow-inner ${
-                  previewViewport === 'mobile'
-                    ? 'w-[375px] h-[580px]'
-                    : previewViewport === 'tablet'
-                    ? 'w-[768px] h-[650px]'
-                    : 'w-full h-[650px]'
-                }`}
-              >
-                <iframe
-                  key={iframeKey}
-                  src="/"
-                  className="w-full h-full border-none"
-                  title="Storefront Preview"
-                />
-              </div>
-            </div>
-          </div>
-
         </div>
       </div>
 
@@ -736,8 +614,8 @@ export default function AdminLayoutControlsPage() {
       {/* SECTION SETTINGS MODAL / DIALOG                          */}
       {/* ======================================================== */}
       {activeEditingSection && (
-        <div className="fixed inset-0 z-50 bg-[#111110]/60 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-[#FCFBF8] border-2 border-[#111110] w-full max-w-2xl shadow-2xl overflow-hidden animate-fade-in font-mono">
+        <div className="fixed inset-0 z-50 bg-[#111110]/65 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="bg-[#FCFBF8] border-2 border-[#111110] w-full max-w-3xl shadow-2xl overflow-hidden animate-fade-in font-mono">
             
             {/* Modal Header */}
             <div className="bg-[#111110] text-[#FCFBF8] px-6 py-4 flex items-center justify-between">
@@ -763,14 +641,207 @@ export default function AdminLayoutControlsPage() {
             </div>
 
             {/* Modal Body: Tailored Controls per Section */}
-            <div className="p-6 max-h-[75vh] overflow-y-auto space-y-6 text-xs">
+            <div className="p-6 max-h-[78vh] overflow-y-auto space-y-6 text-xs">
               
-              {/* SECTION: DROPS / CATALOG */}
+              {/* SECTION: HERO DROP SHOWCASE */}
+              {activeEditingSection.id === 'hero' && (
+                <div className="space-y-6">
+                  
+                  {/* Hero Visual Studio Notice */}
+                  <div className="flex items-center justify-between border-b border-[#DCD7CC] pb-3">
+                    <span className="text-[11px] font-bold text-[#111110] uppercase tracking-wider flex items-center gap-2">
+                      <ImageIcon className="w-4 h-4 text-[#B82328]" />
+                      <span>HERO SECTION VISUAL &amp; ARTWORK STUDIO</span>
+                    </span>
+                    <span className="text-[10px] text-[#3F4E44] font-bold">SEO &amp; LCP PROTECTED</span>
+                  </div>
+
+                  {/* Live Hero Thumbnail Preview */}
+                  <div className="space-y-2">
+                    <div className="flex justify-between items-center text-[10px]">
+                      <span className="text-[#52504B] uppercase font-bold">Live Hero Preview</span>
+                      <div className="flex items-center gap-1">
+                        <button
+                          type="button"
+                          onClick={() => setModalHeroPreview('desktop')}
+                          className={`px-2 py-0.5 border ${modalHeroPreview === 'desktop' ? 'bg-[#111110] text-white' : 'bg-white'}`}
+                        >
+                          Desktop
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setModalHeroPreview('mobile')}
+                          className={`px-2 py-0.5 border ${modalHeroPreview === 'mobile' ? 'bg-[#111110] text-white' : 'bg-white'}`}
+                        >
+                          Mobile
+                        </button>
+                      </div>
+                    </div>
+
+                    <div
+                      className="relative aspect-[16/9] w-full border border-[#DCD7CC] overflow-hidden flex items-center justify-center shadow-inner"
+                      style={{ backgroundColor: heroConfig.backgroundColor || '#EAE2D8' }}
+                    >
+                      <NextImage
+                        src={modalHeroPreview === 'desktop' ? (heroConfig.desktopImageUrl || '/images/outside_hero_final.png') : (heroConfig.mobileImageUrl || '/images/outside_hero_final.png')}
+                        alt={heroConfig.altText || 'Outside Hero'}
+                        fill
+                        className="object-contain"
+                        sizes="(max-width: 768px) 100vw, 700px"
+                      />
+                    </div>
+                  </div>
+
+                  {/* 1-Click Studio Presets */}
+                  <div className="space-y-2">
+                    <label className="text-[10px] font-bold uppercase text-[#52504B] block">
+                      1-Click Studio Presets
+                    </label>
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-[10px]">
+                      {[
+                        { label: '01. Outside Hero Final', img: '/images/outside_hero_final.png', bg: '#EAE2D8' },
+                        { label: '02. Drop 001 Studio', img: '/images/drops/drop-001-front.jpg', bg: '#F7F5F0' },
+                        { label: '03. Drop 002 Botanical', img: '/images/drops/drop-002-front.jpg', bg: '#EAE6DF' },
+                        { label: '04. Drop 003 Obsidian', img: '/images/drops/drop-003-front.jpg', bg: '#E5E4E2' },
+                      ].map((preset) => (
+                        <button
+                          key={preset.label}
+                          type="button"
+                          onClick={() =>
+                            setHeroConfig({
+                              ...heroConfig,
+                              desktopImageUrl: preset.img,
+                              mobileImageUrl: preset.img,
+                              backgroundColor: preset.bg,
+                            })
+                          }
+                          className="p-2 border border-[#DCD7CC] hover:border-[#111110] text-left bg-white cursor-pointer font-bold transition-colors"
+                        >
+                          {preset.label}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Image URLs & SEO Alt */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <label className="text-[10px] font-bold uppercase text-[#52504B] block mb-1">
+                        Desktop Image URL
+                      </label>
+                      <input
+                        type="text"
+                        value={heroConfig.desktopImageUrl || ''}
+                        onChange={(e) => setHeroConfig({ ...heroConfig, desktopImageUrl: e.target.value })}
+                        placeholder="/images/outside_hero_final.png"
+                        className="w-full bg-white border border-[#DCD7CC] p-2 text-xs font-mono text-[#111110]"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="text-[10px] font-bold uppercase text-[#52504B] block mb-1">
+                        Mobile Image URL
+                      </label>
+                      <input
+                        type="text"
+                        value={heroConfig.mobileImageUrl || ''}
+                        onChange={(e) => setHeroConfig({ ...heroConfig, mobileImageUrl: e.target.value })}
+                        placeholder="/images/outside_hero_final.png"
+                        className="w-full bg-white border border-[#DCD7CC] p-2 text-xs font-mono text-[#111110]"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Tint Color & Alignment */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <label className="text-[10px] font-bold uppercase text-[#52504B] block mb-1">
+                        Canvas Tint Color
+                      </label>
+                      <div className="flex items-center gap-2">
+                        <input
+                          type="color"
+                          value={heroConfig.backgroundColor || '#EAE2D8'}
+                          onChange={(e) => setHeroConfig({ ...heroConfig, backgroundColor: e.target.value })}
+                          className="w-9 h-9 p-0 border border-[#DCD7CC] cursor-pointer"
+                        />
+                        <input
+                          type="text"
+                          value={heroConfig.backgroundColor || '#EAE2D8'}
+                          onChange={(e) => setHeroConfig({ ...heroConfig, backgroundColor: e.target.value })}
+                          className="w-full bg-white border border-[#DCD7CC] p-2 text-xs font-mono text-[#111110]"
+                        />
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="text-[10px] font-bold uppercase text-[#52504B] block mb-1">
+                        Object Alignment
+                      </label>
+                      <select
+                        value={heroConfig.objectPosition || 'right center'}
+                        onChange={(e) => setHeroConfig({ ...heroConfig, objectPosition: e.target.value })}
+                        className="w-full bg-white border border-[#DCD7CC] p-2 text-xs font-mono text-[#111110]"
+                      >
+                        <option value="right center">Right Center</option>
+                        <option value="center center">Center Center</option>
+                        <option value="left center">Left Center</option>
+                        <option value="center top">Center Top</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="text-[10px] font-bold uppercase text-[#52504B] block mb-1">
+                      SEO Alt Tag (Google Image Search Indexing)
+                    </label>
+                    <input
+                      type="text"
+                      value={heroConfig.altText || ''}
+                      onChange={(e) => setHeroConfig({ ...heroConfig, altText: e.target.value })}
+                      placeholder="DROP 001 Better Days Ahead Heavyweight T-Shirt"
+                      className="w-full bg-white border border-[#DCD7CC] p-2 text-xs font-mono text-[#111110]"
+                    />
+                  </div>
+
+                  {/* Copy & CTAs */}
+                  <div className="space-y-3 pt-2 border-t border-[#DCD7CC]">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label className="text-[10px] font-bold uppercase text-[#52504B] block mb-1">
+                          Eyebrow Subtitle
+                        </label>
+                        <input
+                          type="text"
+                          value={heroConfig.eyebrowText || ''}
+                          onChange={(e) => setHeroConfig({ ...heroConfig, eyebrowText: e.target.value })}
+                          className="w-full bg-white border border-[#DCD7CC] p-2 text-xs font-mono text-[#111110]"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="text-[10px] font-bold uppercase text-[#52504B] block mb-1">
+                          Primary CTA Button Text
+                        </label>
+                        <input
+                          type="text"
+                          value={heroConfig.ctaText || ''}
+                          onChange={(e) => setHeroConfig({ ...heroConfig, ctaText: e.target.value })}
+                          className="w-full bg-white border border-[#DCD7CC] p-2 text-xs font-mono text-[#111110]"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              )}
+
+              {/* SECTION: DROPS / ACTIVE PRODUCTIONS SHOWCASE */}
               {activeEditingSection.id === 'drops' && (
                 <div className="space-y-6">
                   
-                  {/* Default Cards to Show */}
-                  <div className="p-4 bg-[#EDEAE2]/50 border border-[#DCD7CC] space-y-3">
+                  {/* Default Cards to Show & Grid Columns */}
+                  <div className="p-4 bg-[#EDEAE2]/50 border border-[#DCD7CC] space-y-4">
                     <div className="flex items-center justify-between">
                       <span className="text-[11px] font-bold text-[#111110] uppercase tracking-wider">
                         Default Cards To Show on Homepage
@@ -781,10 +852,10 @@ export default function AdminLayoutControlsPage() {
                     </div>
 
                     <p className="text-[11px] text-[#52504B] leading-relaxed">
-                      Select how many product cards are visible by default. When the collection has more editions, the storefront automatically renders a sleek <strong>&quot;View All Editions&quot;</strong> button for seamless expansion without slowing down initial page speed.
+                      Choose how many product cards are visible on initial load. If the collection has more editions, the storefront automatically renders a <strong>&quot;View All Editions&quot;</strong> button for smooth expansion.
                     </p>
 
-                    <div className="grid grid-cols-5 gap-2 pt-1">
+                    <div className="grid grid-cols-5 gap-2">
                       {[
                         { label: '2 Cards', value: 2 },
                         { label: '3 Cards', value: 3 },
@@ -795,7 +866,14 @@ export default function AdminLayoutControlsPage() {
                         <button
                           key={opt.value}
                           type="button"
-                          onClick={() => setModalSettings({ ...modalSettings, defaultCardCount: opt.value })}
+                          onClick={() => {
+                            const newCols = opt.value === 4 ? 4 : opt.value === 2 ? 2 : 3;
+                            setModalSettings({
+                              ...modalSettings,
+                              defaultCardCount: opt.value,
+                              defaultGridColumns: modalSettings.defaultGridColumns || newCols,
+                            });
+                          }}
                           className={`py-2 px-1 text-center font-bold text-[11px] border cursor-pointer transition-colors ${
                             (modalSettings.defaultCardCount !== undefined ? modalSettings.defaultCardCount : 3) === opt.value
                               ? 'bg-[#111110] text-white border-[#111110]'
@@ -805,6 +883,33 @@ export default function AdminLayoutControlsPage() {
                           {opt.label}
                         </button>
                       ))}
+                    </div>
+
+                    {/* Desktop Grid Columns Selector */}
+                    <div className="pt-2 border-t border-[#DCD7CC]">
+                      <span className="text-[10px] font-bold uppercase text-[#52504B] block mb-1.5">
+                        Desktop Grid Columns Density (Cards Per Row)
+                      </span>
+                      <div className="grid grid-cols-3 gap-2">
+                        {[
+                          { label: '2 Columns', value: 2 },
+                          { label: '3 Columns (Standard)', value: 3 },
+                          { label: '4 Columns (Quad Density)', value: 4 },
+                        ].map((colOpt) => (
+                          <button
+                            key={colOpt.value}
+                            type="button"
+                            onClick={() => setModalSettings({ ...modalSettings, defaultGridColumns: colOpt.value })}
+                            className={`py-2 px-2 text-center font-bold text-[10px] border cursor-pointer transition-colors ${
+                              (modalSettings.defaultGridColumns || (modalSettings.defaultCardCount === 4 ? 4 : 3)) === colOpt.value
+                                ? 'bg-[#111110] text-white border-[#111110]'
+                                : 'bg-white border-[#DCD7CC] text-[#111110] hover:border-[#111110]'
+                            }`}
+                          >
+                            {colOpt.label}
+                          </button>
+                        ))}
+                      </div>
                     </div>
                   </div>
 
@@ -863,45 +968,63 @@ export default function AdminLayoutControlsPage() {
                     </div>
                   </div>
 
-                  {/* Default Active Category & Sort */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                      <label className="text-[10px] font-bold uppercase text-[#52504B] block mb-1">
-                        Default Active Filter Tab
-                      </label>
-                      <select
-                        value={modalSettings.defaultFilter || 'ALL'}
-                        onChange={(e) => setModalSettings({ ...modalSettings, defaultFilter: e.target.value })}
-                        className="w-full bg-white border border-[#DCD7CC] p-2.5 text-xs font-mono text-[#111110]"
+                  {/* Active Drops Roster & Card Quick Management */}
+                  <div className="p-4 bg-[#EDEAE2]/30 border border-[#DCD7CC] space-y-3">
+                    <div className="flex items-center justify-between">
+                      <span className="text-[10px] font-bold uppercase text-[#111110] flex items-center gap-1.5">
+                        <Package className="w-3.5 h-3.5 text-[#B82328]" />
+                        <span>ACTIVE EDITIONS ROSTER ({allDrops.length} PRODUCTS)</span>
+                      </span>
+                      <Link
+                        href="/admin/drops"
+                        target="_blank"
+                        className="text-[10px] font-bold text-[#B82328] hover:underline flex items-center gap-1"
                       >
-                        <option value="ALL">All Editions (ALL)</option>
-                        <option value="LIVE">Live Drop Now (LIVE)</option>
-                        <option value="UPCOMING">Next Drop / Upcoming (UPCOMING)</option>
-                        <option value="WOMEN">Women&apos;s Fit (WOMEN)</option>
-                        <option value="MEN">Men&apos;s Fit (MEN)</option>
-                        <option value="ARCHIVED">The Vault (ARCHIVED)</option>
-                      </select>
+                        <span>OPEN FULL DROPS SUITE</span>
+                        <ExternalLink className="w-3 h-3" />
+                      </Link>
                     </div>
 
-                    <div>
-                      <label className="text-[10px] font-bold uppercase text-[#52504B] block mb-1">
-                        Default Sort Order
-                      </label>
-                      <select
-                        value={modalSettings.defaultSort || 'FEATURED'}
-                        onChange={(e) => setModalSettings({ ...modalSettings, defaultSort: e.target.value })}
-                        className="w-full bg-white border border-[#DCD7CC] p-2.5 text-xs font-mono text-[#111110]"
-                      >
-                        <option value="FEATURED">Featured Drop Hierarchy</option>
-                        <option value="PRICE_ASC">Price: Low to High</option>
-                        <option value="PRICE_DESC">Price: High to Low</option>
-                        <option value="DROP_NUM">Drop Number (Desc)</option>
-                        <option value="EDITION_RUN">Edition Quantity (Desc)</option>
-                      </select>
+                    <div className="space-y-2 max-h-48 overflow-y-auto pt-1">
+                      {allDrops.map((drop: any) => (
+                        <div
+                          key={drop.id}
+                          className="p-2.5 bg-white border border-[#DCD7CC] flex items-center justify-between text-xs"
+                        >
+                          <div className="flex items-center gap-3">
+                            <div className="relative w-9 h-9 bg-[#EDEAE2] border border-[#DCD7CC] flex-shrink-0 overflow-hidden">
+                              <NextImage
+                                src={drop.primaryImageUrl || '/images/drops/drop-001-front.jpg'}
+                                alt={drop.title}
+                                fill
+                                className="object-contain"
+                              />
+                            </div>
+                            <div>
+                              <span className="font-bold text-[#111110] block">{drop.title}</span>
+                              <span className="text-[10px] text-[#52504B]">
+                                ₹{(drop.pricePaise / 100).toLocaleString('en-IN')} · {drop.totalEditionQty} Units
+                              </span>
+                            </div>
+                          </div>
+
+                          <span
+                            className={`px-2 py-0.5 text-[9px] font-bold uppercase ${
+                              drop.status === 'LIVE'
+                                ? 'bg-[#3F4E44] text-white'
+                                : drop.status === 'UPCOMING'
+                                ? 'bg-amber-100 text-amber-900 border border-amber-300'
+                                : 'bg-[#EDEAE2] text-[#52504B]'
+                            }`}
+                          >
+                            {drop.status}
+                          </span>
+                        </div>
+                      ))}
                     </div>
                   </div>
 
-                  {/* Section Headings */}
+                  {/* Headings */}
                   <div className="space-y-3 pt-2 border-t border-[#DCD7CC]">
                     <div>
                       <label className="text-[10px] font-bold uppercase text-[#52504B] block mb-1">
@@ -928,55 +1051,8 @@ export default function AdminLayoutControlsPage() {
                         className="w-full bg-white border border-[#DCD7CC] p-2 text-xs font-mono text-[#111110]"
                       />
                     </div>
-
-                    <div>
-                      <label className="text-[10px] font-bold uppercase text-[#52504B] block mb-1">
-                        Section Narrative Description
-                      </label>
-                      <textarea
-                        rows={2}
-                        value={modalSettings.description || ''}
-                        onChange={(e) => setModalSettings({ ...modalSettings, description: e.target.value })}
-                        placeholder="Every garment is custom-milled in India from 280 GSM organic cotton, numbered from #001 to #250, and produced once. Never restocked."
-                        className="w-full bg-white border border-[#DCD7CC] p-2 text-xs font-mono text-[#111110]"
-                      />
-                    </div>
                   </div>
 
-                </div>
-              )}
-
-              {/* SECTION: HERO */}
-              {activeEditingSection.id === 'hero' && (
-                <div className="space-y-4">
-                  <div className="p-4 bg-[#EDEAE2]/40 border border-[#DCD7CC] text-[11px] text-[#52504B] space-y-2">
-                    <span className="font-bold text-[#111110] block">HOMEPAGE HERO VISUAL CONTROL:</span>
-                    <p>
-                      The primary hero artwork and copy can be customized directly in the <strong>HERO SECTION VISUAL &amp; IMAGE REPLACEMENT</strong> card on this page.
-                    </p>
-                  </div>
-                  <div>
-                    <label className="text-[10px] font-bold uppercase text-[#52504B] block mb-1">
-                      Hero Eyebrow Text
-                    </label>
-                    <input
-                      type="text"
-                      value={heroConfig.eyebrowText || ''}
-                      onChange={(e) => setHeroConfig({ ...heroConfig, eyebrowText: e.target.value })}
-                      className="w-full bg-white border border-[#DCD7CC] p-2 text-xs font-mono text-[#111110]"
-                    />
-                  </div>
-                  <div>
-                    <label className="text-[10px] font-bold uppercase text-[#52504B] block mb-1">
-                      Primary CTA Button Text
-                    </label>
-                    <input
-                      type="text"
-                      value={heroConfig.ctaText || ''}
-                      onChange={(e) => setHeroConfig({ ...heroConfig, ctaText: e.target.value })}
-                      className="w-full bg-white border border-[#DCD7CC] p-2 text-xs font-mono text-[#111110]"
-                    />
-                  </div>
                 </div>
               )}
 

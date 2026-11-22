@@ -354,6 +354,169 @@
           "reservedStock": 0
         }
       ]
+    },
+    {
+      "id": "drop_004",
+      "dropNumber": 4,
+      "slug": "drop-004-solaris-dune",
+      "title": "DROP 004 // SOLARIS DUNE",
+      "subtitle": "Terracotta Sun-Fade 280 GSM French Terry.",
+      "story": "Mineral earth dyes formulated in Gujarat. Calibrated oversized silhouette with hand-distressed neckline.",
+      "fabricSpecs": "280 GSM Combed Cotton · Mineral Pigment Wash · High-Density Rib Collar",
+      "pricePaise": 240000,
+      "totalEditionQty": 250,
+      "status": "UPCOMING",
+      "launchAt": "2026-12-06T16:45:37.941Z",
+      "primaryImageUrl": "/images/drops/drop-002-front.jpg",
+      "galleryUrls": [
+        "/images/drops/drop-002-front.jpg",
+        "/images/drops/drop-002-back.jpg"
+      ],
+      "isFeatured": false,
+      "variants": [
+        {
+          "id": "v4_w_s",
+          "dropId": "drop_004",
+          "sku": "OUT-004-W-S",
+          "fit": "WOMEN",
+          "size": "S",
+          "initialStock": 40,
+          "currentStock": 40,
+          "reservedStock": 0
+        },
+        {
+          "id": "v4_w_m",
+          "dropId": "drop_004",
+          "sku": "OUT-004-W-M",
+          "fit": "WOMEN",
+          "size": "M",
+          "initialStock": 50,
+          "currentStock": 50,
+          "reservedStock": 0
+        },
+        {
+          "id": "v4_m_m",
+          "dropId": "drop_004",
+          "sku": "OUT-004-M-M",
+          "fit": "MEN",
+          "size": "M",
+          "initialStock": 60,
+          "currentStock": 60,
+          "reservedStock": 0
+        },
+        {
+          "id": "v4_m_l",
+          "dropId": "drop_004",
+          "sku": "OUT-004-M-L",
+          "fit": "MEN",
+          "size": "L",
+          "initialStock": 50,
+          "currentStock": 50,
+          "reservedStock": 0
+        }
+      ]
+    },
+    {
+      "id": "drop_005",
+      "dropNumber": 5,
+      "slug": "drop-005-indigo-archetype",
+      "title": "DROP 005 // INDIGO ARCHETYPE",
+      "subtitle": "Deep Natural Indigo 290 GSM Heavy Organic Knit.",
+      "story": "Hand-dipped natural indigo dye batches. Boxy oversized drape with contrast tobacco topstitching.",
+      "fabricSpecs": "290 GSM Combed Cotton · Organic Indigo Bio-Wash · Double Split Hem",
+      "pricePaise": 250000,
+      "totalEditionQty": 200,
+      "status": "UPCOMING",
+      "launchAt": "2026-12-13T16:45:37.941Z",
+      "primaryImageUrl": "/images/drops/drop-003-front.jpg",
+      "galleryUrls": [
+        "/images/drops/drop-003-front.jpg",
+        "/images/drops/drop-003-back.jpg"
+      ],
+      "isFeatured": false,
+      "variants": [
+        {
+          "id": "v5_w_s",
+          "dropId": "drop_005",
+          "sku": "OUT-005-W-S",
+          "fit": "WOMEN",
+          "size": "S",
+          "initialStock": 35,
+          "currentStock": 35,
+          "reservedStock": 0
+        },
+        {
+          "id": "v5_w_m",
+          "dropId": "drop_005",
+          "sku": "OUT-005-W-M",
+          "fit": "WOMEN",
+          "size": "M",
+          "initialStock": 45,
+          "currentStock": 45,
+          "reservedStock": 0
+        },
+        {
+          "id": "v5_m_m",
+          "dropId": "drop_005",
+          "sku": "OUT-005-M-M",
+          "fit": "MEN",
+          "size": "M",
+          "initialStock": 50,
+          "currentStock": 50,
+          "reservedStock": 0
+        }
+      ]
+    },
+    {
+      "id": "drop_006",
+      "dropNumber": 6,
+      "slug": "drop-006-noir-velvet",
+      "title": "DROP 006 // NOIR VELVET",
+      "subtitle": "Pitch Obsidian 320 GSM French Terry Cotton.",
+      "story": "Extreme cold-climate density. Suede-touch brushed organic interior with matte black silicon logo imprint.",
+      "fabricSpecs": "320 GSM French Terry · Carbon Suede Bio-Wash · Lycra Ribbed Cuff",
+      "pricePaise": 280000,
+      "totalEditionQty": 250,
+      "status": "ARCHIVED",
+      "soldOutAt": "2026-09-01T12:00:00.000Z",
+      "primaryImageUrl": "/images/drops/drop-001-back.jpg",
+      "galleryUrls": [
+        "/images/drops/drop-001-back.jpg",
+        "/images/drops/drop-001-front.jpg"
+      ],
+      "isFeatured": false,
+      "variants": [
+        {
+          "id": "v6_w_s",
+          "dropId": "drop_006",
+          "sku": "OUT-006-W-S",
+          "fit": "WOMEN",
+          "size": "S",
+          "initialStock": 30,
+          "currentStock": 0,
+          "reservedStock": 0
+        },
+        {
+          "id": "v6_w_m",
+          "dropId": "drop_006",
+          "sku": "OUT-006-W-M",
+          "fit": "WOMEN",
+          "size": "M",
+          "initialStock": 40,
+          "currentStock": 0,
+          "reservedStock": 0
+        },
+        {
+          "id": "v6_m_l",
+          "dropId": "drop_006",
+          "sku": "OUT-006-M-L",
+          "fit": "MEN",
+          "size": "L",
+          "initialStock": 50,
+          "currentStock": 0,
+          "reservedStock": 0
+        }
+      ]
     }
   ],
   "orders": [],
@@ -454,6 +617,319 @@
   },
   "emailLogs": [],
   "auditLogs": [
+    {
+      "id": "audit_inv_test_1795365944535",
+      "action": "INVENTORY_ADJUSTED",
+      "entityType": "Variant",
+      "entityId": "v_w_m",
+      "metadata": {
+        "dropId": "drop_001",
+        "sku": "OUT-001-W-M",
+        "oldStock": 4,
+        "newStock": 9,
+        "delta": 5,
+        "reason": "Studio Batch Restock Allocation",
+        "adminUser": "studio_director@outside.in"
+      },
+      "createdAt": "2026-11-22T16:45:44.535Z"
+    },
+    {
+      "id": "audit_1795365940490_p2k9r",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T16:45:40.490Z"
+    },
+    {
+      "id": "audit_1795365940472_yuazd",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T16:45:40.472Z"
+    },
+    {
+      "id": "audit_1795365940455_cyk6e",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 5,
+        "isLocked": true
+      },
+      "createdAt": "2026-11-22T16:45:40.455Z"
+    },
+    {
+      "id": "audit_1795365940439_5cccv",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 4,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T16:45:40.439Z"
+    },
+    {
+      "id": "audit_1795365940426_si94w",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 3,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T16:45:40.426Z"
+    },
+    {
+      "id": "audit_1795365940411_sv6m2",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 2,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T16:45:40.411Z"
+    },
+    {
+      "id": "audit_1795365940391_xnhmm",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 1,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T16:45:40.391Z"
+    },
+    {
+      "id": "audit_1795365940377_o29ow",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T16:45:40.377Z"
+    },
+    {
+      "id": "audit_1795365940360_g0ntp",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T16:45:40.360Z"
+    },
+    {
+      "id": "audit_1795365938194_1s5gd",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "10.0.0.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 5,
+        "isLocked": true
+      },
+      "createdAt": "2026-11-22T16:45:38.194Z"
+    },
+    {
+      "id": "audit_1795365938180_6l86d",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "10.0.0.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 4,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T16:45:38.180Z"
+    },
+    {
+      "id": "audit_1795365938165_3j6uc",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "10.0.0.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 3,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T16:45:38.165Z"
+    },
+    {
+      "id": "audit_1795365938154_xhn0x",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "10.0.0.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 2,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T16:45:38.154Z"
+    },
+    {
+      "id": "audit_1795365938144_gqhmh",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "10.0.0.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 1,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T16:45:38.144Z"
+    },
+    {
+      "id": "audit_1795365257712_pb35k",
+      "userId": "usr_super_admin",
+      "action": "HERO_CONFIG_UPDATED",
+      "entityType": "HeroSection",
+      "metadata": {
+        "desktopImageUrl": "/images/outside_hero_final.png",
+        "altText": "DROP 001 Better Days Ahead Heavyweight T-Shirt",
+        "adminUser": "admin@outside.in"
+      },
+      "createdAt": "2026-11-22T16:34:17.712Z"
+    },
+    {
+      "id": "audit_1795365257662_0tmt8",
+      "userId": "usr_super_admin",
+      "action": "LAYOUT_CONFIG_UPDATED",
+      "entityType": "LayoutConfig",
+      "metadata": {
+        "sectionsCount": 9,
+        "mobileStickyCta": "inline"
+      },
+      "createdAt": "2026-11-22T16:34:17.662Z"
+    },
+    {
+      "id": "audit_1795365190142_3j10f",
+      "userId": "usr_super_admin",
+      "action": "HERO_CONFIG_UPDATED",
+      "entityType": "HeroSection",
+      "metadata": {
+        "desktopImageUrl": "/images/outside_hero_final.png",
+        "altText": "DROP 001 Better Days Ahead Heavyweight T-Shirt",
+        "adminUser": "admin@outside.in"
+      },
+      "createdAt": "2026-11-22T16:33:10.142Z"
+    },
+    {
+      "id": "audit_1795365190102_ir62b",
+      "userId": "usr_super_admin",
+      "action": "LAYOUT_CONFIG_UPDATED",
+      "entityType": "LayoutConfig",
+      "metadata": {
+        "sectionsCount": 9,
+        "mobileStickyCta": "inline"
+      },
+      "createdAt": "2026-11-22T16:33:10.102Z"
+    },
+    {
+      "id": "audit_1795365188026_ovdwp",
+      "userId": "usr_super_admin",
+      "action": "HERO_CONFIG_UPDATED",
+      "entityType": "HeroSection",
+      "metadata": {
+        "desktopImageUrl": "/images/outside_hero_final.png",
+        "altText": "DROP 001 Better Days Ahead Heavyweight T-Shirt",
+        "adminUser": "admin@outside.in"
+      },
+      "createdAt": "2026-11-22T16:33:08.026Z"
+    },
+    {
+      "id": "audit_1795365187961_6cj23",
+      "userId": "usr_super_admin",
+      "action": "LAYOUT_CONFIG_UPDATED",
+      "entityType": "LayoutConfig",
+      "metadata": {
+        "sectionsCount": 9,
+        "mobileStickyCta": "inline"
+      },
+      "createdAt": "2026-11-22T16:33:07.961Z"
+    },
+    {
+      "id": "audit_1795365150061_7qzg8",
+      "userId": "usr_super_admin",
+      "action": "LAYOUT_CONFIG_UPDATED",
+      "entityType": "LayoutConfig",
+      "metadata": {
+        "sectionsCount": 9,
+        "mobileStickyCta": "inline"
+      },
+      "createdAt": "2026-11-22T16:32:30.061Z"
+    },
+    {
+      "id": "audit_1795365149710_m72nm",
+      "userId": "usr_super_admin",
+      "action": "HERO_CONFIG_UPDATED",
+      "entityType": "HeroSection",
+      "metadata": {
+        "desktopImageUrl": "/images/outside_hero_final.png",
+        "altText": "DROP 001 Better Days Ahead Heavyweight T-Shirt",
+        "adminUser": "admin@outside.in"
+      },
+      "createdAt": "2026-11-22T16:32:29.710Z"
+    },
+    {
+      "id": "audit_1795365138299_andca",
+      "userId": "usr_super_admin",
+      "action": "LAYOUT_CONFIG_UPDATED",
+      "entityType": "LayoutConfig",
+      "metadata": {
+        "sectionsCount": 9,
+        "mobileStickyCta": "inline"
+      },
+      "createdAt": "2026-11-22T16:32:18.299Z"
+    },
+    {
+      "id": "audit_1795365138225_4woqo",
+      "userId": "usr_super_admin",
+      "action": "HERO_CONFIG_UPDATED",
+      "entityType": "HeroSection",
+      "metadata": {
+        "desktopImageUrl": "/images/outside_hero_final.png",
+        "altText": "DROP 001 Better Days Ahead Heavyweight T-Shirt",
+        "adminUser": "admin@outside.in"
+      },
+      "createdAt": "2026-11-22T16:32:18.225Z"
+    },
     {
       "id": "audit_1795364927354_g2877",
       "userId": "super_admin",
@@ -6658,315 +7134,6 @@
         "isLocked": false
       },
       "createdAt": "2026-11-20T13:02:19.772Z"
-    },
-    {
-      "id": "audit_1795179654112_4isr9",
-      "userId": "super_admin",
-      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
-      "entityType": "SECURITY_AUTH",
-      "metadata": {
-        "ip": "192.168.1.99",
-        "email": "admin@outside.in",
-        "failedAttempts": 0,
-        "isLocked": false
-      },
-      "createdAt": "2026-11-20T13:00:54.112Z"
-    },
-    {
-      "id": "audit_1795179654100_m9fvj",
-      "userId": "super_admin",
-      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
-      "entityType": "SECURITY_AUTH",
-      "metadata": {
-        "ip": "192.168.1.99",
-        "email": "admin@outside.in",
-        "failedAttempts": 0,
-        "isLocked": false
-      },
-      "createdAt": "2026-11-20T13:00:54.100Z"
-    },
-    {
-      "id": "audit_1795179654078_xn59h",
-      "userId": "super_admin",
-      "action": "SUPER_ADMIN_LOGIN_FAILURE",
-      "entityType": "SECURITY_AUTH",
-      "metadata": {
-        "ip": "192.168.1.99",
-        "email": "admin@outside.in",
-        "failedAttempts": 5,
-        "isLocked": true
-      },
-      "createdAt": "2026-11-20T13:00:54.078Z"
-    },
-    {
-      "id": "audit_1795179654060_mk9jd",
-      "userId": "super_admin",
-      "action": "SUPER_ADMIN_LOGIN_FAILURE",
-      "entityType": "SECURITY_AUTH",
-      "metadata": {
-        "ip": "192.168.1.99",
-        "email": "admin@outside.in",
-        "failedAttempts": 4,
-        "isLocked": false
-      },
-      "createdAt": "2026-11-20T13:00:54.060Z"
-    },
-    {
-      "id": "audit_1795179654039_orr1e",
-      "userId": "super_admin",
-      "action": "SUPER_ADMIN_LOGIN_FAILURE",
-      "entityType": "SECURITY_AUTH",
-      "metadata": {
-        "ip": "192.168.1.99",
-        "email": "admin@outside.in",
-        "failedAttempts": 3,
-        "isLocked": false
-      },
-      "createdAt": "2026-11-20T13:00:54.039Z"
-    },
-    {
-      "id": "audit_1795179654032_fqb7m",
-      "userId": "super_admin",
-      "action": "SUPER_ADMIN_LOGIN_FAILURE",
-      "entityType": "SECURITY_AUTH",
-      "metadata": {
-        "ip": "192.168.1.99",
-        "email": "admin@outside.in",
-        "failedAttempts": 2,
-        "isLocked": false
-      },
-      "createdAt": "2026-11-20T13:00:54.032Z"
-    },
-    {
-      "id": "audit_1795179654022_as5ks",
-      "userId": "super_admin",
-      "action": "SUPER_ADMIN_LOGIN_FAILURE",
-      "entityType": "SECURITY_AUTH",
-      "metadata": {
-        "ip": "192.168.1.99",
-        "email": "admin@outside.in",
-        "failedAttempts": 1,
-        "isLocked": false
-      },
-      "createdAt": "2026-11-20T13:00:54.023Z"
-    },
-    {
-      "id": "audit_1795179654013_9yh13",
-      "userId": "super_admin",
-      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
-      "entityType": "SECURITY_AUTH",
-      "metadata": {
-        "ip": "192.168.1.99",
-        "email": "admin@outside.in",
-        "failedAttempts": 0,
-        "isLocked": false
-      },
-      "createdAt": "2026-11-20T13:00:54.013Z"
-    },
-    {
-      "id": "audit_1795179654006_arhsu",
-      "userId": "super_admin",
-      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
-      "entityType": "SECURITY_AUTH",
-      "metadata": {
-        "ip": "192.168.1.99",
-        "email": "admin@outside.in",
-        "failedAttempts": 0,
-        "isLocked": false
-      },
-      "createdAt": "2026-11-20T13:00:54.006Z"
-    },
-    {
-      "id": "audit_1795179034666_dxri4",
-      "userId": "usr_super_admin",
-      "action": "TOTP_2FA_ENABLED",
-      "entityType": "SECURITY_AUTH",
-      "metadata": {
-        "email": "admin@outside.in"
-      },
-      "createdAt": "2026-11-20T12:50:34.666Z"
-    },
-    {
-      "id": "audit_1795178865588_4jl66",
-      "userId": "super_admin",
-      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
-      "entityType": "SECURITY_AUTH",
-      "metadata": {
-        "ip": "192.168.1.99",
-        "email": "admin@outside.in",
-        "failedAttempts": 0,
-        "isLocked": false
-      },
-      "createdAt": "2026-11-20T12:47:45.588Z"
-    },
-    {
-      "id": "audit_1795178865583_kbd1v",
-      "userId": "super_admin",
-      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
-      "entityType": "SECURITY_AUTH",
-      "metadata": {
-        "ip": "192.168.1.99",
-        "email": "admin@outside.in",
-        "failedAttempts": 0,
-        "isLocked": false
-      },
-      "createdAt": "2026-11-20T12:47:45.583Z"
-    },
-    {
-      "id": "audit_1795178865579_r9z4s",
-      "userId": "super_admin",
-      "action": "SUPER_ADMIN_LOGIN_FAILURE",
-      "entityType": "SECURITY_AUTH",
-      "metadata": {
-        "ip": "192.168.1.99",
-        "email": "admin@outside.in",
-        "failedAttempts": 5,
-        "isLocked": true
-      },
-      "createdAt": "2026-11-20T12:47:45.579Z"
-    },
-    {
-      "id": "audit_1795178865576_47lcw",
-      "userId": "super_admin",
-      "action": "SUPER_ADMIN_LOGIN_FAILURE",
-      "entityType": "SECURITY_AUTH",
-      "metadata": {
-        "ip": "192.168.1.99",
-        "email": "admin@outside.in",
-        "failedAttempts": 4,
-        "isLocked": false
-      },
-      "createdAt": "2026-11-20T12:47:45.576Z"
-    },
-    {
-      "id": "audit_1795178865573_sdvjg",
-      "userId": "super_admin",
-      "action": "SUPER_ADMIN_LOGIN_FAILURE",
-      "entityType": "SECURITY_AUTH",
-      "metadata": {
-        "ip": "192.168.1.99",
-        "email": "admin@outside.in",
-        "failedAttempts": 3,
-        "isLocked": false
-      },
-      "createdAt": "2026-11-20T12:47:45.573Z"
-    },
-    {
-      "id": "audit_1795178865570_ah56q",
-      "userId": "super_admin",
-      "action": "SUPER_ADMIN_LOGIN_FAILURE",
-      "entityType": "SECURITY_AUTH",
-      "metadata": {
-        "ip": "192.168.1.99",
-        "email": "admin@outside.in",
-        "failedAttempts": 2,
-        "isLocked": false
-      },
-      "createdAt": "2026-11-20T12:47:45.570Z"
-    },
-    {
-      "id": "audit_1795178865566_a88ym",
-      "userId": "super_admin",
-      "action": "SUPER_ADMIN_LOGIN_FAILURE",
-      "entityType": "SECURITY_AUTH",
-      "metadata": {
-        "ip": "192.168.1.99",
-        "email": "admin@outside.in",
-        "failedAttempts": 1,
-        "isLocked": false
-      },
-      "createdAt": "2026-11-20T12:47:45.566Z"
-    },
-    {
-      "id": "audit_1795178865563_95slw",
-      "userId": "super_admin",
-      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
-      "entityType": "SECURITY_AUTH",
-      "metadata": {
-        "ip": "192.168.1.99",
-        "email": "admin@outside.in",
-        "failedAttempts": 0,
-        "isLocked": false
-      },
-      "createdAt": "2026-11-20T12:47:45.563Z"
-    },
-    {
-      "id": "audit_1795178865560_t75sl",
-      "userId": "super_admin",
-      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
-      "entityType": "SECURITY_AUTH",
-      "metadata": {
-        "ip": "192.168.1.99",
-        "email": "admin@outside.in",
-        "failedAttempts": 0,
-        "isLocked": false
-      },
-      "createdAt": "2026-11-20T12:47:45.560Z"
-    },
-    {
-      "id": "audit_1795178772990_zp5jr",
-      "userId": "super_admin",
-      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
-      "entityType": "SECURITY_AUTH",
-      "metadata": {
-        "ip": "192.168.1.99",
-        "email": "admin@outside.in",
-        "failedAttempts": 0,
-        "isLocked": false
-      },
-      "createdAt": "2026-11-20T12:46:12.990Z"
-    },
-    {
-      "id": "audit_1795178772984_d8oum",
-      "userId": "super_admin",
-      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
-      "entityType": "SECURITY_AUTH",
-      "metadata": {
-        "ip": "192.168.1.99",
-        "email": "admin@outside.in",
-        "failedAttempts": 0,
-        "isLocked": false
-      },
-      "createdAt": "2026-11-20T12:46:12.984Z"
-    },
-    {
-      "id": "audit_1795178772979_db2t5",
-      "userId": "super_admin",
-      "action": "SUPER_ADMIN_LOGIN_FAILURE",
-      "entityType": "SECURITY_AUTH",
-      "metadata": {
-        "ip": "192.168.1.99",
-        "email": "admin@outside.in",
-        "failedAttempts": 5,
-        "isLocked": true
-      },
-      "createdAt": "2026-11-20T12:46:12.979Z"
-    },
-    {
-      "id": "audit_1795178772974_mrq8f",
-      "userId": "super_admin",
-      "action": "SUPER_ADMIN_LOGIN_FAILURE",
-      "entityType": "SECURITY_AUTH",
-      "metadata": {
-        "ip": "192.168.1.99",
-        "email": "admin@outside.in",
-        "failedAttempts": 4,
-        "isLocked": false
-      },
-      "createdAt": "2026-11-20T12:46:12.974Z"
-    },
-    {
-      "id": "audit_1795178772970_surkp",
-      "userId": "super_admin",
-      "action": "SUPER_ADMIN_LOGIN_FAILURE",
-      "entityType": "SECURITY_AUTH",
-      "metadata": {
-        "ip": "192.168.1.99",
-        "email": "admin@outside.in",
-        "failedAttempts": 3,
-        "isLocked": false
-      },
-      "createdAt": "2026-11-20T12:46:12.970Z"
     }
   ],
   "themeConfig": {
@@ -7054,7 +7221,7 @@
         "glassmorphism": true
       }
     ],
-    "updatedAt": "2026-11-22T16:28:48.179Z"
+    "updatedAt": "2026-11-22T16:45:43.195Z"
   },
   "featureFlags": [
     {
@@ -7065,7 +7232,7 @@
       "isEnabled": true,
       "description": "Display real-time countdown ticker on upcoming drops.",
       "configJson": null,
-      "updatedAt": "2026-11-22T16:28:48.224Z"
+      "updatedAt": "2026-11-22T16:45:43.238Z"
     },
     {
       "id": "flag_live_stock_counter",
@@ -7075,7 +7242,7 @@
       "isEnabled": true,
       "description": "Show exact remaining serialized pieces versus low-stock warning badge.",
       "configJson": null,
-      "updatedAt": "2026-11-22T16:28:48.224Z"
+      "updatedAt": "2026-11-22T16:45:43.238Z"
     },
     {
       "id": "flag_low_stock_threshold",
@@ -7087,7 +7254,7 @@
       "configJson": {
         "threshold": 10
       },
-      "updatedAt": "2026-11-22T16:28:48.224Z"
+      "updatedAt": "2026-11-22T16:45:43.238Z"
     },
     {
       "id": "flag_waitlist_capture",
@@ -7097,7 +7264,7 @@
       "isEnabled": true,
       "description": "Allow collectors to join the prioritized waitlist when an edition is sold out or upcoming.",
       "configJson": null,
-      "updatedAt": "2026-11-22T16:28:48.224Z"
+      "updatedAt": "2026-11-22T16:45:43.238Z"
     },
     {
       "id": "flag_fit_toggle",
@@ -7109,7 +7276,7 @@
       "configJson": {
         "defaultFit": "WOMEN"
       },
-      "updatedAt": "2026-11-22T16:28:48.224Z"
+      "updatedAt": "2026-11-22T16:45:43.238Z"
     },
     {
       "id": "flag_sticky_drop_bar",
@@ -7119,7 +7286,7 @@
       "isEnabled": true,
       "description": "Floating minimal quick-buy and size select bar docked on scroll.",
       "configJson": null,
-      "updatedAt": "2026-11-22T16:28:48.224Z"
+      "updatedAt": "2026-11-22T16:45:43.238Z"
     },
     {
       "id": "flag_checkout_flow",
@@ -7129,7 +7296,7 @@
       "isEnabled": true,
       "description": "When enabled, customers can checkout and pay; when disabled, storefront acts in Waitlist-Only Mode.",
       "configJson": null,
-      "updatedAt": "2026-11-22T16:28:48.224Z"
+      "updatedAt": "2026-11-22T16:45:43.238Z"
     },
     {
       "id": "flag_announcement_bar",
@@ -7142,7 +7309,7 @@
         "text": "DROP 001 LIVE // BETTER DAYS AHEAD · 250 SERIALIZED PIECES · FREE DOMESTIC EXPRESS SHIPPING",
         "link": "/"
       },
-      "updatedAt": "2026-11-22T16:28:48.224Z"
+      "updatedAt": "2026-11-22T16:45:43.238Z"
     },
     {
       "id": "flag_vault_archive",
@@ -7152,7 +7319,7 @@
       "isEnabled": true,
       "description": "Expose archival limited drops to public navigation and search engines.",
       "configJson": null,
-      "updatedAt": "2026-11-22T16:28:48.224Z"
+      "updatedAt": "2026-11-22T16:45:43.238Z"
     },
     {
       "id": "flag_journal",
@@ -7162,7 +7329,7 @@
       "isEnabled": true,
       "description": "Editorial brand essays, cotton engineering breakdowns, and manifesto articles.",
       "configJson": null,
-      "updatedAt": "2026-11-22T16:28:48.224Z"
+      "updatedAt": "2026-11-22T16:45:43.238Z"
     },
     {
       "id": "flag_cookie_consent",
@@ -7172,7 +7339,7 @@
       "isEnabled": true,
       "description": "Minimalist Sandstone Hairline consent pill docked at bottom-left.",
       "configJson": null,
-      "updatedAt": "2026-11-22T16:28:48.224Z"
+      "updatedAt": "2026-11-22T16:45:43.238Z"
     },
     {
       "id": "flag_maintenance_mode",
@@ -7185,7 +7352,7 @@
         "headline": "STUDIO IS PREPARING THE NEXT DROP",
         "subline": "DROP 002 PREPARATION UNDERWAY // AHMEDABAD STUDIO"
       },
-      "updatedAt": "2026-11-22T16:28:48.224Z"
+      "updatedAt": "2026-11-22T16:45:43.238Z"
     }
   ],
   "layoutConfig": {
@@ -7323,7 +7490,7 @@
       }
     },
     "mobileStickyCtaPosition": "inline",
-    "updatedAt": "2026-11-22T16:28:48.265Z"
+    "updatedAt": "2026-11-22T16:45:43.270Z"
   },
   "seoConfig": {
     "titleTemplate": "%s | OUTSIDE India",
@@ -7351,14 +7518,20 @@
       }
     ],
     "enableWaitlistReferral": true,
-    "updatedAt": "2026-11-22T16:28:43.616Z"
+    "updatedAt": "2026-11-22T16:45:40.506Z"
   },
   "superAdminSecurity": {
     "totpSecret": "WA52PCNTNKFVMFDN3FKTNFCNQVLISM3W",
     "totpEnabled": true,
     "stealthAdminPath": "/sys-admin-gate"
   },
-  "securityLockouts": [],
+  "securityLockouts": [
+    {
+      "ip": "192.168.1.99",
+      "failedAttempts": 0,
+      "lockedUntil": null
+    }
+  ],
   "categories": [
     {
       "id": "ALL",
@@ -7435,6 +7608,6 @@
     "ctaText": "CLAIM DROP 001",
     "secondaryCtaText": "EXPLORE THE COLLECTION ▸",
     "objectPosition": "right center",
-    "updatedAt": "2026-11-22T16:28:42.630Z"
+    "updatedAt": "2026-11-22T16:45:39.330Z"
   }
 }

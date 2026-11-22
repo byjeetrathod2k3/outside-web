@@ -197,6 +197,70 @@ export const VAULT_DROPS = [
       { id: 'v0_u_l', dropId: 'drop_000', sku: 'OUT-000-U-L', fit: 'MEN', size: 'L', initialStock: 30, currentStock: 0, reservedStock: 0 },
     ],
   },
+  {
+    id: 'drop_004',
+    dropNumber: 4,
+    slug: 'drop-004-solaris-dune',
+    title: 'DROP 004 // SOLARIS DUNE',
+    subtitle: 'Terracotta Sun-Fade 280 GSM French Terry.',
+    story: 'Mineral earth dyes formulated in Gujarat. Calibrated oversized silhouette with hand-distressed neckline.',
+    fabricSpecs: '280 GSM Combed Cotton · Mineral Pigment Wash · High-Density Rib Collar',
+    pricePaise: 240000,
+    totalEditionQty: 250,
+    status: 'UPCOMING' as const,
+    launchAt: new Date(Date.now() + 3600000 * 24 * 14).toISOString(),
+    primaryImageUrl: '/images/drops/drop-002-front.jpg',
+    galleryUrls: ['/images/drops/drop-002-front.jpg', '/images/drops/drop-002-back.jpg'],
+    isFeatured: false,
+    variants: [
+      { id: 'v4_w_s', dropId: 'drop_004', sku: 'OUT-004-W-S', fit: 'WOMEN', size: 'S', initialStock: 40, currentStock: 40, reservedStock: 0 },
+      { id: 'v4_w_m', dropId: 'drop_004', sku: 'OUT-004-W-M', fit: 'WOMEN', size: 'M', initialStock: 50, currentStock: 50, reservedStock: 0 },
+      { id: 'v4_m_m', dropId: 'drop_004', sku: 'OUT-004-M-M', fit: 'MEN', size: 'M', initialStock: 60, currentStock: 60, reservedStock: 0 },
+      { id: 'v4_m_l', dropId: 'drop_004', sku: 'OUT-004-M-L', fit: 'MEN', size: 'L', initialStock: 50, currentStock: 50, reservedStock: 0 },
+    ],
+  },
+  {
+    id: 'drop_005',
+    dropNumber: 5,
+    slug: 'drop-005-indigo-archetype',
+    title: 'DROP 005 // INDIGO ARCHETYPE',
+    subtitle: 'Deep Natural Indigo 290 GSM Heavy Organic Knit.',
+    story: 'Hand-dipped natural indigo dye batches. Boxy oversized drape with contrast tobacco topstitching.',
+    fabricSpecs: '290 GSM Combed Cotton · Organic Indigo Bio-Wash · Double Split Hem',
+    pricePaise: 250000,
+    totalEditionQty: 200,
+    status: 'UPCOMING' as const,
+    launchAt: new Date(Date.now() + 3600000 * 24 * 21).toISOString(),
+    primaryImageUrl: '/images/drops/drop-003-front.jpg',
+    galleryUrls: ['/images/drops/drop-003-front.jpg', '/images/drops/drop-003-back.jpg'],
+    isFeatured: false,
+    variants: [
+      { id: 'v5_w_s', dropId: 'drop_005', sku: 'OUT-005-W-S', fit: 'WOMEN', size: 'S', initialStock: 35, currentStock: 35, reservedStock: 0 },
+      { id: 'v5_w_m', dropId: 'drop_005', sku: 'OUT-005-W-M', fit: 'WOMEN', size: 'M', initialStock: 45, currentStock: 45, reservedStock: 0 },
+      { id: 'v5_m_m', dropId: 'drop_005', sku: 'OUT-005-M-M', fit: 'MEN', size: 'M', initialStock: 50, currentStock: 50, reservedStock: 0 },
+    ],
+  },
+  {
+    id: 'drop_006',
+    dropNumber: 6,
+    slug: 'drop-006-noir-velvet',
+    title: 'DROP 006 // NOIR VELVET',
+    subtitle: 'Pitch Obsidian 320 GSM French Terry Cotton.',
+    story: 'Extreme cold-climate density. Suede-touch brushed organic interior with matte black silicon logo imprint.',
+    fabricSpecs: '320 GSM French Terry · Carbon Suede Bio-Wash · Lycra Ribbed Cuff',
+    pricePaise: 280000,
+    totalEditionQty: 250,
+    status: 'ARCHIVED' as const,
+    soldOutAt: '2026-09-01T12:00:00.000Z',
+    primaryImageUrl: '/images/drops/drop-001-back.jpg',
+    galleryUrls: ['/images/drops/drop-001-back.jpg', '/images/drops/drop-001-front.jpg'],
+    isFeatured: false,
+    variants: [
+      { id: 'v6_w_s', dropId: 'drop_006', sku: 'OUT-006-W-S', fit: 'WOMEN', size: 'S', initialStock: 30, currentStock: 0, reservedStock: 0 },
+      { id: 'v6_w_m', dropId: 'drop_006', sku: 'OUT-006-W-M', fit: 'WOMEN', size: 'M', initialStock: 40, currentStock: 0, reservedStock: 0 },
+      { id: 'v6_m_l', dropId: 'drop_006', sku: 'OUT-006-M-L', fit: 'MEN', size: 'L', initialStock: 50, currentStock: 0, reservedStock: 0 },
+    ],
+  },
 ];
 
 export const INITIAL_FAQS = [
@@ -876,8 +940,10 @@ export function getLocalStore() {
         parsed.drops[0].hotspots = DEFAULT_HOTSPOTS;
       }
     }
-    if (!parsed.drops || parsed.drops.length < 4) {
-      parsed.drops = [INITIAL_DROP, ...VAULT_DROPS];
+    if (!parsed.drops || parsed.drops.length < 7) {
+      const existingIds = new Set((parsed.drops || []).map((d: any) => d.id));
+      const newVaultDrops = VAULT_DROPS.filter((d) => !existingIds.has(d.id));
+      parsed.drops = [...(parsed.drops || [INITIAL_DROP]), ...newVaultDrops];
     }
     // Ensure Module 2 entities exist
     if (!parsed.themeConfig) {

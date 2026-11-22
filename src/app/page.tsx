@@ -70,9 +70,9 @@ export default async function HomePage() {
   const getVisibilityClass = (secConfig?: any) => {
     if (!secConfig) return '';
     const classes: string[] = [];
-    if (!secConfig.visibleDesktop) classes.push('lg:hidden');
-    if (!secConfig.visibleTablet) classes.push('max-lg:md:hidden');
-    if (!secConfig.visibleMobile) classes.push('max-md:hidden');
+    if (!secConfig.visibleDesktop) classes.push('outside-hide-desktop');
+    if (!secConfig.visibleTablet) classes.push('outside-hide-tablet');
+    if (!secConfig.visibleMobile) classes.push('outside-hide-mobile');
     return classes.join(' ');
   };
 
@@ -96,6 +96,7 @@ export default async function HomePage() {
             remainingPieces={remainingPieces}
             allDrops={store.drops}
             heroConfig={store.heroConfig || DEFAULT_HERO_CONFIG}
+            className={visibilityClass}
           />
         );
 
@@ -105,13 +106,14 @@ export default async function HomePage() {
         const hasExplicitReviewsSection = layout.sections?.some((s: any) => s.id === 'reviews');
         return (
           <React.Fragment key={sectionKey}>
-            <div id="all-drops" className="scroll-mt-28 sm:scroll-mt-32">
+            <div id="all-drops" className={`scroll-mt-28 sm:scroll-mt-32 ${visibilityClass}`}>
               <MultiDropShowcase
                 drops={store.drops}
                 activeDropId={activeDrop.id}
-                className={visibilityClass}
+                className=""
                 categories={store.categories || DEFAULT_CATEGORIES}
                 defaultCardCount={dropSettings.defaultCardCount !== undefined ? dropSettings.defaultCardCount : 3}
+                defaultGridColumns={dropSettings.defaultGridColumns}
                 defaultFilter={dropSettings.defaultFilter || 'ALL'}
                 defaultSort={dropSettings.defaultSort || 'FEATURED'}
                 showCategoryBubbles={dropSettings.showCategoryBubbles !== false}

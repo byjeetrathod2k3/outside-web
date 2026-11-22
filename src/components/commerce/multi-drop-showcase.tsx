@@ -66,6 +66,7 @@ interface MultiDropShowcaseProps {
   className?: string;
   categories?: any[];
   defaultCardCount?: number;
+  defaultGridColumns?: 2 | 3 | 4;
   defaultFilter?: FilterCategory;
   defaultSort?: SortOption;
   showCategoryBubbles?: boolean;
@@ -93,6 +94,7 @@ export function MultiDropShowcase({
   className = '',
   categories,
   defaultCardCount = 3,
+  defaultGridColumns,
   defaultFilter = 'ALL',
   defaultSort = 'FEATURED',
   showCategoryBubbles = true,
@@ -104,12 +106,13 @@ export function MultiDropShowcase({
   const router = useRouter();
   const { addItem, openCart, toggleWishlist, isInWishlist } = useCart();
 
+  const initialCols: 2 | 3 | 4 = defaultGridColumns || (defaultCardCount === 4 ? 4 : defaultCardCount === 2 ? 2 : 3);
   const [activeFilter, setActiveFilter] = useState<FilterCategory>(defaultFilter);
   const [activePriceFilter, setActivePriceFilter] = useState<PriceFilter>('ALL');
   const [selectedColor, setSelectedColor] = useState<string>('ALL');
   const [selectedSizeFilter, setSelectedSizeFilter] = useState<string>('ALL');
   const [sortBy, setSortBy] = useState<SortOption>(defaultSort);
-  const [gridColumns, setGridColumns] = useState<2 | 3 | 4>(3);
+  const [gridColumns, setGridColumns] = useState<2 | 3 | 4>(initialCols);
   const [isFilterPanelOpen, setIsFilterPanelOpen] = useState(false);
   const [isShowingAllCards, setIsShowingAllCards] = useState<boolean>(!defaultCardCount || defaultCardCount === 0);
 

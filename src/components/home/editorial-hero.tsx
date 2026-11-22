@@ -14,6 +14,7 @@ interface EditorialHeroProps {
   totalPieces: number;
   remainingPieces: number;
   allDrops?: any[];
+  className?: string;
   heroConfig?: {
     desktopImageUrl?: string;
     mobileImageUrl?: string;
@@ -65,6 +66,7 @@ export function EditorialHero({
   remainingPieces,
   allDrops = [],
   heroConfig,
+  className = '',
 }: EditorialHeroProps) {
   const desktopImage = heroConfig?.desktopImageUrl || '/images/outside_hero_final.png';
   const mobileImage = heroConfig?.mobileImageUrl || desktopImage;
@@ -139,7 +141,7 @@ export function EditorialHero({
     <section
       id="hero-active-drop"
       aria-label="Active Drop Showcase"
-      className="relative w-full overflow-hidden bg-[#F6F2EB] border-b border-[#DCD7CC]"
+      className={`relative w-full overflow-hidden bg-[#F6F2EB] border-b border-[#DCD7CC] ${className}`}
     >
       {/* ===================================================================== */}
       {/* 1. UPPER HERO EDITORIAL CANVAS (Untouched Background, Seamless Fit)   */}
