@@ -65,6 +65,14 @@ interface MultiDropShowcaseProps {
   activeDropId?: string;
   className?: string;
   categories?: any[];
+  defaultCardCount?: number;
+  defaultFilter?: FilterCategory;
+  defaultSort?: SortOption;
+  showCategoryBubbles?: boolean;
+  showFilterToolbar?: boolean;
+  sectionEyebrow?: string;
+  sectionTitle?: string;
+  sectionDescription?: string;
 }
 
 type FilterCategory = 'ALL' | 'LIVE' | 'UPCOMING' | 'WOMEN' | 'MEN' | 'ARCHIVED';
@@ -84,17 +92,26 @@ export function MultiDropShowcase({
   activeDropId,
   className = '',
   categories,
+  defaultCardCount = 3,
+  defaultFilter = 'ALL',
+  defaultSort = 'FEATURED',
+  showCategoryBubbles = true,
+  showFilterToolbar = true,
+  sectionEyebrow,
+  sectionTitle,
+  sectionDescription,
 }: MultiDropShowcaseProps) {
   const router = useRouter();
   const { addItem, openCart, toggleWishlist, isInWishlist } = useCart();
 
-  const [activeFilter, setActiveFilter] = useState<FilterCategory>('ALL');
+  const [activeFilter, setActiveFilter] = useState<FilterCategory>(defaultFilter);
   const [activePriceFilter, setActivePriceFilter] = useState<PriceFilter>('ALL');
   const [selectedColor, setSelectedColor] = useState<string>('ALL');
   const [selectedSizeFilter, setSelectedSizeFilter] = useState<string>('ALL');
-  const [sortBy, setSortBy] = useState<SortOption>('FEATURED');
+  const [sortBy, setSortBy] = useState<SortOption>(defaultSort);
   const [gridColumns, setGridColumns] = useState<2 | 3 | 4>(3);
   const [isFilterPanelOpen, setIsFilterPanelOpen] = useState(false);
+  const [isShowingAllCards, setIsShowingAllCards] = useState<boolean>(!defaultCardCount || defaultCardCount === 0);
 
   // Per-drop interaction state
   const [selectedFitByDrop, setSelectedFitByDrop] = useState<Record<string, 'WOMEN' | 'MEN'>>({});
@@ -219,6 +236,19 @@ export function MultiDropShowcase({
     return result;
   }, [drops, activeFilter, activePriceFilter, selectedSizeFilter, sortBy, activeDropId]);
 
+  const displayedDrops = useMemo(() => {
+    if (!defaultCardCount || defaultCardCount === 0 || isShowingAllCards) {
+      return filteredAndSortedDrops;
+    }
+    return filteredAndSortedDrops.slice(0, defaultCardCount);
+  }, [filteredAndSortedDrops, defaultCardCount, isShowingAllCards]);
+
+  const hasHiddenDrops = Boolean(
+    defaultCardCount &&
+    defaultCardCount > 0 &&
+    filteredAndSortedDrops.length > defaultCardCount
+  );
+
   const liveCount = drops.filter((d) => d.status === 'LIVE').length;
   const upcomingCount = drops.filter((d) => d.status === 'UPCOMING').length;
 
@@ -239,13 +269,13 @@ export function MultiDropShowcase({
           <div className="space-y-1.5">
             <div className="flex items-center gap-2 text-[11px] font-mono uppercase tracking-[0.25em] text-outside-accent font-bold">
               <Sparkles className="w-3.5 h-3.5" />
-              <span>THE ROTATION // SERIALIZED PRODUCTION RUNS</span>
+              <span>{sectionEyebrow || 'THE ROTATION // SERIALIZED PRODUCTION RUNS'}</span>
             </div>
             <h2 className="text-2xl sm:text-3xl font-display font-black tracking-tight text-outside-ink uppercase">
-              Limited Edition Catalog.
+              {sectionTitle || 'Limited Edition Catalog.'}
             </h2>
             <p className="text-xs sm:text-sm text-outside-inkSecondary font-sans max-w-2xl leading-relaxed">
-              Every garment is custom-milled in India from 280 GSM organic cotton, numbered from #001 to #250, and produced once. Never restocked.
+              {sectionDescription || 'Every garment is custom-milled in India from 280 GSM organic cotton, numbered from #001 to #250, and produced once. Never restocked.'}
             </p>
           </div>
 
@@ -262,18 +292,21 @@ export function MultiDropShowcase({
         {/* ======================================================== */}
         {/* Category Story Directory: Seamless, Transparent Flow    */}
         {/* ======================================================== */}
-        <div className="py-1">
-          <CategoryStoryBubbles
-            activeFilter={activeFilter}
-            onSelectCategory={(catId) => setActiveFilter(catId as FilterCategory)}
-            drops={drops}
-            categories={categories}
-          />
-        </div>
+        {showCategoryBubbles && (
+          <div className="py-1">
+            <CategoryStoryBubbles
+              activeFilter={activeFilter}
+              onSelectCategory={(catId) => setActiveFilter(catId as FilterCategory)}
+              drops={drops}
+              categories={categories}
+            />
+          </div>
+        )}
 
         {/* ======================================================== */}
         {/* Advanced Catalog Toolbar (Active Filter Feedback & Tools)*/}
         {/* ======================================================== */}
+        {showFilterToolbar && (
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-3.5 sm:p-4 rounded-xl bg-outside-elevated/80 border border-outside-border/80 shadow-xs">
           
           {/* Left: Active Selection Status */}
@@ -381,6 +414,7 @@ export function MultiDropShowcase({
 
           </div>
         </div>
+        )}
 
         {/* Collapsible Secondary Filter Bar (Price Slider & Size Pills) */}
         {isFilterPanelOpen && (
@@ -513,7 +547,7 @@ export function MultiDropShowcase({
           </div>
         ) : (
           <div className={`grid ${gridLayoutClass}`}>
-            {filteredAndSortedDrops.map((drop) => {
+            {displayedDrops.map((drop) => {
               const isLive = drop.status === 'LIVE';
               const isUpcoming = drop.status === 'UPCOMING';
               const isArchived = drop.status === 'ARCHIVED';
@@ -793,6 +827,31 @@ export function MultiDropShowcase({
                 </SpotlightCard>
               );
             })}
+          </div>
+        )}
+
+        {/* Dynamic Card Pagination / Show More Control */}
+        {hasHiddenDrops && (
+          <div className="pt-6 sm:pt-8 flex flex-col items-center justify-center gap-3 animate-fade-in">
+            <button
+              type="button"
+              onClick={() => setIsShowingAllCards((prev) => !prev)}
+              className="px-8 py-3.5 bg-[#111110] hover:bg-[#B82328] text-white font-mono text-xs uppercase tracking-[0.2em] font-bold transition-all shadow-editorial flex items-center gap-3 cursor-pointer rounded hover:scale-102 active:scale-98"
+            >
+              <span>
+                {isShowingAllCards
+                  ? `SHOW LESS (${defaultCardCount} EDITIONS)`
+                  : `VIEW ALL ${filteredAndSortedDrops.length} EDITIONS`}
+              </span>
+              <ChevronDown
+                className={`w-4 h-4 transition-transform duration-300 ${
+                  isShowingAllCards ? 'rotate-180' : ''
+                }`}
+              />
+            </button>
+            <span className="text-[10px] font-mono text-outside-inkSecondary">
+              Showing {displayedDrops.length} of {filteredAndSortedDrops.length} serialized drops
+            </span>
           </div>
         )}
 

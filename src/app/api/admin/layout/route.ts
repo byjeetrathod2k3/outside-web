@@ -16,6 +16,7 @@ const SectionItemSchema = z.object({
   visibleDesktop: z.boolean(),
   visibleTablet: z.boolean(),
   visibleMobile: z.boolean(),
+  settings: z.record(z.string(), z.any()).optional(),
 });
 
 const LayoutSchema = z.object({

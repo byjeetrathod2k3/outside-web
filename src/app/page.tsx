@@ -101,6 +101,7 @@ export default async function HomePage() {
 
       case 'drops':
       case 'catalog':
+        const dropSettings = secConfig?.settings || {};
         const hasExplicitReviewsSection = layout.sections?.some((s: any) => s.id === 'reviews');
         return (
           <React.Fragment key={sectionKey}>
@@ -110,6 +111,14 @@ export default async function HomePage() {
                 activeDropId={activeDrop.id}
                 className={visibilityClass}
                 categories={store.categories || DEFAULT_CATEGORIES}
+                defaultCardCount={dropSettings.defaultCardCount !== undefined ? dropSettings.defaultCardCount : 3}
+                defaultFilter={dropSettings.defaultFilter || 'ALL'}
+                defaultSort={dropSettings.defaultSort || 'FEATURED'}
+                showCategoryBubbles={dropSettings.showCategoryBubbles !== false}
+                showFilterToolbar={dropSettings.showFilterToolbar !== false}
+                sectionEyebrow={dropSettings.eyebrow}
+                sectionTitle={dropSettings.title}
+                sectionDescription={dropSettings.description}
               />
             </div>
             {!hasExplicitReviewsSection && <CollectorReviews />}
@@ -120,13 +129,14 @@ export default async function HomePage() {
         return <CollectorReviews key={sectionKey} />;
 
       case 'story':
+        const storySettings = secConfig?.settings || {};
         return (
           <section key={sectionKey} className={`py-24 border-b border-outside-border bg-outside-cardSubtle/40 ${visibilityClass}`}>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <SectionHeading
-                eyebrow="THE ANTI-INVENTORY PHILOSOPHY"
-                title="Mass Production Is A Crime Against Craft."
-                description="We do not produce seasonal collections or excess inventory. We release one singular, uncompromising style at a time in capped serialized runs."
+                eyebrow={storySettings.eyebrow || "THE ANTI-INVENTORY PHILOSOPHY"}
+                title={storySettings.title || "Mass Production Is A Crime Against Craft."}
+                description={storySettings.description || "We do not produce seasonal collections or excess inventory. We release one singular, uncompromising style at a time in capped serialized runs."}
                 className="mb-16"
               />
 
@@ -425,16 +435,22 @@ export default async function HomePage() {
 
       case 'vault':
         if (!showVaultFlag) return null;
+        const vaultSettings = secConfig?.settings || {};
+        const vaultLimit = vaultSettings.defaultCardCount && vaultSettings.defaultCardCount > 0
+          ? vaultSettings.defaultCardCount
+          : undefined;
+        const displayedVaultDrops = vaultLimit ? vaultDrops.slice(0, vaultLimit) : vaultDrops;
+
         return (
           <section key="vault" className={`py-24 border-b border-outside-border bg-outside-cardSubtle/30 ${visibilityClass}`}>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12">
                 <div className="space-y-3">
                   <span className="text-[11px] font-mono uppercase tracking-[0.3em] text-outside-accent font-bold">
-                    DIGITAL ARCHIVE // SEEDED EDITIONS
+                    {vaultSettings.eyebrow || "DIGITAL ARCHIVE // SEEDED EDITIONS"}
                   </span>
                   <h2 className="text-3xl font-display font-black tracking-tight text-outside-ink uppercase">
-                    The Vault // Editions Showcase.
+                    {vaultSettings.title || "The Vault // Editions Showcase."}
                   </h2>
                 </div>
                 <Link
@@ -447,7 +463,7 @@ export default async function HomePage() {
               </div>
 
               <div className={`grid ${vaultMobile} ${vaultTablet} ${vaultDesktop} gap-8`}>
-                {vaultDrops.map((drop: any) => (
+                {displayedVaultDrops.map((drop: any) => (
                   <SpotlightCard
                     key={drop.id}
                     theme="light"

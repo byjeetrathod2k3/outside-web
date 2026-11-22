@@ -1,7 +1,23 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { ShieldCheck, ShieldAlert, KeyRound, Smartphone, Lock, RefreshCw, CheckCircle, AlertCircle } from 'lucide-react';
+import {
+  ShieldCheck,
+  ShieldAlert,
+  KeyRound,
+  Smartphone,
+  Lock,
+  RefreshCw,
+  CheckCircle,
+  AlertCircle,
+  Copy,
+  ExternalLink,
+  Unlock,
+  Eye,
+  EyeOff,
+  Radio,
+  Server,
+} from 'lucide-react';
 
 export default function AdminSecurityPage() {
   const [loading, setLoading] = useState(true);
@@ -9,9 +25,15 @@ export default function AdminSecurityPage() {
   const [setupData, setSetupData] = useState<{ secret: string; otpauthUri: string; qrSvg: string; qrDataUrl?: string } | null>(null);
   const [confirmCode, setConfirmCode] = useState('');
   const [copiedSecret, setCopiedSecret] = useState(false);
+  const [copiedUrl, setCopiedUrl] = useState(false);
   const [actionLoading, setActionLoading] = useState(false);
   const [statusMessage, setStatusMessage] = useState<{ text: string; type: 'success' | 'error' } | null>(null);
-  const [auditLogs, setAuditLogs] = useState<any[]>([]);
+
+  // Stealth Gateway & Rate Limit State
+  const [stealthAdminPath, setStealthAdminPath] = useState('/sys-admin-gate');
+  const [customPathInput, setCustomPathInput] = useState('/sys-admin-gate');
+  const [lockouts, setLockouts] = useState<any[]>([]);
+  const [rateLimitPolicy, setRateLimitPolicy] = useState<any>(null);
 
   const handleCopyKey = () => {
     if (!setupData?.secret) return;
@@ -20,19 +42,37 @@ export default function AdminSecurityPage() {
     setTimeout(() => setCopiedSecret(false), 2000);
   };
 
+  const handleCopySecretUrl = () => {
+    const fullUrl = `${window.location.origin}${stealthAdminPath}`;
+    navigator.clipboard.writeText(fullUrl);
+    setCopiedUrl(true);
+    setTimeout(() => setCopiedUrl(false), 2000);
+  };
+
   const fetchSecurityStatus = async () => {
     setLoading(true);
     try {
-      const res = await fetch('/api/admin/auth/2fa');
-      const data = await res.json();
-      setIs2faEnabled(data.enabled || false);
-      if (!data.enabled && data.secret) {
-        setSetupData(data);
+      // 1. Fetch 2FA status
+      const res2fa = await fetch('/api/admin/auth/2fa');
+      const data2fa = await res2fa.json();
+      setIs2faEnabled(data2fa.enabled || false);
+      if (!data2fa.enabled && data2fa.secret) {
+        setSetupData(data2fa);
       } else {
         setSetupData(null);
       }
+
+      // 2. Fetch Stealth Gate & Lockouts
+      const resSec = await fetch('/api/admin/security');
+      const dataSec = await resSec.json();
+      if (resSec.ok) {
+        setStealthAdminPath(dataSec.stealthAdminPath || '/sys-admin-gate');
+        setCustomPathInput(dataSec.stealthAdminPath || '/sys-admin-gate');
+        setLockouts(dataSec.lockouts || []);
+        setRateLimitPolicy(dataSec.rateLimitPolicy);
+      }
     } catch (err: any) {
-      setStatusMessage({ text: 'Failed to retrieve 2FA status', type: 'error' });
+      setStatusMessage({ text: 'Failed to retrieve complete security status', type: 'error' });
     } finally {
       setLoading(false);
     }
@@ -109,6 +149,49 @@ export default function AdminSecurityPage() {
     }
   };
 
+  const handleUpdateStealthPath = async (newPath: string) => {
+    setActionLoading(true);
+    setStatusMessage(null);
+    try {
+      const res = await fetch('/api/admin/security', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'updateStealthPath', path: newPath }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Failed to update stealth path');
+
+      setStealthAdminPath(data.stealthAdminPath);
+      setCustomPathInput(data.stealthAdminPath);
+      setStatusMessage({ text: data.message || 'Stealth admin path saved.', type: 'success' });
+    } catch (err: any) {
+      setStatusMessage({ text: err.message, type: 'error' });
+    } finally {
+      setActionLoading(false);
+    }
+  };
+
+  const handleClearLockouts = async (targetIp?: string) => {
+    setActionLoading(true);
+    setStatusMessage(null);
+    try {
+      const res = await fetch('/api/admin/security', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'clearLockouts', ip: targetIp }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Failed to clear lockouts');
+
+      setLockouts(data.lockouts || []);
+      setStatusMessage({ text: data.message || 'Lockouts reset successfully.', type: 'success' });
+    } catch (err: any) {
+      setStatusMessage({ text: err.message, type: 'error' });
+    } finally {
+      setActionLoading(false);
+    }
+  };
+
   return (
     <div className="space-y-8 font-mono">
       {/* Top Header */}
@@ -118,9 +201,19 @@ export default function AdminSecurityPage() {
             STEALTH SUPER ADMIN GOVERNANCE
           </span>
           <h1 className="text-2xl font-black text-[#111110] uppercase tracking-tight font-display">
-            2FA Security &amp; Access Controls
+            Admin Security &amp; Stealth URL Protection
           </h1>
         </div>
+
+        <button
+          type="button"
+          onClick={fetchSecurityStatus}
+          disabled={loading || actionLoading}
+          className="px-4 py-2 bg-[#EDEAE2] border border-[#DCD7CC] hover:border-[#111110] text-[#111110] text-xs uppercase tracking-wider flex items-center gap-2 font-semibold transition-colors cursor-pointer self-start sm:self-auto"
+        >
+          <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`} />
+          <span>REFRESH AUDIT</span>
+        </button>
       </div>
 
       {statusMessage && (
@@ -140,10 +233,94 @@ export default function AdminSecurityPage() {
         </div>
       )}
 
-      {/* 2FA Status Card */}
+      {/* Grid: 2FA & Stealth URL Governance */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        
+        {/* Left Col (7 Cols): Stealth URL & 2FA Setup */}
         <div className="lg:col-span-7 space-y-6">
-          <div className="bg-[#FCFBF8] border border-[#DCD7CC] p-6 space-y-6 shadow-sm">
+          
+          {/* Card 1: Stealth Gateway URL Shield */}
+          <div className="bg-[#FCFBF8] border border-[#DCD7CC] p-6 space-y-5 shadow-editorial">
+            <div className="flex items-center justify-between border-b border-[#DCD7CC] pb-4">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 bg-[#111110] text-white flex items-center justify-center">
+                  <KeyRound className="w-5 h-5 text-amber-300" />
+                </div>
+                <div>
+                  <h3 className="text-sm font-bold text-[#111110] uppercase tracking-wider">
+                    Stealth Admin Gateway URL
+                  </h3>
+                  <p className="text-xs text-[#52504B]">Hidden login entry shielded from crawlers &amp; brute-force scans</p>
+                </div>
+              </div>
+
+              <span className="text-[10px] uppercase font-bold px-3 py-1 bg-[#3F4E44]/10 border border-[#3F4E44] text-[#3F4E44]">
+                404 CLOAKING ACTIVE
+              </span>
+            </div>
+
+            <div className="space-y-4 text-xs">
+              <div>
+                <span className="text-[10px] uppercase font-bold text-[#52504B] block mb-1.5">
+                  Current Secret Admin Gateway URL:
+                </span>
+                <div className="flex items-center gap-2">
+                  <div className="p-3 bg-[#F7F5F0] border border-[#DCD7CC] font-mono text-xs font-bold text-[#111110] tracking-wider flex-1 overflow-x-auto select-all">
+                    {typeof window !== 'undefined' ? `${window.location.origin}${stealthAdminPath}` : stealthAdminPath}
+                  </div>
+                  <button
+                    type="button"
+                    onClick={handleCopySecretUrl}
+                    className="px-4 py-3 bg-[#111110] hover:bg-[#B82328] text-white text-[11px] uppercase tracking-wider font-bold transition-all cursor-pointer whitespace-nowrap shadow-sm flex items-center gap-1.5"
+                  >
+                    <Copy className="w-3.5 h-3.5" />
+                    <span>{copiedUrl ? 'COPIED!' : 'COPY URL'}</span>
+                  </button>
+                </div>
+              </div>
+
+              {/* Cloaking Explanation */}
+              <div className="p-3.5 bg-[#EDEAE2]/40 border border-[#DCD7CC] text-[11px] space-y-1.5 text-[#52504B]">
+                <div className="flex items-center gap-1.5 font-bold text-[#111110]">
+                  <ShieldCheck className="w-4 h-4 text-[#3F4E44]" />
+                  <span>HOW THE STEALTH URL WORKS:</span>
+                </div>
+                <p>
+                  Any unauthenticated visitor or malicious bot attempting to visit <code className="bg-white px-1 border border-[#DCD7CC]">/admin</code> or <code className="bg-white px-1 border border-[#DCD7CC]">/admin/*</code> directly is immediately returned an HTTP <strong>404 Not Found</strong> page.
+                </p>
+                <p>
+                  Only your designated secret path above serves the authenticated Super Admin entrance, completely preventing route enumeration and password attacks.
+                </p>
+              </div>
+
+              {/* Fast Presets & Custom Path Changer */}
+              <div className="space-y-2 pt-1">
+                <span className="text-[10px] uppercase font-bold text-[#52504B] block">
+                  Quick Gateway Presets:
+                </span>
+                <div className="flex flex-wrap gap-2">
+                  {['/sys-admin-gate', '/outside-studio-ops', '/portal-auth-9x2k'].map((preset) => (
+                    <button
+                      key={preset}
+                      type="button"
+                      onClick={() => handleUpdateStealthPath(preset)}
+                      disabled={actionLoading || stealthAdminPath === preset}
+                      className={`px-3 py-1.5 text-[11px] border font-mono transition-colors cursor-pointer ${
+                        stealthAdminPath === preset
+                          ? 'bg-[#111110] text-white border-[#111110] font-bold'
+                          : 'bg-white border-[#DCD7CC] text-[#111110] hover:border-[#111110]'
+                      }`}
+                    >
+                      {preset}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Card 2: Two-Factor Authentication (TOTP) */}
+          <div className="bg-[#FCFBF8] border border-[#DCD7CC] p-6 space-y-6 shadow-editorial">
             <div className="flex items-center justify-between border-b border-[#DCD7CC] pb-4">
               <div className="flex items-center gap-3">
                 <div
@@ -179,10 +356,10 @@ export default function AdminSecurityPage() {
                 <div className="p-4 bg-[#3F4E44]/5 border border-[#3F4E44]/20 text-xs text-[#3F4E44] space-y-2">
                   <div className="flex items-center gap-2 font-bold">
                     <ShieldCheck className="w-4 h-4" />
-                    <span>SUPER ADMIN ACCOUNT IS SECURED</span>
+                    <span>SUPER ADMIN ACCOUNT IS CRYPTOGRAPHICALLY SECURED</span>
                   </div>
                   <p className="text-[11px] leading-relaxed text-[#52504B]">
-                    Every login attempt to the studio requires the master password plus a dynamic 6-digit passcode
+                    Every login attempt to the studio requires your master password plus a dynamic 6-digit passcode
                     generated by your Authenticator app.
                   </p>
                 </div>
@@ -290,11 +467,71 @@ export default function AdminSecurityPage() {
           </div>
         </div>
 
-        {/* Security Rules & Policy Info */}
+        {/* Right Col (5 Cols): Rate Limit Monitor & Rules */}
         <div className="lg:col-span-5 space-y-6">
-          <div className="bg-[#FCFBF8] border border-[#DCD7CC] p-6 space-y-4 shadow-sm">
+          
+          {/* Card 3: Login Security & Rate Limit Monitor */}
+          <div className="bg-[#FCFBF8] border border-[#DCD7CC] p-6 space-y-4 shadow-editorial">
+            <div className="flex items-center justify-between border-b border-[#DCD7CC] pb-3">
+              <h3 className="text-xs uppercase text-[#111110] font-bold tracking-wider flex items-center gap-2">
+                <ShieldAlert className="w-4 h-4 text-[#B82328]" />
+                <span>BRUTE FORCE RATE LIMIT MONITOR</span>
+              </h3>
+              <span className="text-[10px] text-[#3F4E44] font-bold">5 FAILS / 15 MIN</span>
+            </div>
+
+            <p className="text-xs text-[#52504B] leading-relaxed">
+              Any IP exceeding 5 consecutive failed login attempts is placed into a 15-minute freeze window.
+            </p>
+
+            <div className="space-y-2.5">
+              <div className="flex items-center justify-between text-xs p-3 bg-white border border-[#DCD7CC]">
+                <span className="text-[#52504B]">Active Blocked IP Entities:</span>
+                <span className="font-bold text-[#111110]">
+                  {lockouts.filter((l: any) => l.lockedUntil && new Date(l.lockedUntil).getTime() > Date.now()).length} Locked
+                </span>
+              </div>
+
+              {lockouts.length > 0 && (
+                <div className="space-y-1.5 max-h-48 overflow-y-auto pt-1">
+                  {lockouts.map((entry: any, idx: number) => {
+                    const isLocked = entry.lockedUntil && new Date(entry.lockedUntil).getTime() > Date.now();
+                    return (
+                      <div
+                        key={idx}
+                        className="p-2.5 bg-[#F7F5F0] border border-[#DCD7CC] flex items-center justify-between text-[11px]"
+                      >
+                        <div>
+                          <span className="font-bold text-[#111110] block">{entry.ip}</span>
+                          <span className="text-[#52504B]">Failed: {entry.failedAttempts} attempts</span>
+                        </div>
+                        <span className={`px-2 py-0.5 text-[10px] font-bold ${isLocked ? 'bg-[#B82328] text-white' : 'bg-[#DCD7CC] text-[#111110]'}`}>
+                          {isLocked ? 'LOCKED' : 'TRACKING'}
+                        </span>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+
+              <div className="pt-2">
+                <button
+                  type="button"
+                  onClick={() => handleClearLockouts()}
+                  disabled={actionLoading}
+                  className="w-full py-2.5 bg-[#EDEAE2] hover:bg-[#111110] hover:text-white border border-[#DCD7CC] text-[#111110] text-[11px] uppercase tracking-wider font-bold transition-all flex items-center justify-center gap-2 cursor-pointer"
+                >
+                  <Unlock className="w-3.5 h-3.5 text-[#B82328]" />
+                  <span>RESET FAILED COUNTERS / UNLOCK ALL IPS</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {/* Card 4: Security Architecture Checklist */}
+          <div className="bg-[#FCFBF8] border border-[#DCD7CC] p-6 space-y-4 shadow-editorial">
             <h3 className="text-xs font-bold text-[#111110] uppercase tracking-wider border-b border-[#DCD7CC] pb-3">
-              Stealth Super Admin Hardening
+              Stealth Hardening Architecture
             </h3>
             <ul className="text-xs text-[#52504B] space-y-3 font-mono">
               <li className="flex items-start gap-2.5">
@@ -307,15 +544,13 @@ export default function AdminSecurityPage() {
               <li className="flex items-start gap-2.5">
                 <span className="text-[#3F4E44] font-bold">✓</span>
                 <span>
-                  <strong className="text-[#111110]">Dynamic Stealth Mount:</strong> Configurable base path via{' '}
-                  <code className="text-[#111110] bg-[#EDEAE2] px-1">ADMIN_BASE_PATH</code>.
+                  <strong className="text-[#111110]">Strict HTTP 404 Cloaking:</strong> Visiting `/admin` unauthenticated returns 404 Not Found to cloak presence.
                 </span>
               </li>
               <li className="flex items-start gap-2.5">
                 <span className="text-[#3F4E44] font-bold">✓</span>
                 <span>
-                  <strong className="text-[#111110]">Strict Rate Limiting:</strong> 5 failed attempts locks out client
-                  IP for 15 minutes.
+                  <strong className="text-[#111110]">Edge Crawler Isolation:</strong> Secret gate injects <code className="text-[#111110] bg-[#EDEAE2] px-1">X-Robots-Tag: noindex, nofollow</code>.
                 </span>
               </li>
               <li className="flex items-start gap-2.5">
@@ -327,6 +562,7 @@ export default function AdminSecurityPage() {
               </li>
             </ul>
           </div>
+
         </div>
       </div>
     </div>

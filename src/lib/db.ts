@@ -472,16 +472,19 @@ export const DEFAULT_FEATURE_FLAGS = [
 // ==========================================
 // MODULE 2: RESPONSIVE & LAYOUT CONTROLS
 // ==========================================
+export interface SectionConfig {
+  id: string;
+  name: string;
+  sortOrder: number;
+  visibleDesktop: boolean;
+  visibleTablet: boolean;
+  visibleMobile: boolean;
+  settings?: Record<string, any>;
+}
+
 export interface LayoutConfigData {
   id: string;
-  sections: {
-    id: string;
-    name: string;
-    sortOrder: number;
-    visibleDesktop: boolean;
-    visibleTablet: boolean;
-    visibleMobile: boolean;
-  }[];
+  sections: SectionConfig[];
   gridColumns: {
     vault: { mobile: number; tablet: number; desktop: number };
     lookbook: { mobile: number; tablet?: number; desktop: number };
@@ -493,15 +496,125 @@ export interface LayoutConfigData {
 export const DEFAULT_LAYOUT_CONFIG: LayoutConfigData = {
   id: 'active_layout',
   sections: [
-    { id: 'hero', name: 'Hero Drop Showcase', sortOrder: 1, visibleDesktop: true, visibleTablet: true, visibleMobile: true },
-    { id: 'drops', name: 'Active Productions Showcase', sortOrder: 2, visibleDesktop: true, visibleTablet: true, visibleMobile: true },
-    { id: 'story', name: 'Manifesto & Craft Story', sortOrder: 3, visibleDesktop: true, visibleTablet: true, visibleMobile: true },
-    { id: 'lookbook', name: 'Lookbook Bento Gallery', sortOrder: 4, visibleDesktop: true, visibleTablet: true, visibleMobile: true },
-    { id: 'specs', name: 'Technical Garment Specs', sortOrder: 5, visibleDesktop: true, visibleTablet: true, visibleMobile: true },
-    { id: 'vault', name: 'The Vault Archival Preview', sortOrder: 6, visibleDesktop: true, visibleTablet: true, visibleMobile: true },
-    { id: 'journal', name: 'Outside Journal Essays', sortOrder: 7, visibleDesktop: true, visibleTablet: true, visibleMobile: true },
-    { id: 'faqs', name: 'AEO Structured FAQs', sortOrder: 8, visibleDesktop: true, visibleTablet: true, visibleMobile: true },
-    { id: 'vip', name: 'VIP Early Access Footer Bar', sortOrder: 9, visibleDesktop: true, visibleTablet: true, visibleMobile: true },
+    {
+      id: 'hero',
+      name: 'Hero Drop Showcase',
+      sortOrder: 1,
+      visibleDesktop: true,
+      visibleTablet: true,
+      visibleMobile: true,
+      settings: {},
+    },
+    {
+      id: 'drops',
+      name: 'Active Productions Showcase',
+      sortOrder: 2,
+      visibleDesktop: true,
+      visibleTablet: true,
+      visibleMobile: true,
+      settings: {
+        defaultCardCount: 3,
+        defaultFilter: 'ALL',
+        defaultSort: 'FEATURED',
+        showCategoryBubbles: true,
+        showFilterToolbar: true,
+        eyebrow: 'LIMITED SERIALIZED PRODUCTION',
+        title: 'Active Studio Drops',
+      },
+    },
+    {
+      id: 'story',
+      name: 'Manifesto & Craft Story',
+      sortOrder: 3,
+      visibleDesktop: true,
+      visibleTablet: true,
+      visibleMobile: true,
+      settings: {
+        eyebrow: 'THE ANTI-INVENTORY PHILOSOPHY',
+        title: 'Mass Production Is A Crime Against Craft.',
+        description: 'We do not produce seasonal collections or excess inventory. We release one singular, uncompromising style at a time in capped serialized runs.',
+      },
+    },
+    {
+      id: 'lookbook',
+      name: 'Lookbook Bento Gallery',
+      sortOrder: 4,
+      visibleDesktop: true,
+      visibleTablet: true,
+      visibleMobile: true,
+      settings: {
+        itemLimit: 4,
+        eyebrow: 'ARCHIVAL VISUAL LOGS',
+        title: 'Ahmedabad Industrial Atelier Series',
+      },
+    },
+    {
+      id: 'specs',
+      name: 'Technical Garment Specs',
+      sortOrder: 5,
+      visibleDesktop: true,
+      visibleTablet: true,
+      visibleMobile: true,
+      settings: {
+        gsmCallout: '280 GSM',
+        eyebrow: 'TEXTILE ARCHITECTURE',
+        title: 'French Terry Combed Organic Cotton',
+      },
+    },
+    {
+      id: 'vault',
+      name: 'The Vault Archival Preview',
+      sortOrder: 6,
+      visibleDesktop: true,
+      visibleTablet: true,
+      visibleMobile: true,
+      settings: {
+        defaultCardCount: 3,
+        eyebrow: 'THE VAULT ARCHIVE',
+        title: 'Historical Numbered Editions',
+        showSoldOutBadge: true,
+      },
+    },
+    {
+      id: 'journal',
+      name: 'Outside Journal Essays',
+      sortOrder: 7,
+      visibleDesktop: true,
+      visibleTablet: true,
+      visibleMobile: true,
+      settings: {
+        articleLimit: 2,
+        eyebrow: 'STUDIO ESSAYS & ESSENCE',
+        title: 'Architectural Garment Theory',
+      },
+    },
+    {
+      id: 'faqs',
+      name: 'AEO Structured FAQs',
+      sortOrder: 8,
+      visibleDesktop: true,
+      visibleTablet: true,
+      visibleMobile: true,
+      settings: {
+        faqLimit: 4,
+        eyebrow: 'AUTHENTICITY & LOGISTICS',
+        title: 'Common Collector Inquiries',
+      },
+    },
+    {
+      id: 'vip',
+      name: 'VIP Early Access Footer Bar',
+      sortOrder: 9,
+      visibleDesktop: true,
+      visibleTablet: true,
+      visibleMobile: true,
+      settings: {
+        eyebrow: 'PRIVATE ALLOCATION GATEWAY',
+        title: 'Never Miss A Serialized Drop.',
+        badge: 'WHATSAPP & SMS PRIORITY DISPATCH',
+        ctaText: 'REQUEST VIP EARLY ACCESS',
+      },
+    },
   ],
   gridColumns: {
     vault: { mobile: 1, tablet: 2, desktop: 3 },
@@ -959,9 +1072,42 @@ export function recordAuditLog(entry: {
 // MODULE 3: SEO, AEO, GEO & STEALTH HELPERS
 // ==========================================
 export function getAdminBasePath(): string {
+  try {
+    const store = getLocalStore();
+    const configured = store?.superAdminSecurity?.stealthAdminPath;
+    if (configured && configured.startsWith('/')) return configured;
+  } catch {}
   const custom = process.env.ADMIN_BASE_PATH;
-  if (!custom) return '/outside-studio-ops';
+  if (!custom) return '/sys-admin-gate';
   return custom.startsWith('/') ? custom : `/${custom}`;
+}
+
+export function updateStealthAdminPath(newPath: string): string {
+  const cleanPath = newPath.startsWith('/') ? newPath : `/${newPath}`;
+  const store = getLocalStore();
+  if (!store.superAdminSecurity) {
+    store.superAdminSecurity = { totpSecret: null, totpEnabled: false };
+  }
+  store.superAdminSecurity.stealthAdminPath = cleanPath;
+  saveLocalStore(store);
+  return cleanPath;
+}
+
+export function getSecurityLockouts(): { ip: string; failedAttempts: number; lockedUntil: string | null }[] {
+  const store = getLocalStore();
+  return store.securityLockouts || [];
+}
+
+export function clearSecurityLockouts(ip?: string) {
+  const store = getLocalStore();
+  if (!store.securityLockouts) store.securityLockouts = [];
+  if (ip) {
+    store.securityLockouts = store.securityLockouts.filter((l: any) => l.ip !== ip);
+  } else {
+    store.securityLockouts = [];
+  }
+  saveLocalStore(store);
+  return store.securityLockouts;
 }
 
 export function getSeoConfig(): SeoConfigData {
