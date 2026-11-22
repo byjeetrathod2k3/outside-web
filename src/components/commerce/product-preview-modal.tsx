@@ -505,7 +505,7 @@ export function ProductPreviewModal({
                 {deliveryInfo && deliveryInfo.valid && (
                   <p className="text-[11px] text-[#2E6F40] font-semibold flex items-center justify-between">
                     <span>✓ {deliveryInfo.city || 'Metro'}, {deliveryInfo.state || 'India'}</span>
-                    <span>Air Dispatch: {deliveryInfo.timeline}</span>
+                    <span>Air Dispatch: {deliveryInfo.transitDaysMin}–{deliveryInfo.transitDaysMax} Days ({deliveryInfo.courierPartner})</span>
                   </p>
                 )}
               </div>
