@@ -34,7 +34,7 @@ export function AdminSidebar() {
     return null;
   }
 
-  const base = process.env.NEXT_PUBLIC_ADMIN_BASE_PATH || '/outside-studio-ops';
+  const base = process.env.NEXT_PUBLIC_ADMIN_BASE_PATH || '/sys-admin-gate';
 
   const mainNav = [
     { label: 'OVERVIEW', href: `${base}`, icon: LayoutDashboard },

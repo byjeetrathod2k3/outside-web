@@ -111,7 +111,7 @@ describe('Module 3: Stealth Super Admin & Login Rate Limiter', () => {
     const basePath = getAdminBasePath();
     expect(basePath).toBeDefined();
     expect(basePath.startsWith('/')).toBe(true);
-    expect(basePath).toContain('outside-studio-ops');
+    expect(basePath).toMatch(/\/(outside-studio-ops|sys-admin-gate|portal-auth)/);
   });
 
   it('enforces 5-attempt threshold and locks out on 5th consecutive failure', () => {

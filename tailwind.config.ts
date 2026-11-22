@@ -26,6 +26,7 @@ const config: Config = {
           card: 'var(--bg-elevated, #FCFBF8)',
           cardSubtle: 'var(--bg-surface, #EDEAE2)',
           text: 'var(--ink-primary, #111110)',
+          textSecondary: 'var(--ink-secondary, #52504B)',
           muted: 'var(--ink-secondary, #52504B)',
           crimson: 'var(--accent-primary, #B82328)',
           crimsonHover: 'var(--accent-primary, #B82328)',
@@ -35,6 +36,9 @@ const config: Config = {
       },
       borderRadius: {
         dynamic: 'var(--border-radius, 0px)',
+      },
+      backdropBlur: {
+        xs: '2px',
       },
       fontFamily: {
         sans: [
@@ -62,6 +66,7 @@ const config: Config = {
       boxShadow: {
         editorial: '0 1px 3px 0 rgba(17, 17, 16, 0.04), 0 1px 2px -1px rgba(17, 17, 16, 0.04)',
         gallery: '0 8px 30px -4px rgba(82, 80, 75, 0.08)',
+        luxury: '0 20px 40px -15px rgba(17, 17, 16, 0.08), 0 0 1px 1px rgba(17, 17, 16, 0.04)',
       },
       letterSpacing: {
         tighter: '-0.03em',

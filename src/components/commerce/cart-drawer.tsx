@@ -29,6 +29,20 @@ export function CartDrawer() {
     taxBreakdown,
   } = useCart();
 
+  React.useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') closeCart();
+    };
+    if (isOpen) {
+      window.addEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = 'hidden';
+    }
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = '';
+    };
+  }, [isOpen, closeCart]);
+
   if (!isOpen) return null;
 
   const deliveryInfo = buyerPincode ? estimateDelivery(buyerPincode) : null;

@@ -99,7 +99,7 @@ export function CollectorReviews() {
       : REVIEWS.filter((r) => r.variantPurchased.toUpperCase().includes(selectedFilter));
 
   return (
-    <section className="py-16 border-t border-outside-border bg-outside-canvas">
+    <section id="reviews" className="scroll-mt-28 sm:scroll-mt-32 py-16 border-t border-outside-border bg-outside-canvas">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
@@ -179,7 +179,7 @@ export function CollectorReviews() {
               <button
                 key={f.val}
                 onClick={() => setSelectedFilter(f.val)}
-                className={`text-[11px] font-mono uppercase px-3 py-1.5 rounded transition-all cursor-pointer ${
+                className={`text-[11px] font-mono uppercase px-3.5 py-2 min-h-[40px] rounded transition-all cursor-pointer flex items-center justify-center ${
                   selectedFilter === f.val
                     ? 'bg-outside-ink text-outside-elevated font-bold'
                     : 'bg-outside-elevated border border-outside-border text-outside-inkSecondary hover:text-outside-ink'

@@ -2,28 +2,9 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
-import {
-  ArrowDown,
-  ArrowRight,
-  Sparkles,
-  ShieldCheck,
-  Flame,
-  Layers,
-  Compass,
-  Zap,
-  Truck,
-  RotateCcw,
-  CreditCard,
-  ShoppingBag,
-  Star,
-  Check,
-} from 'lucide-react';
-import BlurText from '@/components/reactbits/BlurText/BlurText';
-import ShinyText from '@/components/reactbits/ShinyText/ShinyText';
-import DecryptedText from '@/components/reactbits/DecryptedText/DecryptedText';
-import CountUp from '@/components/reactbits/CountUp/CountUp';
-import ClickSpark from '@/components/reactbits/ClickSpark/ClickSpark';
+import { ShoppingBag, ArrowRight, Zap, Check, X } from 'lucide-react';
+import { useCart } from '@/context/cart-context';
+import { CottonIcon, IndiaIcon, BoxExchangeIcon, LaurelWreathBadge } from '@/components/ui/hero-icons';
 
 interface EditorialHeroProps {
   dropTitle: string;
@@ -34,24 +15,29 @@ interface EditorialHeroProps {
   allDrops?: any[];
 }
 
-const HERO_PERSPECTIVES = [
+const AVAILABLE_SIZES = ['XS', 'S', 'M', 'L', 'XL', '2XL'];
+
+const DETAIL_CARDS = [
   {
-    id: 'front',
-    label: '01 · FRONT EMBROIDERY',
-    sublabel: 'Tactile Floral Relief',
-    src: '/images/drops/drop-001-front.jpg',
+    id: 'embroidery',
+    title: 'Floral Relief',
+    subtitle: '12,400 Hand Stitches',
+    description: 'Raised multi-threaded chain-stitch floral embroidery in rose-pink and umber brown, hand-finished in our Ahmedabad studio to resist wash distortion.',
+    src: '/images/hero-detail-embroidery.webp',
   },
   {
-    id: 'back',
-    label: '02 · BACK MANIFESTO',
-    sublabel: 'Same Girl Brighter Days',
-    src: '/images/drops/drop-001-back.jpg',
+    id: 'fabric',
+    title: 'Organic Weave',
+    subtitle: '280 GSM French Terry',
+    description: 'Custom-milled in India from 100% long-staple combed organic cotton. Double bio-washed for structural stability and zero shrinkage.',
+    src: '/images/hero-detail-fabric.webp',
   },
   {
-    id: 'macro',
-    label: '03 · MACRO CRAFT',
-    sublabel: '12,400 Hand Stitches',
-    src: '/images/drops/drop-001-detail1.jpg',
+    id: 'tag',
+    title: 'Tethered Tag',
+    subtitle: 'Debossed Signature',
+    description: 'Dimensional raw canvas tag tethered via braided cord knot debossed with "for a kinder you" and subtle heart emblem.',
+    src: '/images/hero-detail-tag.webp',
   },
 ];
 
@@ -61,328 +47,523 @@ export function EditorialHero({
   pricePaise,
   totalPieces,
   remainingPieces,
-  allDrops,
+  allDrops = [],
 }: EditorialHeroProps) {
-  const [activePerspective, setActivePerspective] = useState(0);
+  const [selectedFit] = useState<'WOMEN' | 'MEN'>('WOMEN');
+  const [selectedSize, setSelectedSize] = useState<string>('M');
+  const [justAdded, setJustAdded] = useState(false);
+  const [activeModalDetail, setActiveModalDetail] = useState<typeof DETAIL_CARDS[0] | null>(null);
 
-  const scrollToDrop = (e: React.MouseEvent) => {
+  React.useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setActiveModalDetail(null);
+    };
+    if (activeModalDetail) {
+      window.addEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = 'hidden';
+    }
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = '';
+    };
+  }, [activeModalDetail]);
+
+  const { addItem, openCart } = useCart();
+
+  const activeDrop = allDrops.find((d: any) => d.dropNumber === dropNumber) || allDrops[0] || {};
+  const activeDropId = activeDrop.id || 'drop_001';
+
+  const priceRupees = pricePaise / 100;
+  const formattedPrice = `₹${priceRupees.toLocaleString('en-IN')}`;
+
+  const handleHeroAddToCart = (e?: React.MouseEvent) => {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+
+    const matchedVariant = activeDrop.variants?.find(
+      (v: any) => v.fit === selectedFit && v.size === selectedSize
+    ) || activeDrop.variants?.[0];
+
+    addItem({
+      dropId: activeDropId,
+      variantId: matchedVariant?.id || `${activeDropId}-${selectedFit}-${selectedSize}`,
+      title: `${dropTitle || 'DROP 001 // BETTER DAYS AHEAD'} (${selectedFit})`,
+      fit: selectedFit,
+      size: selectedSize,
+      quantity: 1,
+      unitPricePaise: pricePaise,
+      maxStock: matchedVariant?.currentStock || remainingPieces || 75,
+      image: '/images/outside_hero_final.png',
+    });
+
+    setJustAdded(true);
+    setTimeout(() => setJustAdded(false), 2200);
+    openCart();
+  };
+
+  const scrollToCatalog = (e: React.MouseEvent) => {
     e.preventDefault();
-    const el = document.getElementById('active-drop');
+    const el = document.getElementById('all-drops') || document.getElementById('active-drop');
     if (el) {
       el.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
-  const currentView = HERO_PERSPECTIVES[activePerspective];
-
   return (
-    <section className="relative overflow-hidden bg-outside-canvas border-b border-outside-border">
-      
-      {/* Background Architectural Grid Accent */}
-      <div className="absolute inset-0 bg-subtle-grid opacity-60 pointer-events-none" />
-
-      {/* Atmospheric Top Coordinates Bar */}
-      <div className="relative border-b border-outside-border/70 py-2.5 px-4 sm:px-8 bg-outside-surface/40 flex flex-wrap items-center justify-between gap-3 text-[10px] sm:text-[11px] font-mono text-outside-inkSecondary">
-        <div className="flex items-center gap-2">
-          <span className="w-2 h-2 rounded-full bg-outside-accent animate-pulse" />
-          <span className="font-bold text-outside-ink tracking-widest uppercase">
-            HEADLINER: DROP 00{dropNumber} // {remainingPieces} PIECES LEFT
-          </span>
+    <section
+      id="hero-active-drop"
+      aria-label="Active Drop Showcase"
+      className="relative w-full overflow-hidden bg-[#F6F2EB] border-b border-[#DCD7CC]"
+    >
+      {/* ===================================================================== */}
+      {/* 1. UPPER HERO EDITORIAL CANVAS (Untouched Background, Seamless Fit)   */}
+      {/* ===================================================================== */}
+      <div className="relative w-full min-h-[580px] lg:min-h-[640px] flex items-center overflow-hidden bg-[#EAE2D8]">
+        
+        {/* Full-Height Studio Background Image Layer Anchored Flush to the Right */}
+        <div className="hidden md:block absolute inset-y-0 right-0 -right-[2px] w-full lg:w-[75%] xl:w-[78%] h-full z-0 pointer-events-none overflow-hidden bg-[#EAE2D8]">
+          <img
+            src="/images/outside_hero_final.png"
+            alt="DROP 001 Better Days Ahead Heavyweight T-Shirt"
+            className="w-full h-full object-cover object-right select-none"
+            style={{ objectPosition: 'right center' }}
+            loading="eager"
+            decoding="sync"
+            // @ts-ignore
+            fetchPriority="high"
+          />
         </div>
 
-        {/* Multi-Drop Rotation Pills */}
-        {allDrops && allDrops.length > 1 && (
-          <div className="flex items-center gap-2">
-            <span className="hidden lg:inline text-[10px] uppercase tracking-wider text-outside-inkSecondary font-bold">
-              THE ROTATION:
+        {/* Seamless Left-Edge Blending Gradient Overlay */}
+        <div
+          className="hidden md:block absolute inset-0 z-[1] pointer-events-none bg-gradient-to-r from-[#F6F2EB] via-[#F6F2EB]/95 via-[30%] to-transparent to-[48%]"
+          aria-hidden="true"
+        />
+
+        {/* Rebuilt "LIMITED TO 250 PIECES" Circular Seal SVG */}
+        <div className="hidden md:flex absolute top-[22%] left-[37%] lg:left-[38%] z-10">
+          <LaurelWreathBadge totalPieces={totalPieces} />
+        </div>
+
+        {/* Right-Edge Macro Detail Cards (Flush inside right margin) */}
+        <div className="hidden md:flex absolute right-4 lg:right-6 top-1/2 -translate-y-1/2 z-10 flex-col gap-3.5">
+          {DETAIL_CARDS.map((card) => (
+            <button
+              key={card.id}
+              type="button"
+              onClick={() => setActiveModalDetail(card)}
+              className="w-28 h-28 xl:w-36 xl:h-36 rounded-2xl border-2 border-white/95 shadow-lg overflow-hidden bg-[#F5F1EB] hover:scale-[1.03] transition-transform duration-300 cursor-pointer group text-left relative"
+              title={`Inspect ${card.title} · Click for craft details`}
+            >
+              <Image
+                src={card.src}
+                alt={card.title}
+                fill
+                sizes="(max-width: 1280px) 112px, 144px"
+                className="object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+              <div className="absolute inset-x-0 bottom-0 p-1.5 bg-[#111111]/70 backdrop-blur-xs text-white text-[9px] font-mono uppercase tracking-wider text-center opacity-0 group-hover:opacity-100 transition-opacity">
+                {card.title}
+              </div>
+            </button>
+          ))}
+        </div>
+
+        {/* Left Editorial Column: 5 Stacked Elements */}
+        <div className="hidden md:block relative z-10 max-w-[440px] pl-8 lg:pl-14 py-12">
+          {/* Element 1: Eyebrow */}
+          <div className="flex items-center gap-3 font-mono text-[11px] tracking-[0.2em] uppercase text-[#111111]">
+            <span className="flex items-center gap-1.5 font-bold">
+              <span className="text-[#B91C1C]">✦</span>
+              <span>DROP 00{dropNumber}</span>
             </span>
-            <div className="flex items-center gap-1.5">
-              {allDrops.slice(0, 3).map((d: any) => {
-                const isSelected = d.dropNumber === dropNumber;
-                return (
-                  <a
-                    key={d.id}
-                    href={isSelected ? '#active-drop' : '#all-drops'}
-                    className={`px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider transition-colors border ${
-                      isSelected
-                        ? 'bg-outside-ink text-outside-elevated border-outside-ink shadow-xs'
-                        : 'bg-outside-elevated text-outside-ink border-outside-border hover:border-outside-ink'
-                    }`}
-                  >
-                    DROP 00{d.dropNumber}
-                  </a>
-                );
-              })}
+            <span className="w-14 h-[1px] bg-[#B91C1C]/70 inline-block" />
+            <span className="text-[#3A3A3A] font-semibold">LIMITED EDITION</span>
+          </div>
+
+          {/* Element 2: Headline */}
+          <h1 className="font-black text-[#111111] text-6xl lg:text-[76px] leading-[0.88] tracking-[-0.03em] uppercase select-none mt-5">
+            WEAR<br />
+            YOUR<br />
+            STORY<span className="inline-block w-3.5 h-3.5 rounded-full bg-[#B91C1C] ml-1 align-baseline" />
+          </h1>
+
+          {/* Element 3: Sub-label */}
+          <p className="font-mono text-[11px] tracking-[0.22em] text-[#3A3A3A] mt-4 uppercase">
+            EXCLUSIVE APPAREL • MADE IN INDIA
+          </p>
+
+          {/* Element 4: Body Copy */}
+          <p className="text-sm text-[#3A3A3A] leading-relaxed max-w-[340px] mt-4">
+            A limited run of {totalPieces} pieces, crafted from{' '}
+            <strong className="text-[#111111] font-bold">280 GSM organic cotton</strong>.
+            Thoughtfully designed, ethically made, and built to last.
+          </p>
+
+          {/* Element 5: Vertically Stacked CTAs */}
+          <div className="flex flex-col items-start gap-3 mt-7">
+            <button
+              type="button"
+              onClick={handleHeroAddToCart}
+              className="w-[280px] h-11 rounded-md bg-[#B91C1C] hover:bg-[#991B1B] text-white font-mono text-xs tracking-[0.15em] uppercase flex items-center justify-center gap-2.5 shadow-sm transition-colors cursor-pointer active:scale-[0.99]"
+            >
+              {justAdded ? (
+                <>
+                  <Check className="w-4 h-4 text-white" />
+                  <span>CLAIMED ✓ IN YOUR BAG</span>
+                </>
+              ) : (
+                <>
+                  <ShoppingBag className="w-4 h-4 text-white" />
+                  <span>CLAIM DROP 00{dropNumber} — {formattedPrice} →</span>
+                </>
+              )}
+            </button>
+
+            <a
+              href="#all-drops"
+              onClick={scrollToCatalog}
+              className="w-[225px] h-10 rounded-md bg-white/60 hover:bg-white border border-black/15 text-[#111111] font-mono text-[11px] tracking-[0.15em] uppercase flex items-center justify-center gap-2 transition-colors cursor-pointer active:scale-[0.99]"
+            >
+              <span>EXPLORE THE COLLECTION ▸</span>
+            </a>
+          </div>
+        </div>
+
+        {/* Responsive Mobile Stack (< 768px) */}
+        <div className="md:hidden flex flex-col w-full">
+          {/* Full-width Hero Product Visual */}
+          <div className="relative w-full aspect-[4/3] overflow-hidden bg-[#F6F2EB]">
+            <img
+              src="/images/outside_hero_final.png"
+              alt="DROP 001 Better Days Ahead Heavyweight T-Shirt"
+              className="w-full h-full object-cover object-[65%_center] select-none"
+              loading="eager"
+              decoding="sync"
+              // @ts-ignore
+              fetchPriority="high"
+            />
+            <div className="absolute top-4 left-4 z-10">
+              <LaurelWreathBadge totalPieces={totalPieces} className="w-20 h-20" />
+            </div>
+          </div>
+
+          {/* 3 Macro Detail Cards in Balanced 3-Column Grid */}
+          <div className="grid grid-cols-3 gap-2.5 px-4 -mt-6 relative z-10">
+            {DETAIL_CARDS.map((card) => (
+              <button
+                key={card.id}
+                type="button"
+                onClick={() => setActiveModalDetail(card)}
+                className="relative aspect-square w-full rounded-2xl border-2 border-white/95 shadow-md overflow-hidden bg-[#F5F1EB] hover:scale-[1.03] transition-transform duration-300 cursor-pointer group text-left"
+                title={`Inspect ${card.title}`}
+              >
+                <Image
+                  src={card.src}
+                  alt={card.title}
+                  fill
+                  sizes="33vw"
+                  className="object-cover"
+                />
+                <div className="absolute inset-x-0 bottom-0 py-0.5 px-1 bg-[#111111]/70 backdrop-blur-xs text-white text-[8px] font-mono uppercase tracking-wider text-center truncate">
+                  {card.title}
+                </div>
+              </button>
+            ))}
+          </div>
+
+          {/* Mobile Editorial Column */}
+          <div className="px-5 py-8 flex flex-col">
+            <div className="flex items-center gap-2.5 font-mono text-[11px] tracking-[0.2em] uppercase text-[#111111]">
+              <span className="flex items-center gap-1 font-bold">
+                <span className="text-[#B91C1C]">✦</span>
+                <span>DROP 00{dropNumber}</span>
+              </span>
+              <span className="w-10 sm:w-14 h-[1px] bg-[#B91C1C]/70 inline-block" />
+              <span className="text-[#3A3A3A] font-semibold">LIMITED EDITION</span>
+            </div>
+
+            <h1 className="font-black text-[#111111] text-5xl sm:text-6xl leading-[0.88] tracking-[-0.03em] uppercase select-none mt-4">
+              WEAR<br />
+              YOUR<br />
+              STORY<span className="inline-block w-3 h-3 rounded-full bg-[#B91C1C] ml-1 align-baseline" />
+            </h1>
+
+            <p className="font-mono text-[11px] tracking-[0.22em] text-[#3A3A3A] mt-4 uppercase">
+              EXCLUSIVE APPAREL • MADE IN INDIA
+            </p>
+
+            <p className="text-sm text-[#3A3A3A] leading-relaxed max-w-[340px] mt-4">
+              A limited run of {totalPieces} pieces, crafted from{' '}
+              <strong className="text-[#111111] font-bold">280 GSM organic cotton</strong>.
+              Thoughtfully designed, ethically made, and built to last.
+            </p>
+
+            <div className="flex flex-col items-stretch gap-3 mt-7 w-full">
+              <button
+                type="button"
+                onClick={handleHeroAddToCart}
+                className="w-full h-11 rounded-md bg-[#B91C1C] hover:bg-[#991B1B] text-white font-mono text-xs tracking-[0.15em] uppercase flex items-center justify-center gap-2.5 shadow-sm transition-colors cursor-pointer active:scale-[0.99]"
+              >
+                {justAdded ? (
+                  <>
+                    <Check className="w-4 h-4 text-white" />
+                    <span>CLAIMED ✓ IN YOUR BAG</span>
+                  </>
+                ) : (
+                  <>
+                    <ShoppingBag className="w-4 h-4 text-white" />
+                    <span>CLAIM DROP 00{dropNumber} — {formattedPrice} →</span>
+                  </>
+                )}
+              </button>
+
               <a
                 href="#all-drops"
-                className="px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-outside-accent hover:underline"
+                onClick={scrollToCatalog}
+                className="w-full h-10 rounded-md bg-white/60 hover:bg-white border border-black/15 text-[#111111] font-mono text-[11px] tracking-[0.15em] uppercase flex items-center justify-center gap-2 transition-colors cursor-pointer active:scale-[0.99]"
               >
-                + ALL ({allDrops.length}) &rarr;
+                <span>EXPLORE THE COLLECTION ▸</span>
               </a>
             </div>
           </div>
-        )}
+        </div>
 
-        <div className="hidden md:flex items-center gap-6">
-          <DecryptedText text="AHMEDABAD DESIGN STUDIO" speed={40} maxIterations={8} animateOn="view" />
-          <span>•</span>
-          <span>DISPATCH: 24H EXPRESS</span>
+      </div>
+
+      {/* ===================================================================== */}
+      {/* 2. CREATIVE ATELIER CRAFT & DIRECT PURCHASE CONSOLE RIBBON            */}
+      {/* ===================================================================== */}
+      <div className="border-t border-[#DCD7CC] bg-[#FAF8F5]/95 backdrop-blur-md py-3 sm:py-3.5 relative z-20">
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12">
+          <div className="flex flex-col xl:flex-row items-stretch xl:items-center justify-between gap-4 xl:gap-8 font-mono">
+            
+            {/* --------------------------------------------------------------- */}
+            {/* Left: 4 Luxury Craft Signifiers (Separated by Hairline Dividers) */}
+            {/* --------------------------------------------------------------- */}
+            <div className="flex items-center justify-between sm:justify-start gap-3 sm:gap-6 lg:gap-7 overflow-x-auto no-scrollbar py-1">
+              
+              {/* Pillar 1: 280 GSM Organic Cotton */}
+              <div className="flex items-center gap-2.5 shrink-0 group">
+                <div className="w-8 h-8 rounded-full bg-[#EDEAE2]/80 border border-[#DCD7CC]/80 flex items-center justify-center shrink-0 group-hover:border-[#111110] transition-colors shadow-2xs">
+                  <CottonIcon className="w-4 h-4 text-[#111110]" />
+                </div>
+                <div className="text-left leading-tight space-y-0.5">
+                  <span className="block text-[11px] font-bold text-[#111110] uppercase tracking-[0.14em]">
+                    280 GSM
+                  </span>
+                  <span className="block text-[9px] text-[#736F68] font-sans uppercase tracking-wider">
+                    Organic Cotton
+                  </span>
+                </div>
+              </div>
+
+              <div className="h-6 w-px bg-[#DCD7CC]/80 shrink-0 hidden sm:block" />
+
+              {/* Pillar 2: Made in India */}
+              <div className="flex items-center gap-2.5 shrink-0 group">
+                <div className="w-8 h-8 rounded-full bg-[#EDEAE2]/80 border border-[#DCD7CC]/80 flex items-center justify-center shrink-0 group-hover:border-[#111110] transition-colors shadow-2xs">
+                  <IndiaIcon className="w-4 h-4 text-[#111110]" />
+                </div>
+                <div className="text-left leading-tight space-y-0.5">
+                  <span className="block text-[11px] font-bold text-[#111110] uppercase tracking-[0.14em]">
+                    Made In
+                  </span>
+                  <span className="block text-[9px] text-[#736F68] font-sans uppercase tracking-wider">
+                    India · Studio
+                  </span>
+                </div>
+              </div>
+
+              <div className="h-6 w-px bg-[#DCD7CC]/80 shrink-0 hidden sm:block" />
+
+              {/* Pillar 3: Free Express Delivery */}
+              <div className="flex items-center gap-2.5 shrink-0 group">
+                <div className="w-8 h-8 rounded-full bg-[#EDEAE2]/80 border border-[#DCD7CC]/80 flex items-center justify-center shrink-0 group-hover:border-[#111110] transition-colors shadow-2xs">
+                  <Zap className="w-4 h-4 text-[#111110]" />
+                </div>
+                <div className="text-left leading-tight space-y-0.5">
+                  <span className="block text-[11px] font-bold text-[#111110] uppercase tracking-[0.14em]">
+                    Free Express
+                  </span>
+                  <span className="block text-[9px] text-[#736F68] font-sans uppercase tracking-wider">
+                    Air Dispatch
+                  </span>
+                </div>
+              </div>
+
+              <div className="h-6 w-px bg-[#DCD7CC]/80 shrink-0 hidden sm:block" />
+
+              {/* Pillar 4: Zero-Cost 7-Day Exchange */}
+              <div className="flex items-center gap-2.5 shrink-0 group">
+                <div className="w-8 h-8 rounded-full bg-[#EDEAE2]/80 border border-[#DCD7CC]/80 flex items-center justify-center shrink-0 group-hover:border-[#111110] transition-colors shadow-2xs">
+                  <BoxExchangeIcon className="w-4 h-4 text-[#111110]" />
+                </div>
+                <div className="text-left leading-tight space-y-0.5">
+                  <span className="block text-[11px] font-bold text-[#111110] uppercase tracking-[0.14em]">
+                    Zero-Cost
+                  </span>
+                  <span className="block text-[9px] text-[#736F68] font-sans uppercase tracking-wider">
+                    7-Day Doorstep
+                  </span>
+                </div>
+              </div>
+
+            </div>
+
+            {/* --------------------------------------------------------------- */}
+            {/* Right: Unified Luxury Atelier Purchase Pod                      */}
+            {/* --------------------------------------------------------------- */}
+            <div className="w-full xl:w-auto flex flex-wrap sm:flex-nowrap items-center justify-between xl:justify-end gap-2.5 sm:gap-4 p-1.5 sm:px-3 sm:py-1.5 rounded-xl bg-white/95 border border-[#DCD7CC] shadow-xs">
+              
+              {/* Product Micro-Preview & Pricing */}
+              <div className="flex items-center gap-2.5 shrink-0">
+                <div className="relative w-9 h-9 rounded-md overflow-hidden border border-[#DCD7CC]/80 bg-[#EDEAE2] shrink-0">
+                  <Image
+                    src="/images/drops/drop-001-front.jpg"
+                    alt="DROP 001 Floral Relief Preview"
+                    fill
+                    sizes="36px"
+                    className="object-cover"
+                  />
+                </div>
+                <div className="text-left leading-tight">
+                  <div className="flex items-center gap-1.5">
+                    <span className="text-[10px] font-mono font-bold text-[#111110] uppercase tracking-wider whitespace-nowrap">
+                      DROP 00{dropNumber} · FLORAL RELIEF
+                    </span>
+                    <span className="hidden sm:inline-block w-1.5 h-1.5 rounded-full bg-[#B91C1C] animate-pulse" />
+                  </div>
+                  <div className="flex items-baseline gap-1.5 mt-0.5">
+                    <span className="text-xs font-mono font-black text-[#B91C1C]">
+                      {formattedPrice}
+                    </span>
+                    <span className="text-[8px] font-mono font-semibold text-[#736F68] uppercase tracking-wider">
+                      GST INCL.
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Hairline Divider */}
+              <div className="h-6 w-px bg-[#DCD7CC] shrink-0 hidden sm:block" />
+
+              {/* Tactile Segmented Size Control Bar */}
+              <div className="flex items-center gap-0.5 bg-[#EDEAE2]/70 p-0.5 rounded-lg border border-[#DCD7CC]/70 shrink-0">
+                {AVAILABLE_SIZES.map((size) => {
+                  const isSelected = selectedSize === size;
+                  return (
+                    <button
+                      key={size}
+                      type="button"
+                      onClick={() => setSelectedSize(size)}
+                      className={`w-7 sm:w-8 h-7 rounded text-[11px] font-mono font-bold uppercase transition-all flex items-center justify-center cursor-pointer ${
+                        isSelected
+                          ? 'bg-[#111110] text-[#FAF8F5] shadow-xs scale-[1.02]'
+                          : 'text-[#52504B] hover:text-[#111110] hover:bg-white/70'
+                      }`}
+                      title={`Select size ${size}`}
+                    >
+                      {size}
+                    </button>
+                  );
+                })}
+              </div>
+
+              {/* Instant Add-to-Bag Action Pill */}
+              <button
+                type="button"
+                onClick={handleHeroAddToCart}
+                title="Add selected size to cart"
+                aria-label={`Claim DROP 00${dropNumber} in size ${selectedSize}`}
+                className="h-8 px-3.5 rounded-lg bg-[#B91C1C] hover:bg-[#991B1B] active:scale-95 text-white flex items-center justify-center gap-1.5 transition-all cursor-pointer shrink-0 shadow-sm font-mono text-[10px] font-bold uppercase tracking-wider whitespace-nowrap"
+              >
+                {justAdded ? (
+                  <>
+                    <Check className="w-3.5 h-3.5 text-white" />
+                    <span>ADDED ✓</span>
+                  </>
+                ) : (
+                  <>
+                    <ShoppingBag className="w-3.5 h-3.5 text-white" />
+                    <span className="hidden sm:inline">ADD</span>
+                    <ArrowRight className="w-3.5 h-3.5 text-white" />
+                  </>
+                )}
+              </button>
+
+            </div>
+
+          </div>
         </div>
       </div>
 
-      <ClickSpark sparkColor={['#B82328', '#111110', '#DCD7CC']} sparkSize={10} sparkRadius={30} sparkCount={8} duration={400}>
-      {/* Main 12-Column Hero Canvas */}
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
-          
-          {/* Left Column: Monolithic Brand Manifesto & CTAs (7 Cols) */}
-          <div className="lg:col-span-7 space-y-7">
-            
-            {/* Editorial Badge & Social Proof */}
-            <div className="flex items-center gap-3 flex-wrap">
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-outside-surface border border-outside-border text-xs font-mono font-bold tracking-[0.25em] uppercase">
-                <Sparkles className="w-3.5 h-3.5 text-outside-accent" />
-                <ShinyText text="LIMITED EDITION APPAREL · MADE IN INDIA" speed={3} color="#B82328" shineColor="#FFFFFF" className="text-xs font-mono font-bold tracking-[0.25em]" />
+      {/* ===================================================================== */}
+      {/* 3. MACRO CRAFT DETAIL MODAL                                           */}
+      {/* ===================================================================== */}
+      {activeModalDetail && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="detail-modal-title"
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#111110]/60 backdrop-blur-sm animate-in fade-in duration-200"
+          onClick={() => setActiveModalDetail(null)}
+        >
+          <div
+            className="relative max-w-lg w-full bg-[#FCFBF8] border border-[#DCD7CC] rounded-2xl shadow-2xl p-6 space-y-4 font-mono"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between pb-3 border-b border-[#DCD7CC]">
+              <div>
+                <span className="text-[10px] text-[#B91C1C] font-bold uppercase tracking-widest block">
+                  CRAFT SPECIFICATION
+                </span>
+                <h3 id="detail-modal-title" className="text-lg font-bold text-[#111110] uppercase">
+                  {activeModalDetail.title}
+                </h3>
               </div>
-              <a href="#reviews" className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-outside-elevated border border-outside-border text-[11px] font-mono text-outside-ink hover:border-outside-accent transition-colors shadow-xs">
-                <span className="text-amber-500 font-bold">★★★★★</span>
-                <span className="font-bold">4.98</span>
-                <span className="text-outside-inkSecondary">(142 Collector Reviews)</span>
-              </a>
+              <button
+                type="button"
+                onClick={() => setActiveModalDetail(null)}
+                aria-label="Close detail modal"
+                className="p-2 rounded-full hover:bg-[#EDEAE2] text-[#111110] transition-colors cursor-pointer"
+              >
+                <X className="w-5 h-5" />
+              </button>
             </div>
 
-            {/* Giant Monolithic Display Headline */}
-            <div className="space-y-2">
-              <BlurText
-                text="WEAR YOUR STORY."
-                delay={120}
-                animateBy="words"
-                direction="top"
-                className="text-5xl sm:text-6xl md:text-7xl xl:text-8xl font-display font-black tracking-tighter text-outside-ink uppercase leading-[0.92]"
+            <div className="relative aspect-[16/10] w-full rounded-xl overflow-hidden border border-[#DCD7CC] bg-[#EDEAE2]">
+              <Image
+                src={activeModalDetail.src}
+                alt={activeModalDetail.title}
+                fill
+                className="object-cover"
               />
-              <p className="text-xs sm:text-sm font-mono uppercase tracking-[0.3em] text-outside-inkSecondary pt-2">
-                EXCLUSIVE DROP · 250 PIECES ONLY · NEVER RESTOCKED
+            </div>
+
+            <div className="space-y-1.5">
+              <span className="text-xs font-bold text-[#111110]">
+                {activeModalDetail.subtitle}
+              </span>
+              <p className="text-xs font-sans text-[#52504B] leading-relaxed">
+                {activeModalDetail.description}
               </p>
             </div>
 
-            {/* Editorial Paragraph */}
-            <p className="max-w-xl text-sm sm:text-base text-outside-inkSecondary font-sans leading-relaxed">
-              We reject cheap fast-fashion. Every drop is crafted in India from custom-milled <strong className="text-outside-ink font-semibold">280 GSM combed organic cotton</strong> in a single, strictly limited run of 250 numbered pieces. When piece 250 is claimed, this design is retired forever into The Vault.
-            </p>
-
-            {/* Architectural Highlights Strip */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2 max-w-xl text-[11px] font-mono text-outside-inkSecondary">
-              <div className="p-3 bg-outside-surface border border-outside-border rounded space-y-1">
-                <span className="text-[10px] text-outside-accent font-bold block">01 // TEXTILE</span>
-                <span className="font-bold text-outside-ink">280 GSM COTTON</span>
-              </div>
-              <div className="p-3 bg-outside-surface border border-outside-border rounded space-y-1">
-                <span className="text-[10px] text-outside-accent font-bold block">02 // ALLOCATION</span>
-                <span className="font-bold text-outside-ink">{remainingPieces} / {totalPieces} LEFT</span>
-              </div>
-              <div className="p-3 bg-outside-surface border border-outside-border rounded space-y-1">
-                <span className="text-[10px] text-outside-moss font-bold block">03 // TAX &amp; DUTY</span>
-                <span className="font-bold text-outside-ink">5% GST INCLUDED</span>
-              </div>
-              <div className="p-3 bg-outside-surface border border-outside-border rounded space-y-1">
-                <span className="text-[10px] text-outside-accent font-bold block">04 // DISPATCH</span>
-                <span className="font-bold text-outside-ink">FREE AIR 2-4 DAYS</span>
-              </div>
-            </div>
-
-            {/* Editorial CTAs */}
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-2">
-              <a
-                href="#active-drop"
-                onClick={scrollToDrop}
-                className="px-8 py-4 bg-outside-accent hover:bg-outside-accent/90 text-white text-xs font-mono uppercase tracking-[0.2em] font-bold flex items-center justify-center gap-3 transition-colors rounded shadow-luxury cursor-pointer group"
+            <div className="pt-2 flex justify-end">
+              <button
+                type="button"
+                onClick={() => setActiveModalDetail(null)}
+                className="px-4 py-2 rounded-md bg-[#111110] text-white text-xs font-bold uppercase tracking-wider hover:bg-[#2A2825] cursor-pointer"
               >
-                <span>SECURE YOUR PIECE · ₹{(pricePaise / 100).toLocaleString('en-IN')}</span>
-                <ArrowDown className="w-4 h-4 group-hover:translate-y-0.5 transition-transform" />
-              </a>
-
-              <Link
-                href="/lookbook"
-                className="px-6 py-4 bg-outside-elevated hover:bg-outside-surface text-outside-ink border border-outside-border text-xs font-mono uppercase tracking-[0.2em] font-bold flex items-center justify-center gap-2 transition-colors rounded cursor-pointer"
-              >
-                <span>VIEW LOOKBOOK</span>
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-
-              <Link
-                href="/size-guide"
-                className="px-5 py-4 text-outside-inkSecondary hover:text-outside-ink text-xs font-mono uppercase tracking-wider flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
-              >
-                <span>FIT ROOM</span>
-                <span className="text-outside-accent">&rarr;</span>
-              </Link>
-            </div>
-
-            {/* Micro 5% UPI Hook & Free Shipping Strip */}
-            <div className="flex items-center gap-4 text-xs font-mono text-outside-inkSecondary pt-1 flex-wrap">
-              <span className="flex items-center gap-1.5 text-outside-moss font-bold">
-                <Zap className="w-3.5 h-3.5 text-outside-moss" />
-                <span>5% Instant UPI Discount: Pay ₹{Math.round((pricePaise * 0.95) / 100).toLocaleString('en-IN')} (Code: OUTSIDE5)</span>
-              </span>
-              <span>•</span>
-              <span>Zero-Cost 7-Day Doorstep Exchanges</span>
-            </div>
-
-            {/* Commercial Trust Signals */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-1 max-w-xl text-[10px] font-mono text-outside-inkSecondary">
-              <div className="p-2 bg-outside-surface border border-outside-border rounded flex items-center gap-1.5">
-                <Truck className="w-3.5 h-3.5 text-outside-accent shrink-0" />
-                <span>BLUEDART EXPRESS AIR</span>
-              </div>
-              <div className="p-2 bg-outside-surface border border-outside-border rounded flex items-center gap-1.5">
-                <ShieldCheck className="w-3.5 h-3.5 text-outside-moss shrink-0" />
-                <span>100% GST INCLUDED</span>
-              </div>
-              <div className="p-2 bg-outside-surface border border-outside-border rounded flex items-center gap-1.5">
-                <RotateCcw className="w-3.5 h-3.5 text-outside-accent shrink-0" />
-                <span>7-DAY DOORSTEP EXCH</span>
-              </div>
-              <div className="p-2 bg-outside-surface border border-outside-border rounded flex items-center gap-1.5">
-                <CreditCard className="w-3.5 h-3.5 text-outside-moss shrink-0" />
-                <span>COD &amp; INSTANT UPI</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Right Column: Sculptural Garment Stage with Interactive Angle Dial (5 Cols) */}
-          <div className="lg:col-span-5 space-y-4">
-            
-            {/* Primary Visual Showcase Card */}
-            <div className="relative aspect-[4/5] bg-outside-elevated border border-outside-border rounded-lg overflow-hidden shadow-2xl group">
-              
-              {/* Active Image */}
-              <Image
-                src={currentView.src}
-                alt={currentView.label}
-                fill
-                priority
-                className="object-contain p-6 transition-all duration-700 group-hover:scale-105"
-              />
-
-              {/* Top Status Overlays */}
-              <div className="absolute top-4 left-4 flex flex-col gap-1.5">
-                <span className="px-2.5 py-1 bg-outside-elevated/95 backdrop-blur-md border border-outside-border rounded text-[10px] font-mono text-outside-ink font-bold shadow-xs">
-                  DROP 00{dropNumber} // {currentView.label}
-                </span>
-                <span className="px-2.5 py-1 bg-outside-surface/90 backdrop-blur-md border border-outside-border/70 rounded text-[9px] font-mono text-outside-inkSecondary">
-                  {currentView.sublabel}
-                </span>
-              </div>
-
-              {/* Live Scarcity Serial Hologram Tag */}
-              <div className="absolute bottom-4 left-4 right-4 bg-outside-elevated/95 backdrop-blur-md border border-outside-border p-3 rounded shadow-lg flex items-center justify-between font-mono">
-                <div>
-                  <span className="text-[10px] text-outside-inkSecondary block leading-none">
-                    100% ORIGINAL DESIGNER PIECE
-                  </span>
-                  <span className="text-xs font-bold text-outside-ink mt-0.5 block">
-                    <DecryptedText text="NUMBERED EDITION #OUT-001-075" speed={30} maxIterations={8} animateOn="view" />
-                  </span>
-                </div>
-                <div className="text-right">
-                  <span className="text-[9px] text-outside-moss font-bold px-2 py-0.5 rounded bg-outside-moss/10 border border-outside-moss/20">
-                    IN STOCK · SHIPS IN 24H
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            {/* Interactive 3-Angle Dial (Changes Image on Hover/Click) */}
-            <div className="grid grid-cols-3 gap-2 font-mono text-[10px]">
-              {HERO_PERSPECTIVES.map((p, idx) => (
-                <button
-                  key={p.id}
-                  onClick={() => setActivePerspective(idx)}
-                  className={`p-2.5 rounded border transition-all text-left flex flex-col justify-between cursor-pointer ${
-                    activePerspective === idx
-                      ? 'border-outside-ink bg-outside-ink text-outside-elevated font-bold shadow-xs'
-                      : 'border-outside-border bg-outside-surface/60 text-outside-inkSecondary hover:text-outside-ink hover:border-outside-inkSecondary'
-                  }`}
-                >
-                  <span className="text-[9px] opacity-80 uppercase block">{p.id === 'front' ? 'VIEW 01' : p.id === 'back' ? 'VIEW 02' : 'VIEW 03'}</span>
-                  <span className="font-bold uppercase tracking-wider truncate block mt-0.5">
-                    {p.id === 'front' ? 'Front Cut' : p.id === 'back' ? 'Back Print' : 'Macro Stitch'}
-                  </span>
-                </button>
-              ))}
-            </div>
-
-            {/* Quick Sizing Guidance Link */}
-            <div className="pt-1 flex items-center justify-between text-xs font-mono text-outside-inkSecondary">
-              <span className="flex items-center gap-1.5">
-                <ShieldCheck className="w-3.5 h-3.5 text-outside-moss" />
-                <span>Relaxed Oversized Boxy Fit for Women & Men</span>
-              </span>
-              <Link href="/size-guide" className="text-outside-accent hover:underline font-bold text-[11px]">
-                Fit Room &rarr;
-              </Link>
+                Close View
+              </button>
             </div>
           </div>
         </div>
-      </div>
-      </ClickSpark>
-
-      {/* Signature Architectural Bento Metrics Bar */}
-      <div className="border-t border-outside-border bg-outside-surface/50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 font-mono">
-            
-            <div className="space-y-1">
-              <div className="text-[10px] uppercase tracking-widest text-outside-accent font-bold">
-                01 // TEXTILE DENSITY
-              </div>
-              <div className="text-sm font-bold text-outside-ink">
-                <CountUp to={280} duration={1} /> GSM Heavyweight Terry
-              </div>
-              <div className="text-xs text-outside-inkSecondary">
-                100% Combed Organic Cotton
-              </div>
-            </div>
-
-            <div className="space-y-1">
-              <div className="text-[10px] uppercase tracking-widest text-outside-accent font-bold">
-                02 // HARD EDITION LIMIT
-              </div>
-              <div className="text-sm font-bold text-outside-ink">
-                <CountUp to={250} duration={1.2} /> Numbered Units
-              </div>
-              <div className="text-xs text-outside-inkSecondary">
-                Limited Stock · No Reprints
-              </div>
-            </div>
-
-            <div className="space-y-1">
-              <div className="text-[10px] uppercase tracking-widest text-outside-accent font-bold">
-                03 // FIT &amp; CUT
-              </div>
-              <div className="text-sm font-bold text-outside-ink">
-                Oversized Drop-Shoulder
-              </div>
-              <div className="text-xs text-outside-inkSecondary">
-                Structured Boxy Cut
-              </div>
-            </div>
-
-            <div className="space-y-1">
-              <div className="text-[10px] uppercase tracking-widest text-outside-accent font-bold">
-                04 // MADE IN INDIA
-              </div>
-              <div className="text-sm font-bold text-outside-ink">
-                Ahmedabad Studio, India
-              </div>
-              <div className="text-xs text-outside-inkSecondary">
-                Express Air Delivery Across India
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </div>
+      )}
     </section>
   );
 }

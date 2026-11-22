@@ -6,11 +6,28 @@ const JWT_SECRET = new TextEncoder().encode(
   process.env.AUTH_SECRET || 'outside_super_secure_secret_key_production_32chars_min'
 );
 
+// Stealth hidden admin route mounts
+const HIDDEN_ADMIN_PATHS = [
+  (process.env.ADMIN_BASE_PATH || '/sys-admin-gate').replace(/\/$/, ''),
+  '/sys-admin-gate',
+  '/portal-auth-9x2k',
+  '/outside-studio-ops',
+];
+
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
-  const adminBasePath = (process.env.ADMIN_BASE_PATH || '/outside-studio-ops').replace(/\/$/, '');
 
-  // 1. Permanent 308 Redirect Manager
+  // 0. Static assets and internal Next.js routes bypass
+  if (
+    pathname.startsWith('/_next') ||
+    pathname === '/_not-found' ||
+    pathname === '/not-found' ||
+    pathname.includes('.')
+  ) {
+    return NextResponse.next();
+  }
+
+  // 1. Permanent 308 Redirects
   if (pathname === '/drops') {
     return NextResponse.redirect(new URL('/', request.url), 308);
   }
@@ -18,89 +35,101 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL('/vault', request.url), 308);
   }
 
-  // 2. Strict API Security for Admin Endpoints
-  // Protect all /api/admin/* endpoints from unauthenticated public access
+  // 2. Strict API Security for Admin Endpoints (/api/admin/*)
   if (pathname.startsWith('/api/admin')) {
-    // Public authentication endpoints: login/logout/session check
+    // Public authentication endpoint for admin login
     if (pathname === '/api/admin/auth') {
       return NextResponse.next();
     }
 
     const token = request.cookies.get('outside_session')?.value;
     if (!token) {
-      return NextResponse.json(
-        { error: 'Unauthorized: Super Admin authentication required' },
-        { status: 401 }
-      );
+      // Return 404 Not Found to prevent route enumeration
+      return NextResponse.json({ error: 'Not found' }, { status: 404 });
     }
 
     try {
       const { payload } = await jwtVerify(token, JWT_SECRET, { algorithms: ['HS256'] });
       if (payload.role !== 'SUPER_ADMIN') {
-        return NextResponse.json(
-          { error: 'Forbidden: Super Admin access required' },
-          { status: 403 }
-        );
+        // Customers or unauthorized roles get 404 Not Found
+        return NextResponse.json({ error: 'Not found' }, { status: 404 });
       }
       return NextResponse.next();
     } catch {
-      return NextResponse.json(
-        { error: 'Unauthorized: Invalid or expired session' },
-        { status: 401 }
-      );
+      return NextResponse.json({ error: 'Not found' }, { status: 404 });
     }
   }
 
   // 3. Direct /admin route security:
-  // When accessed via /admin (standard admin URL):
-  // Securely redirect unauthenticated users to the login screen,
-  // or redirect authenticated admins to the configured base path
+  // Strictly block public access to /admin or /admin/*
+  // Rather than redirecting (which would leak the hidden admin URL), rewrite to /not-found (404)
   if (pathname === '/admin' || pathname.startsWith('/admin/')) {
-    if (pathname === '/admin/login') {
-      return NextResponse.redirect(new URL(`${adminBasePath}/login`, request.url));
-    }
-
-    const internalPath = pathname.slice('/admin'.length) || '';
+    // Only allow if authenticated super admin is directly on the internal rewrite
     const token = request.cookies.get('outside_session')?.value;
-
     if (!token) {
-      const loginUrl = new URL(`${adminBasePath}/login`, request.url);
-      loginUrl.searchParams.set('from', `${adminBasePath}${internalPath}`);
-      return NextResponse.redirect(loginUrl);
+      return NextResponse.rewrite(new URL('/not-found', request.url), { status: 404 });
     }
 
     try {
       const { payload } = await jwtVerify(token, JWT_SECRET, { algorithms: ['HS256'] });
       if (payload.role !== 'SUPER_ADMIN') {
-        const loginUrl = new URL(`${adminBasePath}/login`, request.url);
-        const redirectRes = NextResponse.redirect(loginUrl);
-        redirectRes.cookies.delete('outside_session');
-        return redirectRes;
+        return NextResponse.rewrite(new URL('/not-found', request.url), { status: 404 });
       }
-      // If configured base path is not /admin, redirect to the stealth mount
-      if (adminBasePath !== '/admin') {
-        return NextResponse.redirect(new URL(`${adminBasePath}${internalPath}`, request.url));
-      }
+      // Super admin can access
+      return NextResponse.next();
     } catch {
-      const loginUrl = new URL(`${adminBasePath}/login`, request.url);
-      const redirectRes = NextResponse.redirect(loginUrl);
-      redirectRes.cookies.delete('outside_session');
-      return redirectRes;
+      return NextResponse.rewrite(new URL('/not-found', request.url), { status: 404 });
     }
   }
 
-  // 4. Configured Admin Route Handler (e.g., /outside-studio-ops/*)
-  if (pathname === adminBasePath || pathname.startsWith(`${adminBasePath}/`)) {
-    const internalPath = pathname.slice(adminBasePath.length) || '/';
-    const targetPath = `/admin${internalPath === '/' ? '' : internalPath}`;
-    const rewriteUrl = new URL(targetPath, request.url);
+  // 4. Hidden Admin URL Route Gate (e.g. /sys-admin-gate, /portal-auth-9x2k)
+  const matchedHiddenPath = HIDDEN_ADMIN_PATHS.find(
+    (p) => pathname === p || pathname.startsWith(`${p}/`)
+  );
 
-    // Apply strict indexing protection headers
+  if (matchedHiddenPath) {
+    const internalPath = pathname.slice(matchedHiddenPath.length) || '/';
+    const isLoginPath =
+      pathname === `${matchedHiddenPath}/login` ||
+      internalPath === '/login' ||
+      internalPath === '/';
+
     const headers = new Headers(request.headers);
     headers.set('X-Robots-Tag', 'noindex, nofollow, noarchive, nosnippet');
 
-    // Allow public access to the admin login screen
-    if (pathname === `${adminBasePath}/login` || internalPath === '/login') {
+    // Check for super admin session token
+    const token = request.cookies.get('outside_session')?.value;
+    let isSuperAdmin = false;
+
+    if (token) {
+      try {
+        const { payload } = await jwtVerify(token, JWT_SECRET, { algorithms: ['HS256'] });
+        if (payload.role === 'SUPER_ADMIN') {
+          isSuperAdmin = true;
+        }
+      } catch {
+        isSuperAdmin = false;
+      }
+    }
+
+    // A. If user is authenticated as SUPER_ADMIN:
+    if (isSuperAdmin) {
+      if (isLoginPath && internalPath === '/login') {
+        // Already logged in, redirect to admin dashboard
+        return NextResponse.redirect(new URL(matchedHiddenPath, request.url));
+      }
+      // Rewrite to internal /admin route
+      const targetPath = `/admin${internalPath === '/' ? '' : internalPath}`;
+      const res = NextResponse.rewrite(new URL(targetPath, request.url), {
+        request: { headers },
+      });
+      res.headers.set('X-Robots-Tag', 'noindex, nofollow, noarchive, nosnippet');
+      return res;
+    }
+
+    // B. If NOT authenticated:
+    // Allow entry ONLY on the secret login gate
+    if (isLoginPath) {
       const res = NextResponse.rewrite(new URL('/admin/login', request.url), {
         request: { headers },
       });
@@ -108,37 +137,9 @@ export async function middleware(request: NextRequest) {
       return res;
     }
 
-    // Check super admin session cookie
-    const token = request.cookies.get('outside_session')?.value;
-    if (!token) {
-      const loginUrl = new URL(`${adminBasePath}/login`, request.url);
-      loginUrl.searchParams.set('from', pathname);
-      return NextResponse.redirect(loginUrl);
-    }
-
-    try {
-      const { payload } = await jwtVerify(token, JWT_SECRET, { algorithms: ['HS256'] });
-
-      // Super Admin single-role enforcement
-      if (payload.role !== 'SUPER_ADMIN') {
-        const loginUrl = new URL(`${adminBasePath}/login`, request.url);
-        const redirectRes = NextResponse.redirect(loginUrl);
-        redirectRes.cookies.delete('outside_session');
-        return redirectRes;
-      }
-
-      const res = NextResponse.rewrite(rewriteUrl, {
-        request: { headers },
-      });
-      res.headers.set('X-Robots-Tag', 'noindex, nofollow, noarchive, nosnippet');
-      return res;
-    } catch {
-      const loginUrl = new URL(`${adminBasePath}/login`, request.url);
-      loginUrl.searchParams.set('from', pathname);
-      const redirectRes = NextResponse.redirect(loginUrl);
-      redirectRes.cookies.delete('outside_session');
-      return redirectRes;
-    }
+    // Unauthorized attempt to access internal admin routes (e.g. /sys-admin-gate/orders):
+    // Block standard customer accounts and unauthenticated users, redirecting to a standard 404 page!
+    return NextResponse.rewrite(new URL('/not-found', request.url), { status: 404 });
   }
 
   return NextResponse.next();
@@ -150,10 +151,9 @@ export const config = {
      * Match all paths except:
      * - _next/static (static files)
      * - _next/image (image optimization files)
-     * - favicon.ico (favicon)
-     * - images/ (public asset directory)
+     * - favicon.ico, images, and static assets (.png, .jpg, .svg, etc.)
      * - api/og (dynamic OG generator)
      */
-    '/((?!_next/static|_next/image|favicon.ico|images/|api/og).*)',
+    '/((?!_next/static|_next/image|favicon.ico|images/|api/og|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico|webmanifest)$).*)',
   ],
 };

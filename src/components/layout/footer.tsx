@@ -75,12 +75,12 @@ export function GlobalFooter() {
                   placeholder="ENTER YOUR WORK OR PERSONAL EMAIL"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="flex-1 bg-outside-elevated border border-outside-border px-4 py-3.5 text-xs font-mono text-outside-text placeholder-outside-muted focus:border-outside-crimson focus:outline-none shadow-sm rounded-none"
+                  className="flex-1 bg-outside-elevated border border-outside-border px-4 py-3.5 text-xs font-mono text-outside-ink placeholder-outside-inkSecondary focus:border-outside-accent focus:ring-1 focus:ring-outside-accent focus:outline-none shadow-sm rounded-none min-h-[44px]"
                 />
                 <button
                   type="submit"
                   disabled={loading}
-                  className="px-6 py-3.5 bg-outside-crimson hover:bg-outside-crimsonHover text-white text-xs font-mono uppercase tracking-widest font-bold flex items-center justify-center gap-2 transition-all disabled:opacity-50 shadow-sm cursor-pointer"
+                  className="px-6 py-3.5 bg-outside-accent hover:bg-outside-accent/90 text-white text-xs font-mono uppercase tracking-widest font-bold flex items-center justify-center gap-2 transition-all disabled:opacity-50 shadow-sm cursor-pointer min-h-[44px]"
                 >
                   <span>{loading ? 'JOINING...' : 'JOIN WAITLIST'}</span>
                   <ArrowRight className="w-3.5 h-3.5" />

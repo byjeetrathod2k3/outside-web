@@ -170,7 +170,7 @@ export default async function CmsPage({
 
         <div className="bg-white border border-outside-border p-8 sm:p-12 shadow-luxury">
           <div
-            className="prose prose-stone max-w-none text-outside-textSecondary text-sm sm:text-base leading-relaxed font-sans space-y-6"
+            className="prose prose-stone max-w-none text-outside-inkSecondary text-sm sm:text-base leading-relaxed font-sans space-y-6"
             dangerouslySetInnerHTML={{ __html: page.contentHtml }}
           />
         </div>

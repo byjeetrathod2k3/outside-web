@@ -19,6 +19,7 @@ import { MarqueeTicker } from '@/components/layout/marquee-ticker';
 import { CollectorReviews } from '@/components/commerce/collector-reviews';
 import { MultiDropShowcase } from '@/components/commerce/multi-drop-showcase';
 import { EditorialHero } from '@/components/home/editorial-hero';
+import { VipEarlyAccess } from '@/components/commerce/vip-early-access';
 import SpotlightCard from '@/components/reactbits/SpotlightCard/SpotlightCard';
 import CountUp from '@/components/reactbits/CountUp/CountUp';
 import DecryptedText from '@/components/reactbits/DecryptedText/DecryptedText';
@@ -78,36 +79,33 @@ export default async function HomePage() {
       case 'hero':
         const remainingPieces =
           activeDrop.variants?.reduce((acc: number, v: any) => acc + (v.currentStock || 0), 0) || 75;
-        const hasExplicitReviewsSection = layout.sections?.some((s: any) => s.id === 'reviews');
 
         return (
-          <React.Fragment key={sectionKey}>
-            <EditorialHero
-              dropTitle={activeDrop.title}
-              dropNumber={activeDrop.dropNumber}
-              pricePaise={activeDrop.pricePaise}
-              totalPieces={activeDrop.totalEditionQty}
-              remainingPieces={remainingPieces}
-              allDrops={store.drops}
-            />
-            <section id="active-drop" className={`border-b border-outside-border bg-subtle-grid ${visibilityClass}`}>
-              <MarqueeTicker />
-              <ActiveDropView drop={activeDrop} featureFlags={flags} />
-            </section>
-            {!hasExplicitReviewsSection && <CollectorReviews />}
-          </React.Fragment>
+          <EditorialHero
+            key={sectionKey}
+            dropTitle={activeDrop.title}
+            dropNumber={activeDrop.dropNumber}
+            pricePaise={activeDrop.pricePaise}
+            totalPieces={activeDrop.totalEditionQty}
+            remainingPieces={remainingPieces}
+            allDrops={store.drops}
+          />
         );
 
       case 'drops':
       case 'catalog':
+        const hasExplicitReviewsSection = layout.sections?.some((s: any) => s.id === 'reviews');
         return (
-          <div key={sectionKey} id="all-drops">
-            <MultiDropShowcase
-              drops={store.drops}
-              activeDropId={activeDrop.id}
-              className={visibilityClass}
-            />
-          </div>
+          <React.Fragment key={sectionKey}>
+            <div id="all-drops" className="scroll-mt-28 sm:scroll-mt-32">
+              <MultiDropShowcase
+                drops={store.drops}
+                activeDropId={activeDrop.id}
+                className={visibilityClass}
+              />
+            </div>
+            {!hasExplicitReviewsSection && <CollectorReviews />}
+          </React.Fragment>
         );
 
       case 'reviews':
@@ -134,7 +132,7 @@ export default async function HomePage() {
                   <div className="space-y-4">
                     <span className="text-xs font-mono text-outside-accent font-bold">01 // MATERIAL ENGINEERING</span>
                     <h3 className="text-xl font-bold font-display text-outside-ink uppercase">
-                      <CountUp to={280} duration={1} /> GSM French Terry Cotton
+                      280 GSM French Terry Cotton
                     </h3>
                     <p className="text-xs text-outside-inkSecondary leading-relaxed font-sans">
                       Custom-milled in India using 100% long-staple combed organic cotton. Double-bio-washed to eliminate shrinkage while preserving soft, durable structure.
@@ -154,7 +152,7 @@ export default async function HomePage() {
                   <div className="space-y-4">
                     <span className="text-xs font-mono text-outside-accent font-bold">02 // PERMANENT RETIREMENT</span>
                     <h3 className="text-xl font-bold font-display text-outside-ink uppercase">
-                      The <CountUp to={250} duration={1.2} />-Piece Hard Limit
+                      The 250-Piece Hard Limit
                     </h3>
                     <p className="text-xs text-outside-inkSecondary leading-relaxed font-sans">
                       Every garment carries a serialized tag on the inner hem. Once unit 250 is claimed, the digital patterns are retired permanently into The Vault.
@@ -590,10 +588,10 @@ export default async function HomePage() {
 
       case 'vip':
         return (
-          <section key="vip" className={`relative overflow-hidden py-24 bg-outside-ink text-white text-center ${visibilityClass}`}>
+          <section key={sectionKey} className={`relative overflow-hidden py-24 sm:py-28 bg-[#111110] text-[#FCFBF8] text-center ${visibilityClass}`}>
             {/* Silk Wave Textile Animation Background */}
-            <div className="absolute inset-0 pointer-events-none opacity-20">
-              <Waves lineColor="#ffffff" mouseInteraction={false} speed={0.4} />
+            <div className="absolute inset-0 pointer-events-none opacity-25">
+              <Waves lineColor="#ffffff" mouseInteraction={true} speed={0.4} />
             </div>
 
             <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
@@ -617,14 +615,14 @@ export default async function HomePage() {
                 />
               </div>
 
-              <p className="text-sm max-w-xl mx-auto leading-relaxed text-white/80 font-sans">
+              <p className="text-sm max-w-xl mx-auto leading-relaxed text-[#DCD7CC] font-sans">
                 DROP 001 is currently live and allocation is claimed in real time. Once unit 250 is claimed, no further pieces will ever be created.
               </p>
 
               <div className="pt-4 flex justify-center">
                 <a
                   href="#active-drop"
-                  className="inline-flex items-center gap-3 px-8 py-4 bg-outside-accent hover:bg-outside-accent/90 text-white font-mono text-xs uppercase tracking-[0.25em] font-bold transition-colors shadow-editorial cursor-pointer rounded"
+                  className="inline-flex items-center gap-3 px-8 py-4 bg-[#B82328] hover:bg-[#9E1B20] text-white font-mono text-xs uppercase tracking-[0.25em] font-bold transition-all shadow-editorial cursor-pointer rounded hover:scale-102 active:scale-98"
                 >
                   <span>CLAIM YOUR PIECE TODAY</span>
                   <ArrowRight className="w-4 h-4" />

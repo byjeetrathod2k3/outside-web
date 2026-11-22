@@ -195,7 +195,7 @@ export default function CheckoutPage() {
                     placeholder="e.g. Diya Sharma"
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="w-full bg-outside-canvas border border-outside-border px-3.5 py-2.5 text-xs font-mono text-outside-ink focus:border-outside-accent focus:outline-none"
+                    className="w-full bg-outside-canvas border border-outside-border px-3.5 py-2.5 text-xs font-mono text-outside-ink focus:border-outside-accent focus:ring-1 focus:ring-outside-accent focus:outline-none min-h-[44px]"
                   />
                 </div>
                 <div>
@@ -208,7 +208,7 @@ export default function CheckoutPage() {
                     placeholder="diya@example.com"
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    className="w-full bg-outside-canvas border border-outside-border px-3.5 py-2.5 text-xs font-mono text-outside-ink focus:border-outside-accent focus:outline-none"
+                    className="w-full bg-outside-canvas border border-outside-border px-3.5 py-2.5 text-xs font-mono text-outside-ink focus:border-outside-accent focus:ring-1 focus:ring-outside-accent focus:outline-none min-h-[44px]"
                   />
                 </div>
               </div>
@@ -222,7 +222,7 @@ export default function CheckoutPage() {
                   placeholder="+91 98765 43210"
                   value={formData.phone}
                   onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                  className="w-full bg-outside-canvas border border-outside-border px-3.5 py-2.5 text-xs font-mono text-outside-ink focus:border-outside-accent focus:outline-none"
+                  className="w-full bg-outside-canvas border border-outside-border px-3.5 py-2.5 text-xs font-mono text-outside-ink focus:border-outside-accent focus:ring-1 focus:ring-outside-accent focus:outline-none min-h-[44px]"
                 />
               </div>
             </div>
@@ -249,7 +249,7 @@ export default function CheckoutPage() {
                   placeholder="Apartment, Studio, Suite or House No."
                   value={formData.address}
                   onChange={(e) => setFormData({ ...formData, address: e.target.value })}
-                  className="w-full bg-outside-canvas border border-outside-border px-3.5 py-2.5 text-xs font-mono text-outside-ink focus:border-outside-accent focus:outline-none"
+                  className="w-full bg-outside-canvas border border-outside-border px-3.5 py-2.5 text-xs font-mono text-outside-ink focus:border-outside-accent focus:ring-1 focus:ring-outside-accent focus:outline-none min-h-[44px]"
                 />
               </div>
 
@@ -265,7 +265,7 @@ export default function CheckoutPage() {
                     placeholder="e.g. 380015"
                     value={formData.pincode}
                     onChange={(e) => handlePincodeChange(e.target.value)}
-                    className="w-full bg-outside-canvas border border-outside-border px-3.5 py-2.5 text-xs font-mono text-outside-ink focus:border-outside-accent focus:outline-none"
+                    className="w-full bg-outside-canvas border border-outside-border px-3.5 py-2.5 text-xs font-mono text-outside-ink focus:border-outside-accent focus:ring-1 focus:ring-outside-accent focus:outline-none min-h-[44px]"
                   />
                 </div>
                 <div>
@@ -278,7 +278,7 @@ export default function CheckoutPage() {
                     placeholder="e.g. Ahmedabad / Mumbai"
                     value={formData.city}
                     onChange={(e) => setFormData({ ...formData, city: e.target.value })}
-                    className="w-full bg-outside-canvas border border-outside-border px-3.5 py-2.5 text-xs font-mono text-outside-ink focus:border-outside-accent focus:outline-none"
+                    className="w-full bg-outside-canvas border border-outside-border px-3.5 py-2.5 text-xs font-mono text-outside-ink focus:border-outside-accent focus:ring-1 focus:ring-outside-accent focus:outline-none min-h-[44px]"
                   />
                 </div>
                 <div>
@@ -288,7 +288,7 @@ export default function CheckoutPage() {
                   <select
                     value={buyerStateCode}
                     onChange={(e) => setBuyerStateCode(e.target.value)}
-                    className="w-full bg-outside-canvas border border-outside-border px-3.5 py-2.5 text-xs font-mono text-outside-ink focus:border-outside-accent focus:outline-none"
+                    className="w-full bg-outside-canvas border border-outside-border px-3.5 py-2.5 text-xs font-mono text-outside-ink focus:border-outside-accent focus:ring-1 focus:ring-outside-accent focus:outline-none min-h-[44px] cursor-pointer"
                   >
                     {INDIAN_STATES.map((s) => (
                       <option key={s.code} value={s.code} className="bg-outside-elevated text-outside-ink">

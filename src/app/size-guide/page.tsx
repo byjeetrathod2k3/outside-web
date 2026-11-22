@@ -173,7 +173,7 @@ export default function SizeGuidePage() {
                       <td className="p-4">{row.length}</td>
                       <td className="p-4">{row.shoulder}</td>
                       <td className="p-4">{row.sleeve}</td>
-                      <td className="p-4 text-outside-textSecondary font-sans">{row.recommendedFor}</td>
+                      <td className="p-4 text-outside-inkSecondary font-sans">{row.recommendedFor}</td>
                     </tr>
                   );
                 })}

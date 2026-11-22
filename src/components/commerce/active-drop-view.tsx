@@ -19,6 +19,7 @@ import {
   CreditCard,
   MapPin,
   Search,
+  Heart,
 } from 'lucide-react';
 import { useCart } from '@/context/cart-context';
 import { Badge } from '@/components/ui/badge';
@@ -87,6 +88,8 @@ export function ActiveDropView({ drop, featureFlags }: { drop: DropData; feature
     buyerPincode,
     setBuyerPincode,
     setBuyerStateCode,
+    toggleWishlist,
+    isInWishlist,
   } = useCart();
 
   // Dynamic Feature Flag Resolvers
@@ -267,9 +270,9 @@ export function ActiveDropView({ drop, featureFlags }: { drop: DropData; feature
       {/* ========================================== */}
       {enableStickyBar && (
         <>
-          {/* Top Sticky Bar (Desktop) */}
+          {/* Top Sticky Bar (Desktop - Docks flush below header) */}
           <div
-            className={`hidden md:block fixed top-20 left-0 right-0 z-30 bg-outside-elevated/98 backdrop-blur-md border-b border-outside-border px-4 py-2.5 transition-all duration-300 transform ${
+            className={`hidden md:block fixed top-14 sm:top-16 left-0 right-0 z-30 bg-outside-elevated/98 backdrop-blur-md border-b border-outside-border px-4 py-2.5 transition-all duration-300 transform ${
               showStickyBar ? 'translate-y-0 opacity-100 shadow-editorial' : '-translate-y-full opacity-0 pointer-events-none'
             }`}
           >
@@ -292,7 +295,7 @@ export function ActiveDropView({ drop, featureFlags }: { drop: DropData; feature
                 <select
                   value={selectedSize}
                   onChange={(e) => setSelectedSize(e.target.value)}
-                  className="bg-outside-elevated border border-outside-border px-2.5 py-1.5 text-xs text-outside-ink font-mono focus:border-outside-accent focus:outline-none cursor-pointer"
+                  className="bg-outside-elevated border border-outside-border px-2.5 py-1.5 text-xs text-outside-ink font-mono focus:border-outside-accent focus:outline-none cursor-pointer min-h-[36px]"
                 >
                   {availableVariants.map((v) => (
                     <option key={v.size} value={v.size} disabled={v.currentStock <= 0}>
@@ -324,7 +327,7 @@ export function ActiveDropView({ drop, featureFlags }: { drop: DropData; feature
             </div>
           </div>
 
-          {/* Bottom Floating Bar (Mobile on Scroll - Louis Philippe / Nykaa Standard) */}
+          {/* Bottom Floating Bar (Mobile on Scroll - Louis Philippe / Nykaa Standard, 44px touch targets) */}
           <div
             className={`md:hidden fixed bottom-0 left-0 right-0 z-40 bg-outside-elevated/95 backdrop-blur-md border-t border-outside-border p-3 transition-all duration-300 transform ${
               showStickyBar ? 'translate-y-0 opacity-100 shadow-2xl' : 'translate-y-full opacity-0 pointer-events-none'
@@ -349,14 +352,14 @@ export function ActiveDropView({ drop, featureFlags }: { drop: DropData; feature
                 <button
                   onClick={() => handleAddToCart(true)}
                   disabled={isOutOfStock}
-                  className="px-3 py-2 border border-outside-ink text-outside-ink text-[11px] font-mono font-bold uppercase tracking-wider rounded"
+                  className="min-h-[44px] px-4 py-2 border border-outside-ink text-outside-ink text-[11px] font-mono font-bold uppercase tracking-wider rounded flex items-center justify-center cursor-pointer hover:bg-outside-surface"
                 >
                   Bag
                 </button>
                 <button
                   onClick={handleBuyNow}
                   disabled={isOutOfStock}
-                  className="px-4 py-2 bg-outside-accent text-white text-[11px] font-mono font-bold uppercase tracking-wider rounded shadow"
+                  className="min-h-[44px] px-5 py-2 bg-outside-accent text-white text-[11px] font-mono font-bold uppercase tracking-wider rounded shadow flex items-center justify-center cursor-pointer hover:bg-outside-accent/90"
                 >
                   Buy Now
                 </button>
@@ -369,7 +372,7 @@ export function ActiveDropView({ drop, featureFlags }: { drop: DropData; feature
       {/* ========================================== */}
       {/* 2. MAIN ACTIVE DROP SHOWCASE & LOOKBOOK */}
       {/* ========================================== */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
         
         {/* Adidas Confirmed-Style Drop Scarcity & Allocation Velocity Meter */}
         <div className="mb-8 p-5 bg-outside-elevated border border-outside-border shadow-editorial space-y-3 font-mono">
@@ -407,8 +410,8 @@ export function ActiveDropView({ drop, featureFlags }: { drop: DropData; feature
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
           
-          {/* Left: Hyper-Tactile Interactive Garment Stage with Hotspots & Macro Dot Zoom */}
-          <div className="lg:col-span-7">
+          {/* Left: Hyper-Tactile Interactive Garment Stage with Hotspots (Sticky so image stays pinned) */}
+          <div className="lg:col-span-7 lg:sticky lg:top-24 self-start">
             <InteractiveGarmentStage
               primaryImageUrl={drop.primaryImageUrl}
               galleryUrls={drop.galleryUrls}
@@ -435,9 +438,23 @@ export function ActiveDropView({ drop, featureFlags }: { drop: DropData; feature
                 </div>
               </div>
 
-              <h1 className="text-3xl sm:text-4xl font-display font-black tracking-tighter text-outside-ink uppercase">
-                {drop.title}
-              </h1>
+              <div className="flex items-start justify-between gap-4">
+                <h1 className="text-3xl sm:text-4xl font-display font-black tracking-tighter text-outside-ink uppercase flex-1">
+                  {drop.title}
+                </h1>
+                <button
+                  onClick={() => toggleWishlist(drop.id)}
+                  aria-label="Save to Wishlist"
+                  className={`p-2.5 rounded-full border transition-all cursor-pointer shrink-0 ${
+                    isInWishlist(drop.id)
+                      ? 'bg-outside-accent text-white border-outside-accent shadow-sm'
+                      : 'bg-outside-elevated text-outside-ink border-outside-border hover:bg-outside-surface'
+                  }`}
+                  title={isInWishlist(drop.id) ? 'Saved in Archive' : 'Save Piece'}
+                >
+                  <Heart className={`w-5 h-5 ${isInWishlist(drop.id) ? 'fill-current' : ''}`} />
+                </button>
+              </div>
               <p className="text-sm font-sans text-outside-inkSecondary leading-relaxed">
                 {drop.subtitle}
               </p>
@@ -697,76 +714,107 @@ export function ActiveDropView({ drop, featureFlags }: { drop: DropData; feature
                   </div>
                 )}
               </div>
+            </div>
+          </div>
+        </div>
 
-              {/* Collector Unboxing & Authenticity Guarantee */}
-              <div className="p-4 bg-outside-surface border border-outside-border space-y-2.5 font-mono text-xs">
-                <div className="flex items-center justify-between">
-                  <span className="font-bold text-outside-ink uppercase flex items-center gap-1.5">
-                    <Sparkles className="w-3.5 h-3.5 text-outside-accent" />
-                    <span>WHAT ARRIVES IN YOUR COLLECTOR BOX</span>
-                  </span>
-                  <span className="text-[10px] text-outside-moss font-bold uppercase">100% SERIALIZED</span>
-                </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[11px] text-outside-inkSecondary font-sans">
-                  <div className="p-2 bg-outside-elevated border border-outside-border flex items-start gap-1.5">
-                    <Check className="w-3.5 h-3.5 text-outside-accent shrink-0 mt-0.5" />
-                    <span>Hand-signed Certificate of Authenticity</span>
-                  </div>
-                  <div className="p-2 bg-outside-elevated border border-outside-border flex items-start gap-1.5">
-                    <Check className="w-3.5 h-3.5 text-outside-accent shrink-0 mt-0.5" />
-                    <span>Serialized inner hem tag (#OUT-001-XXX)</span>
-                  </div>
-                  <div className="p-2 bg-outside-elevated border border-outside-border flex items-start gap-1.5">
-                    <Check className="w-3.5 h-3.5 text-outside-accent shrink-0 mt-0.5" />
-                    <span>Rigid Sandstone Archival Collector Box</span>
-                  </div>
-                  <div className="p-2 bg-outside-elevated border border-outside-border flex items-start gap-1.5">
-                    <Check className="w-3.5 h-3.5 text-outside-accent shrink-0 mt-0.5" />
-                    <span>Acid-free tissue wrap & Organic Care Guide</span>
-                  </div>
-                </div>
+        {/* ======================================================== */}
+        {/* Full-Width Bento Specifications & Value Props (Zero empty space) */}
+        {/* ======================================================== */}
+        <div className="mt-12 pt-8 border-t border-outside-border grid grid-cols-1 md:grid-cols-2 gap-6 font-mono text-xs">
+          {/* Card 1: What Arrives in Your Collector Box */}
+          <div className="p-5 bg-outside-surface border border-outside-border space-y-3 rounded shadow-xs">
+            <div className="flex items-center justify-between border-b border-outside-border/70 pb-2">
+              <span className="font-bold text-outside-ink uppercase flex items-center gap-2">
+                <Sparkles className="w-4 h-4 text-outside-accent" />
+                <span>WHAT ARRIVES IN YOUR COLLECTOR BOX</span>
+              </span>
+              <span className="text-[10px] text-outside-moss font-bold uppercase bg-outside-moss/10 px-2 py-0.5 rounded">
+                100% SERIALIZED
+              </span>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[11px] text-outside-inkSecondary font-sans">
+              <div className="p-2.5 bg-outside-elevated border border-outside-border flex items-start gap-2 rounded">
+                <Check className="w-4 h-4 text-outside-accent shrink-0 mt-0.5" />
+                <span>Hand-signed Certificate of Authenticity</span>
               </div>
-
-              {/* Verified Payment Trust Banner */}
-              <div className="p-3.5 bg-outside-elevated border border-outside-border flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 text-[11px] font-mono">
-                <span className="text-outside-ink font-bold flex items-center gap-1.5">
-                  <ShieldCheck className="w-4 h-4 text-outside-moss shrink-0" />
-                  <span>256-BIT ENCRYPTED RAZORPAY CHECKOUT</span>
-                </span>
-                <div className="flex items-center gap-1.5 text-[10px] text-outside-inkSecondary flex-wrap">
-                  <span className="px-1.5 py-0.5 bg-outside-surface border border-outside-border font-bold">UPI / QR</span>
-                  <span className="px-1.5 py-0.5 bg-outside-surface border border-outside-border font-bold">CARDS</span>
-                  <span className="px-1.5 py-0.5 bg-outside-surface border border-outside-border font-bold">NETBANKING</span>
-                  <span className="px-1.5 py-0.5 bg-outside-surface border border-outside-border font-bold text-outside-moss">COD</span>
-                  <span className="px-1.5 py-0.5 bg-outside-surface border border-outside-border font-bold">0% EMI</span>
-                </div>
+              <div className="p-2.5 bg-outside-elevated border border-outside-border flex items-start gap-2 rounded">
+                <Check className="w-4 h-4 text-outside-accent shrink-0 mt-0.5" />
+                <span>Serialized inner hem tag (#OUT-001-XXX)</span>
               </div>
-
-              {/* Viral Social & WhatsApp Share Engine */}
-              <div className="pt-2">
-                <ViralShare title={drop.title} dropNumber={drop.dropNumber} />
+              <div className="p-2.5 bg-outside-elevated border border-outside-border flex items-start gap-2 rounded">
+                <Check className="w-4 h-4 text-outside-accent shrink-0 mt-0.5" />
+                <span>Rigid Sandstone Archival Collector Box</span>
+              </div>
+              <div className="p-2.5 bg-outside-elevated border border-outside-border flex items-start gap-2 rounded">
+                <Check className="w-4 h-4 text-outside-accent shrink-0 mt-0.5" />
+                <span>Acid-free tissue wrap & Organic Care Guide</span>
               </div>
             </div>
+          </div>
 
-            {/* Garment Technical Specs Card */}
-            <div className="p-5 bg-outside-elevated border border-outside-border space-y-2.5 font-mono text-xs shadow-editorial">
-              <div className="flex items-center gap-2 text-outside-ink font-bold uppercase tracking-wider">
+          {/* Card 2: Fabric & Care Specifications */}
+          <div className="p-5 bg-outside-surface border border-outside-border space-y-3 rounded shadow-xs">
+            <div className="flex items-center justify-between border-b border-outside-border/70 pb-2">
+              <span className="font-bold text-outside-ink uppercase flex items-center gap-2">
                 <Layers className="w-4 h-4 text-outside-accent" />
-                <span>FABRIC & CARE SPECIFICATIONS</span>
-              </div>
-              <p className="text-outside-inkSecondary leading-relaxed font-sans text-xs">
-                {drop.fabricSpecs}
-              </p>
-              {/* Statutory Consumer Protection (E-Commerce) Rules 2020 Compliance */}
-              <div className="pt-2.5 border-t border-outside-border/70 text-[10px] text-outside-inkSecondary space-y-1">
-                <div className="flex justify-between">
-                  <span>Country of Origin: <strong className="text-outside-ink font-semibold">India</strong></span>
-                  <span>HSN: <strong className="text-outside-ink font-semibold">61091000</strong></span>
-                </div>
-                <p>Mfr: <strong className="text-outside-ink font-semibold">OUTSIDE APPAREL STUDIO PVT LTD</strong>, Ahmedabad, Gujarat</p>
-                <p>Consumer Grievances: <strong className="text-outside-ink font-semibold">grievance@outside.in</strong> · +91 79 4000 8920</p>
-              </div>
+                <span>FABRIC &amp; CARE SPECIFICATIONS</span>
+              </span>
+              <span className="text-[10px] text-outside-ink font-bold uppercase bg-outside-elevated px-2 py-0.5 border border-outside-border">
+                280 GSM
+              </span>
             </div>
+            <p className="text-[11px] text-outside-inkSecondary font-sans leading-relaxed">
+              {drop.fabricSpecs || '280 GSM 100% Combed Organic Cotton · French Terry Weave · Pre-Shrunk & Double Bio-Washed · Hand-Finished Floral Embroidery · Lycra-Ribbed Collar · Made in India'}
+            </p>
+            <div className="pt-2 border-t border-outside-border/60 text-[10px] text-outside-inkSecondary font-mono space-y-0.5">
+              <div className="flex justify-between">
+                <span>Country of Origin: <strong className="text-outside-ink font-semibold">India</strong></span>
+                <span>HSN: <strong className="text-outside-ink font-semibold">61091000</strong></span>
+              </div>
+              <div>Mfr: <strong className="text-outside-ink font-semibold">OUTSIDE APPAREL STUDIO PVT LTD</strong>, Ahmedabad, Gujarat</div>
+              <div>Grievance: <strong className="text-outside-ink font-semibold">grievance@outside.in</strong> · +91 79 4000 8920</div>
+            </div>
+          </div>
+
+          {/* Card 3: 256-Bit Encrypted Razorpay Checkout */}
+          <div className="p-5 bg-outside-elevated border border-outside-border space-y-3 rounded shadow-xs">
+            <div className="flex items-center justify-between border-b border-outside-border/70 pb-2">
+              <span className="font-bold text-outside-ink uppercase flex items-center gap-2">
+                <ShieldCheck className="w-4 h-4 text-outside-moss" />
+                <span>256-BIT ENCRYPTED CHECKOUT</span>
+              </span>
+              <span className="text-[10px] text-outside-moss font-bold uppercase bg-outside-moss/10 px-2 py-0.5 rounded">
+                SECURE GATEWAY
+              </span>
+            </div>
+            <p className="text-[11px] text-outside-inkSecondary font-sans leading-relaxed">
+              All transactions processed via Razorpay 256-bit bank-grade encryption. Instant refunds, full GST tax invoicing, and verified fraud-detection shields.
+            </p>
+            <div className="flex flex-wrap gap-2 pt-1 font-mono text-[10px]">
+              <span className="px-2 py-1 bg-outside-surface border border-outside-border font-bold">UPI / QR</span>
+              <span className="px-2 py-1 bg-outside-surface border border-outside-border font-bold">CARDS</span>
+              <span className="px-2 py-1 bg-outside-surface border border-outside-border font-bold">NETBANKING</span>
+              <span className="px-2 py-1 bg-outside-surface border border-outside-border font-bold text-outside-moss">COD</span>
+              <span className="px-2 py-1 bg-outside-moss/10 text-outside-moss border border-outside-moss/20 font-bold">0% EMI</span>
+            </div>
+          </div>
+
+          {/* Card 4: Viral Share & Community */}
+          <div className="p-5 bg-outside-elevated border border-outside-border space-y-3 rounded shadow-xs flex flex-col justify-between">
+            <div className="flex items-center justify-between border-b border-outside-border/70 pb-2">
+              <span className="font-bold text-outside-ink uppercase flex items-center gap-2">
+                <Sparkles className="w-4 h-4 text-outside-accent" />
+                <span>SHARE DROP WITH COLLECTORS</span>
+              </span>
+              <span className="text-[10px] text-outside-accent font-bold uppercase">
+                250 UNITS ONLY
+              </span>
+            </div>
+            <p className="text-[11px] text-outside-inkSecondary font-sans leading-relaxed">
+              Invite a fellow collector or share this numbered garment directly on WhatsApp or social networks before the remaining pieces are claimed.
+            </p>
+            <ViralShare title={drop.title} dropNumber={drop.dropNumber} />
           </div>
         </div>
 

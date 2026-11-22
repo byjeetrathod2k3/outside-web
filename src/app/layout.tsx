@@ -1,14 +1,17 @@
 import type { Metadata, Viewport } from 'next';
 import './globals.css';
 import { CartProvider } from '@/context/cart-context';
+import { VipAuthProvider } from '@/context/vip-auth-context';
+import { VipAuthModal } from '@/components/auth/vip-auth-modal';
 import { GlobalHeader } from '@/components/layout/header';
 import { GlobalFooter } from '@/components/layout/footer';
 import { CartDrawer } from '@/components/commerce/cart-drawer';
 import { CookieConsent } from '@/components/layout/cookie-consent';
 import { WhatsAppConcierge } from '@/components/layout/whatsapp-concierge';
 import { StorefrontWrapper } from '@/components/layout/storefront-wrapper';
+import { WishlistDrawer } from '@/components/commerce/wishlist-drawer';
 import { SpeedInsights } from '@vercel/speed-insights/next';
-import { getThemeConfig, getFeatureFlags } from '@/lib/db';
+import { getThemeConfig, getFeatureFlags, getLocalStore } from '@/lib/db';
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || 'https://www.outside.in'),
@@ -101,6 +104,7 @@ export default function RootLayout({
   // Server-Side Dynamic Theme & Flag Resolution (Zero-FOUC)
   const theme = getThemeConfig();
   const flags = getFeatureFlags();
+  const store = getLocalStore();
 
   const maintenanceFlag = flags.find((f: any) => f.key === 'enable_maintenance_mode');
   const isMaintenance = maintenanceFlag?.isEnabled || false;
@@ -170,14 +174,18 @@ export default function RootLayout({
       </head>
       <body className="min-h-screen bg-outside-canvas text-outside-ink flex flex-col antialiased selection:bg-outside-accent selection:text-white">
         <StorefrontWrapper maintenanceMode={isMaintenance} maintenanceConfig={maintenanceConfig}>
-          <CartProvider>
-            <GlobalHeader initialTheme={theme} initialFlags={flags} />
-            <main className="flex-1">{children}</main>
-            <CartDrawer />
-            <GlobalFooter />
-            <WhatsAppConcierge />
-            {cookieConsent && <CookieConsent />}
-          </CartProvider>
+          <VipAuthProvider>
+            <CartProvider>
+              <GlobalHeader initialTheme={theme} initialFlags={flags} />
+              <main className="flex-1">{children}</main>
+              <CartDrawer />
+              <WishlistDrawer allDrops={store.drops} />
+              <VipAuthModal />
+              <GlobalFooter />
+              <WhatsAppConcierge />
+              {cookieConsent && <CookieConsent />}
+            </CartProvider>
+          </VipAuthProvider>
         </StorefrontWrapper>
         <SpeedInsights />
       </body>

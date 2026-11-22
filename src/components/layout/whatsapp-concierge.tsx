@@ -1,8 +1,8 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
-import { MessageCircle, X, Sparkles, ArrowUpRight } from 'lucide-react';
+import { MessageCircle } from 'lucide-react';
 
 const WHATSAPP_NUMBER = '919876543210';
 const DEFAULT_MESSAGE =
@@ -10,14 +10,28 @@ const DEFAULT_MESSAGE =
 
 export function WhatsAppConcierge() {
   const pathname = usePathname();
-  const [isTooltipOpen, setIsTooltipOpen] = useState(false);
+  const [scrolledPastHero, setScrolledPastHero] = useState(false);
   const adminBasePath = process.env.NEXT_PUBLIC_ADMIN_BASE_PATH || '/outside-studio-ops';
 
-  // Do not render on admin or checkout routes to ensure distraction-free flow
+  useEffect(() => {
+    const handleScroll = () => {
+      // FIX 5: Hero section is 580px - 640px high. Hide chat widget while user is in the hero fold
+      // to eliminate any overlap with right-edge macro detail cards or hero artwork.
+      const threshold = pathname === '/' ? 520 : 100;
+      setScrolledPastHero(window.scrollY > threshold);
+    };
+
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [pathname]);
+
+  // Do not render on admin, checkout, or while inside the hero fold
   if (
     pathname.startsWith('/admin') ||
     pathname.startsWith('/checkout') ||
-    pathname.startsWith(adminBasePath)
+    pathname.startsWith(adminBasePath) ||
+    !scrolledPastHero
   ) {
     return null;
   }
@@ -26,68 +40,29 @@ export function WhatsAppConcierge() {
   const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMsg}`;
 
   return (
-    <div className="fixed bottom-24 md:bottom-6 right-4 sm:right-6 z-30 flex flex-col items-end gap-2 font-mono select-none">
-      
-      {/* Floating Guidance Balloon / Tooltip */}
-      {isTooltipOpen && (
-        <div className="relative max-w-xs bg-outside-elevated border border-outside-border p-3.5 shadow-2xl rounded-lg animate-slide-up text-left">
-          <button
-            onClick={() => setIsTooltipOpen(false)}
-            className="absolute top-2 right-2 p-1 text-outside-inkSecondary hover:text-outside-ink transition-colors rounded cursor-pointer"
-            aria-label="Dismiss stylist prompt"
-          >
-            <X className="w-3.5 h-3.5" />
-          </button>
-          <div className="flex items-center gap-1.5 text-outside-accent text-[10px] font-bold tracking-widest uppercase mb-1">
-            <Sparkles className="w-3 h-3" />
-            <span>STUDIO STYLIST</span>
-          </div>
-          <p className="text-[11px] text-outside-ink leading-snug font-sans pr-4">
-            Need help choosing between Women&apos;s and Men&apos;s fits? Chat directly with our Ahmedabad stylists.
-          </p>
-          <div className="mt-2 pt-2 border-t border-outside-border/60 flex items-center justify-between text-[10px] text-outside-inkSecondary">
-            <span className="flex items-center gap-1">
-              <span className="w-1.5 h-1.5 rounded-full bg-outside-moss animate-pulse" />
-              <span>Online Now (10am–10pm)</span>
-            </span>
-            <a
-              href={whatsappUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-outside-accent font-bold hover:underline flex items-center gap-0.5"
-            >
-              <span>Chat</span>
-              <ArrowUpRight className="w-3 h-3" />
-            </a>
-          </div>
-        </div>
-      )}
+    <div className="fixed bottom-5 right-5 z-40 flex items-center gap-2.5 font-mono select-none group transition-all duration-300 animate-in fade-in slide-in-from-bottom-2">
+      {/* Sleek Hover Tooltip */}
+      <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-outside-ink/95 backdrop-blur-md text-outside-surface border border-outside-inkSecondary/40 shadow-luxury opacity-0 translate-x-2 pointer-events-none group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200">
+        <span className="w-1.5 h-1.5 rounded-full bg-[#25D366] animate-pulse" />
+        <span className="text-[10px] uppercase tracking-wider font-bold">Studio Stylist · Online Now</span>
+      </div>
 
-      {/* Main WhatsApp Trigger Pill */}
+      {/* Main WhatsApp Trigger: Compact Circular Floating Button at bottom-5 right-5 */}
       <a
         href={whatsappUrl}
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Chat with OUTSIDE Stylist on WhatsApp"
-        className="group flex items-center gap-2.5 px-4 py-2.5 bg-outside-elevated hover:bg-outside-surface border border-outside-border shadow-luxury hover:border-outside-ink rounded-full transition-all cursor-pointer"
+        className="relative w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-outside-ink hover:bg-[#25D366] text-outside-surface hover:text-white border border-outside-inkSecondary/40 shadow-luxury flex items-center justify-center transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer shrink-0"
+        title="Chat with OUTSIDE Stylist on WhatsApp"
       >
-        <span className="relative flex h-2.5 w-2.5">
-          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-outside-moss opacity-75" />
-          <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-outside-moss" />
+        {/* Pulsing Online Ping */}
+        <span className="absolute -top-0.5 -right-0.5 flex h-2.5 w-2.5">
+          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#25D366] opacity-75" />
+          <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#25D366] border border-outside-ink" />
         </span>
 
-        <div className="flex flex-col text-left">
-          <span className="text-[10px] uppercase tracking-wider text-outside-inkSecondary font-medium leading-none">
-            OUTSIDE INDIA
-          </span>
-          <span className="text-xs font-bold text-outside-ink leading-tight">
-            WhatsApp Stylist
-          </span>
-        </div>
-
-        <div className="w-7 h-7 rounded-full bg-[#25D366] text-white flex items-center justify-center ml-1 group-hover:scale-105 transition-transform shadow-xs">
-          <MessageCircle className="w-4 h-4 fill-white stroke-none" />
-        </div>
+        <MessageCircle className="w-4 h-4 sm:w-5 sm:h-5 fill-current stroke-none" />
       </a>
     </div>
   );

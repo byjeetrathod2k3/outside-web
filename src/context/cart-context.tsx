@@ -1,7 +1,8 @@
 'use client';
 
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState, useRef } from 'react';
 import { calculateOrderGst, OrderTaxBreakdown, CartItemInput } from '@/lib/gst';
+import { useVipAuth } from './vip-auth-context';
 
 export interface CartItem {
   id: string; // e.g. "drop_001-WOMEN-M"
@@ -38,18 +39,50 @@ interface CartContextType {
   togglePrepaidDiscount: () => void;
   prepaidDiscountPaise: number;
   taxBreakdown: OrderTaxBreakdown;
+  wishlist: string[];
+  wishlistCount: number;
+  isWishlistOpen: boolean;
+  toggleWishlist: (dropId: string) => void;
+  isInWishlist: (dropId: string) => boolean;
+  openWishlist: () => void;
+  closeWishlist: () => void;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export function CartProvider({ children }: { children: React.ReactNode }) {
+  const { customer } = useVipAuth();
   const [items, setItems] = useState<CartItem[]>([]);
   const [isOpen, setIsOpen] = useState(false);
   const [buyerStateCode, setBuyerStateCode] = useState('24'); // Default Gujarat (24)
   const [buyerPincode, setBuyerPincode] = useState('380015'); // Default Ahmedabad
   const [isPincodeModalOpen, setIsPincodeModalOpen] = useState(false);
   const [isPrepaidDiscountApplied, setIsPrepaidDiscountApplied] = useState(true); // 5% UPI incentive default
+  const [wishlist, setWishlist] = useState<string[]>([]);
+  const [isWishlistOpen, setIsWishlistOpen] = useState(false);
   const [isHydrated, setIsHydrated] = useState(false);
+  const prevCustomerRef = useRef<string | null>(null);
+
+  // Sync server cart & wishlist when customer logs in
+  useEffect(() => {
+    if (customer && customer.id !== prevCustomerRef.current) {
+      prevCustomerRef.current = customer.id;
+      if (Array.isArray(customer.cart) && customer.cart.length > 0) {
+        setItems(customer.cart as CartItem[]);
+      }
+      if (Array.isArray(customer.wishlist) && customer.wishlist.length > 0) {
+        setWishlist((prev) => Array.from(new Set([...prev, ...customer.wishlist])));
+      }
+      // If customer has a default address with state & pincode, auto-fill delivery
+      const defaultAddr = customer.addresses?.find((a) => a.isDefault) || customer.addresses?.[0];
+      if (defaultAddr) {
+        if (defaultAddr.stateCode) setBuyerStateCode(defaultAddr.stateCode);
+        if (defaultAddr.pincode) setBuyerPincode(defaultAddr.pincode);
+      }
+    } else if (!customer) {
+      prevCustomerRef.current = null;
+    }
+  }, [customer]);
 
   // Load from localStorage on mount
   useEffect(() => {
@@ -57,6 +90,10 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
       const saved = localStorage.getItem('outside_cart');
       if (saved) {
         setItems(JSON.parse(saved));
+      }
+      const savedWishlist = localStorage.getItem('outside_wishlist');
+      if (savedWishlist) {
+        setWishlist(JSON.parse(savedWishlist));
       }
       const savedState = localStorage.getItem('outside_buyer_state');
       if (savedState) {
@@ -76,7 +113,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     setIsHydrated(true);
   }, []);
 
-  // Save to localStorage
+  // Save to localStorage & sync to customer backend
   useEffect(() => {
     if (isHydrated) {
       try {
@@ -84,17 +121,44 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
         localStorage.setItem('outside_buyer_state', buyerStateCode);
         localStorage.setItem('outside_buyer_pin', buyerPincode);
         localStorage.setItem('outside_prepaid_discount', String(isPrepaidDiscountApplied));
+        localStorage.setItem('outside_wishlist', JSON.stringify(wishlist));
       } catch (e) {
         console.warn('Could not save cart to localStorage', e);
       }
+
+      // If customer is authenticated, sync persistent cart and wishlist to backend
+      if (customer) {
+        fetch('/api/vip/cart', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ items }),
+        }).catch((e) => console.warn('Could not sync cart to server:', e));
+
+        fetch('/api/vip/wishlist', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ wishlist }),
+        }).catch((e) => console.warn('Could not sync wishlist to server:', e));
+      }
     }
-  }, [items, buyerStateCode, buyerPincode, isPrepaidDiscountApplied, isHydrated]);
+  }, [items, buyerStateCode, buyerPincode, isPrepaidDiscountApplied, wishlist, isHydrated, customer]);
 
   const openCart = () => setIsOpen(true);
   const closeCart = () => setIsOpen(false);
   const openPincodeModal = () => setIsPincodeModalOpen(true);
   const closePincodeModal = () => setIsPincodeModalOpen(false);
   const togglePrepaidDiscount = () => setIsPrepaidDiscountApplied((prev) => !prev);
+
+  const toggleWishlist = (dropId: string) => {
+    setWishlist((prev) =>
+      prev.includes(dropId) ? prev.filter((id) => id !== dropId) : [...prev, dropId]
+    );
+  };
+
+  const isInWishlist = (dropId: string) => wishlist.includes(dropId);
+  const openWishlist = () => setIsWishlistOpen(true);
+  const closeWishlist = () => setIsWishlistOpen(false);
+  const wishlistCount = wishlist.length;
 
   const addItem = (newItem: Omit<CartItem, 'id'>) => {
     const id = `${newItem.dropId}-${newItem.fit}-${newItem.size}`;
@@ -195,6 +259,13 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
         togglePrepaidDiscount,
         prepaidDiscountPaise,
         taxBreakdown,
+        wishlist,
+        wishlistCount,
+        isWishlistOpen,
+        toggleWishlist,
+        isInWishlist,
+        openWishlist,
+        closeWishlist,
       }}
     >
       {children}

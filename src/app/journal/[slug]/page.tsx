@@ -108,7 +108,7 @@ export default async function JournalDetailPage({
             {post.title}
           </h1>
 
-          <p className="text-base font-sans text-outside-textSecondary leading-relaxed italic border-l-2 border-outside-crimson pl-4">
+          <p className="text-base font-sans text-outside-inkSecondary leading-relaxed italic border-l-2 border-outside-crimson pl-4">
             {post.excerpt}
           </p>
         </div>
@@ -126,7 +126,7 @@ export default async function JournalDetailPage({
         {/* Essay Body */}
         <div className="prose prose-stone max-w-none text-outside-text text-sm sm:text-base leading-relaxed space-y-6 font-sans">
           {post.body.split('\n\n').map((paragraph: string, i: number) => (
-            <p key={i} className="text-outside-textSecondary">
+            <p key={i} className="text-outside-inkSecondary">
               {paragraph}
             </p>
           ))}

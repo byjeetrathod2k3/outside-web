@@ -133,7 +133,7 @@ export default function LookbookPage() {
                   <h3 className="text-lg font-display font-bold uppercase text-outside-text">
                     {frame.title}
                   </h3>
-                  <p className="text-xs text-outside-textSecondary font-sans leading-relaxed">
+                  <p className="text-xs text-outside-inkSecondary font-sans leading-relaxed">
                     {frame.caption}
                   </p>
                 </div>
@@ -150,7 +150,7 @@ export default function LookbookPage() {
               Strictly 250 Serialized Pieces Worldwide
             </h2>
           </div>
-          <p className="text-xs sm:text-sm text-outside-textSecondary font-sans leading-relaxed max-w-3xl">
+          <p className="text-xs sm:text-sm text-outside-inkSecondary font-sans leading-relaxed max-w-3xl">
             When DROP 001 sells out its 250 units, the pattern is permanently archived to The Vault. We will never re-release this colorway, re-issue this embroidery design, or print additional stock. Every piece is an irreplaceable collector artifact.
           </p>
           <div className="flex flex-wrap items-center gap-4 pt-2">

@@ -32,6 +32,20 @@ export function PincodeModal() {
     }
   }, [buyerPincode]);
 
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') closePincodeModal();
+    };
+    if (isPincodeModalOpen) {
+      window.addEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = 'hidden';
+    }
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = '';
+    };
+  }, [isPincodeModalOpen, closePincodeModal]);
+
   if (!isPincodeModalOpen) return null;
 
   const handleApply = (pinToApply: string) => {

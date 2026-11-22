@@ -128,7 +128,7 @@ export default function CraftPage() {
                     </div>
                   </div>
 
-                  <p className="text-xs text-outside-textSecondary font-sans leading-relaxed pt-2">
+                  <p className="text-xs text-outside-inkSecondary font-sans leading-relaxed pt-2">
                     {pillar.description}
                   </p>
                 </div>

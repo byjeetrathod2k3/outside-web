@@ -25,11 +25,18 @@
   --moss: var(--accent-secondary);
 }
 
+html {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
 body {
   background-color: var(--bg-canvas);
   color: var(--ink-primary);
   font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   overflow-x: hidden;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -69,26 +76,35 @@ body {
   border-bottom: var(--hairline-width) solid var(--border-hairline);
 }
 
-/* Minimalist Editorial Scrollbar */
+/* Hide Scrollbar for Pure Full-Bleed Luxury Editorial */
 ::-webkit-scrollbar {
-  width: 5px;
-  height: 5px;
-}
-
-::-webkit-scrollbar-track {
-  background: var(--bg-canvas);
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--border-hairline);
-  border-radius: var(--border-radius);
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--ink-secondary);
+  display: none;
+  width: 0px;
+  height: 0px;
+  background: transparent;
 }
 
 /* Dynamic Border Radius Utility */
 .rounded-dynamic {
   border-radius: var(--border-radius);
+}
+
+/* Editorial Monospace Eyebrow Label */
+.font-editorial-label {
+  font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+/* High-Visibility Accessible Focus Ring */
+.focus-ring-outside {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+.focus-ring-outside:focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 2px;
 }

@@ -9,7 +9,7 @@ function AdminLoginForm() {
   const searchParams = useSearchParams();
   const fromPath = searchParams.get('from');
 
-  const adminBasePath = process.env.NEXT_PUBLIC_ADMIN_BASE_PATH || '/outside-studio-ops';
+  const adminBasePath = process.env.NEXT_PUBLIC_ADMIN_BASE_PATH || '/sys-admin-gate';
 
   const [email, setEmail] = useState('admin@outside.in');
   const [password, setPassword] = useState('Admin@Outside2026!');

@@ -12,36 +12,45 @@ export default function robots(): MetadataRoute.Robots {
     claudeBot: true,
   };
 
+  const disallowedAdminPaths = [
+    '/api/*',
+    '/checkout/success',
+    '/admin*',
+    '/sys-admin-gate*',
+    '/portal-auth-9x2k*',
+    '/outside-studio-ops*',
+  ];
+
   const rules: MetadataRoute.Robots['rules'] = [
     {
       userAgent: '*',
       allow: '/',
-      disallow: ['/api/*', '/checkout/success'],
+      disallow: disallowedAdminPaths,
     },
     {
       userAgent: 'Googlebot',
       allow: policies.googlebot ? '/' : undefined,
-      disallow: policies.googlebot ? ['/api/*'] : '/',
+      disallow: policies.googlebot ? disallowedAdminPaths : '/',
     },
     {
       userAgent: 'Bingbot',
       allow: policies.bingbot ? '/' : undefined,
-      disallow: policies.bingbot ? ['/api/*'] : '/',
+      disallow: policies.bingbot ? disallowedAdminPaths : '/',
     },
     {
       userAgent: 'OAI-SearchBot',
       allow: policies.oaiSearch ? '/' : undefined,
-      disallow: policies.oaiSearch ? ['/api/*'] : '/',
+      disallow: policies.oaiSearch ? disallowedAdminPaths : '/',
     },
     {
       userAgent: 'PerplexityBot',
       allow: policies.perplexity ? '/' : undefined,
-      disallow: policies.perplexity ? ['/api/*'] : '/',
+      disallow: policies.perplexity ? disallowedAdminPaths : '/',
     },
     {
       userAgent: 'ClaudeBot',
       allow: policies.claudeBot ? '/' : undefined,
-      disallow: policies.claudeBot ? ['/api/*'] : '/',
+      disallow: policies.claudeBot ? disallowedAdminPaths : '/',
     },
   ];
 

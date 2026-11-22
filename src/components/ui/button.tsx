@@ -23,7 +23,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     ref
   ) => {
     const base =
-      'inline-flex items-center justify-center font-mono uppercase tracking-[0.2em] font-bold transition-colors focus:outline-none focus:ring-2 focus:ring-outside-accent disabled:opacity-50 disabled:cursor-not-allowed select-none border';
+      'inline-flex items-center justify-center font-mono uppercase tracking-[0.2em] font-bold transition-all duration-150 focus:outline-none focus-visible:ring-2 focus-visible:ring-outside-accent focus-visible:ring-offset-2 focus-visible:ring-offset-outside-canvas active:scale-[0.99] disabled:opacity-50 disabled:cursor-not-allowed disabled:active:scale-100 select-none border cursor-pointer';
 
     const variants = {
       primary:
@@ -31,7 +31,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       accent:
         'bg-outside-accent text-outside-elevated border-outside-accent hover:bg-[#96191E] shadow-editorial',
       secondary:
-        'bg-outside-surface text-outside-ink border-outside-border hover:border-outside-ink',
+        'bg-outside-surface text-outside-ink border-outside-border hover:border-outside-ink hover:bg-outside-elevated',
       outline:
         'bg-outside-elevated text-outside-ink border-outside-border hover:border-outside-ink hover:bg-outside-surface',
       ghost:
@@ -39,9 +39,9 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     };
 
     const sizes = {
-      sm: 'text-[10px] px-3.5 py-2 gap-1.5',
-      md: 'text-xs px-5 py-3 gap-2',
-      lg: 'text-xs px-7 py-4 gap-2.5',
+      sm: 'text-[10px] px-3.5 py-2.5 min-h-[44px] sm:min-h-[36px] gap-1.5',
+      md: 'text-xs px-5 py-3 min-h-[44px] gap-2',
+      lg: 'text-xs px-7 py-3.5 min-h-[48px] gap-2.5',
     };
 
     return (

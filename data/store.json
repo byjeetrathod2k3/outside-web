@@ -363,6 +363,2931 @@
   "emailLogs": [],
   "auditLogs": [
     {
+      "id": "audit_1795335329055_ujwoq",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T08:15:29.055Z"
+    },
+    {
+      "id": "audit_1795335329043_smhtr",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T08:15:29.043Z"
+    },
+    {
+      "id": "audit_1795335329035_vezvn",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 5,
+        "isLocked": true
+      },
+      "createdAt": "2026-11-22T08:15:29.035Z"
+    },
+    {
+      "id": "audit_1795335329025_9yk9h",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 4,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T08:15:29.025Z"
+    },
+    {
+      "id": "audit_1795335329018_i4bi4",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 3,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T08:15:29.018Z"
+    },
+    {
+      "id": "audit_1795335329010_c0igh",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 2,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T08:15:29.010Z"
+    },
+    {
+      "id": "audit_1795335328999_wmz7a",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 1,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T08:15:28.999Z"
+    },
+    {
+      "id": "audit_1795335328990_1vdmo",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T08:15:28.990Z"
+    },
+    {
+      "id": "audit_1795335328981_3cg4f",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T08:15:28.981Z"
+    },
+    {
+      "id": "audit_1795335322225_n247y",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T08:15:22.225Z"
+    },
+    {
+      "id": "audit_1795335322217_86pm1",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T08:15:22.217Z"
+    },
+    {
+      "id": "audit_1795335322212_uqrg2",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 5,
+        "isLocked": true
+      },
+      "createdAt": "2026-11-22T08:15:22.212Z"
+    },
+    {
+      "id": "audit_1795335322207_w05xn",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 4,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T08:15:22.207Z"
+    },
+    {
+      "id": "audit_1795335322201_fhl8r",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 3,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T08:15:22.201Z"
+    },
+    {
+      "id": "audit_1795335322195_g3m2k",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 2,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T08:15:22.195Z"
+    },
+    {
+      "id": "audit_1795335322189_hl9x6",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 1,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T08:15:22.189Z"
+    },
+    {
+      "id": "audit_1795335322183_h19hp",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T08:15:22.183Z"
+    },
+    {
+      "id": "audit_1795335322178_j95ko",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T08:15:22.178Z"
+    },
+    {
+      "id": "audit_1795335172068_zifn9",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T08:12:52.069Z"
+    },
+    {
+      "id": "audit_1795335172062_fuhmf",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T08:12:52.062Z"
+    },
+    {
+      "id": "audit_1795335172056_n3ks4",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 5,
+        "isLocked": true
+      },
+      "createdAt": "2026-11-22T08:12:52.056Z"
+    },
+    {
+      "id": "audit_1795335172049_top54",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 4,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T08:12:52.049Z"
+    },
+    {
+      "id": "audit_1795335172044_lapiw",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 3,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T08:12:52.044Z"
+    },
+    {
+      "id": "audit_1795335172039_7igz7",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 2,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T08:12:52.039Z"
+    },
+    {
+      "id": "audit_1795335172032_9l21q",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 1,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T08:12:52.032Z"
+    },
+    {
+      "id": "audit_1795335172027_ca8x7",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T08:12:52.027Z"
+    },
+    {
+      "id": "audit_1795335172022_tiwse",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T08:12:52.022Z"
+    },
+    {
+      "id": "audit_1795334312634_q6n0t",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T07:58:32.634Z"
+    },
+    {
+      "id": "audit_1795334312627_6aj7f",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T07:58:32.627Z"
+    },
+    {
+      "id": "audit_1795334312621_tgwfn",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 5,
+        "isLocked": true
+      },
+      "createdAt": "2026-11-22T07:58:32.621Z"
+    },
+    {
+      "id": "audit_1795334312615_59q3w",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 4,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T07:58:32.615Z"
+    },
+    {
+      "id": "audit_1795334312611_qjp06",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 3,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T07:58:32.611Z"
+    },
+    {
+      "id": "audit_1795334312604_h1uyx",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 2,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T07:58:32.604Z"
+    },
+    {
+      "id": "audit_1795334312596_suyk2",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 1,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T07:58:32.596Z"
+    },
+    {
+      "id": "audit_1795334312590_8bgav",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T07:58:32.590Z"
+    },
+    {
+      "id": "audit_1795334312584_goery",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T07:58:32.584Z"
+    },
+    {
+      "id": "audit_1795333369359_zsrts",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T07:42:49.359Z"
+    },
+    {
+      "id": "audit_1795333369343_zzavi",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T07:42:49.343Z"
+    },
+    {
+      "id": "audit_1795333369328_p4idf",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 5,
+        "isLocked": true
+      },
+      "createdAt": "2026-11-22T07:42:49.328Z"
+    },
+    {
+      "id": "audit_1795333369312_fkhnx",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 4,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T07:42:49.312Z"
+    },
+    {
+      "id": "audit_1795333369298_ibzz9",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 3,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T07:42:49.298Z"
+    },
+    {
+      "id": "audit_1795333369281_5ierk",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 2,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T07:42:49.281Z"
+    },
+    {
+      "id": "audit_1795333369264_qfikj",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 1,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T07:42:49.264Z"
+    },
+    {
+      "id": "audit_1795333369249_fqxh2",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T07:42:49.249Z"
+    },
+    {
+      "id": "audit_1795333369235_4mer5",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T07:42:49.235Z"
+    },
+    {
+      "id": "audit_1795331356347_vqay1",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T07:09:16.347Z"
+    },
+    {
+      "id": "audit_1795331356329_h96dp",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T07:09:16.329Z"
+    },
+    {
+      "id": "audit_1795331356313_zo422",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 5,
+        "isLocked": true
+      },
+      "createdAt": "2026-11-22T07:09:16.313Z"
+    },
+    {
+      "id": "audit_1795331356298_xh6p8",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 4,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T07:09:16.298Z"
+    },
+    {
+      "id": "audit_1795331356285_c8efc",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 3,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T07:09:16.285Z"
+    },
+    {
+      "id": "audit_1795331356270_9bntk",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 2,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T07:09:16.270Z"
+    },
+    {
+      "id": "audit_1795331356252_x5vsw",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 1,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T07:09:16.252Z"
+    },
+    {
+      "id": "audit_1795331356236_9yfnc",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T07:09:16.236Z"
+    },
+    {
+      "id": "audit_1795331356222_65uuh",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T07:09:16.222Z"
+    },
+    {
+      "id": "audit_1795331073353_01ze8",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T07:04:33.353Z"
+    },
+    {
+      "id": "audit_1795331073346_7x9rb",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T07:04:33.346Z"
+    },
+    {
+      "id": "audit_1795331073340_tm97v",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 5,
+        "isLocked": true
+      },
+      "createdAt": "2026-11-22T07:04:33.340Z"
+    },
+    {
+      "id": "audit_1795331073334_70g5t",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 4,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T07:04:33.334Z"
+    },
+    {
+      "id": "audit_1795331073329_tj0j1",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 3,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T07:04:33.329Z"
+    },
+    {
+      "id": "audit_1795331073323_3kk4p",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 2,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T07:04:33.323Z"
+    },
+    {
+      "id": "audit_1795331073316_b643n",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 1,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T07:04:33.316Z"
+    },
+    {
+      "id": "audit_1795331073311_7hchc",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T07:04:33.311Z"
+    },
+    {
+      "id": "audit_1795331073304_awww5",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T07:04:33.304Z"
+    },
+    {
+      "id": "audit_1795329960174_a5wzj",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T06:46:00.174Z"
+    },
+    {
+      "id": "audit_1795329960165_ws1xn",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T06:46:00.165Z"
+    },
+    {
+      "id": "audit_1795329960158_yjz85",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 5,
+        "isLocked": true
+      },
+      "createdAt": "2026-11-22T06:46:00.158Z"
+    },
+    {
+      "id": "audit_1795329960149_dojmi",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 4,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T06:46:00.149Z"
+    },
+    {
+      "id": "audit_1795329960144_kr4iz",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 3,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T06:46:00.144Z"
+    },
+    {
+      "id": "audit_1795329960138_ldnm2",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 2,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T06:46:00.138Z"
+    },
+    {
+      "id": "audit_1795329960129_q5a2d",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 1,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T06:46:00.129Z"
+    },
+    {
+      "id": "audit_1795329960124_edhz9",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T06:46:00.124Z"
+    },
+    {
+      "id": "audit_1795329960119_2xv4h",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T06:46:00.119Z"
+    },
+    {
+      "id": "audit_1795329407074_rb05a",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T06:36:47.074Z"
+    },
+    {
+      "id": "audit_1795329407068_8ptsg",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T06:36:47.068Z"
+    },
+    {
+      "id": "audit_1795329407060_gmw9w",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 5,
+        "isLocked": true
+      },
+      "createdAt": "2026-11-22T06:36:47.060Z"
+    },
+    {
+      "id": "audit_1795329407055_jm542",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 4,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T06:36:47.055Z"
+    },
+    {
+      "id": "audit_1795329407051_utd9t",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 3,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T06:36:47.051Z"
+    },
+    {
+      "id": "audit_1795329407045_ymzd1",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 2,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T06:36:47.045Z"
+    },
+    {
+      "id": "audit_1795329407039_9prm6",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 1,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T06:36:47.039Z"
+    },
+    {
+      "id": "audit_1795329407034_voksl",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T06:36:47.034Z"
+    },
+    {
+      "id": "audit_1795329407028_c513m",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T06:36:47.028Z"
+    },
+    {
+      "id": "audit_1795329014361_nr5zp",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T06:30:14.361Z"
+    },
+    {
+      "id": "audit_1795329014353_c5pk8",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T06:30:14.353Z"
+    },
+    {
+      "id": "audit_1795329014348_k847l",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 5,
+        "isLocked": true
+      },
+      "createdAt": "2026-11-22T06:30:14.348Z"
+    },
+    {
+      "id": "audit_1795329014343_0yawm",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 4,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T06:30:14.343Z"
+    },
+    {
+      "id": "audit_1795329014336_uw2ne",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 3,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T06:30:14.336Z"
+    },
+    {
+      "id": "audit_1795329014331_kq1wf",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 2,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T06:30:14.331Z"
+    },
+    {
+      "id": "audit_1795329014325_gf87j",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 1,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T06:30:14.325Z"
+    },
+    {
+      "id": "audit_1795329014319_f566p",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T06:30:14.319Z"
+    },
+    {
+      "id": "audit_1795329014314_kkok1",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T06:30:14.314Z"
+    },
+    {
+      "id": "audit_1795327290727_7lgt4",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T06:01:30.727Z"
+    },
+    {
+      "id": "audit_1795327290717_ixoqa",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T06:01:30.717Z"
+    },
+    {
+      "id": "audit_1795327290708_g1af3",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 5,
+        "isLocked": true
+      },
+      "createdAt": "2026-11-22T06:01:30.708Z"
+    },
+    {
+      "id": "audit_1795327290699_p6h9z",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 4,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T06:01:30.699Z"
+    },
+    {
+      "id": "audit_1795327290692_j9bk4",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 3,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T06:01:30.692Z"
+    },
+    {
+      "id": "audit_1795327290684_6rsjz",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 2,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T06:01:30.684Z"
+    },
+    {
+      "id": "audit_1795327290674_9266r",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 1,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T06:01:30.674Z"
+    },
+    {
+      "id": "audit_1795327290666_emyo3",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T06:01:30.666Z"
+    },
+    {
+      "id": "audit_1795327290658_3sxso",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T06:01:30.658Z"
+    },
+    {
+      "id": "audit_1795326859807_lvdqd",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T05:54:19.807Z"
+    },
+    {
+      "id": "audit_1795326859801_p0umg",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T05:54:19.801Z"
+    },
+    {
+      "id": "audit_1795326859796_9jlkv",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 5,
+        "isLocked": true
+      },
+      "createdAt": "2026-11-22T05:54:19.796Z"
+    },
+    {
+      "id": "audit_1795326859791_wvtu4",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 4,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T05:54:19.791Z"
+    },
+    {
+      "id": "audit_1795326859786_qflhy",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 3,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T05:54:19.786Z"
+    },
+    {
+      "id": "audit_1795326859781_uzliw",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 2,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T05:54:19.781Z"
+    },
+    {
+      "id": "audit_1795326859775_2ewmw",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 1,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T05:54:19.775Z"
+    },
+    {
+      "id": "audit_1795326859770_adhly",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T05:54:19.770Z"
+    },
+    {
+      "id": "audit_1795326859763_j2sed",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T05:54:19.763Z"
+    },
+    {
+      "id": "audit_1795326757691_kgb3c",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T05:52:37.691Z"
+    },
+    {
+      "id": "audit_1795326757682_fk71y",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T05:52:37.682Z"
+    },
+    {
+      "id": "audit_1795326757676_8n4pp",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 5,
+        "isLocked": true
+      },
+      "createdAt": "2026-11-22T05:52:37.676Z"
+    },
+    {
+      "id": "audit_1795326757669_bt5qb",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 4,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T05:52:37.669Z"
+    },
+    {
+      "id": "audit_1795326757662_uszm4",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 3,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T05:52:37.662Z"
+    },
+    {
+      "id": "audit_1795326757656_tcnvw",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 2,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T05:52:37.656Z"
+    },
+    {
+      "id": "audit_1795326757644_jq45l",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 1,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T05:52:37.644Z"
+    },
+    {
+      "id": "audit_1795326757639_yulm0",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T05:52:37.639Z"
+    },
+    {
+      "id": "audit_1795326757631_f4ro2",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T05:52:37.631Z"
+    },
+    {
+      "id": "audit_1795326173703_b7635",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T05:42:53.703Z"
+    },
+    {
+      "id": "audit_1795326173693_a93rd",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T05:42:53.693Z"
+    },
+    {
+      "id": "audit_1795326173683_ols3k",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 5,
+        "isLocked": true
+      },
+      "createdAt": "2026-11-22T05:42:53.683Z"
+    },
+    {
+      "id": "audit_1795326173676_latw5",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 4,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T05:42:53.676Z"
+    },
+    {
+      "id": "audit_1795326173666_ogtiw",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 3,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T05:42:53.666Z"
+    },
+    {
+      "id": "audit_1795326173658_pg8ls",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 2,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T05:42:53.658Z"
+    },
+    {
+      "id": "audit_1795326173647_5xfcz",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 1,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T05:42:53.647Z"
+    },
+    {
+      "id": "audit_1795326173638_4k5ei",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T05:42:53.638Z"
+    },
+    {
+      "id": "audit_1795326173628_kztm0",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T05:42:53.628Z"
+    },
+    {
+      "id": "audit_1795325513038_necrb",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T05:31:53.038Z"
+    },
+    {
+      "id": "audit_1795325513031_o2mzb",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T05:31:53.031Z"
+    },
+    {
+      "id": "audit_1795325513024_2wbpi",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 5,
+        "isLocked": true
+      },
+      "createdAt": "2026-11-22T05:31:53.024Z"
+    },
+    {
+      "id": "audit_1795325513019_5ci0p",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 4,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T05:31:53.019Z"
+    },
+    {
+      "id": "audit_1795325513012_92dnm",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 3,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T05:31:53.012Z"
+    },
+    {
+      "id": "audit_1795325513007_3wjnn",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 2,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T05:31:53.007Z"
+    },
+    {
+      "id": "audit_1795325513000_vpbyd",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 1,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T05:31:53.001Z"
+    },
+    {
+      "id": "audit_1795325512992_w6leh",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T05:31:52.992Z"
+    },
+    {
+      "id": "audit_1795325512987_vere9",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T05:31:52.987Z"
+    },
+    {
+      "id": "audit_1795324919712_havdz",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T05:21:59.712Z"
+    },
+    {
+      "id": "audit_1795324919707_e27qs",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T05:21:59.707Z"
+    },
+    {
+      "id": "audit_1795324919701_8uyun",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 5,
+        "isLocked": true
+      },
+      "createdAt": "2026-11-22T05:21:59.701Z"
+    },
+    {
+      "id": "audit_1795324919696_4yisl",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 4,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T05:21:59.696Z"
+    },
+    {
+      "id": "audit_1795324919692_0j575",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 3,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T05:21:59.692Z"
+    },
+    {
+      "id": "audit_1795324919687_hc8dm",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 2,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T05:21:59.687Z"
+    },
+    {
+      "id": "audit_1795324919680_r74e0",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 1,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T05:21:59.680Z"
+    },
+    {
+      "id": "audit_1795324919676_zjpdq",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T05:21:59.676Z"
+    },
+    {
+      "id": "audit_1795324919671_6vg31",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T05:21:59.671Z"
+    },
+    {
+      "id": "audit_1795324327824_c0pyf",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T05:12:07.824Z"
+    },
+    {
+      "id": "audit_1795324327813_au1wp",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T05:12:07.813Z"
+    },
+    {
+      "id": "audit_1795324327803_gna4y",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 5,
+        "isLocked": true
+      },
+      "createdAt": "2026-11-22T05:12:07.803Z"
+    },
+    {
+      "id": "audit_1795324327796_cvmof",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 4,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T05:12:07.796Z"
+    },
+    {
+      "id": "audit_1795324327785_u2cf3",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 3,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T05:12:07.785Z"
+    },
+    {
+      "id": "audit_1795324327775_6pyrv",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 2,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T05:12:07.775Z"
+    },
+    {
+      "id": "audit_1795324327764_zd08b",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 1,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T05:12:07.764Z"
+    },
+    {
+      "id": "audit_1795324327756_w2ov2",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T05:12:07.756Z"
+    },
+    {
+      "id": "audit_1795324327747_3iejy",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T05:12:07.747Z"
+    },
+    {
+      "id": "audit_1795323839971_q0prf",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T05:03:59.971Z"
+    },
+    {
+      "id": "audit_1795323839964_lwdlb",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T05:03:59.964Z"
+    },
+    {
+      "id": "audit_1795323839957_vbzmb",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 5,
+        "isLocked": true
+      },
+      "createdAt": "2026-11-22T05:03:59.957Z"
+    },
+    {
+      "id": "audit_1795323839949_oyb95",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 4,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T05:03:59.949Z"
+    },
+    {
+      "id": "audit_1795323839944_wibmn",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 3,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T05:03:59.944Z"
+    },
+    {
+      "id": "audit_1795323839938_exzsv",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 2,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T05:03:59.938Z"
+    },
+    {
+      "id": "audit_1795323839931_sfesi",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 1,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T05:03:59.931Z"
+    },
+    {
+      "id": "audit_1795323839925_j71pf",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T05:03:59.925Z"
+    },
+    {
+      "id": "audit_1795323839919_u6k0o",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T05:03:59.919Z"
+    },
+    {
+      "id": "audit_1795323490097_blw8g",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T04:58:10.097Z"
+    },
+    {
+      "id": "audit_1795323490085_ybvbn",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T04:58:10.085Z"
+    },
+    {
+      "id": "audit_1795323490075_ge0xt",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 5,
+        "isLocked": true
+      },
+      "createdAt": "2026-11-22T04:58:10.075Z"
+    },
+    {
+      "id": "audit_1795323490066_qh4ul",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 4,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T04:58:10.066Z"
+    },
+    {
+      "id": "audit_1795323490056_r1ka4",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 3,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T04:58:10.056Z"
+    },
+    {
+      "id": "audit_1795323490048_u1h7r",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 2,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T04:58:10.048Z"
+    },
+    {
+      "id": "audit_1795323490037_9jri8",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 1,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T04:58:10.037Z"
+    },
+    {
+      "id": "audit_1795323490029_svwa6",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T04:58:10.029Z"
+    },
+    {
+      "id": "audit_1795323490019_v823q",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T04:58:10.019Z"
+    },
+    {
+      "id": "audit_1795322817167_t989h",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T04:46:57.167Z"
+    },
+    {
+      "id": "audit_1795322817159_nrvro",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T04:46:57.159Z"
+    },
+    {
+      "id": "audit_1795322817149_wubmh",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 5,
+        "isLocked": true
+      },
+      "createdAt": "2026-11-22T04:46:57.149Z"
+    },
+    {
+      "id": "audit_1795322817138_44m4f",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 4,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T04:46:57.138Z"
+    },
+    {
+      "id": "audit_1795322817132_zaptd",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 3,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T04:46:57.132Z"
+    },
+    {
+      "id": "audit_1795322817124_s97cg",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 2,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T04:46:57.124Z"
+    },
+    {
+      "id": "audit_1795322817115_oipe2",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 1,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T04:46:57.115Z"
+    },
+    {
+      "id": "audit_1795322817107_rss90",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T04:46:57.107Z"
+    },
+    {
+      "id": "audit_1795322817100_4i1h0",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T04:46:57.100Z"
+    },
+    {
+      "id": "audit_1795322012607_z7b93",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T04:33:32.607Z"
+    },
+    {
+      "id": "audit_1795322012598_chizj",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T04:33:32.598Z"
+    },
+    {
+      "id": "audit_1795322012590_btvfi",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 5,
+        "isLocked": true
+      },
+      "createdAt": "2026-11-22T04:33:32.590Z"
+    },
+    {
+      "id": "audit_1795322012582_so50c",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 4,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T04:33:32.582Z"
+    },
+    {
+      "id": "audit_1795322012574_r3th4",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 3,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T04:33:32.574Z"
+    },
+    {
+      "id": "audit_1795322012567_axxke",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 2,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T04:33:32.567Z"
+    },
+    {
+      "id": "audit_1795322012558_b9qax",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 1,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T04:33:32.558Z"
+    },
+    {
+      "id": "audit_1795322012551_wf8ic",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T04:33:32.551Z"
+    },
+    {
+      "id": "audit_1795322012543_smwoe",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T04:33:32.543Z"
+    },
+    {
+      "id": "audit_1795321392538_5iv4f",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T04:23:12.538Z"
+    },
+    {
+      "id": "audit_1795321392529_chqzw",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T04:23:12.529Z"
+    },
+    {
+      "id": "audit_1795321392521_vikw7",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 5,
+        "isLocked": true
+      },
+      "createdAt": "2026-11-22T04:23:12.521Z"
+    },
+    {
+      "id": "audit_1795321392510_vm6zj",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 4,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T04:23:12.510Z"
+    },
+    {
+      "id": "audit_1795321392503_8w73a",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 3,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T04:23:12.503Z"
+    },
+    {
+      "id": "audit_1795321392492_pad46",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 2,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T04:23:12.492Z"
+    },
+    {
+      "id": "audit_1795321392479_rr5gw",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 1,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T04:23:12.479Z"
+    },
+    {
+      "id": "audit_1795321392468_994j5",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T04:23:12.468Z"
+    },
+    {
+      "id": "audit_1795321392459_cqe6a",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T04:23:12.459Z"
+    },
+    {
+      "id": "audit_1795320780445_ie37b",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T04:13:00.445Z"
+    },
+    {
+      "id": "audit_1795320780441_zrnbd",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T04:13:00.441Z"
+    },
+    {
+      "id": "audit_1795320780437_wkemh",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 5,
+        "isLocked": true
+      },
+      "createdAt": "2026-11-22T04:13:00.437Z"
+    },
+    {
+      "id": "audit_1795320780431_sk2fl",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 4,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T04:13:00.431Z"
+    },
+    {
+      "id": "audit_1795320780428_y401u",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 3,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T04:13:00.428Z"
+    },
+    {
+      "id": "audit_1795320780424_q0q6h",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 2,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T04:13:00.424Z"
+    },
+    {
+      "id": "audit_1795320780420_zdp31",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 1,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T04:13:00.420Z"
+    },
+    {
+      "id": "audit_1795320780416_233ls",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T04:13:00.416Z"
+    },
+    {
+      "id": "audit_1795320780411_xpsfn",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T04:13:00.411Z"
+    },
+    {
+      "id": "audit_1795318981097_06esn",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T03:43:01.097Z"
+    },
+    {
+      "id": "audit_1795318981092_esaii",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T03:43:01.092Z"
+    },
+    {
+      "id": "audit_1795318981087_vzf4t",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 5,
+        "isLocked": true
+      },
+      "createdAt": "2026-11-22T03:43:01.087Z"
+    },
+    {
+      "id": "audit_1795318981083_9deon",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 4,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T03:43:01.083Z"
+    },
+    {
+      "id": "audit_1795318981078_c3ug0",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 3,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T03:43:01.078Z"
+    },
+    {
+      "id": "audit_1795318981074_6d36v",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 2,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T03:43:01.074Z"
+    },
+    {
+      "id": "audit_1795318981069_0v7j1",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 1,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T03:43:01.069Z"
+    },
+    {
+      "id": "audit_1795318981065_svw87",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T03:43:01.065Z"
+    },
+    {
+      "id": "audit_1795318981060_81ndv",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T03:43:01.060Z"
+    },
+    {
+      "id": "audit_1795318923679_41oce",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T03:42:03.679Z"
+    },
+    {
+      "id": "audit_1795318923671_7uzo5",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T03:42:03.671Z"
+    },
+    {
+      "id": "audit_1795318923662_oqjy0",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 5,
+        "isLocked": true
+      },
+      "createdAt": "2026-11-22T03:42:03.662Z"
+    },
+    {
+      "id": "audit_1795318923653_yvlme",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 4,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T03:42:03.653Z"
+    },
+    {
+      "id": "audit_1795318923646_o6zj2",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 3,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T03:42:03.646Z"
+    },
+    {
+      "id": "audit_1795318923639_hk7kn",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 2,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T03:42:03.639Z"
+    },
+    {
+      "id": "audit_1795318923630_7isf9",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_FAILURE",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 1,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T03:42:03.630Z"
+    },
+    {
+      "id": "audit_1795318923623_morqn",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T03:42:03.623Z"
+    },
+    {
+      "id": "audit_1795318923603_6hskz",
+      "userId": "super_admin",
+      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
+      "entityType": "SECURITY_AUTH",
+      "metadata": {
+        "ip": "192.168.1.99",
+        "email": "admin@outside.in",
+        "failedAttempts": 0,
+        "isLocked": false
+      },
+      "createdAt": "2026-11-22T03:42:03.603Z"
+    },
+    {
       "id": "audit_1795260769392_nvqg7",
       "userId": "super_admin",
       "action": "SUPER_ADMIN_LOGIN_SUCCESS",
@@ -3933,474 +6858,6 @@
         "isLocked": false
       },
       "createdAt": "2026-11-20T10:40:47.216Z"
-    },
-    {
-      "id": "audit_1795171247214_tf9my",
-      "userId": "super_admin",
-      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
-      "entityType": "SECURITY_AUTH",
-      "metadata": {
-        "ip": "192.168.1.99",
-        "email": "admin@outside.in",
-        "failedAttempts": 0,
-        "isLocked": false
-      },
-      "createdAt": "2026-11-20T10:40:47.214Z"
-    },
-    {
-      "id": "audit_1795171247212_3f6hj",
-      "userId": "super_admin",
-      "action": "SUPER_ADMIN_LOGIN_FAILURE",
-      "entityType": "SECURITY_AUTH",
-      "metadata": {
-        "ip": "192.168.1.99",
-        "email": "admin@outside.in",
-        "failedAttempts": 5,
-        "isLocked": true
-      },
-      "createdAt": "2026-11-20T10:40:47.212Z"
-    },
-    {
-      "id": "audit_1795171247208_8rpss",
-      "userId": "super_admin",
-      "action": "SUPER_ADMIN_LOGIN_FAILURE",
-      "entityType": "SECURITY_AUTH",
-      "metadata": {
-        "ip": "192.168.1.99",
-        "email": "admin@outside.in",
-        "failedAttempts": 4,
-        "isLocked": false
-      },
-      "createdAt": "2026-11-20T10:40:47.208Z"
-    },
-    {
-      "id": "audit_1795171247206_tfsvy",
-      "userId": "super_admin",
-      "action": "SUPER_ADMIN_LOGIN_FAILURE",
-      "entityType": "SECURITY_AUTH",
-      "metadata": {
-        "ip": "192.168.1.99",
-        "email": "admin@outside.in",
-        "failedAttempts": 3,
-        "isLocked": false
-      },
-      "createdAt": "2026-11-20T10:40:47.206Z"
-    },
-    {
-      "id": "audit_1795171247205_c1uh4",
-      "userId": "super_admin",
-      "action": "SUPER_ADMIN_LOGIN_FAILURE",
-      "entityType": "SECURITY_AUTH",
-      "metadata": {
-        "ip": "192.168.1.99",
-        "email": "admin@outside.in",
-        "failedAttempts": 2,
-        "isLocked": false
-      },
-      "createdAt": "2026-11-20T10:40:47.205Z"
-    },
-    {
-      "id": "audit_1795171247202_6ifjg",
-      "userId": "super_admin",
-      "action": "SUPER_ADMIN_LOGIN_FAILURE",
-      "entityType": "SECURITY_AUTH",
-      "metadata": {
-        "ip": "192.168.1.99",
-        "email": "admin@outside.in",
-        "failedAttempts": 1,
-        "isLocked": false
-      },
-      "createdAt": "2026-11-20T10:40:47.202Z"
-    },
-    {
-      "id": "audit_1795171247200_lbay5",
-      "userId": "super_admin",
-      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
-      "entityType": "SECURITY_AUTH",
-      "metadata": {
-        "ip": "192.168.1.99",
-        "email": "admin@outside.in",
-        "failedAttempts": 0,
-        "isLocked": false
-      },
-      "createdAt": "2026-11-20T10:40:47.200Z"
-    },
-    {
-      "id": "audit_1795171247198_ivtyy",
-      "userId": "super_admin",
-      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
-      "entityType": "SECURITY_AUTH",
-      "metadata": {
-        "ip": "192.168.1.99",
-        "email": "admin@outside.in",
-        "failedAttempts": 0,
-        "isLocked": false
-      },
-      "createdAt": "2026-11-20T10:40:47.198Z"
-    },
-    {
-      "id": "audit_1795164930101_pu730",
-      "userId": "super_admin",
-      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
-      "entityType": "SECURITY_AUTH",
-      "metadata": {
-        "ip": "192.168.1.99",
-        "email": "admin@outside.in",
-        "failedAttempts": 0,
-        "isLocked": false
-      },
-      "createdAt": "2026-11-20T08:55:30.101Z"
-    },
-    {
-      "id": "audit_1795164930098_e9ehz",
-      "userId": "super_admin",
-      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
-      "entityType": "SECURITY_AUTH",
-      "metadata": {
-        "ip": "192.168.1.99",
-        "email": "admin@outside.in",
-        "failedAttempts": 0,
-        "isLocked": false
-      },
-      "createdAt": "2026-11-20T08:55:30.098Z"
-    },
-    {
-      "id": "audit_1795164930095_e0tti",
-      "userId": "super_admin",
-      "action": "SUPER_ADMIN_LOGIN_FAILURE",
-      "entityType": "SECURITY_AUTH",
-      "metadata": {
-        "ip": "192.168.1.99",
-        "email": "admin@outside.in",
-        "failedAttempts": 5,
-        "isLocked": true
-      },
-      "createdAt": "2026-11-20T08:55:30.095Z"
-    },
-    {
-      "id": "audit_1795164930094_u09ny",
-      "userId": "super_admin",
-      "action": "SUPER_ADMIN_LOGIN_FAILURE",
-      "entityType": "SECURITY_AUTH",
-      "metadata": {
-        "ip": "192.168.1.99",
-        "email": "admin@outside.in",
-        "failedAttempts": 4,
-        "isLocked": false
-      },
-      "createdAt": "2026-11-20T08:55:30.094Z"
-    },
-    {
-      "id": "audit_1795164930092_u32sq",
-      "userId": "super_admin",
-      "action": "SUPER_ADMIN_LOGIN_FAILURE",
-      "entityType": "SECURITY_AUTH",
-      "metadata": {
-        "ip": "192.168.1.99",
-        "email": "admin@outside.in",
-        "failedAttempts": 3,
-        "isLocked": false
-      },
-      "createdAt": "2026-11-20T08:55:30.092Z"
-    },
-    {
-      "id": "audit_1795164930090_yk0z2",
-      "userId": "super_admin",
-      "action": "SUPER_ADMIN_LOGIN_FAILURE",
-      "entityType": "SECURITY_AUTH",
-      "metadata": {
-        "ip": "192.168.1.99",
-        "email": "admin@outside.in",
-        "failedAttempts": 2,
-        "isLocked": false
-      },
-      "createdAt": "2026-11-20T08:55:30.090Z"
-    },
-    {
-      "id": "audit_1795164930088_h6wth",
-      "userId": "super_admin",
-      "action": "SUPER_ADMIN_LOGIN_FAILURE",
-      "entityType": "SECURITY_AUTH",
-      "metadata": {
-        "ip": "192.168.1.99",
-        "email": "admin@outside.in",
-        "failedAttempts": 1,
-        "isLocked": false
-      },
-      "createdAt": "2026-11-20T08:55:30.088Z"
-    },
-    {
-      "id": "audit_1795164930086_auqvo",
-      "userId": "super_admin",
-      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
-      "entityType": "SECURITY_AUTH",
-      "metadata": {
-        "ip": "192.168.1.99",
-        "email": "admin@outside.in",
-        "failedAttempts": 0,
-        "isLocked": false
-      },
-      "createdAt": "2026-11-20T08:55:30.086Z"
-    },
-    {
-      "id": "audit_1795164930084_z2qou",
-      "userId": "super_admin",
-      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
-      "entityType": "SECURITY_AUTH",
-      "metadata": {
-        "ip": "192.168.1.99",
-        "email": "admin@outside.in",
-        "failedAttempts": 0,
-        "isLocked": false
-      },
-      "createdAt": "2026-11-20T08:55:30.084Z"
-    },
-    {
-      "id": "audit_1795164577950_9en8i",
-      "userId": "super_admin",
-      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
-      "entityType": "SECURITY_AUTH",
-      "metadata": {
-        "ip": "::1",
-        "email": "admin@outside.in",
-        "failedAttempts": 0,
-        "isLocked": false
-      },
-      "createdAt": "2026-11-20T08:49:37.950Z"
-    },
-    {
-      "id": "audit_1795164326151_kdjv2",
-      "userId": "super_admin",
-      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
-      "entityType": "SECURITY_AUTH",
-      "metadata": {
-        "ip": "::1",
-        "email": "admin@outside.in",
-        "failedAttempts": 0,
-        "isLocked": false
-      },
-      "createdAt": "2026-11-20T08:45:26.151Z"
-    },
-    {
-      "id": "audit_1795163083743_9gian",
-      "userId": "super_admin",
-      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
-      "entityType": "SECURITY_AUTH",
-      "metadata": {
-        "ip": "192.168.1.99",
-        "email": "admin@outside.in",
-        "failedAttempts": 0,
-        "isLocked": false
-      },
-      "createdAt": "2026-11-20T08:24:43.743Z"
-    },
-    {
-      "id": "audit_1795163083741_vfotw",
-      "userId": "super_admin",
-      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
-      "entityType": "SECURITY_AUTH",
-      "metadata": {
-        "ip": "192.168.1.99",
-        "email": "admin@outside.in",
-        "failedAttempts": 0,
-        "isLocked": false
-      },
-      "createdAt": "2026-11-20T08:24:43.741Z"
-    },
-    {
-      "id": "audit_1795163083739_70v0i",
-      "userId": "super_admin",
-      "action": "SUPER_ADMIN_LOGIN_FAILURE",
-      "entityType": "SECURITY_AUTH",
-      "metadata": {
-        "ip": "192.168.1.99",
-        "email": "admin@outside.in",
-        "failedAttempts": 5,
-        "isLocked": true
-      },
-      "createdAt": "2026-11-20T08:24:43.739Z"
-    },
-    {
-      "id": "audit_1795163083736_ydex2",
-      "userId": "super_admin",
-      "action": "SUPER_ADMIN_LOGIN_FAILURE",
-      "entityType": "SECURITY_AUTH",
-      "metadata": {
-        "ip": "192.168.1.99",
-        "email": "admin@outside.in",
-        "failedAttempts": 4,
-        "isLocked": false
-      },
-      "createdAt": "2026-11-20T08:24:43.736Z"
-    },
-    {
-      "id": "audit_1795163083734_am341",
-      "userId": "super_admin",
-      "action": "SUPER_ADMIN_LOGIN_FAILURE",
-      "entityType": "SECURITY_AUTH",
-      "metadata": {
-        "ip": "192.168.1.99",
-        "email": "admin@outside.in",
-        "failedAttempts": 3,
-        "isLocked": false
-      },
-      "createdAt": "2026-11-20T08:24:43.734Z"
-    },
-    {
-      "id": "audit_1795163083733_n0n77",
-      "userId": "super_admin",
-      "action": "SUPER_ADMIN_LOGIN_FAILURE",
-      "entityType": "SECURITY_AUTH",
-      "metadata": {
-        "ip": "192.168.1.99",
-        "email": "admin@outside.in",
-        "failedAttempts": 2,
-        "isLocked": false
-      },
-      "createdAt": "2026-11-20T08:24:43.733Z"
-    },
-    {
-      "id": "audit_1795163083731_0u8d9",
-      "userId": "super_admin",
-      "action": "SUPER_ADMIN_LOGIN_FAILURE",
-      "entityType": "SECURITY_AUTH",
-      "metadata": {
-        "ip": "192.168.1.99",
-        "email": "admin@outside.in",
-        "failedAttempts": 1,
-        "isLocked": false
-      },
-      "createdAt": "2026-11-20T08:24:43.731Z"
-    },
-    {
-      "id": "audit_1795163083729_n5qgz",
-      "userId": "super_admin",
-      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
-      "entityType": "SECURITY_AUTH",
-      "metadata": {
-        "ip": "192.168.1.99",
-        "email": "admin@outside.in",
-        "failedAttempts": 0,
-        "isLocked": false
-      },
-      "createdAt": "2026-11-20T08:24:43.729Z"
-    },
-    {
-      "id": "audit_1795163083727_f6p51",
-      "userId": "super_admin",
-      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
-      "entityType": "SECURITY_AUTH",
-      "metadata": {
-        "ip": "192.168.1.99",
-        "email": "admin@outside.in",
-        "failedAttempts": 0,
-        "isLocked": false
-      },
-      "createdAt": "2026-11-20T08:24:43.727Z"
-    },
-    {
-      "id": "audit_1795163015282_z3lv8",
-      "userId": "super_admin",
-      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
-      "entityType": "SECURITY_AUTH",
-      "metadata": {
-        "ip": "192.168.1.99",
-        "email": "admin@outside.in",
-        "failedAttempts": 0,
-        "isLocked": false
-      },
-      "createdAt": "2026-11-20T08:23:35.282Z"
-    },
-    {
-      "id": "audit_1795163015272_m3qb8",
-      "userId": "super_admin",
-      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
-      "entityType": "SECURITY_AUTH",
-      "metadata": {
-        "ip": "192.168.1.99",
-        "email": "admin@outside.in",
-        "failedAttempts": 0,
-        "isLocked": false
-      },
-      "createdAt": "2026-11-20T08:23:35.272Z"
-    },
-    {
-      "id": "audit_1795163015264_v6xi8",
-      "userId": "super_admin",
-      "action": "SUPER_ADMIN_LOGIN_FAILURE",
-      "entityType": "SECURITY_AUTH",
-      "metadata": {
-        "ip": "192.168.1.99",
-        "email": "admin@outside.in",
-        "failedAttempts": 5,
-        "isLocked": true
-      },
-      "createdAt": "2026-11-20T08:23:35.265Z"
-    },
-    {
-      "id": "audit_1795163015261_yg3nm",
-      "userId": "super_admin",
-      "action": "SUPER_ADMIN_LOGIN_FAILURE",
-      "entityType": "SECURITY_AUTH",
-      "metadata": {
-        "ip": "192.168.1.99",
-        "email": "admin@outside.in",
-        "failedAttempts": 4,
-        "isLocked": false
-      },
-      "createdAt": "2026-11-20T08:23:35.261Z"
-    },
-    {
-      "id": "audit_1795163015258_56wow",
-      "userId": "super_admin",
-      "action": "SUPER_ADMIN_LOGIN_FAILURE",
-      "entityType": "SECURITY_AUTH",
-      "metadata": {
-        "ip": "192.168.1.99",
-        "email": "admin@outside.in",
-        "failedAttempts": 3,
-        "isLocked": false
-      },
-      "createdAt": "2026-11-20T08:23:35.258Z"
-    },
-    {
-      "id": "audit_1795163015252_esgu0",
-      "userId": "super_admin",
-      "action": "SUPER_ADMIN_LOGIN_FAILURE",
-      "entityType": "SECURITY_AUTH",
-      "metadata": {
-        "ip": "192.168.1.99",
-        "email": "admin@outside.in",
-        "failedAttempts": 2,
-        "isLocked": false
-      },
-      "createdAt": "2026-11-20T08:23:35.252Z"
-    },
-    {
-      "id": "audit_1795163015246_ozg87",
-      "userId": "super_admin",
-      "action": "SUPER_ADMIN_LOGIN_FAILURE",
-      "entityType": "SECURITY_AUTH",
-      "metadata": {
-        "ip": "192.168.1.99",
-        "email": "admin@outside.in",
-        "failedAttempts": 1,
-        "isLocked": false
-      },
-      "createdAt": "2026-11-20T08:23:35.246Z"
-    },
-    {
-      "id": "audit_1795163015231_s4jio",
-      "userId": "super_admin",
-      "action": "SUPER_ADMIN_LOGIN_SUCCESS",
-      "entityType": "SECURITY_AUTH",
-      "metadata": {
-        "ip": "192.168.1.99",
-        "email": "admin@outside.in",
-        "failedAttempts": 0,
-        "isLocked": false
-      },
-      "createdAt": "2026-11-20T08:23:35.231Z"
     }
   ],
   "themeConfig": {
@@ -4488,7 +6945,7 @@
         "glassmorphism": true
       }
     ],
-    "updatedAt": "2026-11-21T11:32:50.026Z"
+    "updatedAt": "2026-11-22T08:15:30.560Z"
   },
   "featureFlags": [
     {
@@ -4499,7 +6956,7 @@
       "isEnabled": true,
       "description": "Display real-time countdown ticker on upcoming drops.",
       "configJson": null,
-      "updatedAt": "2026-11-21T11:32:50.049Z"
+      "updatedAt": "2026-11-22T08:15:30.585Z"
     },
     {
       "id": "flag_live_stock_counter",
@@ -4509,7 +6966,7 @@
       "isEnabled": true,
       "description": "Show exact remaining serialized pieces versus low-stock warning badge.",
       "configJson": null,
-      "updatedAt": "2026-11-21T11:32:50.049Z"
+      "updatedAt": "2026-11-22T08:15:30.585Z"
     },
     {
       "id": "flag_low_stock_threshold",
@@ -4521,7 +6978,7 @@
       "configJson": {
         "threshold": 10
       },
-      "updatedAt": "2026-11-21T11:32:50.049Z"
+      "updatedAt": "2026-11-22T08:15:30.585Z"
     },
     {
       "id": "flag_waitlist_capture",
@@ -4531,7 +6988,7 @@
       "isEnabled": true,
       "description": "Allow collectors to join the prioritized waitlist when an edition is sold out or upcoming.",
       "configJson": null,
-      "updatedAt": "2026-11-21T11:32:50.049Z"
+      "updatedAt": "2026-11-22T08:15:30.585Z"
     },
     {
       "id": "flag_fit_toggle",
@@ -4543,7 +7000,7 @@
       "configJson": {
         "defaultFit": "WOMEN"
       },
-      "updatedAt": "2026-11-21T11:32:50.049Z"
+      "updatedAt": "2026-11-22T08:15:30.585Z"
     },
     {
       "id": "flag_sticky_drop_bar",
@@ -4553,7 +7010,7 @@
       "isEnabled": true,
       "description": "Floating minimal quick-buy and size select bar docked on scroll.",
       "configJson": null,
-      "updatedAt": "2026-11-21T11:32:50.050Z"
+      "updatedAt": "2026-11-22T08:15:30.585Z"
     },
     {
       "id": "flag_checkout_flow",
@@ -4563,7 +7020,7 @@
       "isEnabled": true,
       "description": "When enabled, customers can checkout and pay; when disabled, storefront acts in Waitlist-Only Mode.",
       "configJson": null,
-      "updatedAt": "2026-11-21T11:32:50.050Z"
+      "updatedAt": "2026-11-22T08:15:30.585Z"
     },
     {
       "id": "flag_announcement_bar",
@@ -4576,7 +7033,7 @@
         "text": "DROP 001 LIVE // BETTER DAYS AHEAD · 250 SERIALIZED PIECES · FREE DOMESTIC EXPRESS SHIPPING",
         "link": "/"
       },
-      "updatedAt": "2026-11-21T11:32:50.050Z"
+      "updatedAt": "2026-11-22T08:15:30.585Z"
     },
     {
       "id": "flag_vault_archive",
@@ -4586,7 +7043,7 @@
       "isEnabled": true,
       "description": "Expose archival limited drops to public navigation and search engines.",
       "configJson": null,
-      "updatedAt": "2026-11-21T11:32:50.050Z"
+      "updatedAt": "2026-11-22T08:15:30.585Z"
     },
     {
       "id": "flag_journal",
@@ -4596,7 +7053,7 @@
       "isEnabled": true,
       "description": "Editorial brand essays, cotton engineering breakdowns, and manifesto articles.",
       "configJson": null,
-      "updatedAt": "2026-11-21T11:32:50.050Z"
+      "updatedAt": "2026-11-22T08:15:30.585Z"
     },
     {
       "id": "flag_cookie_consent",
@@ -4606,7 +7063,7 @@
       "isEnabled": true,
       "description": "Minimalist Sandstone Hairline consent pill docked at bottom-left.",
       "configJson": null,
-      "updatedAt": "2026-11-21T11:32:50.050Z"
+      "updatedAt": "2026-11-22T08:15:30.585Z"
     },
     {
       "id": "flag_maintenance_mode",
@@ -4619,7 +7076,7 @@
         "headline": "STUDIO IS PREPARING THE NEXT DROP",
         "subline": "DROP 002 PREPARATION UNDERWAY // AHMEDABAD STUDIO"
       },
-      "updatedAt": "2026-11-21T11:32:50.050Z"
+      "updatedAt": "2026-11-22T08:15:30.585Z"
     }
   ],
   "layoutConfig": {
@@ -4711,7 +7168,7 @@
       }
     },
     "mobileStickyCtaPosition": "bottom_fixed",
-    "updatedAt": "2026-11-21T11:32:50.064Z"
+    "updatedAt": "2026-11-22T08:15:30.601Z"
   },
   "seoConfig": {
     "titleTemplate": "%s | OUTSIDE India",
@@ -4739,7 +7196,7 @@
       }
     ],
     "enableWaitlistReferral": true,
-    "updatedAt": "2026-11-21T11:32:49.399Z"
+    "updatedAt": "2026-11-22T08:15:29.065Z"
   },
   "superAdminSecurity": {
     "totpSecret": "WA52PCNTNKFVMFDN3FKTNFCNQVLISM3W",
