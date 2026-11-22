@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { ShoppingBag, ArrowRight, Zap, Check, X } from 'lucide-react';
 import { useCart } from '@/context/cart-context';
 import { CottonIcon, IndiaIcon, BoxExchangeIcon, LaurelWreathBadge } from '@/components/ui/hero-icons';
+import { ProductPreviewModal } from '@/components/commerce/product-preview-modal';
 
 interface EditorialHeroProps {
   dropTitle: string;
@@ -53,6 +54,7 @@ export function EditorialHero({
   const [selectedSize, setSelectedSize] = useState<string>('M');
   const [justAdded, setJustAdded] = useState(false);
   const [activeModalDetail, setActiveModalDetail] = useState<typeof DETAIL_CARDS[0] | null>(null);
+  const [previewModalOpen, setPreviewModalOpen] = useState(false);
 
   React.useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -419,19 +421,24 @@ export function EditorialHero({
             <div className="w-full xl:w-auto flex flex-wrap sm:flex-nowrap items-center justify-between xl:justify-end gap-2.5 sm:gap-4 p-1.5 sm:px-3 sm:py-1.5 rounded-xl bg-white/95 border border-[#DCD7CC] shadow-xs">
               
               {/* Product Micro-Preview & Pricing */}
-              <div className="flex items-center gap-2.5 shrink-0">
-                <div className="relative w-9 h-9 rounded-md overflow-hidden border border-[#DCD7CC]/80 bg-[#EDEAE2] shrink-0">
+              <button
+                type="button"
+                onClick={() => setPreviewModalOpen(true)}
+                className="flex items-center gap-2.5 shrink-0 text-left cursor-pointer group/preview"
+                title="Open Product Preview & Specifications"
+              >
+                <div className="relative w-9 h-9 rounded-md overflow-hidden border border-[#DCD7CC]/80 bg-[#EDEAE2] shrink-0 group-hover/preview:border-[#111110] transition-colors">
                   <Image
                     src="/images/drops/drop-001-front.jpg"
                     alt="DROP 001 Floral Relief Preview"
                     fill
                     sizes="36px"
-                    className="object-cover"
+                    className="object-cover group-hover/preview:scale-105 transition-transform"
                   />
                 </div>
                 <div className="text-left leading-tight">
                   <div className="flex items-center gap-1.5">
-                    <span className="text-[10px] font-mono font-bold text-[#111110] uppercase tracking-wider whitespace-nowrap">
+                    <span className="text-[10px] font-mono font-bold text-[#111110] group-hover/preview:text-[#B91C1C] uppercase tracking-wider whitespace-nowrap transition-colors">
                       DROP 00{dropNumber} · FLORAL RELIEF
                     </span>
                     <span className="hidden sm:inline-block w-1.5 h-1.5 rounded-full bg-[#B91C1C] animate-pulse" />
@@ -445,7 +452,7 @@ export function EditorialHero({
                     </span>
                   </div>
                 </div>
-              </div>
+              </button>
 
               {/* Hairline Divider */}
               <div className="h-6 w-px bg-[#DCD7CC] shrink-0 hidden sm:block" />
@@ -564,6 +571,12 @@ export function EditorialHero({
           </div>
         </div>
       )}
+      {/* Full E-Commerce Product Preview Modal */}
+      <ProductPreviewModal
+        drop={activeDrop}
+        isOpen={previewModalOpen}
+        onClose={() => setPreviewModalOpen(false)}
+      />
     </section>
   );
 }

@@ -9,6 +9,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import SpotlightCard from '@/components/reactbits/SpotlightCard/SpotlightCard';
 import { CategoryStoryBubbles } from '@/components/commerce/category-story-bubbles';
+import { ProductPreviewModal } from '@/components/commerce/product-preview-modal';
 import {
   ShoppingBag,
   ArrowRight,
@@ -27,6 +28,7 @@ import {
   ChevronDown,
   Star,
   Zap,
+  Maximize2,
 } from 'lucide-react';
 
 export interface DropItem {
@@ -97,6 +99,7 @@ export function MultiDropShowcase({
   const [selectedSizeByDrop, setSelectedSizeByDrop] = useState<Record<string, string>>({});
   const [imageSideByDrop, setImageSideByDrop] = useState<Record<string, 'front' | 'back'>>({});
   const [addedDropId, setAddedDropId] = useState<string | null>(null);
+  const [previewDrop, setPreviewDrop] = useState<DropItem | null>(null);
 
   // Helper getters per drop
   const getSelectedFit = (drop: DropItem): 'WOMEN' | 'MEN' => {
@@ -538,13 +541,25 @@ export function MultiDropShowcase({
                   className="bg-outside-elevated border border-outside-border overflow-hidden flex flex-col justify-between group shadow-editorial hover:border-outside-accent/50 transition-all rounded-2xl !p-0"
                 >
                   {/* Visual Image Stage with Image Toggle & Wishlist Heart */}
-                  <div className="relative aspect-[4/5] bg-outside-surface/70 overflow-hidden">
+                  <div
+                    onClick={() => setPreviewDrop(drop)}
+                    className="relative aspect-[4/5] bg-outside-surface/70 overflow-hidden cursor-pointer group/cloth"
+                    title={`Click to preview ${drop.title}`}
+                  >
                     <Image
                       src={displayImg}
                       alt={drop.title}
                       fill
-                      className="object-contain p-4 sm:p-6 transition-transform duration-500 group-hover:scale-[1.03]"
+                      className="object-contain p-4 sm:p-6 transition-transform duration-500 group-hover/cloth:scale-[1.04]"
                     />
+
+                    {/* Quick Preview Hover Pill (All E-Commerce Standard) */}
+                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover/cloth:opacity-100 transition-opacity duration-300 pointer-events-none z-20">
+                      <span className="px-3.5 py-1.5 rounded-full bg-[#111110]/85 backdrop-blur-xs text-white text-[10px] font-mono font-bold tracking-widest uppercase flex items-center gap-1.5 shadow-lg transform translate-y-2 group-hover/cloth:translate-y-0 transition-transform duration-300">
+                        <Maximize2 className="w-3 h-3 text-[#B91C1C]" />
+                        <span>QUICK VIEW</span>
+                      </span>
+                    </div>
 
                     {/* Top Left Badges */}
                     <div className="absolute top-3 left-3 flex flex-col gap-1.5 z-10">
@@ -635,7 +650,11 @@ export function MultiDropShowcase({
                         <span>(142 reviews)</span>
                       </div>
 
-                      <h3 className="text-base font-bold font-display text-outside-ink uppercase group-hover:text-outside-accent transition-colors">
+                      <h3
+                        onClick={() => setPreviewDrop(drop)}
+                        className="text-base font-bold font-display text-outside-ink uppercase group-hover:text-outside-accent transition-colors cursor-pointer"
+                        title={`Preview ${drop.title}`}
+                      >
                         {drop.title}
                       </h3>
                       <p className="text-xs text-outside-inkSecondary mt-1.5 line-clamp-2 leading-relaxed font-sans">
@@ -773,6 +792,13 @@ export function MultiDropShowcase({
             })}
           </div>
         )}
+
+        {/* E-Commerce Standard Product Preview Screen Modal */}
+        <ProductPreviewModal
+          drop={previewDrop}
+          isOpen={Boolean(previewDrop)}
+          onClose={() => setPreviewDrop(null)}
+        />
 
       </div>
     </section>
