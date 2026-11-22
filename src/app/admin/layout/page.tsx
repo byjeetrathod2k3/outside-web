@@ -32,6 +32,7 @@ export default function AdminLayoutControlsPage() {
   const [successMsg, setSuccessMsg] = useState<string | null>(null);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [previewViewport, setPreviewViewport] = useState<'mobile' | 'tablet' | 'desktop'>('desktop');
+  const [iframeKey, setIframeKey] = useState(0);
 
   useEffect(() => {
     async function loadLayout() {
@@ -95,6 +96,7 @@ export default function AdminLayoutControlsPage() {
       }
 
       setSuccessMsg('LAYOUT & RESPONSIVE GOVERNANCE SAVED // STOREFRONT REORDERED');
+      setIframeKey((prev) => prev + 1);
       setTimeout(() => setSuccessMsg(null), 4000);
     } catch (err: any) {
       setErrorMsg(err.message);
@@ -116,6 +118,7 @@ export default function AdminLayoutControlsPage() {
       if (res.ok && data.layout) {
         setLayout(data.layout);
         setSuccessMsg('LAYOUT RESTORED TO DEFAULT EDITORIAL SEQUENCE.');
+        setIframeKey((prev) => prev + 1);
         setTimeout(() => setSuccessMsg(null), 3000);
       }
     } catch (err: any) {
@@ -473,7 +476,8 @@ export default function AdminLayoutControlsPage() {
                 className="bg-[#FCFBF8] border border-[#DCD7CC] overflow-hidden shadow-inner relative"
               >
                 <iframe
-                  src="/"
+                  key={iframeKey}
+                  src={`/?preview=${iframeKey}`}
                   title="Storefront Live Preview"
                   className="w-full h-full border-0 select-none pointer-events-none"
                 />

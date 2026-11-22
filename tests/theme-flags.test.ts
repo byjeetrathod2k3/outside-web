@@ -57,6 +57,7 @@ describe('Module 2: Dynamic Theme, Feature Flags & Layout Governance', () => {
 
   describe('Layout & Responsive Governance', () => {
     it('reads default section order and grid densities', () => {
+      resetLayoutConfig();
       const layout = getLayoutConfig();
       expect(layout.sections.length).toBe(9);
       expect(layout.sections[0].id).toBe('hero');
@@ -71,6 +72,20 @@ describe('Module 2: Dynamic Theme, Feature Flags & Layout Governance', () => {
 
       resetLayoutConfig();
       expect(getLayoutConfig().sections[0].id).toBe('hero');
+    });
+
+    it('persists grid column breakpoint densities and mobile sticky cta position', () => {
+      saveLayoutConfig({
+        gridColumns: {
+          vault: { mobile: 2, tablet: 2, desktop: 4 },
+          lookbook: { mobile: 1, desktop: 2 },
+        },
+        mobileStickyCtaPosition: 'inline',
+      });
+      const updated = getLayoutConfig();
+      expect(updated.gridColumns.vault.desktop).toBe(4);
+      expect(updated.gridColumns.vault.mobile).toBe(2);
+      expect(updated.mobileStickyCtaPosition).toBe('inline');
     });
   });
 });

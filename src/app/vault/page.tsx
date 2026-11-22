@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { getLocalStore } from '@/lib/db';
+import { getLocalStore, DEFAULT_LAYOUT_CONFIG } from '@/lib/db';
 import { Lock, ArrowRight } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { SectionHeading } from '@/components/ui/section-heading';
@@ -19,6 +19,21 @@ export const metadata: Metadata = {
 export default function VaultPage() {
   const store = getLocalStore();
   const drops = store.drops;
+  const layout = store.layoutConfig || DEFAULT_LAYOUT_CONFIG;
+
+  const vaultMobile = layout.gridColumns?.vault?.mobile === 2 ? 'grid-cols-2' : 'grid-cols-1';
+  const vaultTablet =
+    layout.gridColumns?.vault?.tablet === 3
+      ? 'md:grid-cols-3'
+      : layout.gridColumns?.vault?.tablet === 1
+      ? 'md:grid-cols-1'
+      : 'md:grid-cols-2';
+  const vaultDesktop =
+    layout.gridColumns?.vault?.desktop === 4
+      ? 'lg:grid-cols-4'
+      : layout.gridColumns?.vault?.desktop === 2
+      ? 'lg:grid-cols-2'
+      : 'lg:grid-cols-3';
 
   return (
     <div className="bg-outside-canvas text-outside-ink min-h-screen py-16">
@@ -35,7 +50,7 @@ export default function VaultPage() {
         </div>
 
         {/* Drops Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className={`grid ${vaultMobile} ${vaultTablet} ${vaultDesktop} gap-8`}>
           {drops.map((drop: any) => {
             const isLive = drop.status === 'LIVE';
             return (

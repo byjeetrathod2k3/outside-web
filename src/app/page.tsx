@@ -20,6 +20,7 @@ import { CollectorReviews } from '@/components/commerce/collector-reviews';
 import { MultiDropShowcase } from '@/components/commerce/multi-drop-showcase';
 import { EditorialHero } from '@/components/home/editorial-hero';
 import { VipEarlyAccess } from '@/components/commerce/vip-early-access';
+import { MobileStickyQuickBuy } from '@/components/commerce/mobile-sticky-quick-buy';
 import SpotlightCard from '@/components/reactbits/SpotlightCard/SpotlightCard';
 import CountUp from '@/components/reactbits/CountUp/CountUp';
 import DecryptedText from '@/components/reactbits/DecryptedText/DecryptedText';
@@ -671,6 +672,12 @@ export default async function HomePage() {
       {configuredSections.map((secConfig: any, idx: number) =>
         renderSection(secConfig.id, secConfig, idx)
       )}
+
+      {/* Mobile Sticky Quick Buy Bar (Dynamically positioned per Admin Layout Config) */}
+      <MobileStickyQuickBuy
+        drop={activeDrop}
+        position={layout.mobileStickyCtaPosition || 'bottom_fixed'}
+      />
     </div>
   );
 }
